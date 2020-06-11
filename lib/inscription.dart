@@ -18,6 +18,7 @@ String confirmation_password;
 File image;
 String base64Image = "";
 bool afficher = false;
+bool checkboxValue = false;
 
 class Inscription extends StatefulWidget {
   @override
@@ -71,10 +72,10 @@ class _InscriptionState extends State<Inscription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: headerNav(context),
+        appBar: headerNav(context),
         persistentFooterButtons: <Widget>[
-                    Footer(),
-                  ],
+          Footer(),
+        ],
         // backgroundColor: Colors.black54,
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -85,7 +86,7 @@ class _InscriptionState extends State<Inscription> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  height: MediaQuery.of(context).size.height*0.1,
+                  height: MediaQuery.of(context).size.height * 0.1,
                 ),
                 Form(
                   key: _formKey,
@@ -115,7 +116,7 @@ class _InscriptionState extends State<Inscription> {
                           pseudo = value;
                         },
                       ),
-                   /*   TextFormField(
+                      /*   TextFormField(
                         keyboardType: TextInputType.number,
                         maxLength: 10,
                         cursorColor: Colors.black54,
@@ -135,7 +136,8 @@ class _InscriptionState extends State<Inscription> {
                           telephone = value;
                         },
                       ),
-                     */ TextFormField(
+                     */
+                      TextFormField(
                         cursorColor: Colors.black54,
                         style: TextStyle(
                             color: Colors.white, decorationColor: Colors.white),
@@ -353,7 +355,7 @@ class _InscriptionState extends State<Inscription> {
                         onChanged: (value) {
                           description = value;
                         },
-                      ),*/ 
+                      ),*/
                       Center(
                           child: RaisedButton(
                         onPressed: () {
@@ -379,6 +381,39 @@ class _InscriptionState extends State<Inscription> {
                               child: Container(
                               child: Text("tu n'a pas choisi d'image"),
                             )),
+                            Container(height: 10,),
+                             Text("Accepter les conditions générales d'utilisations", softWrap: true,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .display2),
+                      Center(
+                        child: CheckboxListTile(
+                          value: checkboxValue,
+                          onChanged: (val) {
+                            if (checkboxValue == false) {
+                              setState(() {
+                                checkboxValue = true;
+                              });
+                            } else if (checkboxValue == true) {
+                              setState(() {
+                                checkboxValue = false;
+                              });
+                            }
+                          },
+                          subtitle: !checkboxValue
+                              ? Text(
+                                  "Vous devez accepter les conditions générales d'utilisations.",
+                                  style: TextStyle(color: Colors.red),
+                                )
+                              : null,
+                          title: new Text(
+                            'Accepter',
+                            style: TextStyle(fontSize: 14.0),
+                          ),
+                          controlAffinity: ListTileControlAffinity.leading,
+                          activeColor: Colors.green,
+                        ),
+                      ),
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -388,7 +423,8 @@ class _InscriptionState extends State<Inscription> {
                               pseudo = pseudo;
                               await ScopedModel.of<LoginModel>(context)
                                   .Verification_email(email, pseudo);
-                              if (_formKey.currentState.validate()) {
+                              if (_formKey.currentState.validate() &&
+                                  checkboxValue == true) {
                                 pseudo = pseudo;
                                 telephone = telephone;
                                 email = email;

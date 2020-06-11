@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'models/Model_co.dart';
 
@@ -32,11 +33,31 @@ import 'models/Model_co.dart';
                       borderRadius: BorderRadius.circular(20.0),
                       color: Colors.grey,
                     ),
-                    child:RaisedButton(child:Text("changer de mode"),
-                      onPressed: (){
-                        ScopedModel.of<LoginModel>(context).changeMode();
-                        Navigator.of(context).pop();
-                      })
+                    child:Column(
+                      children: <Widget>[
+                        RaisedButton(child:Text("CONDITIONS GÉNÉRALES D’UTILISATION"),
+                          onPressed: ()async{
+                            if (await canLaunch("http://51.210.103.151/conditions.php")) {
+                                                await launch("http://51.210.103.151/conditions.php");
+                                              } else {
+                                                print("http://51.210.103.151/conditions.php");
+                                              }
+                          }),
+                          RaisedButton(child:Text("POLITIQUE DE CONFIDENTIALITÉ"),
+                          onPressed: ()async{
+                            if (await canLaunch("http://51.210.103.151/confidentialite.php")) {
+                                                await launch("http://51.210.103.151/confidentialite.php");
+                                              } else {
+                                                print("http://51.210.103.151/confidentialite.php");
+                                              }
+                          }),
+                        RaisedButton(child:Text("changer de mode"),
+                          onPressed: (){
+                            ScopedModel.of<LoginModel>(context).changeMode();
+                            Navigator.of(context).pop();
+                          }),
+                      ],
+                    )
                   ),
                 );
               });
