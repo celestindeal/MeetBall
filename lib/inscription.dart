@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'appBar.dart';
 import 'footer.dart';
 import 'formulaire_inscription.dart';
@@ -381,11 +382,32 @@ class _InscriptionState extends State<Inscription> {
                               child: Container(
                               child: Text("tu n'a pas choisi d'image"),
                             )),
-                            Container(height: 10,),
-                             Text("Accepter les conditions générales d'utilisations", softWrap: true,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .display2),
+                      Container(
+                        height: 10,
+                      ),
+                      FlatButton(
+                          child: Text(
+                            "Accepter les conditions générales d'utilisations",
+                            softWrap: true,
+                            style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.white70,
+                                  decorationColor: Colors.white,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: 'Roboto',
+                                  letterSpacing: 0.5,
+                                  decoration: TextDecoration.underline,
+                                ),
+                          ),
+                          onPressed: () async {
+                            if (await canLaunch(
+                                "http://51.210.103.151/conditions.php")) {
+                              await launch(
+                                  "http://51.210.103.151/conditions.php");
+                            } else {
+                              print("http://51.210.103.151/conditions.php");
+                            }
+                          }),
                       Center(
                         child: CheckboxListTile(
                           value: checkboxValue,
