@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "237685623607",
+    "firebase_url": "https://meetball-9c86f.firebaseio.com",
+    "project_id": "meetball-9c86f",
+    "storage_bucket": "meetball-9c86f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:237685623607:android:b3206dbfd2cf8a1e7ba8b2",
+        "android_client_info": {
+          "package_name": "com.tkt.meetball"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "237685623607-k9qau8qv7rl9vfjsvjqnj26fvvkpavpo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBF2tKI2fFsXhxIeLj4nGxpFn814z6Z8E4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "237685623607-k9qau8qv7rl9vfjsvjqnj26fvvkpavpo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

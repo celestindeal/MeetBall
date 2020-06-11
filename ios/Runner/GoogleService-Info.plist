@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>237685623607-4ubjklpg7vi13jqiq8a0ivpj5v77h5e8.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.237685623607-4ubjklpg7vi13jqiq8a0ivpj5v77h5e8</string>
+	<key>API_KEY</key>
+	<string>AIzaSyARuv1no2UHwv-miCRLLA6qLZ9xsnZm0Tk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>237685623607</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>26FK655J9Z</string>
+	<key>PROJECT_ID</key>
+	<string>meetball-9c86f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>meetball-9c86f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:237685623607:ios:dc378ebef5fb04467ba8b2</string>
+	<key>DATABASE_URL</key>
+	<string>https://meetball-9c86f.firebaseio.com</string>
+</dict>
+</plist>
