@@ -130,20 +130,19 @@ class Presentation_terrain extends StatelessWidget {
                                                           builder: (BuildContext
                                                               context) {
                                                             return Container(
-                                                                    child:
+                                                                child:
                                                                     PhotoView(
-                                                                    imageProvider:
-                                                                        NetworkImage(
-                                                                          '$lien1'),
-                                                                  ));
-                                                                
+                                                              imageProvider:
+                                                                  NetworkImage(
+                                                                      '$lien1'),
+                                                            ));
                                                           });
                                                     },
-                                                    child:  Container(
+                                                    child: Container(
                                                       color: Colors.red,
-                                                     // child: Image.network(
-                                                     //é   '$lien1', width: (MediaQuery.of(    context).size .width * (4 / 5)),
-                                                 //     ),
+                                                      // child: Image.network(
+                                                      //é   '$lien1', width: (MediaQuery.of(    context).size .width * (4 / 5)),
+                                                      //     ),
                                                     ),
                                                   ),
                                                   new Image.network(
@@ -283,7 +282,79 @@ class Presentation_terrain extends StatelessWidget {
                                       }
                                       nombre_tour++;
                                     }
-                                    return SingleChildScrollView(
+                                    if(lien1==""){
+                                      return Container();
+                                    }else{
+                                      return Container(
+                                        color: Colors.red,
+                                        child: SizedBox(
+                                        height: MediaQuery.of(context).size.height,
+                                        
+                                        child: PageView.builder(
+                                          controller: PageController(
+                                              viewportFraction: 0.8),
+                                          itemCount: 4,
+                                          itemBuilder: (BuildContext context,
+                                              int itemIndex) {
+                                            String image = "";
+                                            switch (itemIndex) {
+                                              case 0:
+                                                {
+                                                  image = lien1;
+                                                }
+                                                break;
+                                              case 1:
+                                                {
+                                                  image = lien2;
+                                                }
+                                                break;
+                                              case 2:
+                                                {
+                                                  image = lien3;
+                                                }
+                                                break;
+                                              case 3:
+                                                {
+                                                  image = lien4;
+                                                }
+                                                break;
+                                              default:
+                                            }
+                                            if ( image ==""){
+                                              Container();
+                                            }else{
+                                              return GestureDetector(
+                                                  onTap: () {
+                                                    print("ontap");
+                                                    return showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext
+                                                            context) {
+                                                          return Container(
+                                                              child: PhotoView(
+                                                            imageProvider:
+                                                                NetworkImage(
+                                                                    image),
+                                                          ));
+                                                        });
+                                                  },
+                                                  child: Container(
+                                                    width: MediaQuery.of(context).size.width,
+                                                    color: Colors.green,
+                                                    child: Image.network( image,),
+                                                  )
+                                                  );
+                                            }
+                                              
+                                            
+                                          },
+                                        ),
+                                    ),
+                                      );
+                                    }
+                                    
+
+                                    /*                     SingleChildScrollView(
                                       scrollDirection: Axis.horizontal,
                                       child: Row(
                                           mainAxisAlignment:
@@ -319,6 +390,7 @@ class Presentation_terrain extends StatelessWidget {
                                             ),
                                           ]),
                                     );
+*/
                                   }),
                                   Row(
                                       mainAxisAlignment:

@@ -131,6 +131,23 @@ class _AccueilState extends State<Accueil> {
                             ),
                           ),
                         ),
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: RaisedButton(
+                              onPressed: () {
+                                  ScopedModel.of<LoginModel>(context)
+                                      .Connexion("celestindeal42@gmail.com", "Brefbref");
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      '/Profil',
+                                      (Route<dynamic> route) => false);
+                                
+                              },
+                              child: Text('test'),
+                            ),
+                          ),
+                        ),
                         
                       ],
                     ),

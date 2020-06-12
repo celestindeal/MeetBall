@@ -1,41 +1,34 @@
-import 'dart:io';
-import 'package:flutter/cupertino.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:flutter/material.dart';
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
+main() => runApp(MaterialApp(home: MyHomePage()));
 
-class _MyAppState extends State<MyApp> {
-  int nombre = 1;
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-
-  void _onRefresh() async {
-    print("fait pas chier");
-    setState(() {
-      nombre = nombre + 1;
-    });
-    _refreshController.refreshCompleted();
-  }
-
+class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:SingleChildScrollView(
-        child: Column(children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height,
-            color: Colors.red,
+      appBar: AppBar(
+        title: Text('Carousel in vertical scrollable'),
+      ),
+      body: 
+        SizedBox(
+          height: 200.0,
+          child: PageView.builder(
+            controller: PageController(viewportFraction: 0.8),
+            itemCount: 4,
+            itemBuilder: (BuildContext context, int itemIndex) {
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4.0),
+                child: Container(
+                  child: Text(itemIndex.toString()),
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                  ),
+                ),
+              );
+            },
           ),
-          Container(
-            height: MediaQuery.of(context).size.height,
-            color: Colors.green,
-          ),
-        ],),
-      )
+        )
     );
   }
 }

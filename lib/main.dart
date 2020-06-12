@@ -129,7 +129,7 @@ class _MainState extends State<Main> {
                               '/modif': (context) => Modif(),
                               '/avisDev': (context) => AvisDev(),
                               '/lieuDev': (context) => LieuDev(),
-                              '/test': (context) => MyApp(),
+                              '/test': (context) => MyHomePage(),
                             },
                           )
                         : MaterialApp(
@@ -182,7 +182,7 @@ class _MainState extends State<Main> {
                               '/modif': (context) => Modif(),
                               '/avisDev': (context) => AvisDev(),
                               '/lieuDev': (context) => LieuDev(),
-                              '/test': (context) => MyApp(),
+                              '/test': (context) => MyHomePage(),
                             },
                           )))));
   }
