@@ -3,14 +3,12 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'appBar.dart';
 import 'footer.dart';
 import 'formulaire_inscription.dart';
-import 'main.dart';
 import 'models/Model_co.dart';
 
 String _date = "Date de naissance";

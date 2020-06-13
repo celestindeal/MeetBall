@@ -286,9 +286,9 @@ class Presentation_terrain extends StatelessWidget {
                                       return Container();
                                     }else{
                                       return Container(
-                                        color: Colors.red,
+                                        color: Colors.transparent,
                                         child: SizedBox(
-                                        height: MediaQuery.of(context).size.height,
+                                        height: MediaQuery.of(context).size.height/2,
                                         
                                         child: PageView.builder(
                                           controller: PageController(
@@ -340,7 +340,7 @@ class Presentation_terrain extends StatelessWidget {
                                                   },
                                                   child: Container(
                                                     width: MediaQuery.of(context).size.width,
-                                                    color: Colors.green,
+                                                    color: Colors.transparent,
                                                     child: Image.network( image,),
                                                   )
                                                   );
