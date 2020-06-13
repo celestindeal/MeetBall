@@ -296,6 +296,7 @@ class _PresentationState extends State<Presentation> {
                         style: Theme.of(context).textTheme.display4)),
                 rencontre
                     ? ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: model.participation.length,
                         itemBuilder: (context, i) {
