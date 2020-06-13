@@ -72,273 +72,127 @@ class Presentation extends StatelessWidget {
           onRefresh: _onRefresh,
           child: ScopedModelDescendant<GameModel>(
               builder: (context, child, model) {
-            return
-            
-                Center(
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: model.taille,
-                        itemBuilder: (context, i) {
-                          bool premierT = true;
-                          if (i > 0) {
-                            premierT = false;
-                          }
-                          return premierT
-                              ? Column(
-                                  children: <Widget>[
-                                    Center(
-                                      child: RaisedButton(
-                                          child: Text("Ajouter une rencontre"),
-                                          onPressed: () {
-                                            Navigator.pushNamedAndRemoveUntil(
-                                                context,
-                                                '/Ajout_match',
-                                                (Route<dynamic> route) =>
-                                                    false);
-                                          }),
-                                    ),
-                                    Center(
-                                        child: GestureDetector(
-                                            onTap: () async {
-                                              model.afficher_lieu = false;
-                                              model.lieu =
-                                                  model.data_game[i]['lieu'];
-                                              model.id_rencontre =
-                                                  model.data_game[i]['id'];
-                                              ScopedModel.of<ImgModel>(context)
-                                                  .Img();
-                                              ScopedModel.of<GameModel>(context)
-                                                  .Terrain();
-                                              ScopedModel.of<GameModel>(context)
-                                                  .Commentaire();
-                                              await ScopedModel.of<LoginModel>(
-                                                      context)
-                                                  .Personne_propose(model
-                                                      .data_game[i]['per']);
-                                              //  model.rencontre_visualiser = model.data_game[i]['id'];
-                                              Navigator.pushNamed(context,
-                                                  '/Profil_renctontre');
-                                            },
-                                            child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(5),
-                                                margin:
-                                                    const EdgeInsets.all(20),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          20.0),
-                                                  color: Colors.grey,
-                                                ),
-                                                child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: <Widget>[
-                                                      Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: <Widget>[
-                                                            Text("Proposé par ",
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text("Jour",
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text("Heure",
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text(
-                                                                "Nombre de joueur(s)",
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text("Lieu",
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                          ]),
-                                                      Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: <Widget>[
-                                                            Text(
-                                                                model.data_game[
-                                                                    i]['per'],
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text(
-                                                                model.data_game[
-                                                                    i]['jours'],
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text(
-                                                                model.data_game[
-                                                                    i]['heure'],
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text(
-                                                                model.data_game[
-                                                                        i][
-                                                                    'nombre_j'],
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text(
-                                                                model.data_game[
-                                                                    i]['lieu'],
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                          ]),
-                                                    ])))),
-                                  ],
-                                )
-                              : Center(
-                                  child: GestureDetector(
-                                      onTap: () async {
-                                        model.afficher_lieu = false;
-                                        model.lieu = model.data_game[i]['lieu'];
-                                        model.id_rencontre =
-                                            model.data_game[i]['id'];
-                                        ScopedModel.of<ImgModel>(context).Img();
-                                        ScopedModel.of<GameModel>(context)
-                                            .Terrain();
-                                        ScopedModel.of<GameModel>(context)
-                                            .Commentaire();
-                                        await ScopedModel.of<LoginModel>(
-                                                context)
-                                            .Personne_propose(
-                                                model.data_game[i]['per']);
-                                        //  model.rencontre_visualiser = model.data_game[i]['id'];
-                                        Navigator.pushNamed(
-                                            context, '/Profil_renctontre');
-                                      },
-                                      child: Container(
-                                          padding: const EdgeInsets.all(5),
-                                          margin: const EdgeInsets.all(20),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20.0),
-                                            color: Colors.grey,
-                                          ),
-                                          child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: <Widget>[
-                                                Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: <Widget>[
-                                                      Text("Proposé par ",
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text("Jour",
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text("Heure",
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text(
-                                                          "Nombre de joueur(s)",
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text("Lieu",
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                    ]),
-                                                Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: <Widget>[
-                                                      Text(
-                                                          model.data_game[i]
-                                                              ['per'],
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text(
-                                                          model.data_game[i]
-                                                              ['jours'],
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text(
-                                                          model.data_game[i]
-                                                              ['heure'],
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text(
-                                                          model.data_game[i]
-                                                              ['nombre_j'],
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text(
-                                                          model.data_game[i]
-                                                              ['lieu'],
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                    ]),
-                                              ]))));
-                        }));
+            return SingleChildScrollView(
+                child: Column(
+              children: <Widget>[
+                RaisedButton(
+                    child: Text("Ajouter une rencontre"),
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(context, '/Ajout_match',
+                          (Route<dynamic> route) => false);
+                    }),
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: model.taille,
+                    itemBuilder: (context, i) {
+                    
+                      return Center(
+                              child: GestureDetector(
+                                  onTap: () async {
+                                    model.afficher_lieu = false;
+                                    model.lieu = model.data_game[i]['lieu'];
+                                    model.id_rencontre =
+                                        model.data_game[i]['id'];
+                                    ScopedModel.of<ImgModel>(context).Img();
+                                    ScopedModel.of<GameModel>(context)
+                                        .Terrain();
+                                    ScopedModel.of<GameModel>(context)
+                                        .Commentaire();
+                                    await ScopedModel.of<LoginModel>(context)
+                                        .Personne_propose(
+                                            model.data_game[i]['per']);
+                                    //  model.rencontre_visualiser = model.data_game[i]['id'];
+                                    Navigator.pushNamed(
+                                        context, '/Profil_renctontre');
+                                  },
+                                  child: Container(
+                                      padding: const EdgeInsets.all(5),
+                                      margin: const EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                        color: Colors.grey,
+                                      ),
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Text("Proposé par ",
+                                                      softWrap: true,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display2),
+                                                  Text("Jour",
+                                                      softWrap: true,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display2),
+                                                  Text("Heure",
+                                                      softWrap: true,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display2),
+                                                  Text("Nombre de joueur(s)",
+                                                      softWrap: true,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display2),
+                                                  Text("Lieu",
+                                                      softWrap: true,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display2),
+                                                ]),
+                                            Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: <Widget>[
+                                                  Text(
+                                                      model.data_game[i]['per'],
+                                                      softWrap: true,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display2),
+                                                  Text(
+                                                      model.data_game[i]
+                                                          ['jours'],
+                                                      softWrap: true,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display2),
+                                                  Text(
+                                                      model.data_game[i]
+                                                          ['heure'],
+                                                      softWrap: true,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display2),
+                                                  Text(
+                                                      model.data_game[i]
+                                                          ['nombre_j'],
+                                                      softWrap: true,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display2),
+                                                  Text(
+                                                      model.data_game[i]
+                                                          ['lieu'],
+                                                      softWrap: true,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display2),
+                                                ]),
+                                          ]))));
+                    }),
+              ],
+            ));
           }),
         ));
   }

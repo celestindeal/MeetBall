@@ -131,7 +131,7 @@ class _AccueilState extends State<Accueil> {
                             ),
                           ),
                         ),
-                        /*
+                        
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -150,7 +150,7 @@ class _AccueilState extends State<Accueil> {
                             ),
                           ),
                         ),
-                        */
+                        
                       ],
                     ),
                   ],
