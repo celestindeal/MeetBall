@@ -27,36 +27,42 @@ import 'models/Model_co.dart';
                   builder: (BuildContext context, StateSetter setState) {
                 return Center(
                   child: Container(
+                    height: MediaQuery.of(context).size.height/2,
                     padding: const EdgeInsets.all(5),
                     margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
                       color: Colors.grey,
                     ),
-                    child:Column(
-                      children: <Widget>[
-                        RaisedButton(child:Text("CONDITIONS GÉNÉRALES D’UTILISATION"),
-                          onPressed: ()async{
-                            if (await canLaunch("http://51.210.103.151/conditions.php")) {
-                                                await launch("http://51.210.103.151/conditions.php");
-                                              } else {
-                                                print("http://51.210.103.151/conditions.php");
-                                              }
-                          }),
-                          RaisedButton(child:Text("POLITIQUE DE CONFIDENTIALITÉ"),
-                          onPressed: ()async{
-                            if (await canLaunch("http://51.210.103.151/confidentialite.php")) {
-                                                await launch("http://51.210.103.151/confidentialite.php");
-                                              } else {
-                                                print("http://51.210.103.151/confidentialite.php");
-                                              }
-                          }),
-                        RaisedButton(child:Text("changer de mode"),
-                          onPressed: (){
-                            ScopedModel.of<LoginModel>(context).changeMode();
-                            Navigator.of(context).pop();
-                          }),
-                      ],
+                    child:SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          RaisedButton(child:Text("CONDITIONS GÉNÉRALES D’UTILISATION"),
+                            onPressed: ()async{
+                              if (await canLaunch("http://51.210.103.151/conditions.php")) {
+                                                  await launch("http://51.210.103.151/conditions.php");
+                                                } else {
+                                                  print("http://51.210.103.151/conditions.php");
+                                                }
+                            }),
+                            RaisedButton(child:Text("POLITIQUE DE CONFIDENTIALITÉ"),
+                            onPressed: ()async{
+                              if (await canLaunch("http://51.210.103.151/confidentialite.php")) {
+                                                  await launch("http://51.210.103.151/confidentialite.php");
+                                                } else {
+                                                  print("http://51.210.103.151/confidentialite.php");
+                                                }
+                            }),
+                          RaisedButton(child:Text("FAQ"),
+                            onPressed: ()async{
+                              if (await canLaunch("http://51.210.103.151/FAQ.php")) {
+                                                  await launch("http://51.210.103.151/FAQ.php");
+                                                } else {
+                                                  print("http://51.210.103.151/FAQ.php");
+                                                }
+                            }),
+                        ],
+                      ),
                     )
                   ),
                 );
