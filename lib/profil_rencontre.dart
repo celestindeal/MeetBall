@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'appBar.dart';
 import 'drawer.dart';
@@ -138,32 +139,63 @@ class Presentation extends StatelessWidget {
                           ]),
                     ),
 // cette colone afficher les images du lieu
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            new Image.network(
-                              '$lien1',
-                              width:
-                                  (MediaQuery.of(context).size.width * (3 / 4)),
-                            ),
-                            new Image.network(
-                              '$lien3',
-                              width:
-                                  (MediaQuery.of(context).size.width * (3 / 4)),
-                            ),
-                            new Image.network(
-                              '$lien2',
-                              width:
-                                  (MediaQuery.of(context).size.width * (3 / 4)),
-                            ),
-                            new Image.network(
-                              '$lien4',
-                              width:
-                                  (MediaQuery.of(context).size.width * (3 / 4)),
-                            ),
-                          ]),
+                    Container(
+                      color: Colors.transparent,
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height / 2,
+                        child: PageView.builder(
+                          controller: PageController(viewportFraction: 0.8),
+                          itemCount: 4,
+                          itemBuilder: (BuildContext context, int itemIndex) {
+                            String image = "";
+                            switch (itemIndex) {
+                              case 0:
+                                {
+                                  image = lien1;
+                                }
+                                break;
+                              case 1:
+                                {
+                                  image = lien2;
+                                }
+                                break;
+                              case 2:
+                                {
+                                  image = lien3;
+                                }
+                                break;
+                              case 3:
+                                {
+                                  image = lien4;
+                                }
+                                break;
+                              default:
+                            }
+                            if (image == "") {
+                              Container();
+                            } else {
+                              return GestureDetector(
+                                  onTap: () {
+                                    return showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Container(
+                                              child: PhotoView(
+                                            imageProvider: NetworkImage(image),
+                                          ));
+                                        });
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    color: Colors.transparent,
+                                    child: Image.network(
+                                      image,
+                                    ),
+                                  ));
+                            }
+                          },
+                        ),
+                      ),
                     ),
 // ce container affiche le profil de la personne qui à proposer la rencontre
                     Center(
@@ -198,7 +230,25 @@ class Presentation extends StatelessWidget {
                                   const EdgeInsets.symmetric(vertical: 16.0),
                               width:
                                   (MediaQuery.of(context).size.width * (2 / 3)),
-                              child: Image.network(login.visiter_img),
+                              child: GestureDetector(
+                                  onTap: () {
+                                    return showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Container(
+                                              child: PhotoView(
+                                            imageProvider:
+                                                NetworkImage(login.visiter_img),
+                                          ));
+                                        });
+                                  },
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    color: Colors.transparent,
+                                    child: Image.network(
+                                      login.visiter_img,
+                                    ),
+                                  )),
                             ),
                             Column(
                                 mainAxisAlignment:
@@ -208,7 +258,7 @@ class Presentation extends StatelessWidget {
                                       softWrap: true,
                                       style:
                                           Theme.of(context).textTheme.display3),
-                                  Text(ageAnne.toString()+" ans",
+                                  Text(ageAnne.toString() + " ans",
                                       softWrap: true,
                                       style:
                                           Theme.of(context).textTheme.display3),
