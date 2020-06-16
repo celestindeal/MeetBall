@@ -1,5 +1,6 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:meetballl/db.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,6 +26,7 @@ AppBar headerNav(
                       Theme.of(context).brightness == Brightness.dark
                           ? Brightness.light
                           : Brightness.dark);
+                        //  Baselocal().mise_a_jour(brightness.toString());
                 }
 
                 return Center(

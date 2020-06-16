@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meetballl/db.dart';
 import 'package:meetballl/profil.dart';
 import 'package:meetballl/profil_rencontre.dart';
 import 'package:meetballl/terrain.dart';
@@ -20,83 +21,56 @@ import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 import 'modif.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
-void main(){
-  runApp( new Main());
-  
+
+void main() {
+  runApp(new Main());
 }
 
-/*
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => new _MyAppState();
-}
-
-
-
-
-class _MyAppState extends State<MyApp> {
-  @override
-  Widget build(BuildContext context) {
-    
-    return
-    MaterialApp(
-    debugShowCheckedModeBanner: false,
-     home: SplashScreen(
-      seconds: 14,
-      navigateAfterSeconds: new Main(),
-      title: new Text('Bienvenue sur MeetBall',
-      style: new TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 20.0
-      ),),
-      image: new  Image.asset(
-                'img/balise.png',
-              ),
-      backgroundColor: Colors.white,
-      styleTextUnderTheLoader: new TextStyle(),
-      photoSize: 100.0,
-      loaderColor: Colors.blue
-    ),
-    );
-  }
-}*/
 bool mode = false;
 
 class Main extends StatefulWidget {
- 
   @override
   _MainState createState() => _MainState();
 }
 
 class _MainState extends State<Main> {
- @override
- Brightness _brightness = Brightness.light;
-
-  void _changeBrightness(Brightness newBrightness) {
-    setState(() {
-      _brightness = newBrightness;
-    });
+  @override
+  Brightness _brightness = Brightness.light;
+  changeBrightness() {
+    DynamicTheme.of(context).setBrightness(
+        Theme.of(context).brightness == Brightness.dark
+            ? Brightness.light
+            : Brightness.dark);
+            Baselocal().mise_a_jour();
   }
 
-
-
   Widget build(BuildContext context) {
+    String mode = "false";
+    initState()async{
+       mode = await Baselocal().valColor();
+    if (mode =="true") {
+     DynamicTheme.of(context).setBrightness(
+        Theme.of(context).brightness == Brightness.dark
+            ? Brightness.light
+            : Brightness.dark);
+    }
+    }
+   
 
-        
-        return ScopedModel(
-            model: ImgModel(),
+    return ScopedModel(
+        model: ImgModel(),
+        child: ScopedModel(
+            model: TerrainModel(),
             child: ScopedModel(
-                model: TerrainModel(),
+                model: GameModel(),
                 child: ScopedModel(
-                    model: GameModel(),
-                    child: ScopedModel(
-                        model: LoginModel(),
-                        child:  DynamicTheme(
-        defaultBrightness: Brightness.light,
-        data: (brightness) => ThemeData(
-              primarySwatch: Colors.indigo,
-              brightness: brightness,
-  textTheme: TextTheme(
+                    model: LoginModel(),
+                    child: DynamicTheme(
+                        defaultBrightness: Brightness.light,
+                        data: (brightness) => ThemeData(
+                              primarySwatch: Colors.indigo,
+                              brightness: brightness,
+                              textTheme: TextTheme(
                                 body1: TextStyle(fontSize: 10.0),
                                 body2: TextStyle(fontSize: 16.0),
                                 display1: TextStyle(
@@ -123,9 +97,10 @@ class _MainState extends State<Main> {
                                   color: Colors.red,
                                 ),
                               ),
-            ),
-        themedWidgetBuilder: (context, theme) {
-          return MaterialApp( theme: theme,
+                            ),
+                        themedWidgetBuilder: (context, theme) {
+                          return MaterialApp(
+                            theme: theme,
                             debugShowCheckedModeBanner: false,
                             initialRoute: '/',
                             routes: {
@@ -145,18 +120,8 @@ class _MainState extends State<Main> {
                               '/test': (context) => MyHomePage(),
                             },
                           );
-
-
-
-        }) 
-                        
-                        
-                        ))));
+                        })))));
   }
-  void changeBrightness() {
-    DynamicTheme.of(context).setBrightness(
-        Theme.of(context).brightness == Brightness.dark
-            ? Brightness.light
-            : Brightness.dark);
-  }
+
+
 }
