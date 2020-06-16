@@ -34,34 +34,37 @@ import 'models/Model_co.dart';
                       borderRadius: BorderRadius.circular(20.0),
                       color: Colors.grey,
                     ),
-                    child:SingleChildScrollView(
-                      child: Column(
-                        children: <Widget>[
-                          RaisedButton(child:Text("CONDITIONS GÉNÉRALES D’UTILISATION"),
-                            onPressed: ()async{
-                              if (await canLaunch("http://51.210.103.151/conditions.php")) {
-                                                  await launch("http://51.210.103.151/conditions.php");
-                                                } else {
-                                                  print("http://51.210.103.151/conditions.php");
-                                                }
-                            }),
-                            RaisedButton(child:Text("POLITIQUE DE CONFIDENTIALITÉ"),
-                            onPressed: ()async{
-                              if (await canLaunch("http://51.210.103.151/confidentialite.php")) {
-                                                  await launch("http://51.210.103.151/confidentialite.php");
-                                                } else {
-                                                  print("http://51.210.103.151/confidentialite.php");
-                                                }
-                            }),
-                          RaisedButton(child:Text("FAQ"),
-                            onPressed: ()async{
-                              if (await canLaunch("http://51.210.103.151/FAQ.php")) {
-                                                  await launch("http://51.210.103.151/FAQ.php");
-                                                } else {
-                                                  print("http://51.210.103.151/FAQ.php");
-                                                }
-                            }),
-                        ],
+                    child:Center(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RaisedButton(child:Text("CONDITIONS GÉNÉRALES D’UTILISATION"),
+                              onPressed: ()async{
+                                if (await canLaunch("http://51.210.103.151/conditions.php")) {
+                                                    await launch("http://51.210.103.151/conditions.php");
+                                                  } else {
+                                                    print("http://51.210.103.151/conditions.php");
+                                                  }
+                              }),
+                              RaisedButton(child:Text("POLITIQUE DE CONFIDENTIALITÉ"),
+                              onPressed: ()async{
+                                if (await canLaunch("http://51.210.103.151/confidentialite.php")) {
+                                                    await launch("http://51.210.103.151/confidentialite.php");
+                                                  } else {
+                                                    print("http://51.210.103.151/confidentialite.php");
+                                                  }
+                              }),
+                            RaisedButton(child:Text("FAQ"),
+                              onPressed: ()async{
+                                if (await canLaunch("http://51.210.103.151/FAQ.php")) {
+                                                    await launch("http://51.210.103.151/FAQ.php");
+                                                  } else {
+                                                    print("http://51.210.103.151/FAQ.php");
+                                                  }
+                              }),
+                          ],
+                        ),
                       ),
                     )
                   ),
