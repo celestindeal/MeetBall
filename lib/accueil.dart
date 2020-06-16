@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meetballl/PushNotificationManager.dart';
+import 'package:meetballl/db.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -25,6 +26,30 @@ class _AccueilState extends State<Accueil> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    initState() async {
+      print('fonction rester co déclancher');
+      List persoonne;
+      persoonne = await Baselocal().connect();
+      ScopedModel.of<LoginModel>(context)
+          .Connexion(persoonne[0]['email'], persoonne[0]['password']);
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/Profil', (Route<dynamic> route) => false);
+
+      PushNotificationsManager().init();
+    }
+
+    restCo() async {
+      print('fonction rester co déclancher');
+      List persoonne;
+      persoonne = await Baselocal().connect();
+      ScopedModel.of<LoginModel>(context)
+          .Connexion(persoonne[0]['email'], persoonne[0]['password']);
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/Profil', (Route<dynamic> route) => false);
+
+      PushNotificationsManager().init();
+    }
+
     return Scaffold(
       // appBar: headerNav(context),
       persistentFooterButtons: <Widget>[
@@ -125,41 +150,39 @@ class _AccueilState extends State<Accueil> {
                                       '/Profil',
                                       (Route<dynamic> route) => false);
                                 }
-                              PushNotificationsManager().init();
+                                PushNotificationsManager().init();
                               },
                               child: Text('connexion'),
                             ),
                           ),
                         ),
-            /*            
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: RaisedButton(
-                              onPressed: () {
-                                  ScopedModel.of<LoginModel>(context)
-                                      .Connexion("celestindeal42@gmail.com", "Brefbref");
-                                  Navigator.pushNamedAndRemoveUntil(
-                                      context,
-                                      '/Profil',
-                                      (Route<dynamic> route) => false);
-                                
-                              PushNotificationsManager().init();
+                              onPressed: () async {
+                                print('fonction rester co déclancher');
+                                List persoonne;
+                                persoonne = await Baselocal().connect();
+                                ScopedModel.of<LoginModel>(context).Connexion(
+                                    persoonne[0]['email'],
+                                    persoonne[0]['password']);
+                                Navigator.pushNamedAndRemoveUntil(context,
+                                    '/Profil', (Route<dynamic> route) => false);
+
+                                PushNotificationsManager().init();
                               },
-                              child: Text('tkt'),
+                              child: Text('dernier connexion'),
                             ),
                           ),
                         ),
-                  */      
                       ],
                     ),
                   ],
                 ),
               ),
-             
             ])),
       ),
     );
   }
-
 }

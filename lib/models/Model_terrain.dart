@@ -15,7 +15,6 @@ class TerrainModel extends Model {
 
   Future<String> Terrain() async {
     var url = 'http://51.210.103.151/get_terrain.php';
-    print('$url');
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
     data_terrain = data;
@@ -27,7 +26,6 @@ class TerrainModel extends Model {
 
   Future<String> List() async {
     var url = 'http://51.210.103.151/get_terrain.php';
-    print('$url');
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
     int n = 0;
@@ -43,12 +41,10 @@ class TerrainModel extends Model {
 
   Future<String> TerrainDev() async {
     var url = 'http://51.210.103.151/get_terrainDev.php';
-    print('$url');
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
     data_terrainDev = data;
     taille_terrainDev = data.length;
-    print(data_terrainDev);
     notifyListeners();
     return " fin de fonction";
   }
@@ -60,11 +56,6 @@ class TerrainModel extends Model {
         '{"nom":"$nom","adresse":"$adresse","ville":"$ville","nombre_terrain":"$nombre_terrain","image":"$image","sol":"$sol","ouverture":"$ouverture"}'; // make POST request
     Response response = await post(url, body: json);
     String body = response.body;
-    print(
-        'reponse ajouter une match.................................................................');
-    print(body);
-    print(
-        'reponse.................................................................');
     return body;
 
     notifyListeners();

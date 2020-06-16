@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:meetballl/db.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -49,7 +50,6 @@ changeMode(){
 
 
   Future<String> Connexion(String temail, String tpassword) async {
-    print("test celestindeal42@gmail.com ");
     var url = 'http://51.210.103.151/get.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
@@ -84,6 +84,7 @@ changeMode(){
           description = data[n]['message'];
           validation = false;
           loging = true;
+          Baselocal().newperso(email, password);
           if (id == "6" || id == "46") {
             devellopeur = true;
             LieuDev();
@@ -109,7 +110,6 @@ changeMode(){
 
   Future<String> Participation() async {
     participation.clear();
-    print("participation");
     var url = 'http://51.210.103.151/get_participation.php';
     http.Response response = await http.get(url);
     var data_participation = jsonDecode(response.body);
@@ -118,10 +118,8 @@ changeMode(){
     var data_rencontre = jsonDecode(response1.body);
     int tailledata = data_participation.length;
     int taillerencontre = data_rencontre.length;
-    print(taillerencontre);
     for (var i = 0; i < tailledata; i++) {
       if (pseudo == data_participation[i]['pseudo']) {
-        print(data_participation[i]['ID_rencontre']);
 
         for (var n = 0; n < taillerencontre; n++) {
           if (data_participation[i]['ID_rencontre'] ==
@@ -164,11 +162,6 @@ changeMode(){
         '{"pseudo":"$pseudo","email":"$email","telephone":"$telephone","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","photo":"$image"}'; // make POST request
     Response response = await post(url, body: json);
     String body = response.body;
-    print(
-        'réponse post inscription......................................................');
-    print(body);
-    print(
-        'réponse fin........................................................');
     Connexion(email, password);
     return body;
   }
@@ -201,19 +194,12 @@ changeMode(){
       String photo,
       String id) async {
     String url = 'http://51.210.103.151/post_modif.php';
-    print("début de la fonction modifier");
     int idd = int.parse(id);
     affmodif = false;
     String json =
         '{"pseudo":"$pseudo","email":"$email","telephone":"$telephone","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","lieu_photo":"$img","photo":"$photo","id":"$idd"}'; // make POST request
     Response response = await post(url, body: json);
-    print(json);
     String body = response.body;
-    print(
-        'réponse debut modification......................................................');
-    print(body);
-    print(
-        'réponse fin........................................................');
     Connexion(email, password);
     affmodif = false;
     return body;
@@ -294,25 +280,17 @@ changeMode(){
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
     lisAvisDev = data;
-    print(lisAvisDev);
     notifyListeners();
     return " fin de fonction";
   }
 
   Future<String> ChangeImage(String image) async {
     String url = 'http://51.210.103.151/post_changeImage.php';
-    print("début de la fonction modifier");
     int idd = int.parse(id);
     affmodif = false;
     String json = '{"id":"$id","image":"$image"}';
     Response response = await post(url, body: json);
-    print(json);
     String body = response.body;
-    print(
-        'changer image.....................................................');
-    print(body);
-    print(
-        'réponse fin........................................................');
     Connexion(email, password);
     affmodif = false;
     img= "https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg";

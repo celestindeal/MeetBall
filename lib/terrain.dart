@@ -158,7 +158,6 @@ class Presentation_terrain extends StatelessWidget {
                                                     } else {
                                                       return GestureDetector(
                                                           onTap: () {
-                                                            print("ontap");
                                                             return showDialog(
                                                                 context:
                                                                     context,
@@ -256,9 +255,7 @@ class Presentation_terrain extends StatelessWidget {
                                               //const url = const value;
                                               if (await canLaunch(value)) {
                                                 await launch(value);
-                                              } else {
-                                                print(value);
-                                              }
+                                              } 
                                             },
                                             child: Text('Y aller'),
                                           ),

@@ -43,25 +43,19 @@ import 'models/Model_co.dart';
                               onPressed: ()async{
                                 if (await canLaunch("http://51.210.103.151/conditions.php")) {
                                                     await launch("http://51.210.103.151/conditions.php");
-                                                  } else {
-                                                    print("http://51.210.103.151/conditions.php");
-                                                  }
+                                                  } 
                               }),
                               RaisedButton(child:Text("POLITIQUE DE CONFIDENTIALITÉ"),
                               onPressed: ()async{
                                 if (await canLaunch("http://51.210.103.151/confidentialite.php")) {
                                                     await launch("http://51.210.103.151/confidentialite.php");
-                                                  } else {
-                                                    print("http://51.210.103.151/confidentialite.php");
-                                                  }
+                                                  } 
                               }),
                             RaisedButton(child:Text("FAQ"),
                               onPressed: ()async{
                                 if (await canLaunch("http://51.210.103.151/FAQ.php")) {
                                                     await launch("http://51.210.103.151/FAQ.php");
-                                                  } else {
-                                                    print("http://51.210.103.151/FAQ.php");
-                                                  }
+                                                  } 
                               }),
                           ],
                         ),

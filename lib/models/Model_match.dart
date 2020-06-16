@@ -41,9 +41,6 @@ Future<String> Ajout_match (String lieu , String date, String heure, String nomb
   String json ='{"lieu":"$lieu","date":"$date","heure":"$heure","nombre_joueur":"$nombre_joueur","pseudo":"$pseudo"}';  // make POST request
   Response response = await post(url,  body: json);  
   String body = response.body;
-  print('reponse ajouter un match .................................................................');
-  print(body);
-   print('reponse.................................................................');
   return body;
   }
 
@@ -85,22 +82,16 @@ Participation(int nom_inviter,bool mediateur, String pseudo)async{
   String json ='{"id_rencontre":"$id_rencontre","nombre_joueur":"$nom_inviter","pseudo":"$pseudo","mediateur":"$mediateur"}';  // make POST request
   Response response = await post(url,  body: json);  
   String body = response.body;
-  print('reponse participation.................................................................');
-  print(body);
-   print('fin reponse.................................................................');
   return body;
 
 }
 Commentaire()async{
   commentaire.clear();
-  print('commantauire');
   var url = 'http://51.210.103.151/get_commentaire.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
   List list  = data as List;
-    print('yeziofbzgRUIVBUIREQBVUQERGUBBENOIMerobiOBnomnoimnoinqtrngtr');
     var nombre_tour = list.length;
-    print(nombre_tour);
     int n = 0;
     while  (nombre_tour > n){
        if ((data[n]['id_rencontre'].toString())==id_rencontre){
@@ -116,9 +107,6 @@ Ajouter_ommentaire(String commentaire ,String pseudo)async{
   String json ='{"id_rencontre":"$id_rencontre","commentaire":"$commentaire","pseudo":"$pseudo"}';  // make POST request
   Response response = await post(url,  body: json);  
   String body = response.body;
-  print('reponse commanet ier.................................................................');
-  print(body);
-   print('fin reponse.................................................................');
   return body;
 }
  Sup_participation(String inviter,String id,String id_rencontre)async{
@@ -126,9 +114,6 @@ Ajouter_ommentaire(String commentaire ,String pseudo)async{
   String json ='{"id_rencontre":"$id_rencontre","id_participation":"$id","inviter":"$inviter"}';  // make POST request
   Response response = await post(url,  body: json);  
   String body = response.body;
-  print('reponse commanet ier.................................................................');
-  print(body);
-   print('fin reponse.................................................................');
   return body;
  }
 }

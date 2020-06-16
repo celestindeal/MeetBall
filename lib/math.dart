@@ -50,7 +50,6 @@ class Presentation extends StatelessWidget {
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
-    print("fait pas chier");
     nombre = nombre + 1;
 
     _refreshController.refreshCompleted();

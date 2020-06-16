@@ -17,17 +17,7 @@ class _LieuDevState extends State<LieuDev> {
   supprimer_lieu(String id){
      var url = 'http://51.210.103.151/post_terrain.php';
     String json =
-        '{"id":"$id"}'; // make POST request
-  //  Response response = await post(url, body: json);
-  //  String body = response.body;
-    print(
-        'reponse ajouter une match.................................................................');
-   // print(body);
-    print(
-        'reponse.................................................................');
-   // return body;
-
-  // notifyListeners();
+        '{"id":"$id"}'; 
     return " fin de fonction";
   }
   @override

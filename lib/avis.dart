@@ -85,16 +85,10 @@ class Avis extends StatelessWidget {
 
 Future<String> envoie_avis(String pseudo) async {
   String json = '{"avis":"$avis","pseudo":"$pseudo"}';
-  String url = 'http://51.210.103.151/post_avis.php';print(url);
+  String url = 'http://51.210.103.151/post_avis.php';
   // make POST request
   Response response = await post(url, body: json);
   String body = response.body;
-  print(json);
-  print(
-      'reponse envoie avis...................................................................................');
-  print(body);
-  print(
-      '...................................................................................');
 
   return body;
 }

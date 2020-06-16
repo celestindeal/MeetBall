@@ -402,9 +402,7 @@ class _InscriptionState extends State<Inscription> {
                                 "http://51.210.103.151/conditions.php")) {
                               await launch(
                                   "http://51.210.103.151/conditions.php");
-                            } else {
-                              print("http://51.210.103.151/conditions.php");
-                            }
+                            } 
                           }),
                       Center(
                         child: CheckboxListTile(
