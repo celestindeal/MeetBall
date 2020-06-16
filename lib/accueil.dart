@@ -31,8 +31,6 @@ class _AccueilState extends State<Accueil> {
   Widget build(BuildContext context) {
       init() async {
         final Brightness brightnessValue = MediaQuery.of(context).platformBrightness;
-        print(brightnessValue);
-        print('pk ça ne change pas');
         List persoonne;
         persoonne = await Baselocal().connect();
         ScopedModel.of<LoginModel>(context)

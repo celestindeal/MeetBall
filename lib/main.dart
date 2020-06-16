@@ -3,6 +3,7 @@ import 'package:meetballl/db.dart';
 import 'package:meetballl/profil.dart';
 import 'package:meetballl/profil_rencontre.dart';
 import 'package:meetballl/terrain.dart';
+import 'package:meetballl/terrainproche.dart';
 import 'package:meetballl/test.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -113,6 +114,7 @@ class _MainState extends State<Main> {
                               '/Profil_renctontre': (context) =>
                                   Profil_renctontre(),
                               '/Terrain': (context) => Terrain(),
+                              '/Terrainpro': (context) => TerrainPro(),
                               '/Ajout_terrain': (context) => Ajout_terrain(),
                               '/Ajout_match': (context) => Ajout_match(),
                               '/Avis': (context) => Avis(),

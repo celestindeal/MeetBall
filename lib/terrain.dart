@@ -63,6 +63,14 @@ class Presentation_terrain extends StatelessWidget {
                             '/Ajout_terrain', (Route<dynamic> route) => false);
                       }),
                 ),
+                Center(
+                  child: RaisedButton(
+                      child: Text("terrain le plus proche"),
+                      onPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(context,
+                            '/Terrainpro', (Route<dynamic> route) => false);
+                      }),
+                ),
                 ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,

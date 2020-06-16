@@ -171,7 +171,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                     cursorColor: Colors.black54, 
                     style: TextStyle(color: Colors.white, decorationColor:  Colors.white  ),
                     decoration: const InputDecoration(
-                      hintText: 'Ouverture',
+                      hintText: 'Horaire Ouverture',
                       hintStyle: TextStyle(color: Colors.white),
                     ),
                     validator: (value) {
