@@ -75,7 +75,7 @@ class Presentation extends StatelessWidget {
                 child: Column(
               children: <Widget>[
                 RaisedButton(
-                    child: Text("Ajouter une rencontre"),
+                    child: Text("organiser une rencontre"),
                     onPressed: () {
                       Navigator.pushNamedAndRemoveUntil(context, '/Ajout_match',
                           (Route<dynamic> route) => false);
