@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meetballl/PushNotificationManager.dart';
 import 'package:meetballl/db.dart';
+
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,8 +29,9 @@ class _AccueilState extends State<Accueil> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    
       init() async {
+        final Brightness brightnessValue = MediaQuery.of(context).platformBrightness;
+        print(brightnessValue);
         print('pk ça ne change pas');
         List persoonne;
         persoonne = await Baselocal().connect();
@@ -42,8 +44,7 @@ class _AccueilState extends State<Accueil> {
         return persoonne;
       }
       if (boinit) {
-      
-      print("iniit");
+
       init();
      boinit = false;
     }

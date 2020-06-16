@@ -19,7 +19,7 @@ import 'models/Model_img.dart';
 import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 import 'modif.dart';
-
+import 'package:dynamic_theme/dynamic_theme.dart';
 void main(){
   runApp( new Main());
   
@@ -60,85 +60,43 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }*/
-bool mode = true;
+bool mode = false;
 
 class Main extends StatefulWidget {
+ 
   @override
   _MainState createState() => _MainState();
 }
 
 class _MainState extends State<Main> {
-  @override
+ @override
+ Brightness _brightness = Brightness.light;
+
+  void _changeBrightness(Brightness newBrightness) {
+    setState(() {
+      _brightness = newBrightness;
+    });
+  }
+
+
+
   Widget build(BuildContext context) {
-    return ScopedModel(
-        model: ImgModel(),
-        child: ScopedModel(
-            model: TerrainModel(),
+
+        
+        return ScopedModel(
+            model: ImgModel(),
             child: ScopedModel(
-                model: GameModel(),
+                model: TerrainModel(),
                 child: ScopedModel(
-                    model: LoginModel(),
-                    child: mode
-                        ? MaterialApp(
-                            debugShowCheckedModeBanner: false,
-                            theme: ThemeData(
-                              brightness: Brightness.dark,
-                              primarySwatch: Colors.blueGrey,
-                              accentColor: Colors.blue,
-                              fontFamily: 'Montserrat',
-                              textTheme: TextTheme(
-                                body1: TextStyle(fontSize: 10.0),
-                                body2: TextStyle(fontSize: 16.0),
-                                display1: TextStyle(
-                                    fontSize: 25.0,
-                                    color: Colors.red,
-                                    decorationColor: Colors.white), // darwer
-                                display2: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.white70,
-                                  decorationColor: Colors.white,
-                                  fontWeight: FontWeight.w800,
-                                  fontFamily: 'Roboto',
-                                  letterSpacing: 0.5,
-                                ), //text stiler
-                                display3: TextStyle(
-                                    fontSize: 16.0,
-                                    color: Colors.black,
-                                    decorationColor:
-                                        Colors.black), //text Classe
-                                display4: TextStyle(
-                                  fontSize: 32.0,
-                                  inherit: false,
-                                  letterSpacing: 0.5,
-                                  color: Colors.red,
-                                ),
-                              ),
-                            ),
-                            initialRoute: '/',
-                            routes: {
-                              '/': (context) => Accueil(),
-                              '/inscription': (context) => Inscription(),
-                              '/Profil': (context) => Profil(),
-                              '/Match': (context) => Match(),
-                              '/Profil_renctontre': (context) =>
-                                  Profil_renctontre(),
-                              '/Terrain': (context) => Terrain(),
-                              '/Ajout_terrain': (context) => Ajout_terrain(),
-                              '/Ajout_match': (context) => Ajout_match(),
-                              '/Avis': (context) => Avis(),
-                              '/modif': (context) => Modif(),
-                              '/avisDev': (context) => AvisDev(),
-                              '/lieuDev': (context) => LieuDev(),
-                              '/test': (context) => MyHomePage(),
-                            },
-                          )
-                        : MaterialApp(
-                            theme: ThemeData(
-                              brightness: Brightness.light,
-                              primarySwatch: Colors.blueGrey,
-                              accentColor: Colors.blue,
-                              fontFamily: 'Montserrat',
-                              textTheme: TextTheme(
+                    model: GameModel(),
+                    child: ScopedModel(
+                        model: LoginModel(),
+                        child:  DynamicTheme(
+        defaultBrightness: Brightness.light,
+        data: (brightness) => ThemeData(
+              primarySwatch: Colors.indigo,
+              brightness: brightness,
+  textTheme: TextTheme(
                                 body1: TextStyle(fontSize: 10.0),
                                 body2: TextStyle(fontSize: 16.0),
                                 display1: TextStyle(
@@ -165,7 +123,9 @@ class _MainState extends State<Main> {
                                   color: Colors.red,
                                 ),
                               ),
-                            ),
+            ),
+        themedWidgetBuilder: (context, theme) {
+          return MaterialApp( theme: theme,
                             debugShowCheckedModeBanner: false,
                             initialRoute: '/',
                             routes: {
@@ -184,6 +144,19 @@ class _MainState extends State<Main> {
                               '/lieuDev': (context) => LieuDev(),
                               '/test': (context) => MyHomePage(),
                             },
-                          )))));
+                          );
+
+
+
+        }) 
+                        
+                        
+                        ))));
+  }
+  void changeBrightness() {
+    DynamicTheme.of(context).setBrightness(
+        Theme.of(context).brightness == Brightness.dark
+            ? Brightness.light
+            : Brightness.dark);
   }
 }

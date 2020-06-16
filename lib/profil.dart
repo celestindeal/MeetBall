@@ -32,13 +32,10 @@ class _ProfilState extends State<Profil> {
       return Container(
         child: model.loging == false
             ? Scaffold(
-                // appBar: headerNav(context),
                 persistentFooterButtons: <Widget>[
-                    // AppB(),
                     Footer(),
                   ],
                 drawer: Darwer(),
-                // backgroundColor: color1,
                 body: Center(
                   child: CircularProgressIndicator(),
                 ))
@@ -168,7 +165,6 @@ class _PresentationState extends State<Presentation> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        // backgroundColor: color1,
         body: SingleChildScrollView(child:
             ScopedModelDescendant<LoginModel>(builder: (context, child, model) {
           if (model.participation.length == 0) {
