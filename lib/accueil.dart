@@ -15,6 +15,8 @@ File image;
 var form_email;
 var form_password;
 bool _passwordVisible = false;
+bool boinit = true;
+
 const url = 'https://flutter.dev';
 
 class Accueil extends StatefulWidget {
@@ -26,30 +28,25 @@ class _AccueilState extends State<Accueil> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    initState() async {
-      print('fonction rester co déclancher');
-      List persoonne;
-      persoonne = await Baselocal().connect();
-      ScopedModel.of<LoginModel>(context)
-          .Connexion(persoonne[0]['email'], persoonne[0]['password']);
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/Profil', (Route<dynamic> route) => false);
+    
+      init() async {
+        print('pk ça ne change pas');
+        List persoonne;
+        persoonne = await Baselocal().connect();
+        ScopedModel.of<LoginModel>(context)
+            .Connexion(persoonne[0]['email'], persoonne[0]['password']);
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/Profil', (Route<dynamic> route) => false);
 
-      PushNotificationsManager().init();
+        PushNotificationsManager().init();
+        return persoonne;
+      }
+      if (boinit) {
+      
+      print("iniit");
+      init();
+     boinit = false;
     }
-
-    restCo() async {
-      print('fonction rester co déclancher');
-      List persoonne;
-      persoonne = await Baselocal().connect();
-      ScopedModel.of<LoginModel>(context)
-          .Connexion(persoonne[0]['email'], persoonne[0]['password']);
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/Profil', (Route<dynamic> route) => false);
-
-      PushNotificationsManager().init();
-    }
-
     return Scaffold(
       // appBar: headerNav(context),
       persistentFooterButtons: <Widget>[
@@ -153,26 +150,6 @@ class _AccueilState extends State<Accueil> {
                                 PushNotificationsManager().init();
                               },
                               child: Text('connexion'),
-                            ),
-                          ),
-                        ),
-                        Center(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            child: RaisedButton(
-                              onPressed: () async {
-                                print('fonction rester co déclancher');
-                                List persoonne;
-                                persoonne = await Baselocal().connect();
-                                ScopedModel.of<LoginModel>(context).Connexion(
-                                    persoonne[0]['email'],
-                                    persoonne[0]['password']);
-                                Navigator.pushNamedAndRemoveUntil(context,
-                                    '/Profil', (Route<dynamic> route) => false);
-
-                                PushNotificationsManager().init();
-                              },
-                              child: Text('dernier connexion'),
                             ),
                           ),
                         ),
