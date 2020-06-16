@@ -26,7 +26,8 @@ AppBar headerNav(
                       Theme.of(context).brightness == Brightness.dark
                           ? Brightness.light
                           : Brightness.dark);
-                        //  Baselocal().mise_a_jour(brightness.toString());
+                          if(couleur){couleur=false;}else{couleur=true;}
+                          Baselocal().mise_a_jour();
                 }
 
                 return Center(

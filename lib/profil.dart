@@ -215,7 +215,7 @@ class _PresentationState extends State<Presentation> {
                           margin: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
-                            color: Colors.grey,
+                            color:couleur? Colors.red:Colors.green,
                           ),
                           child:
                               affImage // je ne sais pas recharger Image.network alors j'affiche l'image file a la place

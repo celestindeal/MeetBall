@@ -26,7 +26,7 @@ void main() {
   runApp(new Main());
 }
 
-bool mode = false;
+bool couleur = false;
 
 class Main extends StatefulWidget {
   @override
@@ -41,6 +41,7 @@ class _MainState extends State<Main> {
         Theme.of(context).brightness == Brightness.dark
             ? Brightness.light
             : Brightness.dark);
+            if(couleur){couleur=false;}else{couleur=true;}
             Baselocal().mise_a_jour();
   }
 
@@ -49,6 +50,7 @@ class _MainState extends State<Main> {
     initState()async{
        mode = await Baselocal().valColor();
     if (mode =="true") {
+      couleur =true;
      DynamicTheme.of(context).setBrightness(
         Theme.of(context).brightness == Brightness.dark
             ? Brightness.light
