@@ -1,15 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:meetballl/PushNotificationManager.dart';
 import 'package:meetballl/db.dart';
 
 import 'package:scoped_model/scoped_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 //import 'package:image_picker/image_picker.dart';
 import 'footer.dart';
-import 'main.dart';
 import 'models/Model_co.dart';
 
 File image;
@@ -30,7 +27,6 @@ class _AccueilState extends State<Accueil> {
   @override
   Widget build(BuildContext context) {
       init() async {
-        final Brightness brightnessValue = MediaQuery.of(context).platformBrightness;
         List persoonne;
         persoonne = await Baselocal().connect();
         ScopedModel.of<LoginModel>(context)

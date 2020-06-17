@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'appBar.dart';
 import 'drawer.dart';
 import 'footer.dart';
-import 'main.dart';
 import 'models/Model_co.dart';
 import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
