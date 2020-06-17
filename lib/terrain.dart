@@ -71,6 +71,14 @@ class Presentation_terrain extends StatelessWidget {
                             '/Terrainpro', (Route<dynamic> route) => false);
                       }),
                 ),
+                Center(
+                  child: RaisedButton(
+                      child: Text("recherhcer"),
+                      onPressed: () {
+                        Navigator.pushNamedAndRemoveUntil(context,
+                            '/Terrainrecherche', (Route<dynamic> route) => false);
+                      }),
+                ),
                 ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
