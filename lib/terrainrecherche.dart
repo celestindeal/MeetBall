@@ -30,7 +30,6 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
   bool afficher = true;
   Widget build(BuildContext context) {
     if (init) {
-      print("fonction init");
       setState(() {
         terrain = ScopedModel.of<TerrainModel>(context).data_terrain;
       });
@@ -38,12 +37,10 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
     }
 
     comparestring(String mot1, String mot2) {
-      print("compare");
       int taille1 = mot1.length;
       int taille2 = mot2.length;
       int compare = 0;
       for (var i = 0; i < taille1; i++) {
-        print("tour" + i.toString());
         String lettre1 = mot1[i];
         bool ok = mot2.contains(lettre1);
         if (ok) {
@@ -54,6 +51,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
     }
 
     terrainre(String terrainre) async {
+      List contruction =[];
       await ScopedModel.of<TerrainModel>(context).Terrain();
       terrain.clear();
       if (terrainre.isEmpty) {
@@ -63,15 +61,30 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
             i < ScopedModel.of<TerrainModel>(context).taille_terrain;
             i++) {
           int nombre = 0;
-          print("vérification " +
-              ScopedModel.of<TerrainModel>(context).data_terrain[i]['nom']);
-          nombre = comparestring(terrainre,
-              ScopedModel.of<TerrainModel>(context).data_terrain[i]['nom']);
-              print("nombre");
-              print(nombre);
+          nombre = comparestring(terrainre.toUpperCase(),
+              ScopedModel.of<TerrainModel>(context).data_terrain[i]['nom'].toUpperCase());
           if (nombre > 0) {
-            terrain.add(ScopedModel.of<TerrainModel>(context).data_terrain[i]);
+            Map tkt = {'contruiction':ScopedModel.of<TerrainModel>(context).data_terrain[i],"nombre" :nombre};
+            contruction.add(tkt);
           }
+        }
+        int  copie = contruction.length;
+        // objatif classer des l'ordre les lieus 
+        for (var i = 0; i < copie; i++) {
+          int nombreplus = 0;
+          int place ;
+          print("passsage");
+          for (var n = 0; n < contruction.length; n++) {
+            print(contruction[n]['nombre']);
+              
+            if (contruction[n]['nombre']>=nombreplus){
+              nombreplus=contruction[n]['nombre'];
+              place  = n;
+            }
+          }
+          terrain.add(contruction[place]['contruiction']);
+          contruction.removeAt(place);
+
         }
       }
 

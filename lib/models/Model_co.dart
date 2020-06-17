@@ -198,7 +198,7 @@ changeMode(){
     affmodif = false;
     String json =
         '{"pseudo":"$pseudo","email":"$email","telephone":"$telephone","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","lieu_photo":"$img","photo":"$photo","id":"$idd"}'; // make POST request
-   print(json);
+  
     Response response = await post(url, body: json);
     String body = response.body;
     Connexion(email, password);
