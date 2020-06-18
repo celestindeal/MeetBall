@@ -44,19 +44,27 @@ class _TerrainProState extends State<TerrainPro> {
           String valueString ="/" + lieu.toString().split('@')[1].split('/')[0];
           int nombrecar = valueString.length;
           String valuelieu = valueString.substring(0, nombrecar - 1);
-          lon2 = double.parse(valuelieu.toString().split('/')[1].split(',')[0]);
-          lat2 = double.parse(valuelieu.toString().split(',')[1]);
-          double x = (lon2 - lon1) * cos(0.5 * (lat2 + lat1));
-          double y = lat1 - lat2;
-          double distance = 1.852 * 60 * sqrt((x * x + y * y));
-          
+          lat2 = double.parse(valuelieu.toString().split('/')[1].split(',')[0]);
+          lon2 = double.parse(valuelieu.toString().split(',')[1]);
+          //double x = (lon2 - lon1) * cos(0.5 * (lat2 + lat1));
+          //double y = lat2 - lat1;
+         // double distance = 1.852 * 60 * sqrt((x * x + y * y));
+          print(lon1 );
+          print(lat1 );
+          print( lon2 );
+          print( lat2);
+          double distance = 6371 * acos((sin(lat1*(pi/180))*sin(lat2*(pi/180)))+(cos(lat1*(pi/180))*cos(lat2*(pi/180))*cos(lon1*(pi/180)-lon2*(pi/180))    )    );
+          print(distance);
+
           if (distance < ditanceCourt) {
             ditanceCourt = distance;
             lieupro.clear();
             lieupro.add(ScopedModel.of<TerrainModel>(context).data_terrain[i])
                 ;
           }
-        }
+          print( ScopedModel.of<TerrainModel>(context).data_terrain[i]["nom"] + i.toString() + "distance " + distance.toString())
+;        }
+        
       }
       return lieupro;
     }

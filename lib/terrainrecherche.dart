@@ -37,6 +37,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
     }
 
     comparestring(String mot1, String mot2) {
+      // on compparre deux mots si il ont des lettre en commun on renvoie un nombre sinon on renvoie 0
       int taille1 = mot1.length;
       int taille2 = mot2.length;
       int compare = 0;
@@ -55,8 +56,10 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
       await ScopedModel.of<TerrainModel>(context).Terrain();
       terrain.clear();
       if (terrainre.isEmpty) {
+        // quand l'utilisateur viens d'appuyer mais qu'il n'a rien écrit on passe ici et on affiche tous 
         terrain = ScopedModel.of<TerrainModel>(context).data_terrain;
       } else {
+        // on vas regarder mot pare mot si on a des lettre on commun avec la recherche 
         for (var i = 0;
             i < ScopedModel.of<TerrainModel>(context).taille_terrain;
             i++) {
@@ -64,19 +67,17 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
           nombre = comparestring(terrainre.toUpperCase(),
               ScopedModel.of<TerrainModel>(context).data_terrain[i]['nom'].toUpperCase());
           if (nombre > 0) {
+            // ici le lieu doit être affiche il vas dans construction 
             Map tkt = {'contruiction':ScopedModel.of<TerrainModel>(context).data_terrain[i],"nombre" :nombre};
             contruction.add(tkt);
           }
         }
         int  copie = contruction.length;
-        // objatif classer des l'ordre les lieus 
+        // objatif classer les lieu dans l'ordre
         for (var i = 0; i < copie; i++) {
           int nombreplus = 0;
           int place ;
-          print("passsage");
           for (var n = 0; n < contruction.length; n++) {
-            print(contruction[n]['nombre']);
-              
             if (contruction[n]['nombre']>=nombreplus){
               nombreplus=contruction[n]['nombre'];
               place  = n;
@@ -84,10 +85,8 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
           }
           terrain.add(contruction[place]['contruiction']);
           contruction.removeAt(place);
-
         }
       }
-
       setState(() {
         terrain;
       });
