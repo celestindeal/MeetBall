@@ -18,6 +18,7 @@ class   GameModel extends Model {
   var nom_t_lieu;
   var ville_lieu;
   var id_terrain;
+  String terrainrencontre = "";
 
   
 

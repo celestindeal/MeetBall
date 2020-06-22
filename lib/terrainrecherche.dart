@@ -9,6 +9,7 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'models/Model_img.dart';
+import 'models/Model_match.dart';
 
 List lieupro = [];
 
@@ -52,35 +53,42 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
     }
 
     terrainre(String terrainre) async {
-      List contruction =[];
+      List contruction = [];
       await ScopedModel.of<TerrainModel>(context).Terrain();
       terrain.clear();
       if (terrainre.isEmpty) {
-        // quand l'utilisateur viens d'appuyer mais qu'il n'a rien écrit on passe ici et on affiche tous 
+        // quand l'utilisateur viens d'appuyer mais qu'il n'a rien écrit on passe ici et on affiche tous
         terrain = ScopedModel.of<TerrainModel>(context).data_terrain;
       } else {
-        // on vas regarder mot pare mot si on a des lettre on commun avec la recherche 
+        // on vas regarder mot pare mot si on a des lettre on commun avec la recherche
         for (var i = 0;
             i < ScopedModel.of<TerrainModel>(context).taille_terrain;
             i++) {
           int nombre = 0;
-          nombre = comparestring(terrainre.toUpperCase(),
-              ScopedModel.of<TerrainModel>(context).data_terrain[i]['nom'].toUpperCase());
+          nombre = comparestring(
+              terrainre.toUpperCase(),
+              ScopedModel.of<TerrainModel>(context)
+                  .data_terrain[i]['nom']
+                  .toUpperCase());
           if (nombre > 0) {
-            // ici le lieu doit être affiche il vas dans construction 
-            Map tkt = {'contruiction':ScopedModel.of<TerrainModel>(context).data_terrain[i],"nombre" :nombre};
+            // ici le lieu doit être affiche il vas dans construction
+            Map tkt = {
+              'contruiction':
+                  ScopedModel.of<TerrainModel>(context).data_terrain[i],
+              "nombre": nombre
+            };
             contruction.add(tkt);
           }
         }
-        int  copie = contruction.length;
+        int copie = contruction.length;
         // objatif classer les lieu dans l'ordre
         for (var i = 0; i < copie; i++) {
           int nombreplus = 0;
-          int place ;
+          int place;
           for (var n = 0; n < contruction.length; n++) {
-            if (contruction[n]['nombre']>=nombreplus){
-              nombreplus=contruction[n]['nombre'];
-              place  = n;
+            if (contruction[n]['nombre'] >= nombreplus) {
+              nombreplus = contruction[n]['nombre'];
+              place = n;
             }
           }
           terrain.add(contruction[place]['contruiction']);
@@ -128,213 +136,234 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                             return showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return Center(
-                                      child: Container(
-                                          padding: const EdgeInsets.all(5),
-                                          margin: const EdgeInsets.all(20),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20.0),
-                                            color: Colors.grey,
-                                          ),
-                                          child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: <Widget>[
-                                                ScopedModelDescendant<ImgModel>(
-                                                    builder:
-                                                        (context, child, img) {
-                                                  int nombre_tour = 0;
-                                                  String lien1 = "";
-                                                  String lien2 = "";
-                                                  String lien3 = "";
-                                                  String lien4 = "";
-                                                  while (img.taille_img >
-                                                      nombre_tour) {
-                                                    if (terrain[i]['id'] ==
-                                                        img.data_img[
-                                                                nombre_tour]
-                                                            ["id_lieu"]) {
-                                                      if (lien1 == "") {
-                                                        lien1 = img.data_img[
-                                                                nombre_tour]
-                                                            ["lien"];
-                                                      } else if (lien2 == "") {
-                                                        lien2 = img.data_img[
-                                                                nombre_tour]
-                                                            ["lien"];
-                                                      } else if (lien3 == "") {
-                                                        lien3 = img.data_img[
-                                                                nombre_tour]
-                                                            ["lien"];
-                                                      } else if (lien4 == "") {
-                                                        lien4 = img.data_img[
-                                                                nombre_tour]
-                                                            ["lien"];
+                                  return SingleChildScrollView(
+                                    child: Center(
+                                        child: Container(
+                                            padding: const EdgeInsets.all(20),
+                                            margin: const EdgeInsets.all(20),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                              color: Colors.grey,
+                                            ),
+                                            child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  ScopedModelDescendant<ImgModel>(
+                                                      builder:
+                                                          (context, child, img) {
+                                                    int nombre_tour = 0;
+                                                    String lien1 = "";
+                                                    String lien2 = "";
+                                                    String lien3 = "";
+                                                    String lien4 = "";
+                                                    while (img.taille_img >
+                                                        nombre_tour) {
+                                                      if (terrain[i]['id'] ==
+                                                          img.data_img[
+                                                                  nombre_tour]
+                                                              ["id_lieu"]) {
+                                                        if (lien1 == "") {
+                                                          lien1 = img.data_img[
+                                                                  nombre_tour]
+                                                              ["lien"];
+                                                        } else if (lien2 == "") {
+                                                          lien2 = img.data_img[
+                                                                  nombre_tour]
+                                                              ["lien"];
+                                                        } else if (lien3 == "") {
+                                                          lien3 = img.data_img[
+                                                                  nombre_tour]
+                                                              ["lien"];
+                                                        } else if (lien4 == "") {
+                                                          lien4 = img.data_img[
+                                                                  nombre_tour]
+                                                              ["lien"];
+                                                        }
                                                       }
+                                                      nombre_tour++;
                                                     }
-                                                    nombre_tour++;
-                                                  }
-                                                  if (lien1 == "") {
-                                                    return Container();
-                                                  } else {
-                                                    return Container(
-                                                      color: Colors.transparent,
-                                                      child: SizedBox(
-                                                        height: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height /
-                                                            2,
-                                                        child: PageView.builder(
-                                                          controller:
-                                                              PageController(
-                                                                  viewportFraction:
-                                                                      0.8),
-                                                          itemCount: 4,
-                                                          itemBuilder:
-                                                              (BuildContext
-                                                                      context,
-                                                                  int itemIndex) {
-                                                            String image = "";
-                                                            switch (itemIndex) {
-                                                              case 0:
-                                                                {
-                                                                  image = lien1;
-                                                                }
-                                                                break;
-                                                              case 1:
-                                                                {
-                                                                  image = lien2;
-                                                                }
-                                                                break;
-                                                              case 2:
-                                                                {
-                                                                  image = lien3;
-                                                                }
-                                                                break;
-                                                              case 3:
-                                                                {
-                                                                  image = lien4;
-                                                                }
-                                                                break;
-                                                              default:
-                                                            }
-                                                            if (image == "") {
-                                                              Container();
-                                                            } else {
-                                                              return GestureDetector(
-                                                                  onTap: () {
-                                                                    return showDialog(
-                                                                        context:
-                                                                            context,
-                                                                        builder:
-                                                                            (BuildContext
-                                                                                context) {
-                                                                          return Container(
-                                                                              child: PhotoView(
-                                                                            imageProvider:
-                                                                                NetworkImage(image),
-                                                                          ));
-                                                                        });
-                                                                  },
-                                                                  child:
-                                                                      Container(
-                                                                    width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width,
-                                                                    color: Colors
-                                                                        .transparent,
-                                                                    child: Image
-                                                                        .network(
-                                                                      image,
-                                                                    ),
-                                                                  ));
-                                                            }
-                                                          },
+                                                    if (lien1 == "") {
+                                                      return Container();
+                                                    } else {
+                                                      return Container(
+                                                        color: Colors.transparent,
+                                                        child: SizedBox(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height /
+                                                              2,
+                                                          child: PageView.builder(
+                                                            controller:
+                                                                PageController(
+                                                                    viewportFraction:
+                                                                        0.8),
+                                                            itemCount: 4,
+                                                            itemBuilder:
+                                                                (BuildContext
+                                                                        context,
+                                                                    int itemIndex) {
+                                                              String image = "";
+                                                              switch (itemIndex) {
+                                                                case 0:
+                                                                  {
+                                                                    image = lien1;
+                                                                  }
+                                                                  break;
+                                                                case 1:
+                                                                  {
+                                                                    image = lien2;
+                                                                  }
+                                                                  break;
+                                                                case 2:
+                                                                  {
+                                                                    image = lien3;
+                                                                  }
+                                                                  break;
+                                                                case 3:
+                                                                  {
+                                                                    image = lien4;
+                                                                  }
+                                                                  break;
+                                                                default:
+                                                              }
+                                                              if (image == "") {
+                                                                Container();
+                                                              } else {
+                                                                return GestureDetector(
+                                                                    onTap: () {
+                                                                      return showDialog(
+                                                                          context:
+                                                                              context,
+                                                                          builder:
+                                                                              (BuildContext
+                                                                                  context) {
+                                                                            return Container(
+                                                                                child: PhotoView(
+                                                                              imageProvider:
+                                                                                  NetworkImage(image),
+                                                                            ));
+                                                                          });
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width,
+                                                                      color: Colors
+                                                                          .transparent,
+                                                                      child: Image
+                                                                          .network(
+                                                                        image,
+                                                                      ),
+                                                                    ));
+                                                              }
+                                                            },
+                                                          ),
                                                         ),
-                                                      ),
-                                                    );
-                                                  }
-                                                }),
-                                                Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceEvenly,
-                                                    children: <Widget>[
-                                                      Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: <Widget>[
-                                                            Text(
-                                                                terrain[i]
-                                                                    ['nom'],
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text(
-                                                                terrain[i]
-                                                                    ['adresse'],
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text(
-                                                                terrain[i]
-                                                                    ['ville'],
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text(
-                                                                terrain[i][
-                                                                        'nom_t'] +
-                                                                    " terrain(s) disponible(s)",
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text(
-                                                                terrain[i]
-                                                                    ['sol'],
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                            Text(
-                                                                terrain[i][
-                                                                    'ouverture'],
-                                                                softWrap: true,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .display2),
-                                                          ]),
-                                                    ]),
-                                                Center(
-                                                  child: RaisedButton(
-                                                    onPressed: () async {
-                                                      String value = terrain[i]
-                                                              ['url']
-                                                          .toString();
-                                                      //const url = const value;
-                                                      if (await canLaunch(
-                                                          value)) {
-                                                        await launch(value);
-                                                      }
-                                                    },
-                                                    child: Text('Y aller'),
+                                                      );
+                                                    }
+                                                  }),
+                                                  Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: <Widget>[
+                                                        Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                  terrain[i]
+                                                                      ['nom'],
+                                                                  softWrap: true,
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .display2),
+                                                              Text(
+                                                                  terrain[i]
+                                                                      ['adresse'],
+                                                                  softWrap: true,
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .display2),
+                                                              Text(
+                                                                  terrain[i]
+                                                                      ['ville'],
+                                                                  softWrap: true,
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .display2),
+                                                              Text(
+                                                                  terrain[i][
+                                                                          'nom_t'] +
+                                                                      " terrain(s) disponible(s)",
+                                                                  softWrap: true,
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .display2),
+                                                              Text(
+                                                                  terrain[i]
+                                                                      ['sol'],
+                                                                  softWrap: true,
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .display2),
+                                                              Text(
+                                                                  terrain[i][
+                                                                      'ouverture'],
+                                                                  softWrap: true,
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .display2),
+                                                            ]),
+                                                      ]),
+                                                  Center(
+                                                    child: RaisedButton(
+                                                      onPressed: () async {
+                                                        String value = terrain[i]
+                                                                ['url']
+                                                            .toString();
+                                                        //const url = const value;
+                                                        if (await canLaunch(
+                                                            value)) {
+                                                          await launch(value);
+                                                        }
+                                                      },
+                                                      child: Text('Y aller'),
+                                                    ),
                                                   ),
-                                                ),
-                                              ])));
+                                                  Center(
+                                                    child: RaisedButton(
+                                                      onPressed: () async {
+                                                        ScopedModel.of<GameModel>(
+                                                                    context)
+                                                                .terrainrencontre =  terrain[i]
+                                                                      ['nom'].toString(); 
+                                                        Navigator
+                                                            .pushNamedAndRemoveUntil(
+                                                                context,
+                                                                '/TerrainRencontre',
+                                                                (Route<dynamic>
+                                                                        route) =>
+                                                                    false);
+                                                      },
+                                                      child: Text(
+                                                          'Rencontre à venir'),
+                                                    ),
+                                                  ),
+                                                ]))),
+                                  );
                                 });
                           },
                           child: Container(

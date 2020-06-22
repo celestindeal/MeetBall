@@ -9,6 +9,7 @@ import 'drawer.dart';
 import 'footer.dart';
 import 'main.dart';
 import 'models/Model_img.dart';
+import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 
 class Terrain extends StatelessWidget {
@@ -49,7 +50,6 @@ class Presentation_terrain extends StatelessWidget {
           Footer(),
         ],
         drawer: Darwer(),
-        // backgroundColor: Colors.black54,
         body: SingleChildScrollView(
           child: ScopedModelDescendant<TerrainModel>(
               builder: (context, child, model) {
@@ -57,7 +57,7 @@ class Presentation_terrain extends StatelessWidget {
               children: <Widget>[
                 Center(
                   child: RaisedButton(
-                      child: Text("Ajouter une terrain"),
+                      child: Text("Ajouter un terrain"),
                       onPressed: () {
                         Navigator.pushNamedAndRemoveUntil(context,
                             '/Ajout_terrain', (Route<dynamic> route) => false);
@@ -274,6 +274,15 @@ class Presentation_terrain extends StatelessWidget {
                                               } 
                                             },
                                             child: Text('Y aller'),
+                                          ),
+                                        ),
+                                        Center(
+                                          child: RaisedButton(
+                                            onPressed: () async {
+                                            ScopedModel.of<GameModel>(context).terrainrencontre = model.data_terrain[i] ['nom'].toString() ;
+                                               Navigator.pushNamedAndRemoveUntil(context, '/TerrainRencontre', (Route<dynamic> route) => false);
+                                            },
+                                            child: Text('Rencontre à venir'),
                                           ),
                                         ),
                                       ])));

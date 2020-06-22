@@ -6,6 +6,7 @@ import 'package:meetballl/appBar.dart';
 import 'package:meetballl/drawer.dart';
 import 'package:meetballl/footer.dart';
 import 'package:meetballl/models/Model_img.dart';
+import 'package:meetballl/models/Model_match.dart';
 import 'package:meetballl/models/Model_terrain.dart';
 import 'package:meetballl/test.dart';
 import 'package:photo_view/photo_view.dart';
@@ -97,7 +98,7 @@ class _TerrainProState extends State<TerrainPro> {
         lieupro.add(contruction[place]);
         contruction.removeAt(place);
       }
-print(lieupro);
+      print(lieupro);
       return lieupro;
     }
 
@@ -134,11 +135,10 @@ class AffImage extends StatefulWidget {
 class _AffImageState extends State<AffImage> {
   Widget build(BuildContext context) {
     return ListView.builder(
-      
         shrinkWrap: true,
         itemCount: 3,
         itemBuilder: (context, i) {
-       return   Center(
+          return Center(
               child: Container(
                   padding: const EdgeInsets.all(5),
                   margin: const EdgeInsets.all(20),
@@ -149,10 +149,14 @@ class _AffImageState extends State<AffImage> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(" Vous être à " + lieupro[i]['distance'].toStringAsFixed(3).toString() + "Km", softWrap: true,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .display2),
+                        Text(
+                            " Vous être à " +
+                                lieupro[i]['distance']
+                                    .toStringAsFixed(3)
+                                    .toString() +
+                                "Km",
+                            softWrap: true,
+                            style: Theme.of(context).textTheme.display2),
                         ScopedModelDescendant<ImgModel>(
                             builder: (context, child, img) {
                           int nombre_tour = 0;
@@ -277,7 +281,8 @@ class _AffImageState extends State<AffImage> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .display2),
-                                    Text(lieupro[i]['contruiction']['ouverture'],
+                                    Text(
+                                        lieupro[i]['contruiction']['ouverture'],
                                         softWrap: true,
                                         style: Theme.of(context)
                                             .textTheme
@@ -294,6 +299,19 @@ class _AffImageState extends State<AffImage> {
                               }
                             },
                             child: Text('Y aller'),
+                          ),
+                        ),
+                        Center(
+                          child: RaisedButton(
+                            onPressed: () async {
+                              ScopedModel.of<GameModel>(context)
+                                      .terrainrencontre =lieupro[i]['contruiction']['nom'];
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context,
+                                  '/TerrainRencontre',
+                                  (Route<dynamic> route) => false);
+                            },
+                            child: Text('Rencontre à venir'),
                           ),
                         ),
                       ])));
