@@ -26,8 +26,12 @@ AppBar headerNav(
                       Theme.of(context).brightness == Brightness.dark
                           ? Brightness.light
                           : Brightness.dark);
-                          if(couleur){couleur=false;}else{couleur=true;}
-                          Baselocal().mise_a_jour();
+                  if (couleur) {
+                    couleur = false;
+                  } else {
+                    couleur = true;
+                  }
+                  Baselocal().mise_a_jour();
                 }
 
                 return Center(
@@ -42,8 +46,24 @@ AppBar headerNav(
                       child: Center(
                         child: SingleChildScrollView(
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text("Mode d'affichage:",
+                                                        softWrap: true,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .display2),
+
+                                  RaisedButton(
+                                      child : couleur? Text("dark") : Text("normale"),
+                                      onPressed: () async {
+                                        changeBrightness();
+                                      }),
+                                ],
+                              ),
                               RaisedButton(
                                   child: Text(
                                       "CONDITIONS GÉNÉRALES D’UTILISATION"),
@@ -71,11 +91,6 @@ AppBar headerNav(
                                       await launch(
                                           "http://51.210.103.151/FAQ.php");
                                     }
-                                  }),
-                              RaisedButton(
-                                  child: Text("Changer de mode"),
-                                  onPressed: () async {
-                                    changeBrightness();
                                   }),
                             ],
                           ),
