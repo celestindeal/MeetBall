@@ -6,7 +6,6 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'appBar.dart';
-import 'drawer.dart';
 import 'footer.dart';
 import 'main.dart';
 import 'models/Model_co.dart';
@@ -82,7 +81,6 @@ class _ModfState extends State<Modif> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        drawer: Darwer(),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(

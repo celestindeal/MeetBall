@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meetballl/appBar.dart';
-import 'package:meetballl/drawer.dart';
 import 'package:meetballl/footer.dart';
 import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/models/Model_img.dart';
@@ -28,7 +27,6 @@ class _TerrainRenState extends State<TerrainRen> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        drawer: Darwer(),
         body: FutureBuilder<bool>(
           future: terrain(),
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
@@ -176,11 +174,11 @@ class _AffRencontreState extends State<AffRencontre> {
 
               })
               : Center(
-                child: Text("Il n'y à pas de match prevue",
+                child: Text("Il n'y à pas de match prevu",
                                               softWrap: true,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .display2),
+                                                  .display3),
               );
               
           

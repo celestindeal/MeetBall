@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meetballl/Ajout_terrain.dart';
 import 'package:meetballl/appBar.dart';
-import 'package:meetballl/drawer.dart';
 import 'package:meetballl/footer.dart';
 import 'package:meetballl/models/Model_terrain.dart';
 import 'package:photo_view/photo_view.dart';
@@ -32,7 +31,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
   Widget build(BuildContext context) {
     if (init) {
       setState(() {
-        terrain = ScopedModel.of<TerrainModel>(context).data_terrain;
+        terrain ;
       });
       init = false;
     }
@@ -58,7 +57,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
       terrain.clear();
       if (terrainre.isEmpty) {
         // quand l'utilisateur viens d'appuyer mais qu'il n'a rien écrit on passe ici et on affiche tous
-        terrain = ScopedModel.of<TerrainModel>(context).data_terrain;
+        terrain = [];
       } else {
         // on vas regarder mot pare mot si on a des lettre on commun avec la recherche
         for (var i = 0;
@@ -106,25 +105,27 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        drawer: Darwer(),
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              Divider(color: Colors.grey),
               TextFormField(
                 cursorColor: Colors.black54,
                 style: TextStyle(
-                    color: Colors.white, decorationColor: Colors.white),
+                    color: Colors.black54, decorationColor: Colors.black54),
                 decoration: const InputDecoration(
-                  hintText: 'terrain',
+                  hintText: 'Trouver un terrain',
                   hintStyle: TextStyle(color: Colors.black),
                 ),
                 onChanged: (value) {
+                  print(value);
                   setState(() {
                     afficher = false;
                   });
                   terrainre(value);
                 },
               ),
+              Container(height: 30,),
               afficher
                   ? ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
@@ -284,7 +285,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display2),
+                                                                     .display3),
                                                               Text(
                                                                   terrain[i]
                                                                       ['adresse'],
@@ -292,7 +293,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display2),
+                                                                    .display3),
                                                               Text(
                                                                   terrain[i]
                                                                       ['ville'],
@@ -300,7 +301,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display2),
+                                                                    .display3),
                                                               Text(
                                                                   terrain[i][
                                                                           'nom_t'] +
@@ -309,7 +310,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display2),
+                                                                      .display3),
                                                               Text(
                                                                   terrain[i]
                                                                       ['sol'],
@@ -317,7 +318,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display2),
+                                                                     .display3),
                                                               Text(
                                                                   terrain[i][
                                                                       'ouverture'],
@@ -325,7 +326,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display2),
+                                                                   .display3),
                                                             ]),
                                                       ]),
                                                   Center(
@@ -372,7 +373,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                             child: Center(
                               child: Text(terrain[i]['nom'],
                                   softWrap: true,
-                                  style: Theme.of(context).textTheme.display2),
+                                  style: Theme.of(context).textTheme.display3),
                             ),
                           ),
                         );

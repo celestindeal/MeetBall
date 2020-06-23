@@ -7,6 +7,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 //import 'package:image_picker/image_picker.dart';
 import 'footer.dart';
+import 'main.dart';
 import 'models/Model_co.dart';
 
 File image;
@@ -66,7 +67,8 @@ class _AccueilState extends State<Accueil> {
                     TextFormField(
                       cursorColor: Colors.black54,
                       style: TextStyle(
-                          color: Colors.white, decorationColor: Colors.white),
+                          color: couleur? Colors.white : Colors.black,
+                           decorationColor: Colors.white),
                       decoration: const InputDecoration(
                         hintText: 'Email',
                         hintStyle: TextStyle(color: Colors.black),

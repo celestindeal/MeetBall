@@ -3,9 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'accueil.dart';
 import 'appBar.dart';
-import 'main.dart';
 import 'models/Model_co.dart';
 
   var pseudo;

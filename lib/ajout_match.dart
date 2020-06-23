@@ -4,13 +4,12 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'appBar.dart';
-import 'drawer.dart';
 import 'footer.dart';
 import 'models/Model_co.dart';
 import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 
-String lieuchoisi = "choix du lieu";
+String lieuchoisi = "Choix du lieu";
 List<String> reportList = [
   "Not relevant",
   "Illegal",
@@ -18,8 +17,8 @@ List<String> reportList = [
   "Offensive",
   "Uncivil"
 ];
-String _date = "date";
-String _time = "heure";
+String _date = "Date";
+String _time = "Heure";
 var nombre_jo;
 var pseudo;
 var _controller = TextEditingController();
@@ -36,7 +35,7 @@ class _Ajout_matchState extends State<Ajout_match> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("choisi ton lieu"),
+            title: Text("Choisi ton lieu"),
             content: MultiSelectChip(reportList),
             actions: <Widget>[
               FlatButton(
@@ -57,7 +56,6 @@ class _Ajout_matchState extends State<Ajout_match> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        drawer: Darwer(),
         // backgroundColor: Colors.black54,
 
         body: Padding(
@@ -78,7 +76,7 @@ class _Ajout_matchState extends State<Ajout_match> {
                         minTime: DateTime.now(),
                         maxTime: DateTime(2030, 12, 31),
                         theme: DatePickerTheme(
-                            headerColor: Colors.red,
+                            headerColor: Colors.indigo,
                             // backgroundColor: Colors.blue,
                             itemStyle: TextStyle(
                                 color: Colors.black,
@@ -105,12 +103,12 @@ class _Ajout_matchState extends State<Ajout_match> {
                                   Icon(
                                     Icons.date_range,
                                     size: 18.0,
-                                    color: Colors.white,
+                                    color: Colors.black54,
                                   ),
                                   Text(
                                     " $_date",
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 18.0),
+                                        color: Colors.black54, fontSize: 18.0),
                                   ),
                                 ],
                               ),
@@ -120,12 +118,15 @@ class _Ajout_matchState extends State<Ajout_match> {
                       ],
                     ),
                   ),
-                  color: Colors.black,
+                  color: Colors.amber[900],
                 ),
                 /* SizedBox(
                 height: 20.0,
               ),
              */
+
+
+
                 RaisedButton(
                   padding: const EdgeInsets.all(0),
                   shape: RoundedRectangleBorder(
@@ -134,7 +135,7 @@ class _Ajout_matchState extends State<Ajout_match> {
                   onPressed: () {
                     DatePicker.showTimePicker(context,
                         theme: DatePickerTheme(
-                            headerColor: Colors.red,
+                            headerColor: Colors.indigo,
                             // backgroundColor: Colors.blue,
                             itemStyle: TextStyle(
                                 color: Colors.black,
@@ -162,12 +163,12 @@ class _Ajout_matchState extends State<Ajout_match> {
                                   Icon(
                                     Icons.access_time,
                                     size: 18.0,
-                                    color: Colors.white,
+                                    color: Colors.black54,
                                   ),
                                   Text(
                                     " $_time",
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 18.0),
+                                        color: Colors.black54, fontSize: 18.0),
                                   ),
                                 ],
                               ),
@@ -177,8 +178,12 @@ class _Ajout_matchState extends State<Ajout_match> {
                       ],
                     ),
                   ),
-                  color: Colors.black,
+                  color: Colors.amber[900],
                 ),
+
+
+
+
                 ScopedModelDescendant<GameModel>(
                     builder: (context, child, model) {
                   return ScopedModelDescendant<LoginModel>(
@@ -191,7 +196,7 @@ class _Ajout_matchState extends State<Ajout_match> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               RaisedButton(
-                                  child: Text("lieu"),
+                                  child: Text("Lieu"),
                                   onPressed: () async {
                                     await ScopedModel.of<TerrainModel>(context)
                                         .List();
@@ -207,15 +212,15 @@ class _Ajout_matchState extends State<Ajout_match> {
                                 maxLength: 2,
                                 cursorColor: Colors.black54,
                                 style: TextStyle(
-                                    color: Colors.white,
-                                    decorationColor: Colors.white),
+                                    color: Colors.black54,
+                                    decorationColor: Colors.black54),
                                 decoration: const InputDecoration(
-                                  hintText: 'nombre de joueurs',
-                                  hintStyle: TextStyle(color: Colors.white),
+                                  hintText: 'Nombre de joueurs',
+                                  hintStyle: TextStyle(color: Colors.black54),
                                 ),
                                 validator: (value) {
                                   if (value.isEmpty) {
-                                    return 'Please enter some text';
+                                    return 'Choisir un nombre de joueur(s)';
                                   }
                                   return null;
                                 },
@@ -235,9 +240,9 @@ class _Ajout_matchState extends State<Ajout_match> {
                                       await ScopedModel.of<GameModel>(context)
                                           .Match();
                                       setState(() {
-                                        lieuchoisi = "choix du lieu";
-                                        _date = "date";
-                                        _time = "heure";
+                                        lieuchoisi = "Choix du lieu";
+                                        _date = "Date";
+                                        _time = "Heure";
                                         nombre_jo = null;
                                         _controller.clear();
                                       });
@@ -248,7 +253,7 @@ class _Ajout_matchState extends State<Ajout_match> {
                                                   'Rencontre ajoutée')));
                                     }
                                   },
-                                  child: Text('proposer'),
+                                  child: Text('Proposer'),
                                 ),
                               ),
                             ],

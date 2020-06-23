@@ -3,16 +3,22 @@ import 'package:flutter/rendering.dart';
 import 'package:http/http.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'appBar.dart';
-import 'drawer.dart';
 import 'footer.dart';
 import 'main.dart';
 import 'models/Model_co.dart';
 
 String avis;
+var _controller = TextEditingController();
+class Avis extends StatefulWidget {
+  @override
+  _AvisState createState() => _AvisState();
+}
 
-class Avis extends StatelessWidget {
+class _AvisState extends State<Avis> {
   String pseudo;
+
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +26,6 @@ class Avis extends StatelessWidget {
         persistentFooterButtons: <Widget>[
                     Footer(),
                   ],
-        drawer: Darwer(),
         // backgroundColor: Colors.black54,
         body: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
             Widget>[
@@ -41,6 +46,7 @@ class Avis extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       TextFormField(
+                        controller: _controller,
                         maxLines: 5,
                         cursorColor: Colors.black54,
                         style: TextStyle(
@@ -67,8 +73,15 @@ class Avis extends StatelessWidget {
                                 pseudo =
                                     ScopedModel.of<LoginModel>(context).pseudo;
                                 envoie_avis(pseudo);
-                                Navigator.pushNamedAndRemoveUntil(context,
-                                    '/Profil', (Route<dynamic> route) => false);
+                                setState(() {
+                                    
+                                        _controller.clear();
+                                      });
+                                Scaffold.of(context).showSnackBar(
+                                          new SnackBar(
+                                              content: new Text(
+                                                  'Votre avis est envoyer')));
+                                            
                               }
                             },
                             child: Text('Envoyer'),

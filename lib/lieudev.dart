@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'appBar.dart';
-import 'drawer.dart';
 import 'footer.dart';
 import 'models/Model_img.dart';
 import 'models/Model_terrain.dart';
@@ -38,7 +37,6 @@ class _LieuDevState extends State<LieuDev> {
         persistentFooterButtons: <Widget>[
                     Footer(),
                   ],
-        drawer: Darwer(),
         body: ScopedModelDescendant<TerrainModel>(
             builder: (context, child, model) {
           return ListView.builder(

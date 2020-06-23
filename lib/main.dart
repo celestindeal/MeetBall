@@ -44,23 +44,29 @@ class _MainState extends State<Main> {
         Theme.of(context).brightness == Brightness.dark
             ? Brightness.light
             : Brightness.dark);
-            if(couleur){couleur=false;}else{couleur=true;}
-            Baselocal().mise_a_jour();
+    if (couleur) {
+      couleur = false;
+    } else {
+      couleur = true;
+    }
+    Baselocal().mise_a_jour();
   }
 
   Widget build(BuildContext context) {
     String mode = "false";
-    initState()async{
-       mode = await Baselocal().valColor();
-    if (mode =="true") {
-      couleur =true;
-     DynamicTheme.of(context).setBrightness(
-        Theme.of(context).brightness == Brightness.dark
-            ? Brightness.light
-            : Brightness.dark);
+    initState() async {
+      mode = await Baselocal().valColor();
+      if (mode == "true") {
+        setState(() {
+          couleur = true;
+        });
+
+        DynamicTheme.of(context).setBrightness(
+            Theme.of(context).brightness == Brightness.dark
+                ? Brightness.light
+                : Brightness.dark);
+      }
     }
-    }
-   
 
     return ScopedModel(
         model: ImgModel(),
@@ -73,7 +79,6 @@ class _MainState extends State<Main> {
                     child: DynamicTheme(
                         defaultBrightness: Brightness.light,
                         data: (brightness) => ThemeData(
-                              primarySwatch: Colors.indigo,
                               brightness: brightness,
                               textTheme: TextTheme(
                                 body1: TextStyle(fontSize: 10.0),
@@ -84,7 +89,7 @@ class _MainState extends State<Main> {
                                     decorationColor: Colors.white), // darwer
                                 display2: TextStyle(
                                   fontSize: 16.0,
-                                  color: Colors.white70,
+                                  color: Colors.white,
                                   decorationColor: Colors.white,
                                   fontWeight: FontWeight.w800,
                                   fontFamily: 'Roboto',
@@ -92,9 +97,10 @@ class _MainState extends State<Main> {
                                 ), //text stiler
                                 display3: TextStyle(
                                     fontSize: 16.0,
-                                    color: Colors.white,
+                                    color:
+                                          Colors.black,
                                     decorationColor:
-                                        Colors.white), //text Classe
+                                        Colors.black54), //text Class
                                 display4: TextStyle(
                                   fontSize: 32.0,
                                   inherit: false,
@@ -117,7 +123,8 @@ class _MainState extends State<Main> {
                                   Profil_renctontre(),
                               '/Terrain': (context) => Terrain(),
                               '/Terrainpro': (context) => TerrainPro(),
-                              '/Terrainrecherche': (context) => TerrainRecherche(),
+                              '/Terrainrecherche': (context) =>
+                                  TerrainRecherche(),
                               '/TerrainRencontre': (context) => TerrainRen(),
                               '/Ajout_terrain': (context) => Ajout_terrain(),
                               '/Ajout_match': (context) => Ajout_match(),
@@ -130,6 +137,4 @@ class _MainState extends State<Main> {
                           );
                         })))));
   }
-
-
 }

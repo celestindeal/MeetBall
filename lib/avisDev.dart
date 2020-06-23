@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'appBar.dart';
-import 'drawer.dart';
 import 'footer.dart';
 import 'main.dart';
 import 'models/Model_co.dart';
@@ -32,7 +31,6 @@ class _AvisDevState extends State<AvisDev> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        drawer: Darwer(),
         body:
             ScopedModelDescendant<LoginModel>(builder: (context, child, model) {
           return ListView.builder(

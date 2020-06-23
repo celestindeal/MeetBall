@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'appBar.dart';
-import 'drawer.dart';
 import 'footer.dart';
 import 'main.dart';
 import 'models/Model_co.dart';
@@ -27,7 +26,6 @@ class Profil_renctontre extends StatelessWidget {
                   persistentFooterButtons: <Widget>[
                     Footer(),
                   ],
-                  drawer: Darwer(),
                   // backgroundColor: Colors.black54,
                   body: Center(
                     child: CircularProgressIndicator(),
@@ -48,7 +46,6 @@ class Presentation extends StatelessWidget {
       persistentFooterButtons: <Widget>[
         Footer(),
       ],
-      drawer: Darwer(),
       // backgroundColor: Colors.black54,
       body: ScopedModelDescendant<LoginModel>(builder: (context, child, login) {
         return ScopedModelDescendant<GameModel>(

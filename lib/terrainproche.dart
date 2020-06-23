@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:meetballl/appBar.dart';
-import 'package:meetballl/drawer.dart';
 import 'package:meetballl/footer.dart';
 import 'package:meetballl/models/Model_img.dart';
 import 'package:meetballl/models/Model_match.dart';
@@ -16,7 +15,7 @@ import 'package:url_launcher/url_launcher.dart';
 double ditanceCourt = 1000000;
 String tkt = "location";
 List lieupro = [];
-
+bool chnagecouleur = false;
 class TerrainPro extends StatefulWidget {
   @override
   _TerrainProState createState() => _TerrainProState();
@@ -107,7 +106,6 @@ class _TerrainProState extends State<TerrainPro> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        drawer: Darwer(),
         body: FutureBuilder<dynamic>(
           future: terrain(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
@@ -138,19 +136,26 @@ class _AffImageState extends State<AffImage> {
         shrinkWrap: true,
         itemCount: 3,
         itemBuilder: (context, i) {
+          if (chnagecouleur) {
+                            chnagecouleur = false;
+                          } else {
+                            chnagecouleur = true;
+                          }
           return Center(
               child: Container(
                   padding: const EdgeInsets.all(5),
                   margin: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: Colors.grey,
+                     color: chnagecouleur
+                                          ? Colors.indigo
+                                          : Colors.amber[900],
                   ),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                            " Vous être à " +
+                            " Vous êtes à " +
                                 lieupro[i]['distance']
                                     .toStringAsFixed(3)
                                     .toString() +

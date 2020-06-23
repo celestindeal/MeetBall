@@ -9,7 +9,6 @@ import 'package:photo_view/photo_view.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'accueil.dart';
 import 'appBar.dart';
-import 'drawer.dart';
 import 'footer.dart';
 import 'main.dart';
 import 'models/Model_co.dart';
@@ -18,6 +17,7 @@ import 'models/Model_match.dart';
 
 var now = new DateTime.now();
 bool rencontre = true;
+bool chnagecouleur = false;
 
 class Profil extends StatefulWidget {
   @override
@@ -27,7 +27,6 @@ class Profil extends StatefulWidget {
 class _ProfilState extends State<Profil> {
   @override
   Widget build(BuildContext context) {
-    
     return ScopedModelDescendant<LoginModel>(builder: (context, child, model) {
       return Container(
         child: model.loging == false
@@ -35,7 +34,6 @@ class _ProfilState extends State<Profil> {
                 persistentFooterButtons: <Widget>[
                     Footer(),
                   ],
-                drawer: Darwer(),
                 body: Center(
                   child: CircularProgressIndicator(),
                 ))
@@ -98,7 +96,6 @@ class _PresentationState extends State<Presentation> {
     mis_ajour() {
       affImage = false;
     }
-    
 
     Future<void> _choisirimage(BuildContext context) {
       bool aff = true;
@@ -121,12 +118,12 @@ class _PresentationState extends State<Presentation> {
 
                               image = await ImagePicker.pickImage(
                                   source: ImageSource.gallery);
-                                  Navigator.of(context).pop();
+                              Navigator.of(context).pop();
                               List<int> imageBytes = image.readAsBytesSync();
                               base64Image = await base64Encode(imageBytes);
                               await ScopedModel.of<LoginModel>(context)
                                   .ChangeImage(base64Image);
-                              
+
                               mis_ajour();
                             },
                           ),
@@ -139,12 +136,12 @@ class _PresentationState extends State<Presentation> {
                               });
                               image = await ImagePicker.pickImage(
                                   source: ImageSource.camera);
-                                  Navigator.of(context).pop();
+                              Navigator.of(context).pop();
                               List<int> imageBytes = image.readAsBytesSync();
                               base64Image = base64Encode(imageBytes);
                               await ScopedModel.of<LoginModel>(context)
                                   .ChangeImage(base64Image);
-                              
+
                               mis_ajour();
                             },
                           )
@@ -161,7 +158,6 @@ class _PresentationState extends State<Presentation> {
 
     return Scaffold(
         appBar: headerNav(context),
-        drawer: Darwer(),
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
@@ -182,8 +178,8 @@ class _PresentationState extends State<Presentation> {
               .millisecondsSinceEpoch;
           int ageAnne = ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
           return Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -193,98 +189,130 @@ class _PresentationState extends State<Presentation> {
                         return showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return 
-                              affImage? Container(
+                              return affImage
+                                  ? Container(
                                       child: PhotoView(
-                                imageProvider: NetworkImage(model.img),
-                              ))
-                              :
-                              Container(
+                                      imageProvider: NetworkImage(model.img),
+                                    ))
+                                  : Container(
                                       child: PhotoView(
-                                imageProvider: FileImage(image),
-                              ));
+                                      imageProvider: FileImage(image),
+                                    ));
                             });
                       },
                       onLongPress: () {
                         _choisirimage(context);
                       },
-                      child: Container(
-                          width: MediaQuery.of(context).size.width / 3,
-                          height: MediaQuery.of(context).size.height / 3,
-                          padding: const EdgeInsets.all(5),
-                          margin: const EdgeInsets.all(20),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color:couleur? Colors.red:Colors.green,
-                          ),
-                          child:
-                              affImage // je ne sais pas recharger Image.network alors j'affiche l'image file a la place
-                                  ? Image.network(
-                                      model.img,
-                                      excludeFromSemantics: true,
-                                    )
-                                  : Image.file(image)),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(model.img),
+                        radius: MediaQuery.of(context).size.width / 6,
+                      ),
+
+                      // Container(
+                      //     width: MediaQuery.of(context).size.width / 3,
+                      //     height: MediaQuery.of(context).size.width / 3,
+                      //     padding: const EdgeInsets.all(5),
+                      //     margin: const EdgeInsets.all(20),
+                      //     decoration: new BoxDecoration(
+                      //       color: Colors.orange,
+                      //       shape: BoxShape.circle,
+                      //     ),
+                      //     child:
+                      //         affImage // je ne sais pas recharger Image.network alors j'affiche l'image file a la place
+                      //             ? Image.network(
+                      //                 model.img,
+                      //                 excludeFromSemantics: true,
+                      //                 height: MediaQuery.of(context).size.width / 5,
+                      //                 width: MediaQuery.of(context).size.width / 5,
+                      //               )
+                      //             : Image.file(image)),
                     ),
                     Container(
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
-                            GestureDetector(
-                              onTap: () {
-                                model.affmodif = true;
-                                Navigator.pushNamedAndRemoveUntil(context,
-                                    '/modif', (Route<dynamic> route) => false);
-                              },
-                              child: Container(
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(model.pseudo,
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                      Text(model.email,
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                      Text(model.password,
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                      Text(ageAnne.toString() + " ans",
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                      Text(model.club,
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                      Text(model.niveau,
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                    ]),
+                            Container(
+                              width: MediaQuery.of(context).size.width / 1.8,
+                              height: MediaQuery.of(context).size.height / 3,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                          height: 50,
+                                        ),
+                                        Text(
+                                          model.pseudo,
+                                          style: TextStyle(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                              decorationColor: Colors.white),
+                                        ),
+                                        Container(
+                                          height: 10,
+                                        ),
+                                        Text(model.email,
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .display3),
+                                        Text(ageAnne.toString() + " ans",
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .display3),
+                                        Text(model.club,
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .display3),
+                                        Text(model.niveau,
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .display3),
+                                        Container(
+                                          height: 10,
+                                        ),
+                                        Text(model.description,
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .display3),
+                                      ]),
+                                ],
                               ),
-                            )
+                            ),
                           ]),
                     ),
                   ],
                 ),
-                Text("Description",
-                    softWrap: true,
-                    style: Theme.of(context).textTheme.display2),
-                Text(model.description,
-                    softWrap: true,
-                    style: Theme.of(context).textTheme.display3),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
+                        child: Text('Modifier le profil'),
+                        onPressed: () {
+                          model.affmodif = true;
+                          Navigator.pushNamedAndRemoveUntil(context, '/modif',
+                              (Route<dynamic> route) => false);
+                        }),
+                    RaisedButton(
+                        child: Text("organiser une rencontre"),
+                        onPressed: () {
+                          Navigator.pushNamedAndRemoveUntil(context,
+                              '/Ajout_match', (Route<dynamic> route) => false);
+                        }),
+                  ],
+                ),
+                Divider(color: Colors.grey[300]),
                 Center(
                     child: Text("Rencontre à venir",
                         textAlign: TextAlign.center,
@@ -292,10 +320,15 @@ class _PresentationState extends State<Presentation> {
                         style: Theme.of(context).textTheme.display4)),
                 rencontre
                     ? ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                        physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: model.participation.length,
                         itemBuilder: (context, i) {
+                          if (chnagecouleur) {
+                            chnagecouleur = false;
+                          } else {
+                            chnagecouleur = true;
+                          }
                           return GestureDetector(
                             onTap: () async {
                               ScopedModel.of<GameModel>(context).lieu =
@@ -317,7 +350,9 @@ class _PresentationState extends State<Presentation> {
                                     margin: const EdgeInsets.all(20),
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20.0),
-                                      color: Colors.grey,
+                                      color: chnagecouleur
+                                          ? Colors.indigo
+                                          : Colors.amber[900],
                                     ),
                                     child: Column(
                                         mainAxisAlignment:

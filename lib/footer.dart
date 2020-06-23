@@ -1,25 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
+import 'models/Model_co.dart';
+import 'models/Model_img.dart';
+import 'models/Model_match.dart';
+import 'models/Model_terrain.dart';
 
-
-
-          
 class Footer extends StatelessWidget {
-
-   @override
+  @override
   Widget build(BuildContext context) {
-     return  
-               
-                     Text(" Version bêta",
-                    style: TextStyle( color:Colors.red,                         
-                                  fontSize: 28.0, 
-                                  decorationColor:  Colors.white,
-                                  fontWeight: FontWeight.w800,
-                                  fontFamily: 'Roboto',
-                                  letterSpacing: 0.5,  ),
-              );
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+         
+          IconButton(
+              icon:Image.asset('img/icon.jpg',
+              width: 40,
+              height: 40,) ,
               
-  
-     
+              onPressed: () {
+                ScopedModel.of<LoginModel>(context).Participation();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/Profil', (Route<dynamic> route) => false);
+              }),
+          IconButton(
+              icon: Icon(
+                Icons.people,
+              ),
+              onPressed: () {
+                ScopedModel.of<GameModel>(context).Match();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/Match', (Route<dynamic> route) => false);
+              }),
+          IconButton(
+              icon: Icon(
+                Icons.add_location ,
+              ),
+              onPressed: () {
+                ScopedModel.of<ImgModel>(context).Img();
+                ScopedModel.of<TerrainModel>(context).Terrain();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/Terrain', (Route<dynamic> route) => false);
+              }),
+        ],
+      ),
+    );
   }
-  }
+}
