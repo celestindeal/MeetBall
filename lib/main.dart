@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:meetballl/db.dart';
 import 'package:meetballl/profil.dart';
 import 'package:meetballl/profil_rencontre.dart';
@@ -8,9 +9,7 @@ import 'package:meetballl/terrainrecherche.dart';
 import 'package:meetballl/terrainrencontre.dart';
 import 'package:meetballl/test.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:splashscreen/splashscreen.dart';
 import 'Ajout_terrain.dart';
-import 'PushNotificationManager.dart';
 import 'accueil.dart';
 import 'ajout_match.dart';
 import 'avis.dart';
@@ -37,6 +36,7 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
+  
   @override
   Brightness _brightness = Brightness.light;
   changeBrightness() {
@@ -53,6 +53,10 @@ class _MainState extends State<Main> {
   }
 
   Widget build(BuildContext context) {
+     SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
     String mode = "false";
     initState() async {
       mode = await Baselocal().valColor();

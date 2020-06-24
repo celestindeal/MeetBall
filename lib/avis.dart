@@ -31,11 +31,11 @@ class _AvisState extends State<Avis> {
             Widget>[
           Center(
             child: Text("Qu'aimerais-tu avoir de plus sur cette application?",
-                style: Theme.of(context).textTheme.display2),
+                style: Theme.of(context).textTheme.display3),
           ),
           Center(
             child: Text("N'hésites pas à nous donner des idées ci-dessous !",
-                style: Theme.of(context).textTheme.display2),
+                style: Theme.of(context).textTheme.display3),
           ),
           Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -48,11 +48,11 @@ class _AvisState extends State<Avis> {
                       TextFormField(
                         controller: _controller,
                         maxLines: 5,
-                        cursorColor: Colors.black54,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                            color: Colors.white, decorationColor: Colors.white),
+                            color: Colors.black, decorationColor: Colors.black),
                         decoration: const InputDecoration(
-                          hintStyle: TextStyle(color: Colors.white),
+                          hintStyle: TextStyle(color: Colors.black),
                         ),
                         validator: (value) {
                           if (value.isEmpty) {

@@ -88,7 +88,7 @@ class Presentation extends StatelessWidget {
                       margin: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.grey,
+                        color: Colors.indigo,
                       ),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -205,7 +205,7 @@ class Presentation extends StatelessWidget {
                       margin: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.grey,
+                        color: Colors.indigo,
                       ),
                       child: ScopedModelDescendant<LoginModel>(
                           builder: (context, child, login) {
@@ -276,80 +276,80 @@ class Presentation extends StatelessWidget {
                       }),
                     ),
 // proposer une participation
-                    Center(
-                        child: Text("Tu veux participer",
-                            textAlign: TextAlign.center,
-                            softWrap: true,
-                            style: Theme.of(context).textTheme.display4)),
-                    Form(
-                      key: _formKey,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          login.visiteur
-                              ? login.boParticipation
-                                  ? Text(
-                                      "tu partcipe déja à cette rencontre et tu as inviter " +
-                                          login.nombreIviter.toString() +
-                                          " personne(s)",
-                                      textAlign: TextAlign.center)
-                                  : Text(
-                                      "si tu veux participer à cette renconte tu peux  mes un joueur et valide et si tu est avec t'es pote note nombre que vous être ",
-                                      textAlign: TextAlign.center)
-                              : Text(
-                                  "c'est toi qui à proposer cette rencontre si ça à changer combien personne invite-tu ",
-                                  textAlign: TextAlign.center),
-                          TextFormField(
-                            keyboardType: TextInputType.number,
-                            maxLength: 2,
-                            cursorColor: Colors.black54,
-                            style: TextStyle(
-                                color: Colors.white,
-                                decorationColor: Colors.white),
-                            decoration: const InputDecoration(
-                              hintText: 'combien être vous',
-                              hintStyle: TextStyle(color: Colors.white),
-                            ),
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
-                            onChanged: (value) {
-                              nombre_inviter = int.parse(value);
-                            },
-                          ),
-                          Center(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 16.0),
-                              child: RaisedButton(
-                                onPressed: () async {
-                                  if (_formKey.currentState.validate()) {
-                                    await ScopedModel.of<GameModel>(context)
-                                        .Participation(
-                                      nombre_inviter,
-                                      login.visiteur,
-                                      login.pseudo,
-                                    );
-                                    ScopedModel.of<LoginModel>(context)
-                                        .Participation();
-                                    model.afficher = false;
-                                    ScopedModel.of<GameModel>(context).Match();
-                                    Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        '/Match',
-                                        (Route<dynamic> route) => false);
-                                  }
-                                },
-                                child: Text('comfirmer'),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    // Center(
+                    //     child: Text("Tu veux participer",
+                    //         textAlign: TextAlign.center,
+                    //         softWrap: true,
+                    //         style: Theme.of(context).textTheme.display4)),
+                    // Form(
+                    //   key: _formKey,
+                    //   child: Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     children: <Widget>[
+                    //       login.visiteur
+                    //           ? login.boParticipation
+                    //               ? Text(
+                    //                   "tu partcipe déja à cette rencontre et tu as inviter " +
+                    //                       login.nombreIviter.toString() +
+                    //                       " personne(s)",
+                    //                   textAlign: TextAlign.center)
+                    //               : Text(
+                    //                   "si tu veux participer à cette renconte tu peux  mes un joueur et valide et si tu est avec t'es pote note nombre que vous être ",
+                    //                   textAlign: TextAlign.center)
+                    //           : Text(
+                    //               "c'est toi qui à proposer cette rencontre si ça à changer combien personne invite-tu ",
+                    //               textAlign: TextAlign.center),
+                    //       TextFormField(
+                    //         keyboardType: TextInputType.number,
+                    //         maxLength: 2,
+                    //         cursorColor: Colors.black54,
+                    //         style: TextStyle(
+                    //             color: Colors.white,
+                    //             decorationColor: Colors.white),
+                    //         decoration: const InputDecoration(
+                    //           hintText: 'combien être vous',
+                    //           hintStyle: TextStyle(color: Colors.white),
+                    //         ),
+                    //         validator: (value) {
+                    //           if (value.isEmpty) {
+                    //             return 'Please enter some text';
+                    //           }
+                    //           return null;
+                    //         },
+                    //         onChanged: (value) {
+                    //           nombre_inviter = int.parse(value);
+                    //         },
+                    //       ),
+                    //       Center(
+                    //         child: Padding(
+                    //           padding:
+                    //               const EdgeInsets.symmetric(vertical: 16.0),
+                    //           child: RaisedButton(
+                    //             onPressed: () async {
+                    //               if (_formKey.currentState.validate()) {
+                    //                 await ScopedModel.of<GameModel>(context)
+                    //                     .Participation(
+                    //                   nombre_inviter,
+                    //                   login.visiteur,
+                    //                   login.pseudo,
+                    //                 );
+                    //                 ScopedModel.of<LoginModel>(context)
+                    //                     .Participation();
+                    //                 model.afficher = false;
+                    //                 ScopedModel.of<GameModel>(context).Match();
+                    //                 Navigator.pushNamedAndRemoveUntil(
+                    //                     context,
+                    //                     '/Match',
+                    //                     (Route<dynamic> route) => false);
+                    //               }
+                    //             },
+                    //             child: Text('comfirmer'),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
 
 //affichage des commentaires
                     Column(
@@ -366,7 +366,7 @@ class Presentation extends StatelessWidget {
                               return Column(
                                 children: <Widget>[
                                   Divider(
-                                    color: Colors.grey,
+                                    color: Colors.indigo,
                                   ),
                                   Row(
                                     mainAxisAlignment:

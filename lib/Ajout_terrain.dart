@@ -138,7 +138,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                             ville = currentLocation.longitude.toString();
 
                           },
-                          child: Icon(Icons.gps_fixed),
+                          //child: Icon(Icons.gps_fixed),
                         ),
                       ),
                       validator: (String value) {
