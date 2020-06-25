@@ -45,9 +45,6 @@ class _AccueilState extends State<Accueil> {
     }
     return Scaffold(
       // appBar: headerNav(context),
-      persistentFooterButtons: <Widget>[
-        Footer(),
-      ],
 
       // backgroundColor: Colors.black54,
       body: Center(

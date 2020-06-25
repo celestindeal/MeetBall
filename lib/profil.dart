@@ -252,6 +252,16 @@ class _PresentationState extends State<Presentation> {
                                         Container(
                                           height: 10,
                                         ),
+                                        Text(model.nom,
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .display3),
+                                                Text(model.prenom,
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .display3),
                                         Text(model.email,
                                             softWrap: true,
                                             style: Theme.of(context)

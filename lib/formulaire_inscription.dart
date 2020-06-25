@@ -7,7 +7,8 @@ import 'appBar.dart';
 import 'models/Model_co.dart';
 
   var pseudo;
-  var telephone = " ";
+  var nom = " ";
+  var prenom = " ";
   var email;
   var password;
   var jour;

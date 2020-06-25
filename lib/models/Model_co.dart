@@ -11,7 +11,8 @@ class LoginModel extends Model {
   var img = "";
   var pseudo = "";
   var email = "";
-  var numero = "";
+  var nom = "";
+  var prenom = "";
   var password = "";
   var age = "";
   var club = "";
@@ -58,7 +59,8 @@ changeMode(){
     img = "";
     pseudo = "";
     email = "";
-    numero = "";
+    nom = "";
+    prenom = "";
     password = "";
     age = "";
     club = "";
@@ -76,7 +78,8 @@ changeMode(){
           img = data[n]['photo'];
           pseudo = data[n]['pseudo'];
           email = data[n]['email'];
-          numero = data[n]['numero'];
+          nom = data[n]['nom'];
+          prenom = data[n]['prenom'];
           password = data[n]['password'];
           age = data[n]['age'];
           club = data[n]['club'];
@@ -150,7 +153,8 @@ changeMode(){
   Future<String> Postinscritpion(
       String pseudo,
       String email,
-      String telephone,
+      String nom,
+      String prenom,
       String password,
       String jour,
       String club,
@@ -159,7 +163,7 @@ changeMode(){
       String image) async {
     String url = 'http://51.210.103.151/post_inscription.php';
     String json =
-        '{"pseudo":"$pseudo","email":"$email","telephone":"$telephone","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","photo":"$image"}'; // make POST request
+        '{"pseudo":"$pseudo","email":"$email","nom":"$nom","prenom":"$prenom","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","photo":"$image"}'; // make POST request
     Response response = await post(url, body: json);
     String body = response.body;
     Connexion(email, password);
@@ -171,7 +175,8 @@ changeMode(){
     img = "";
     pseudo = "";
     email = "";
-    numero = "";
+    nom = "";
+    prenom = "";
     password = "";
     age = "";
     club = "";
@@ -185,24 +190,25 @@ changeMode(){
   Future<String> Modif(
       String pseudo,
       String email,
-      String telephone,
+      String nom,
+      String prenom,
       String password,
       String jour,
       String club,
       String niveaux,
       String description,
-      String photo,
       String id) async {
     String url = 'http://51.210.103.151/post_modif.php';
     int idd = int.parse(id);
     affmodif = false;
     String json =
-        '{"pseudo":"$pseudo","email":"$email","telephone":"$telephone","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","lieu_photo":"$img","photo":"$photo","id":"$idd"}'; // make POST request
-  
+        '{"pseudo":"$pseudo","email":"$email","nom":"$nom","prenom":"$prenom","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","id":"$idd"}'; // make POST request
+    print(json);
     Response response = await post(url, body: json);
     String body = response.body;
     Connexion(email, password);
     affmodif = false;
+    print(body);
     return body;
   }
 

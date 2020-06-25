@@ -11,7 +11,8 @@ import 'main.dart';
 import 'models/Model_co.dart';
 
 var pseudo;
-var telephone = " ";
+var nom = " ";
+var prenom = " ";
 var email;
 var password;
 String _date = "date de naissance";
@@ -93,7 +94,9 @@ class _ModfState extends State<Modif> {
                     builder: (context, child, model) {
                   if (init == true) {
                     pseudo = model.pseudo;
-                    telephone = model.numero;
+                    nom = model.nom;
+                    prenom = model.prenom;
+
                     email = model.email;
                     password = model.password;
                     _date = model.age;
@@ -114,12 +117,12 @@ class _ModfState extends State<Modif> {
                           initialValue: model.pseudo,
                           cursorColor: Colors.black54,
                           style: TextStyle(
-                              color: Colors.white,
-                              decorationColor: Colors.white),
+                              color: Colors.black54,
+                              decorationColor: Colors.black54),
                           decoration: const InputDecoration(
                             hintText: 'Pseudo',
                             hintStyle:
-                                TextStyle(color: Colors.white, fontSize: 18.0),
+                                TextStyle(color: Colors.black54, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -131,16 +134,61 @@ class _ModfState extends State<Modif> {
                             pseudo = value;
                           },
                         ),
+
+
+TextFormField(
+                          initialValue: model.nom,
+                          cursorColor: Colors.black54,
+                          style: TextStyle(
+                              color: Colors.black54,
+                              decorationColor: Colors.black54),
+                          decoration: const InputDecoration(
+                            hintText: 'Nom',
+                            hintStyle:
+                                TextStyle(color: Colors.black54, fontSize: 18.0),
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            nom = value;
+                          },
+                        ),TextFormField(
+                          initialValue: model.prenom,
+                          cursorColor: Colors.black54,
+                          style: TextStyle(
+                              color: Colors.black54,
+                              decorationColor: Colors.black54),
+                          decoration: const InputDecoration(
+                            hintText: 'Prénom',
+                            hintStyle:
+                                TextStyle(color: Colors.black54, fontSize: 18.0),
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          onChanged: (value) {
+                            prenom = value;
+                          },
+                        ),
+
+
                         TextFormField(
                           initialValue: model.email,
                           cursorColor: Colors.black54,
                           style: TextStyle(
-                              color: Colors.white,
-                              decorationColor: Colors.white),
+                              color: Colors.black54,
+                              decorationColor: Colors.black54),
                           decoration: const InputDecoration(
                             hintText: 'email',
                             hintStyle:
-                                TextStyle(color: Colors.white, fontSize: 18.0),
+                                TextStyle(color: Colors.black54, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -156,12 +204,12 @@ class _ModfState extends State<Modif> {
                           initialValue: model.password,
                           cursorColor: Colors.black54,
                           style: TextStyle(
-                              color: Colors.white,
-                              decorationColor: Colors.white),
+                              color: Colors.black54,
+                              decorationColor: Colors.black54),
                           decoration: const InputDecoration(
                             hintText: 'password',
                             hintStyle:
-                                TextStyle(color: Colors.white, fontSize: 18.0),
+                                TextStyle(color: Colors.black54, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -173,6 +221,7 @@ class _ModfState extends State<Modif> {
                             password = value;
                           },
                         ),
+                        Container(height: 10,),
                         RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0)),
@@ -183,7 +232,7 @@ class _ModfState extends State<Modif> {
                                 minTime: DateTime(1900, 0, 0),
                                 maxTime: DateTime.now(),
                                 theme: DatePickerTheme(
-                                    headerColor: Colors.red,
+                                    headerColor: Colors.indigo,
                                     // backgroundColor: Colors.blue,
                                     itemStyle: TextStyle(
                                         color: Colors.black,
@@ -212,12 +261,12 @@ class _ModfState extends State<Modif> {
                                           Icon(
                                             Icons.date_range,
                                             size: 18.0,
-                                            color: Colors.teal,
+                                            color: Colors.black54,
                                           ),
                                           Text(
                                             " $_date",
                                             style: TextStyle(
-                                                color: Colors.white,
+                                                color: Colors.black54,
                                                 fontSize: 18.0),
                                           ),
                                         ],
@@ -228,7 +277,7 @@ class _ModfState extends State<Modif> {
                               ],
                             ),
                           ),
-                          color: Colors.black,
+                          color: Colors.amber[900],
                         ),
                         /* SizedBox(
                 height: 20.0,
@@ -238,12 +287,12 @@ class _ModfState extends State<Modif> {
                           initialValue: model.club,
                           cursorColor: Colors.black54,
                           style: TextStyle(
-                              color: Colors.white,
-                              decorationColor: Colors.white),
+                              color: Colors.black54,
+                              decorationColor: Colors.black54),
                           decoration: const InputDecoration(
                             hintText: 'club',
                             hintStyle:
-                                TextStyle(color: Colors.white, fontSize: 18.0),
+                                TextStyle(color: Colors.black54, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -259,12 +308,12 @@ class _ModfState extends State<Modif> {
                           initialValue: model.niveau,
                           cursorColor: Colors.black54,
                           style: TextStyle(
-                              color: Colors.white,
-                              decorationColor: Colors.white),
+                              color: Colors.black54,
+                              decorationColor: Colors.black54),
                           decoration: const InputDecoration(
                             hintText: 'niveaux',
                             hintStyle:
-                                TextStyle(color: Colors.white, fontSize: 18.0),
+                                TextStyle(color: Colors.black54, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -281,12 +330,12 @@ class _ModfState extends State<Modif> {
                           maxLines: 5,
                           cursorColor: Colors.black54,
                           style: TextStyle(
-                              color: Colors.white,
-                              decorationColor: Colors.white),
+                              color: Colors.black54,
+                              decorationColor: Colors.black54),
                           decoration: const InputDecoration(
                             hintText: 'description',
                             hintStyle:
-                                TextStyle(color: Colors.white, fontSize: 18.0),
+                                TextStyle(color: Colors.black54, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -330,13 +379,13 @@ class _ModfState extends State<Modif> {
                                   ScopedModel.of<LoginModel>(context).Modif(
                                       pseudo,
                                       email,
-                                      telephone,
+                                      nom,
+                                      prenom,
                                       password,
                                       _date,
                                       club,
                                       niveaux,
                                       description,
-                                      base64Image,
                                       id);
                                   Navigator.pushNamedAndRemoveUntil(
                                       context,

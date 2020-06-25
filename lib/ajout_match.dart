@@ -125,7 +125,7 @@ class _Ajout_matchState extends State<Ajout_match> {
               ),
              */
 
-
+Container(height: 10,),
 
                 RaisedButton(
                   padding: const EdgeInsets.all(0),
@@ -228,32 +228,34 @@ class _Ajout_matchState extends State<Ajout_match> {
                                   nombre_jo = value;
                                 },
                               ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 16.0),
-                                child: RaisedButton(
-                                  onPressed: () async {
-                                    if (_formKey.currentState.validate()) {
-                                      await ScopedModel.of<GameModel>(context)
-                                          .Ajout_match(lieuchoisi, _date, _time,
-                                              nombre_jo, pseudo);
-                                      await ScopedModel.of<GameModel>(context)
-                                          .Match();
-                                      setState(() {
-                                        lieuchoisi = "Choix du lieu";
-                                        _date = "Date";
-                                        _time = "Heure";
-                                        nombre_jo = null;
-                                        _controller.clear();
-                                      });
+                              Center(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 16.0),
+                                  child: RaisedButton(
+                                    onPressed: () async {
+                                      if (_formKey.currentState.validate()) {
+                                        await ScopedModel.of<GameModel>(context)
+                                            .Ajout_match(lieuchoisi, _date, _time,
+                                                nombre_jo, pseudo);
+                                        await ScopedModel.of<GameModel>(context)
+                                            .Match();
+                                        setState(() {
+                                          lieuchoisi = "Choix du lieu";
+                                          _date = "Date";
+                                          _time = "Heure";
+                                          nombre_jo = null;
+                                          _controller.clear();
+                                        });
 
-                                      Scaffold.of(context).showSnackBar(
-                                          new SnackBar(
-                                              content: new Text(
-                                                  'Rencontre ajoutée')));
-                                    }
-                                  },
-                                  child: Text('Proposer'),
+                                        Scaffold.of(context).showSnackBar(
+                                            new SnackBar(
+                                                content: new Text(
+                                                    'Rencontre ajoutée')));
+                                      }
+                                    },
+                                    child: Text('Proposer'),
+                                  ),
                                 ),
                               ),
                             ],

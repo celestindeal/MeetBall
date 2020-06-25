@@ -115,27 +115,44 @@ class _InscriptionState extends State<Inscription> {
                           pseudo = value;
                         },
                       ),
-                      /*   TextFormField(
-                        keyboardType: TextInputType.number,
-                        maxLength: 10,
+
+                      TextFormField(
                         cursorColor: Colors.black54,
                         style: TextStyle(
                             color: Colors.white, decorationColor: Colors.white),
                         decoration: const InputDecoration(
-                          hintText: 'telephone',
-                          hintStyle: TextStyle(color: Colors.white),
+                          hintText: 'Nom',
+                          hintStyle:
+                              TextStyle(color: Colors.white, fontSize: 18.0),
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'Please enter some text';
+                            return 'Nom manquant ';
                           }
-                          return null;
                         },
                         onChanged: (value) {
-                          telephone = value;
+                          nom = value;
                         },
                       ),
-                     */
+
+                      TextFormField(
+                        cursorColor: Colors.black54,
+                        style: TextStyle(
+                            color: Colors.white, decorationColor: Colors.white),
+                        decoration: const InputDecoration(
+                          hintText: 'Prénom',
+                          hintStyle:
+                              TextStyle(color: Colors.white, fontSize: 18.0),
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Prénom manquant ';
+                          }
+                        },
+                        onChanged: (value) {
+                          prenom = value;
+                        },
+                      ),
                       TextFormField(
                         cursorColor: Colors.black54,
                         style: TextStyle(
@@ -289,72 +306,6 @@ class _InscriptionState extends State<Inscription> {
                         ),
                         color: Colors.black,
                       ),
-                      /* SizedBox(
-                height: 20.0,
-              ),
-               
-                      Divider(
-                        color: Colors.grey,
-                        height: 1.0,
-                      ),
-                      TextFormField(
-                        cursorColor: Colors.black54,
-                        style: TextStyle(
-                            color: Colors.white, decorationColor: Colors.white),
-                        decoration: const InputDecoration(
-                          hintText: 'club',
-                          hintStyle:
-                              TextStyle(color: Colors.white, fontSize: 18.0),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          club = value;
-                        },
-                      ),
-                      TextFormField(
-                        cursorColor: Colors.black54,
-                        style: TextStyle(
-                            color: Colors.white, decorationColor: Colors.white),
-                        decoration: const InputDecoration(
-                          hintText: 'niveaux',
-                          hintStyle:
-                              TextStyle(color: Colors.white, fontSize: 18.0),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          niveaux = value;
-                        },
-                     ),
-                      TextFormField(
-                        maxLines: 5,
-                        cursorColor: Colors.black54,
-                        style: TextStyle(
-                            color: Colors.white, decorationColor: Colors.white),
-                        decoration: const InputDecoration(
-                          hintText: 'description',
-                          hintStyle:
-                              TextStyle(color: Colors.white, fontSize: 18.0),
-                        ),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please enter some text';
-                          }
-                          return null;
-                        },
-                        onChanged: (value) {
-                          description = value;
-                        },
-                      ),*/
                       Center(
                           child: RaisedButton(
                         onPressed: () {
@@ -385,24 +336,24 @@ class _InscriptionState extends State<Inscription> {
                       ),
                       FlatButton(
                           child: Text(
-                            "Accepter les conditions générales d'utilisations",
+                            "Conditions générales d'utilisations",
                             softWrap: true,
                             style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.white70,
-                                  decorationColor: Colors.white,
-                                  fontWeight: FontWeight.w800,
-                                  fontFamily: 'Roboto',
-                                  letterSpacing: 0.5,
-                                  decoration: TextDecoration.underline,
-                                ),
+                              fontSize: 16.0,
+                              color: Colors.white70,
+                              decorationColor: Colors.white,
+                              fontWeight: FontWeight.w800,
+                              fontFamily: 'Roboto',
+                              letterSpacing: 0.5,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                           onPressed: () async {
                             if (await canLaunch(
                                 "http://51.210.103.151/conditions.php")) {
                               await launch(
                                   "http://51.210.103.151/conditions.php");
-                            } 
+                            }
                           }),
                       Center(
                         child: CheckboxListTile(
@@ -444,7 +395,8 @@ class _InscriptionState extends State<Inscription> {
                               if (_formKey.currentState.validate() &&
                                   checkboxValue == true) {
                                 pseudo = pseudo;
-                                telephone = telephone;
+                                nom = nom;
+                                prenom = prenom;
                                 email = email;
                                 password = password;
                                 club = club;
@@ -454,7 +406,8 @@ class _InscriptionState extends State<Inscription> {
                                     .Postinscritpion(
                                         pseudo,
                                         email,
-                                        telephone,
+                                        nom,
+                                        prenom,
                                         password,
                                         _date,
                                         club,
