@@ -44,7 +44,6 @@ class _AccueilState extends State<Accueil> {
      boinit = false;
     }
     return Scaffold(
-      // appBar: headerNav(context),
 
       // backgroundColor: Colors.black54,
       body: Center(
