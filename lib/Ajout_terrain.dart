@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
@@ -18,6 +19,8 @@ String ville;
 int nombre_terrain;
 String sol = " ";
 String ouverture = " ";
+bool afficherimage = false;
+int n = 0;
 var _controller1 = TextEditingController();
 var _controller2 = TextEditingController();
 var _controller3 = TextEditingController();
@@ -33,11 +36,10 @@ class Ajout_terrain extends StatefulWidget {
 class _Ajout_terrainState extends State<Ajout_terrain> {
   final _formKey = GlobalKey<FormState>();
 
-  File image;
-  String base64Image = "";
-  bool afficher = false;
+  List<File> image = [];
+  List base64Image = [];
 
-  Future<void> _choisirimage(BuildContext context) {
+  Future<void> _choisirimage(BuildContext contex) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -48,30 +50,40 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                 GestureDetector(
                   child: Text("galerie"),
                   onTap: () async {
-                    Navigator.of(context).pop();
-                    image = await ImagePicker.pickImage(
-                        source: ImageSource.gallery);
+                    image.add(await ImagePicker.pickImage(
+                        source: ImageSource.gallery));
+                    print("test");
                     setState(() {
-                      image = image;
-                      afficher = true;
+                      image;
+                      afficherimage = true;
                     });
-                    List<int> imageBytes = image.readAsBytesSync();
-                    base64Image = base64Encode(imageBytes);
+                    print("test");
+                    List<int> imageBytes =
+                        image[image.length - 1].readAsBytesSync();
+                    print("test");
+                    base64Image.add(base64Encode(imageBytes));
+                    print("test");
+                    Navigator.of(context).pop();
                   },
                 ),
                 Padding(padding: EdgeInsets.all(8.0)),
                 GestureDetector(
                   child: Text("caméra"),
                   onTap: () async {
-                    Navigator.of(context).pop();
-                    image =
-                        await ImagePicker.pickImage(source: ImageSource.camera);
+                    image.add(await ImagePicker.pickImage(
+                        source: ImageSource.camera));
+                    print("test");
                     setState(() {
-                      image = image;
-                      afficher = true;
+                      image;
+                      afficherimage = true;
                     });
-                    List<int> imageBytes = image.readAsBytesSync();
-                    base64Image = base64Encode(imageBytes);
+                    print("test");
+                    List<int> imageBytes =
+                        image[image.length - 1].readAsBytesSync();
+                    print("test");
+                    base64Image.add(base64Encode(imageBytes));
+                    print("test");
+                    Navigator.of(context).pop();
                   },
                 )
               ])));
@@ -116,7 +128,6 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                       },
                     ),
                     TextFormField(
-                      
                       style: TextStyle(
                           color: Colors.black54,
                           decorationColor: Colors.black54),
@@ -130,19 +141,15 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                         hintStyle: TextStyle(color: Colors.black),
                         suffixIcon: GestureDetector(
                           onTap: () async {
-                            print("calcul gpeerfv");
-                            
                             var location = new Location();
                             var currentLocation = await location.getLocation();
                             adresse = currentLocation.latitude.toString();
                             ville = currentLocation.longitude.toString();
                             setState(() {
-                              _controller2 =TextEditingController(text: adresse);
-                              _controller3 =TextEditingController(text: ville);
-
+                              _controller2 =
+                                  TextEditingController(text: adresse);
+                              _controller3 = TextEditingController(text: ville);
                             });
-print(ville);
-print(adresse);
                           },
                           child: Icon(Icons.gps_fixed),
                         ),
@@ -239,49 +246,39 @@ print(adresse);
                       },
                     ),
                     Center(
-                        child: RaisedButton(
-                      onPressed: () {
-                        _choisirimage(context);
-                      },
-                      textColor: Colors.black54,
-                      padding: const EdgeInsets.all(0.0),
-                      child: Container(
-                        padding: const EdgeInsets.all(10.0),
-                        child: const Text('Ajouter une photo',
+                      child: RaisedButton(
+                        onPressed: () {
+                          if (image.length < 4) {
+                            _choisirimage(context);
+                          } else {
+                            Scaffold.of(context).showSnackBar(new SnackBar(
+                                content: new Text(
+                                    'Tu ne peux pas ajouter plus de 4 photos')));
+                          }
+                        },
+                        textColor: Colors.black54,
+                        padding: const EdgeInsets.all(0.0),
+                        child: Text('Ajouter une photo',
                             style: TextStyle(fontSize: 20)),
                       ),
-                    )),
-                    afficher
-                        ? Column(
-                            children: <Widget>[
-                              Center(
-                                  child: Container(
-                                      child: Image.file(
-                                image,
-                                width: 400,
-                                height: 400,
-                              ))),
-                              RaisedButton(
-                                  child: Text("Annuler"),
-                                  onPressed: () {
-                                    setState(() {
-                                      image = null;
-                                      base64Image = "";
-                                      afficher = false;
-                                    });
-                                  })
-                            ],
-                          )
-                        : Center(
-                            child: Container(
-                            child: Text("Tu n'as pas choisi d'image"),
-                          )),
+                    ),
+                    afficherimage
+                        ? ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: image.length,
+                            itemBuilder: (context, i) {
+                              return Image.file(image[i]);
+                            })
+                        : Container(),
                     Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: RaisedButton(
                           onPressed: () async {
                             if (_formKey.currentState.validate()) {
+                         Navigator.pushNamedAndRemoveUntil(
+                    context, '/Profil', (Route<dynamic> route) => false);
                               //    await ScopedModel.of<GameModel>(context).Ajout_match( lieuchoisi , _date , _time , nombre_jo,pseudo);
                               ScopedModel.of<TerrainModel>(context)
                                   .AjouterTerrain(
@@ -289,7 +286,10 @@ print(adresse);
                                       adresse,
                                       ville,
                                       nombre_terrain,
-                                      base64Image,
+                                      base64Image[0],
+                                      base64Image[1],
+                                      base64Image[2],
+                                      base64Image[3],
                                       sol,
                                       ouverture);
 
@@ -303,8 +303,7 @@ print(adresse);
                                 _controller6.clear();
 
                                 image = null;
-                                base64Image = "";
-                                afficher = false;
+                                base64Image.clear();
                                 nom = "";
                                 adresse = "";
                                 ville = "";

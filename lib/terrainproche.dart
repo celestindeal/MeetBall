@@ -16,6 +16,7 @@ double ditanceCourt = 1000000;
 String tkt = "location";
 List lieupro = [];
 bool chnagecouleur = false;
+
 class TerrainPro extends StatefulWidget {
   @override
   _TerrainProState createState() => _TerrainProState();
@@ -53,16 +54,11 @@ class _TerrainProState extends State<TerrainPro> {
           //double x = (lon2 - lon1) * cos(0.5 * (lat2 + lat1));
           //double y = lat2 - lat1;
           // double distance = 1.852 * 60 * sqrt((x * x + y * y));
-          print(lon1);
-          print(lat1);
-          print(lon2);
-          print(lat2);
           double distance = 6371 *
               acos((sin(lat1 * (pi / 180)) * sin(lat2 * (pi / 180))) +
                   (cos(lat1 * (pi / 180)) *
                       cos(lat2 * (pi / 180)) *
                       cos(lon1 * (pi / 180) - lon2 * (pi / 180))));
-          print(distance);
 
           Map tkt = {
             'contruiction':
@@ -70,34 +66,22 @@ class _TerrainProState extends State<TerrainPro> {
             "distance": distance
           };
           contruction.add(tkt);
-          print(ScopedModel.of<TerrainModel>(context).data_terrain[i]["nom"] +
-              i.toString() +
-              "distance " +
-              distance.toString());
         }
       }
-      print(contruction);
       int copie = contruction.length;
 // objatif classer les lieu dans l'ordre
       for (var i = 0; i < copie; i++) {
         double nombreplus = 10000;
         int place;
-        print("null");
-
         for (var n = 0; n < contruction.length; n++) {
-          print('ok');
           if (contruction[n]['distance'] <= nombreplus) {
-            print("valide");
             nombreplus = contruction[n]['distance'];
-            print("valide");
             place = n;
-            print("valide");
           }
         }
         lieupro.add(contruction[place]);
         contruction.removeAt(place);
       }
-      print(lieupro);
       return lieupro;
     }
 
@@ -137,19 +121,17 @@ class _AffImageState extends State<AffImage> {
         itemCount: 3,
         itemBuilder: (context, i) {
           if (chnagecouleur) {
-                            chnagecouleur = false;
-                          } else {
-                            chnagecouleur = true;
-                          }
+            chnagecouleur = false;
+          } else {
+            chnagecouleur = true;
+          }
           return Center(
               child: Container(
                   padding: const EdgeInsets.all(5),
                   margin: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                     color: chnagecouleur
-                                          ? Colors.indigo
-                                          : Colors.amber[900],
+                    color: chnagecouleur ? Colors.indigo : Colors.amber[900],
                   ),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -297,11 +279,48 @@ class _AffImageState extends State<AffImage> {
                         Center(
                           child: RaisedButton(
                             onPressed: () async {
-                              String value = lieupro[0]['url'].toString();
-                              //const url = const value;
-                              if (await canLaunch(value)) {
-                                await launch(value);
-                              }
+                              return showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                        title: Text('Ouvrir avec'),
+                                        content: SingleChildScrollView(
+                                            child: ListBody(children: <Widget>[
+                                          GestureDetector(
+                                            child: Text("Google map"),
+                                            onTap: () async {
+                                              print(lieupro[i]['contruiction']
+                                                      ['url']
+                                                  .toString());
+                                              String value = lieupro[i]
+                                                      ['contruiction']['url']
+                                                  .toString();
+                                              //const url = const value;
+                                              if (await canLaunch(value)) {
+                                                await launch(value);
+                                              }
+                                            },
+                                          ),
+                                          Padding(padding: EdgeInsets.all(8.0)),
+                                          GestureDetector(
+                                            child: Text("Waze"),
+                                            onTap: () async {
+                                              print(lieupro[i]['contruiction']
+                                                      ['urlwaze']
+                                                  .toString());
+
+                                              String value = lieupro[i]
+                                                          ['contruiction']
+                                                      ['urlwaze']
+                                                  .toString();
+                                              //const url = const value;
+                                              if (await canLaunch(value)) {
+                                                await launch(value);
+                                              }
+                                            },
+                                          )
+                                        ])));
+                                  });
                             },
                             child: Text('Y aller'),
                           ),
@@ -310,7 +329,8 @@ class _AffImageState extends State<AffImage> {
                           child: RaisedButton(
                             onPressed: () async {
                               ScopedModel.of<GameModel>(context)
-                                      .terrainrencontre =lieupro[i]['contruiction']['nom'];
+                                      .terrainrencontre =
+                                  lieupro[i]['contruiction']['nom'];
                               Navigator.pushNamedAndRemoveUntil(
                                   context,
                                   '/TerrainRencontre',

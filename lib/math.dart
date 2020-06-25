@@ -25,17 +25,10 @@ class Match extends StatelessWidget {
                   ],
                 )
               : Scaffold(
-                  appBar: AppBar(
-                    title: Text(
-                      'Basketcopie',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    centerTitle: true,
-                  ),
-                  persistentFooterButtons: <Widget>[
-                    Footer(),
-                  ],
-                  // backgroundColor: Colors.black54,
+                  appBar: headerNav(context),
+        persistentFooterButtons: <Widget>[
+          Footer(),
+        ],
                   body: Center(
                     child: CircularProgressIndicator(),
                   )));

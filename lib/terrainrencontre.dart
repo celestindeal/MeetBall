@@ -82,8 +82,6 @@ class _AffRencontreState extends State<AffRencontre> {
               shrinkWrap: true,
               itemCount: nombreTours,
               itemBuilder: (context, i){
-                  print(ScopedModel.of<GameModel>(context).terrainrencontre);
-          print(model.data_game[i]['lieu']);
                 if ( ScopedModel.of<GameModel>(context).terrainrencontre == model.data_game[i]['lieu'] ){
                   return Center(
                     child: GestureDetector(
