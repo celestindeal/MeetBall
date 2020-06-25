@@ -13,7 +13,7 @@ AppBar headerNav(
   context,
 ) {
   return AppBar(
-    title: Text("BasketCopie"),
+    title: Text("MeetBall"),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),
@@ -109,7 +109,7 @@ AppBar headerNav(
                                 },
                                 child: Text('Nous contacter',
                                     style:
-                                        Theme.of(context).textTheme.display1),
+                                        Theme.of(context).textTheme.display3),
                               ),
                               RaisedButton(
                                 onPressed: () {
@@ -124,7 +124,7 @@ AppBar headerNav(
                                               children: <Widget>[
                                                 Text('Tu veux vraiment te déconnecter',
                                     style:
-                                        Theme.of(context).textTheme.display3),
+                                        Theme.of(context).textTheme.display1),
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                   children: <Widget>[
@@ -158,7 +158,7 @@ AppBar headerNav(
                                 },
                                 child: Text('Déconnexion',
                                     style:
-                                        Theme.of(context).textTheme.display1),
+                                        Theme.of(context).textTheme.display3),
                               ),
                               ScopedModel.of<LoginModel>(context).devellopeur
                                   ? Row(
@@ -182,7 +182,7 @@ AppBar headerNav(
                                               child: Text('avisDev',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .display1),
+                                                      .display3),
                                             ),
                                           ),
                                         ),
@@ -208,7 +208,7 @@ AppBar headerNav(
                                               child: Text('lieuDev',
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .display1),
+                                                      .display3),
                                             ),
                                           ),
                                         ),

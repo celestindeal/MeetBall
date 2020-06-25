@@ -292,6 +292,7 @@ changeMode(){
     String json = '{"id":"$id","image":"$image"}';
     Response response = await post(url, body: json);
     String body = response.body;
+    print(body);
     Connexion(email, password);
     affmodif = false;
     img= "https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg";
