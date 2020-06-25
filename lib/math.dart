@@ -145,47 +145,57 @@ class Presentation extends StatelessWidget {
                                                           .textTheme
                                                           .display2),
                                                 ]),
-                                            Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: <Widget>[
-                                                  Text(
-                                                      model.data_game[i]['per'],
-                                                      softWrap: true,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display2),
-                                                  Text(
-                                                      model.data_game[i]
-                                                          ['jours'],
-                                                      softWrap: true,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display2),
-                                                  Text(
-                                                      model.data_game[i]
-                                                          ['heure'],
-                                                      softWrap: true,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display2),
-                                                  Text(
-                                                      model.data_game[i]
-                                                          ['nombre_j'],
-                                                      softWrap: true,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display2),
-                                                  Text(
-                                                      model.data_game[i]
-                                                          ['lieu'],
-                                                      softWrap: false,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display2),
-                                                ]),
-                                          ]))));
+                                            Flexible(
+                                              child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: <Widget>[
+                                                    Text(
+                                                        model.data_game[i]['per'],
+                                                        softWrap: true,
+                                                        textAlign: TextAlign.center,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .display2),
+                                                    Text(
+                                                        model.data_game[i]
+                                                            ['jours'],
+                                                        textAlign: TextAlign.center,
+                                                        softWrap: true,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .display2),
+                                                    Text(
+                                                        model.data_game[i]
+                                                            ['heure'],
+                                                        textAlign: TextAlign.center,
+                                                        softWrap: true,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .display2),
+                                                    Text(
+                                                        model.data_game[i]
+                                                            ['nombre_j'],
+                                                        textAlign: TextAlign.center,
+                                                        softWrap: true,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .display2),
+                                                    Text(
+                                                        model.data_game[i]
+                                                            ['lieu'],
+                                                        textAlign: TextAlign.center,
+                                                        softWrap: false,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .display2),
+                                                  ]),
+                                            ),
+                                          ])
+                                          )
+                                          )
+                                          );
                         }),
                   
                 // Transform.translate(

@@ -136,9 +136,15 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                             var currentLocation = await location.getLocation();
                             adresse = currentLocation.latitude.toString();
                             ville = currentLocation.longitude.toString();
+                            setState(() {
+                              _controller2 =TextEditingController(text: adresse);
+                              _controller3 =TextEditingController(text: ville);
 
+                            });
+print(ville);
+print(adresse);
                           },
-                          //child: Icon(Icons.gps_fixed),
+                          child: Icon(Icons.gps_fixed),
                         ),
                       ),
                       validator: (String value) {

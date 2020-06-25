@@ -78,16 +78,15 @@ class Presentation_terrain extends StatelessWidget {
                     ),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    Icons.gps_fixed,
-                    size: MediaQuery.of(context).size.width * 0.4,
-                  ),
+                  child: ImageIcon(
+     AssetImage('img/location.png',),
+     size: MediaQuery.of(context).size.width * 0.4,
+),
                 ),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(context, '/Ajout_terrain',
-                      (Route<dynamic> route) => false);
+                  Navigator.pushNamedAndRemoveUntil(context, '/Ajout_terrain',(Route<dynamic> route) => false);
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20.0),
@@ -102,10 +101,13 @@ class Presentation_terrain extends StatelessWidget {
                     ),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    Icons.add,
-                    size: MediaQuery.of(context).size.width * 0.4,
-                  ),
+                  child: 
+            ImageIcon(
+     AssetImage('img/ajouterterrain.png',),
+     size: MediaQuery.of(context).size.width * 0.4,
+
+),
+                  
                 ),
               ),
             ],

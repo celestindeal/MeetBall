@@ -26,18 +26,18 @@ class Footer extends StatelessWidget {
                     context, '/Profil', (Route<dynamic> route) => false);
               }),
           IconButton(
-              icon: Icon(
-                Icons.people,
-              ),
+               icon:Image.asset('img/rencontre.png',
+              width: 40,
+              height: 40,) ,
               onPressed: () {
                 ScopedModel.of<GameModel>(context).Match();
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/Match', (Route<dynamic> route) => false);
               }),
           IconButton(
-              icon: Icon(
-                Icons.add_location ,
-              ),
+              icon:Image.asset('img/terrain.png',
+              width: 40,
+              height: 40,) ,
               onPressed: () {
                 ScopedModel.of<ImgModel>(context).Img();
                 ScopedModel.of<TerrainModel>(context).Terrain();
