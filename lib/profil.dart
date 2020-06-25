@@ -103,58 +103,75 @@ class _PresentationState extends State<Presentation> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-                title: Text('choisi entre'),
                 content: StatefulBuilder(
                     builder: (BuildContext context, StateSetter setState) {
                   return aff
                       ? SingleChildScrollView(
                           child: ListBody(children: <Widget>[
-
-
                           GestureDetector(
                             child: Text("galerie"),
                             onTap: () async {
+                              image = await ImagePicker.pickImage(
+                                  source: ImageSource.gallery);
                               setState(() {
                                 aff = false;
                               });
 
-                              image = await ImagePicker.pickImage(source: ImageSource.gallery);
-                              Navigator.of(context).pop();
                               List<int> imageBytes = image.readAsBytesSync();
                               base64Image = await base64Encode(imageBytes);
-                              await ScopedModel.of<LoginModel>(context).ChangeImage(base64Image);
+                              await ScopedModel.of<LoginModel>(context)
+                                  .ChangeImage(base64Image);
 
                               mis_ajour();
+                              Navigator.of(context).pop();
                             },
                           ),
                           Padding(padding: EdgeInsets.all(8.0)),
-
-
                           GestureDetector(
                             child: Text("caméra"),
                             onTap: () async {
+                              image = await ImagePicker.pickImage(
+                                  source: ImageSource.camera);
                               setState(() {
                                 aff = false;
                               });
-                              image = await ImagePicker.pickImage(
-                                  source: ImageSource.camera);
-                              Navigator.of(context).pop();
+
                               List<int> imageBytes = image.readAsBytesSync();
                               base64Image = base64Encode(imageBytes);
                               await ScopedModel.of<LoginModel>(context)
                                   .ChangeImage(base64Image);
 
                               mis_ajour();
+                              Navigator.of(context).pop();
                             },
                           )
                         ]))
-                        
-                      : Center(
-                          child: Container(
-                            height: 100,
+                      // : Center(
+                      //     child: Container(
+                      //       height: MediaQuery.of(context).size.height/3,
+                      //       width: MediaQuery.of(context).size.width/3,
+                      //       child: CircularProgressIndicator(),
+                      //       child: Text("data"),
+                      //     ),
+                      //   );
+:SingleChildScrollView(
+                          child: ListBody(children: <Widget>[
+                            Text("Merci de patienter le temps de l'envoie de votre photo",
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .display3),
+                          Container(
+                            height: MediaQuery.of(context).size.height/3,
+                            width: MediaQuery.of(context).size.width/3,
                             child: CircularProgressIndicator(),
-                          ),
-                        );
+                          )
+                        ]));
+
+
+
+
+
                 }));
           });
     }
@@ -195,10 +212,11 @@ class _PresentationState extends State<Presentation> {
                             return showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
-                                  return  affImage
+                                  return affImage
                                       ? Container(
                                           child: PhotoView(
-                                          imageProvider: NetworkImage(model.img),
+                                          imageProvider:
+                                              NetworkImage(model.img),
                                         ))
                                       : Container(
                                           child: PhotoView(
@@ -210,14 +228,16 @@ class _PresentationState extends State<Presentation> {
                             _choisirimage(context);
                           },
                           child: CircleAvatar(
-                            backgroundImage:affImage? NetworkImage(model.img) : FileImage(image),
+                            backgroundImage: affImage
+                                ? NetworkImage(model.img)
+                                : FileImage(image),
                             radius: MediaQuery.of(context).size.width / 6,
                           ),
                         ),
                         Container(
                           color: Colors.transparent,
-                          height:  MediaQuery.of(context).size.width / 3,
-                          width:  MediaQuery.of(context).size.width / 3,
+                          height: MediaQuery.of(context).size.width / 3,
+                          width: MediaQuery.of(context).size.width / 3,
                         )
                       ],
                     ),
@@ -257,7 +277,7 @@ class _PresentationState extends State<Presentation> {
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .display3),
-                                                Text(model.prenom,
+                                        Text(model.prenom,
                                             softWrap: true,
                                             style: Theme.of(context)
                                                 .textTheme
@@ -429,59 +449,47 @@ class _PresentationState extends State<Presentation> {
                                                               MainAxisAlignment
                                                                   .center,
                                                           children: <Widget>[
-                                                             Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: <Widget>[
-                                                Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Text(
-                                                          "Tu veux vraiment annuler la rencontre prévue ",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text(
-                                                          "le " +
-                                                              model.participation[
-                                                                  i]['jour'] +
-                                                              " à " +
-                                                              model.participation[
-                                                                  i]['heure'],
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text(
-                                                          "Il y a " +
-                                                              model.participation[
-                                                                  i]['nom_j'] +
-                                                              " personne(s) qui seront là",
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text(
-                                                          "Vous avez invité " +
-                                                              model.participation[
-                                                                      i]
-                                                                  ['inviter'] +
-                                                              " personne(s)",
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                    ]),
-                                              ]),
+                                                            Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceEvenly,
+                                                                children: <
+                                                                    Widget>[
+                                                                  Column(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Text(
+                                                                            "Tu veux vraiment annuler la rencontre prévue ",
+                                                                            textAlign: TextAlign
+                                                                                .center,
+                                                                            softWrap:
+                                                                                true,
+                                                                            style:
+                                                                                Theme.of(context).textTheme.display2),
+                                                                        Text(
+                                                                            "le " +
+                                                                                model.participation[i]['jour'] +
+                                                                                " à " +
+                                                                                model.participation[i]['heure'],
+                                                                            softWrap: true,
+                                                                            style: Theme.of(context).textTheme.display2),
+                                                                        Text(
+                                                                            "Il y a " +
+                                                                                model.participation[i]['nom_j'] +
+                                                                                " personne(s) qui seront là",
+                                                                            softWrap: true,
+                                                                            style: Theme.of(context).textTheme.display2),
+                                                                        Text(
+                                                                            "Vous avez invité " +
+                                                                                model.participation[i]['inviter'] +
+                                                                                " personne(s)",
+                                                                            softWrap: true,
+                                                                            style: Theme.of(context).textTheme.display2),
+                                                                      ]),
+                                                                ]),
                                                             Row(
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
@@ -500,19 +508,20 @@ class _PresentationState extends State<Presentation> {
                                                                 RaisedButton(
                                                                     onPressed:
                                                                         () async {
-                                                                        await ScopedModel.of<GameModel>(
-                                                        context)
-                                                    .Sup_participation(
-                                                        model.participation[i]
-                                                            ['inviter'],
-                                                        model.participation[i]
-                                                            ['id'],
-                                                        model.participation[i]
-                                                            ['id_rencontre']);
-                                                ScopedModel.of<LoginModel>(
-                                                        context)
-                                                    .Participation();
-                                                    Navigator.of(
+                                                                      await ScopedModel.of<GameModel>(context).Sup_participation(
+                                                                          model.participation[i]
+                                                                              [
+                                                                              'inviter'],
+                                                                          model.participation[i]
+                                                                              [
+                                                                              'id'],
+                                                                          model.participation[i]
+                                                                              [
+                                                                              'id_rencontre']);
+                                                                      ScopedModel.of<LoginModel>(
+                                                                              context)
+                                                                          .Participation();
+                                                                      Navigator.of(
                                                                               context)
                                                                           .pop();
                                                                     },

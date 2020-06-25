@@ -347,29 +347,7 @@ TextFormField(
                             description = value;
                           },
                         ),
-                    /*   Center(
-                            child: RaisedButton(
-                          onPressed: () {
-                            _choisirimage(context);
-                          },
-                          textColor: Colors.white,
-                          padding: const EdgeInsets.all(0.0),
-                          child: Container(
-                            padding: const EdgeInsets.all(10.0),
-                            child: const Text('changer la photo',
-                                style: TextStyle(fontSize: 20)),
-                          ),
-                        )),
-                        affphoto
-                            ? Image.network(
-                                model.img,
-                              )
-                            : Image.file(
-                                image,
-                                width: 400,
-                                height: 400,
-                              ),
-                    */    Center(
+                      Center(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: RaisedButton(
@@ -387,10 +365,18 @@ TextFormField(
                                       niveaux,
                                       description,
                                       id);
-                                  Navigator.pushNamedAndRemoveUntil(
+                                      if(email != model.email || password != model.password){
+                                        Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      '/',
+                                      (Route<dynamic> route) => false);
+                                      }else{
+                                         Navigator.pushNamedAndRemoveUntil(
                                       context,
                                       '/Profil',
                                       (Route<dynamic> route) => false);
+                                      }
+                                 
                                   init = true;
                                   affphoto = true;
                                 }
