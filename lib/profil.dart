@@ -102,77 +102,70 @@ class _PresentationState extends State<Presentation> {
       return showDialog(
           context: context,
           builder: (BuildContext context) {
-            return AlertDialog(
-                content: StatefulBuilder(
-                    builder: (BuildContext context, StateSetter setState) {
-                  return aff
-                      ? SingleChildScrollView(
-                          child: ListBody(children: <Widget>[
-                          GestureDetector(
-                            child: Text("galerie"),
-                            onTap: () async {
-                              image = await ImagePicker.pickImage(
-                                  source: ImageSource.gallery);
-                              setState(() {
-                                aff = false;
-                              });
+            return AlertDialog(content: StatefulBuilder(
+                builder: (BuildContext context, StateSetter setState) {
+              return aff
+                  ? SingleChildScrollView(
+                      child: ListBody(children: <Widget>[
+                      GestureDetector(
+                        child: Text("galerie"),
+                        onTap: () async {
+                          image = await ImagePicker.pickImage(
+                              source: ImageSource.gallery);
+                          setState(() {
+                            aff = false;
+                          });
 
-                              List<int> imageBytes = image.readAsBytesSync();
-                              base64Image = await base64Encode(imageBytes);
-                              await ScopedModel.of<LoginModel>(context)
-                                  .ChangeImage(base64Image);
+                          List<int> imageBytes = image.readAsBytesSync();
+                          base64Image = await base64Encode(imageBytes);
+                          await ScopedModel.of<LoginModel>(context)
+                              .ChangeImage(base64Image);
 
-                              mis_ajour();
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                          Padding(padding: EdgeInsets.all(8.0)),
-                          GestureDetector(
-                            child: Text("caméra"),
-                            onTap: () async {
-                              image = await ImagePicker.pickImage(
-                                  source: ImageSource.camera);
-                              setState(() {
-                                aff = false;
-                              });
+                          mis_ajour();
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      Padding(padding: EdgeInsets.all(8.0)),
+                      GestureDetector(
+                        child: Text("caméra"),
+                        onTap: () async {
+                          image = await ImagePicker.pickImage(
+                              source: ImageSource.camera);
+                          setState(() {
+                            aff = false;
+                          });
 
-                              List<int> imageBytes = image.readAsBytesSync();
-                              base64Image = base64Encode(imageBytes);
-                              await ScopedModel.of<LoginModel>(context)
-                                  .ChangeImage(base64Image);
+                          List<int> imageBytes = image.readAsBytesSync();
+                          base64Image = base64Encode(imageBytes);
+                          await ScopedModel.of<LoginModel>(context)
+                              .ChangeImage(base64Image);
 
-                              mis_ajour();
-                              Navigator.of(context).pop();
-                            },
-                          )
-                        ]))
-                      // : Center(
-                      //     child: Container(
-                      //       height: MediaQuery.of(context).size.height/3,
-                      //       width: MediaQuery.of(context).size.width/3,
-                      //       child: CircularProgressIndicator(),
-                      //       child: Text("data"),
-                      //     ),
-                      //   );
-:SingleChildScrollView(
-                          child: ListBody(children: <Widget>[
-                            Text("Merci de patienter le temps de l'envoie de votre photo",
-                                            softWrap: true,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .display3),
-                          Container(
-                            height: MediaQuery.of(context).size.height/3,
-                            width: MediaQuery.of(context).size.width/3,
-                            child: CircularProgressIndicator(),
-                          )
-                        ]));
-
-
-
-
-
-                }));
+                          mis_ajour();
+                          Navigator.of(context).pop();
+                        },
+                      )
+                    ]))
+                  // : Center(
+                  //     child: Container(
+                  //       height: MediaQuery.of(context).size.height/3,
+                  //       width: MediaQuery.of(context).size.width/3,
+                  //       child: CircularProgressIndicator(),
+                  //       child: Text("data"),
+                  //     ),
+                  //   );
+                  : SingleChildScrollView(
+                      child: ListBody(children: <Widget>[
+                      Text(
+                          "Merci de patienter le temps de l'envoie de votre photo",
+                          softWrap: true,
+                          style: Theme.of(context).textTheme.display3),
+                      Container(
+                        height: MediaQuery.of(context).size.height / 3,
+                        width: MediaQuery.of(context).size.width / 3,
+                        child: CircularProgressIndicator(),
+                      )
+                    ]));
+            }));
           });
     }
 
@@ -442,100 +435,111 @@ class _PresentationState extends State<Presentation> {
                                                   builder:
                                                       (BuildContext context) {
                                                     return Center(
-                                                      child: Container(
-                                                        color: Colors.indigo,
-                                                        child: Column(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: <Widget>[
-                                                            Row(
+                                                      child: Flexible(
+                                                        child: Container(
+                                                         
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(5),
+                                                          margin: const EdgeInsets
+                                                              .all(20),
+                                                              
+                                                          decoration: BoxDecoration(
+                                                            
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20.0),
+                                                              color:
+                                                                  Colors.indigo),
+                                                          child: Column(
+                                                            mainAxisSize: MainAxisSize.min,
+                                                            children: <Widget>[
+                                                              Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Flexible(
+                                                                      child: Column(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment
+                                                                                  .start,
+                                                                          children: <
+                                                                              Widget>[
+                                                                            Center(
+                                                                              child: Text(
+                                                                                  "Es-tu sûr de vraiment vouloir annuler la rencontre prévue le " +
+                                                                                      model.participation[i]['jour'] +
+                                                                                      " à " +
+                                                                                      model.participation[i]['heure'],
+                                                                                  softWrap: true,
+                                                                                  textAlign: TextAlign.center,
+                                                                                  style: Theme.of(context).textTheme.display2),
+                                                                            ),
+                                                                            Text(
+                                                                                "Il y a " +
+                                                                                    model.participation[i]['nom_j'] +
+                                                                                    " personne(s) qui seront là",
+                                                                                softWrap: true,
+                                                                                style: Theme.of(context).textTheme.display2),
+                                                                            Text(
+                                                                                "Vous avez invité " +
+                                                                                    model.participation[i]['inviter'] +
+                                                                                    " personne(s)",
+                                                                                softWrap: true,
+                                                                                style: Theme.of(context).textTheme.display2),
+                                                                          ]),
+                                                                    ),
+                                                                  ]),
+                                                              Row(
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
                                                                         .spaceEvenly,
                                                                 children: <
                                                                     Widget>[
-                                                                  Column(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .center,
-                                                                      children: <
-                                                                          Widget>[
-                                                                        Text(
-                                                                            "Tu veux vraiment annuler la rencontre prévue ",
-                                                                            textAlign: TextAlign
-                                                                                .center,
-                                                                            softWrap:
-                                                                                true,
-                                                                            style:
-                                                                                Theme.of(context).textTheme.display2),
-                                                                        Text(
-                                                                            "le " +
-                                                                                model.participation[i]['jour'] +
-                                                                                " à " +
-                                                                                model.participation[i]['heure'],
-                                                                            softWrap: true,
-                                                                            style: Theme.of(context).textTheme.display2),
-                                                                        Text(
-                                                                            "Il y a " +
-                                                                                model.participation[i]['nom_j'] +
-                                                                                " personne(s) qui seront là",
-                                                                            softWrap: true,
-                                                                            style: Theme.of(context).textTheme.display2),
-                                                                        Text(
-                                                                            "Vous avez invité " +
-                                                                                model.participation[i]['inviter'] +
-                                                                                " personne(s)",
-                                                                            softWrap: true,
-                                                                            style: Theme.of(context).textTheme.display2),
-                                                                      ]),
-                                                                ]),
-                                                            Row(
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceEvenly,
-                                                              children: <
-                                                                  Widget>[
-                                                                RaisedButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      Navigator.of(
-                                                                              context)
-                                                                          .pop();
-                                                                    },
-                                                                    child: Text(
-                                                                        'non')),
-                                                                RaisedButton(
-                                                                    onPressed:
-                                                                        () async {
-                                                                      await ScopedModel.of<GameModel>(context).Sup_participation(
-                                                                          model.participation[i]
-                                                                              [
-                                                                              'inviter'],
-                                                                          model.participation[i]
-                                                                              [
-                                                                              'id'],
-                                                                          model.participation[i]
-                                                                              [
-                                                                              'id_rencontre']);
-                                                                      ScopedModel.of<LoginModel>(
-                                                                              context)
-                                                                          .Participation();
-                                                                      Navigator.of(
-                                                                              context)
-                                                                          .pop();
-                                                                    },
-                                                                    child: Text(
-                                                                        'oui')),
-                                                              ],
-                                                            )
-                                                          ],
+                                                                  RaisedButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        Navigator.of(
+                                                                                context)
+                                                                            .pop();
+                                                                      },
+                                                                      child: Text(
+                                                                          'non')),
+                                                                  RaisedButton(
+                                                                      onPressed:
+                                                                          () async {
+                                                                        await ScopedModel.of<GameModel>(context).Sup_participation(
+                                                                            model.participation[i]
+                                                                                [
+                                                                                'inviter'],
+                                                                            model.participation[i]
+                                                                                [
+                                                                                'id'],
+                                                                            model.participation[i]
+                                                                                [
+                                                                                'id_rencontre']);
+                                                                        ScopedModel.of<LoginModel>(
+                                                                                context)
+                                                                            .Participation();
+                                                                        Navigator.of(
+                                                                                context)
+                                                                            .pop();
+                                                                      },
+                                                                      child: Text(
+                                                                          'oui')),
+                                                                ],
+                                                              )
+                                                            ],
+                                                          ),
                                                         ),
                                                       ),
                                                     );
                                                   });
                                             },
-                                            child: Text("annuler"),
+                                            child: Text("Annuler"),
                                           ),
                                         ]))),
                           );

@@ -94,6 +94,7 @@ class _MainState extends State<Main> {
                                 display2: TextStyle(
                                   fontSize: 16.0,
                                   color: Colors.white,
+                                
                                   decorationColor: Colors.white,
                                   fontWeight: FontWeight.w800,
                                   fontFamily: 'Roboto',

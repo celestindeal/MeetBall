@@ -116,21 +116,30 @@ AppBar headerNav(
                                   showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
-                                       return Center(
-                                         child: Container(
-                                           color: Colors.indigo,
-                                           child: Column(
-                                             mainAxisAlignment: MainAxisAlignment.center,
+                                        return Center(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                                color: Colors.indigo),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
                                               children: <Widget>[
-                                                Text('Tu veux vraiment te déconnecter',
-                                    style:
-                                        Theme.of(context).textTheme.display1),
+                                                Text(
+                                                    'Es-tu sûr de vraiment vouloir te déconnecter ?',
+                                                    textAlign: TextAlign.center,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .display1),
                                                 Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
                                                   children: <Widget>[
                                                     RaisedButton(
                                                         onPressed: () {
-                                                          Navigator.of(context).pop();
+                                                          Navigator.of(context)
+                                                              .pop();
                                                         },
                                                         child: Text('non')),
                                                     RaisedButton(
@@ -139,7 +148,8 @@ AppBar headerNav(
                                                                       LoginModel>(
                                                                   context)
                                                               .Deconnection();
-                                                               await Baselocal().deconnect();
+                                                          await Baselocal()
+                                                              .deconnect();
                                                           Navigator
                                                               .pushNamedAndRemoveUntil(
                                                                   context,
@@ -153,8 +163,8 @@ AppBar headerNav(
                                                 )
                                               ],
                                             ),
-                                         ),
-                                       );
+                                          ),
+                                        );
                                       });
                                 },
                                 child: Text('Déconnexion',
