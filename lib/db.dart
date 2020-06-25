@@ -58,6 +58,16 @@ class Baselocal {
 
     return personne;
   }
+  deconnect() async {
+    List<dynamic> personne = [];
+
+    final Database db = await connexion();
+
+ await db.delete('Connect');
+    
+
+    return personne;
+  }
 
    valColor() async { 
     String mode = "false"; 

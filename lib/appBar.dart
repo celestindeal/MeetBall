@@ -139,6 +139,7 @@ AppBar headerNav(
                                                                       LoginModel>(
                                                                   context)
                                                               .Deconnection();
+                                                               await Baselocal().deconnect();
                                                           Navigator
                                                               .pushNamedAndRemoveUntil(
                                                                   context,
