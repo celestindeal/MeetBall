@@ -839,16 +839,15 @@ class Presentation extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
-                            color: Colors.white70,
+                            color: Colors.indigo,
                             child: TextFormField(
-                              maxLines: 3,
                               cursorColor: Colors.black,
                               style: TextStyle(
-                                  color: Colors.white,
-                                  decorationColor: Colors.white),
+                                  color: Colors.black,
+                                  decorationColor: Colors.black),
                               decoration: const InputDecoration(
                                 hintText: 'commente',
-                                hintStyle: TextStyle(color: Colors.white),
+                                hintStyle: TextStyle(color: Colors.black),
                               ),
                               validator: (value) {
                                 if (value.isEmpty) {
