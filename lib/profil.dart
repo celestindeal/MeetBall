@@ -650,21 +650,8 @@ class _PresentationState extends State<Presentation> {
                                                     return Center(
                                                       child: Flexible(
                                                         child: Container(
-                                                         
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(5),
-                                                          margin: const EdgeInsets
-                                                              .all(20),
-                                                              
-                                                          decoration: BoxDecoration(
-                                                            
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20.0),
-                                                              color:
-                                                                  Colors.indigo),
+                                                         width: MediaQuery.of(context).size.width/1.3,
+                                                         color: Colors.white,
                                                           child: Column(
                                                             mainAxisSize: MainAxisSize.min,
                                                             children: <Widget>[
@@ -689,20 +676,20 @@ class _PresentationState extends State<Presentation> {
                                                                                       model.participation[i]['heure'],
                                                                                   softWrap: true,
                                                                                   textAlign: TextAlign.center,
-                                                                                  style: Theme.of(context).textTheme.display2),
+                                                                                  style: Theme.of(context).textTheme.display3),
                                                                             ),
                                                                             Text(
                                                                                 "Il y a " +
                                                                                     model.participation[i]['nom_j'] +
                                                                                     " personne(s) qui seront là",
                                                                                 softWrap: true,
-                                                                                style: Theme.of(context).textTheme.display2),
+                                                                                style: Theme.of(context).textTheme.display3),
                                                                             Text(
                                                                                 "Vous avez invité " +
                                                                                     model.participation[i]['inviter'] +
                                                                                     " personne(s)",
                                                                                 softWrap: true,
-                                                                                style: Theme.of(context).textTheme.display2),
+                                                                                style: Theme.of(context).textTheme.display3),
                                                                           ]),
                                                                     ),
                                                                   ]),
