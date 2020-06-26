@@ -43,6 +43,7 @@ class Presentation_terrain extends StatelessWidget {
           
           Navigator.pushNamedAndRemoveUntil(
               context, '/Ajout_match', (Route<dynamic> route) => false);
+             
         }),
     actions: <Widget>[
       IconButton(
@@ -267,8 +268,8 @@ class Presentation_terrain extends StatelessWidget {
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(context,
-                      '/Terrainrecherche', (Route<dynamic> route) => false);
+                      Navigator.pushNamed(
+                                      context, '/Terrainrecherche');
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20.0),
@@ -291,8 +292,8 @@ class Presentation_terrain extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/Terrainpro', (Route<dynamic> route) => false);
+                      Navigator.pushNamed(
+                                      context, '/Terrainpro');
                 },
                 child: Container(
                  padding: const EdgeInsets.all(20.0),
@@ -314,7 +315,8 @@ class Presentation_terrain extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(context, '/Ajout_terrain',(Route<dynamic> route) => false);
+                  Navigator.pushNamed(
+                                      context, '/Ajout_terrain');
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20.0),

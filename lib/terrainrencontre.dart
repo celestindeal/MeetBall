@@ -31,12 +31,7 @@ class _TerrainRenState extends State<TerrainRen> {
         appBar: AppBar(
     title: Text("Rencontre prévue"),
     backgroundColor: Colors.indigo,
-    leading: IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/Ajout_match', (Route<dynamic> route) => false);
-        }),
+  
     actions: <Widget>[
       IconButton(
         icon: const Icon(Icons.settings),

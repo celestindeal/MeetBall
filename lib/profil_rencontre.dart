@@ -29,12 +29,6 @@ class Profil_renctontre extends StatelessWidget {
                   appBar: AppBar(
                     title: Text("Rencontre"),
                     backgroundColor: Colors.indigo,
-                    leading: IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(context,
-                              '/Ajout_match', (Route<dynamic> route) => false);
-                        }),
                     actions: <Widget>[
                       IconButton(
                         icon: const Icon(Icons.settings),
@@ -307,12 +301,6 @@ class Presentation extends StatelessWidget {
       appBar: AppBar(
         title: Text("Rencontre"),
         backgroundColor: Colors.indigo,
-        leading: IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, '/Ajout_match', (Route<dynamic> route) => false);
-            }),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.settings),
@@ -700,65 +688,77 @@ class Presentation extends StatelessWidget {
                             textAlign: TextAlign.center,
                             softWrap: true,
                             style: Theme.of(context).textTheme.display4)),
-                   
-                     
-                      ScopedModelDescendant<LoginModel>(
-                          builder: (context, child, login) {
-                        return ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: login.participent.length,
-                            itemBuilder: (context, i) {
-                              var ms =
-                                  (new DateTime.now()).millisecondsSinceEpoch;
-                              String ok = "}" + login.participent[i]['age'] + "/";
-                              int ans =
-                                  int.parse(ok.split('}')[1].split('-')[0]);
-                              int mois =
-                                  int.parse(ok.split('-')[1].split('-')[0]);
-                              int jour =
-                                  int.parse(ok.split('-')[1].split('/')[0]);
-                              var mst =
-                                  new DateTime.utc(ans, mois, jour, 20, 18, 04)
-                                      .millisecondsSinceEpoch;
-                              int ageAnne =
-                                  ((ms - mst) / (365 * 24 * 3600 * 1000))
-                                      .toInt();
-                              return 
 
-                                 GestureDetector(
-                                   onTap: (){
-                                     ScopedModel.of<LoginModel>(context)
-                                  .profVisiteur= login.participent[i];
-                                   Navigator.pushNamedAndRemoveUntil(
-                    context, '/ProfilVisiteur', (Route<dynamic> route) => false);
-                                   },
-                                   child: Container(
-                                      padding: const EdgeInsets.all(5),
-                                      margin: const EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20.0),
-                                        color: Colors.indigo,
-                                      ),
+                    ScopedModelDescendant<LoginModel>(
+                        builder: (context, child, login) {
+                      return ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: login.participent.length,
+                          itemBuilder: (context, i) {
+                            var ms =
+                                (new DateTime.now()).millisecondsSinceEpoch;
+                            String ok = "}" + login.participent[i]['age'] + "/";
+                            int ans = int.parse(ok.split('}')[1].split('-')[0]);
+                            int mois =
+                                int.parse(ok.split('-')[1].split('-')[0]);
+                            int jour =
+                                int.parse(ok.split('-')[1].split('/')[0]);
+                            var mst =
+                                new DateTime.utc(ans, mois, jour, 20, 18, 04)
+                                    .millisecondsSinceEpoch;
+                            int ageAnne =
+                                ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
+                            return GestureDetector(
+                              onTap: () { print( ScopedModel.of<LoginModel>(context)
+                                        .pseudo
+                                        .toString());
+                                print(login.participent[i]['pseudo'] );
+                               
+                                if (login.participent[i]['pseudo'] ==
+                                    ScopedModel.of<LoginModel>(context)
+                                        .pseudo
+                                        .toString()) {
+                                          print("yes");
+                                  Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      '/Profil',
+                                      (Route<dynamic> route) => false);
+                                } else {
+                                  ScopedModel.of<LoginModel>(context)
+                                      .profVisiteur = login.participent[i];
+                                  Navigator.pushNamed(
+                                      context, '/ProfilVisiteur');
+                                }
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(5),
+                                margin: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  color: Colors.indigo,
+                                ),
                                 child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(login.participent[i]['pseudo'],
-                                          softWrap: true,
-                                          style:
-                                              Theme.of(context).textTheme.display3),
-                                      Text(ageAnne.toString() + " ans",
-                                          softWrap: true,
-                                          style:
-                                              Theme.of(context).textTheme.display3),
-                                    ],
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(login.participent[i]['pseudo'],
+                                        softWrap: true,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .display3),
+                                    Text(ageAnne.toString() + " ans",
+                                        softWrap: true,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .display3),
+                                  ],
                                 ),
                               ),
-                                 );
-                            });
-                      }),
-                    
+                            );
+                          });
+                    }),
+
 // proposer une participation
                     // Center(
                     //     child: Text("Tu veux participer",

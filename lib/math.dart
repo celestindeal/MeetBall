@@ -539,6 +539,7 @@ class Presentation extends StatelessWidget {
                                     //  model.rencontre_visualiser = model.data_game[i]['id'];
                                     Navigator.pushNamed(
                                         context, '/Profil_renctontre');
+                                        
                                   },
                                   child: Container(
                                       padding: const EdgeInsets.all(5),

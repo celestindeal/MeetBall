@@ -92,12 +92,6 @@ class _TerrainProState extends State<TerrainPro> {
         appBar: AppBar(
     title: Text("Playground à coté"),
     backgroundColor: Colors.indigo,
-    leading: IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/Ajout_match', (Route<dynamic> route) => false);
-        }),
     actions: <Widget>[
       IconButton(
         icon: const Icon(Icons.settings),
@@ -550,10 +544,8 @@ class _AffImageState extends State<AffImage> {
                               ScopedModel.of<GameModel>(context)
                                       .terrainrencontre =
                                   lieupro[i]['contruiction']['nom'];
-                              Navigator.pushNamedAndRemoveUntil(
-                                  context,
-                                  '/TerrainRencontre',
-                                  (Route<dynamic> route) => false);
+                                  Navigator.pushNamed(context, '/TerrainRencontre');
+                                  
                             },
                             child: Text('Rencontre à venir'),
                           ),

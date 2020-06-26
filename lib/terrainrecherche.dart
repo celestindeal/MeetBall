@@ -107,12 +107,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
         appBar: AppBar(
     title: Text("Rechercher un playground"),
     backgroundColor: Colors.indigo,
-    leading: IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/Ajout_match', (Route<dynamic> route) => false);
-        }),
+  
     actions: <Widget>[
       IconButton(
         icon: const Icon(Icons.settings),
@@ -634,12 +629,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                 .terrainrencontre =
                                                             terrain[i]['nom']
                                                                 .toString();
-                                                        Navigator.pushNamedAndRemoveUntil(
-                                                            context,
-                                                            '/TerrainRencontre',
-                                                            (Route<dynamic>
-                                                                    route) =>
-                                                                false);
+                                                         Navigator.pushNamed(context, '/TerrainRencontre');
                                                       },
                                                       child: Text(
                                                           'Rencontre à venir'),

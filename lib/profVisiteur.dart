@@ -21,68 +21,6 @@ class ProfilVisiteur extends StatefulWidget {
 }
 
 class _ProfilVisiteurState extends State<ProfilVisiteur> {
-  @override
-  Widget build(BuildContext context) {
-    return ScopedModelDescendant<LoginModel>(builder: (context, child, model) {
-      return Container(
-        child: model.loging == false
-            ? Scaffold(
-                persistentFooterButtons: <Widget>[
-                    Footer(),
-                  ],
-                body: Center(
-                  child: CircularProgressIndicator(),
-                ))
-            : model.retour_Profil
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                        Center(
-                            child: model.faux_pseudo
-                                ? Text("ton email est faux",
-                                    style: Theme.of(context).textTheme.display1)
-                                : Text("ton password est faux",
-                                    style:
-                                        Theme.of(context).textTheme.display1)),
-                        Center(
-                            child: RaisedButton(
-                          onPressed: () {
-                            ScopedModel.of<LoginModel>(context).Deconnection();
-                            Navigator.pushNamedAndRemoveUntil(
-                                context, '/', (Route<dynamic> route) => false);
-                          },
-                          textColor: Colors.white,
-                          padding: const EdgeInsets.all(0.0),
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: <Color>[
-                                  Color(0xFF0D47A1),
-                                  Color(0xFF1976D2),
-                                  Color(0xFF42A5F5),
-                                ],
-                              ),
-                            ),
-                            padding: const EdgeInsets.all(10.0),
-                            child: const Text('nouveaux test',
-                                style: TextStyle(fontSize: 20)),
-                          ),
-                        ))
-                      ])
-                : Presentation(),
-      );
-    });
-  }
-}
-
-class Presentation extends StatefulWidget {
-  @override
-  _PresentationState createState() => _PresentationState();
-}
-
-class _PresentationState extends State<Presentation> {
-
-
 
 
   @override
@@ -91,14 +29,8 @@ class _PresentationState extends State<Presentation> {
 
     return Scaffold(
         appBar: AppBar(
-    title: Center( child : Text( ScopedModel.of<LoginModel>(context).pseudo),),
+    title: Center( child : Text( ScopedModel.of<LoginModel>(context).profVisiteur['pseudo']),),
     backgroundColor: Colors.indigo,
-    leading: IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/Ajout_match', (Route<dynamic> route) => false);
-        }),
     actions: <Widget>[
       IconButton(
         icon: const Icon(Icons.settings),
@@ -318,7 +250,6 @@ class _PresentationState extends State<Presentation> {
         ],
         body: SingleChildScrollView(child:
             ScopedModelDescendant<LoginModel>(builder: (context, child, model) {
-         print(model.profVisiteur);
 // calcule de l'age
           var ms = (new DateTime.now()).millisecondsSinceEpoch;
           String ok = "}" + model.profVisiteur['age'].toString() + "/";
