@@ -59,11 +59,7 @@ class Presentation_terrain extends StatelessWidget {
                       Theme.of(context).brightness == Brightness.dark
                           ? Brightness.light
                           : Brightness.dark);
-                  if (couleur) {
-                    couleur = false;
-                  } else {
-                    couleur = true;
-                  }
+                   
                   Baselocal().mise_a_jour();
                 }
 
@@ -90,9 +86,7 @@ class Presentation_terrain extends StatelessWidget {
                                       style:
                                           Theme.of(context).textTheme.display2),
                                   RaisedButton(
-                                      child: couleur
-                                          ? Text("dark")
-                                          : Text("normale"),
+                                      child:  Text("normale"),
                                       onPressed: () async {
                                         changeBrightness();
                                       }),

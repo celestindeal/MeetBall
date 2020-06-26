@@ -104,11 +104,7 @@ class _ModfState extends State<Modif> {
                       Theme.of(context).brightness == Brightness.dark
                           ? Brightness.light
                           : Brightness.dark);
-                  if (couleur) {
-                    couleur = false;
-                  } else {
-                    couleur = true;
-                  }
+                   
                   Baselocal().mise_a_jour();
                 }
 
@@ -135,9 +131,7 @@ class _ModfState extends State<Modif> {
                                       style:
                                           Theme.of(context).textTheme.display2),
                                   RaisedButton(
-                                      child: couleur
-                                          ? Text("dark")
-                                          : Text("normale"),
+                                      child:  Text("normale"),
                                       onPressed: () async {
                                         changeBrightness();
                                       }),

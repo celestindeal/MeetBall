@@ -46,7 +46,7 @@ class _AccueilState extends State<Accueil> {
     }
     return Scaffold(
 
-      // backgroundColor: Colors.black,
+      // backgroundColor: couleur? Colors.black: Colors.white,
       body: Center(
         child: SingleChildScrollView(
             child: Column(
@@ -63,10 +63,10 @@ class _AccueilState extends State<Accueil> {
                   children: <Widget>[
                     TextFormField(
                       controller: _controller1,
-                      cursorColor: Colors.black,
-                      style: TextStyle(
-                          color: couleur? Colors.white : Colors.black,
-                           decorationColor: Colors.white),
+                      cursorColor:   Colors.black,
+                      style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3,
                       decoration: const InputDecoration(
                         hintText: 'Email',
                         hintStyle: TextStyle(color: Colors.black),
@@ -86,7 +86,7 @@ class _AccueilState extends State<Accueil> {
                       decoration: InputDecoration(
                         hasFloatingPlaceholder: true,
                         filled: false,
-                        fillColor: Colors.black,
+                        fillColor:  Colors.black,
                         hintText: 'Mot de passe',
                         hintStyle: TextStyle(color: Colors.black),
                         suffixIcon: GestureDetector(

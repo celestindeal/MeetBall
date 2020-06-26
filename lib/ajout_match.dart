@@ -80,11 +80,6 @@ class _Ajout_matchState extends State<Ajout_match> {
                             Theme.of(context).brightness == Brightness.dark
                                 ? Brightness.light
                                 : Brightness.dark);
-                        if (couleur) {
-                          couleur = false;
-                        } else {
-                          couleur = true;
-                        }
                         Baselocal().mise_a_jour();
                       }
 
@@ -113,9 +108,7 @@ class _Ajout_matchState extends State<Ajout_match> {
                                                 .textTheme
                                                 .display2),
                                         RaisedButton(
-                                            child: couleur
-                                                ? Text("dark")
-                                                : Text("normale"),
+                                            child:  Text("normale"),
                                             onPressed: () async {
                                               changeBrightness();
                                             }),

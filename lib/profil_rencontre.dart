@@ -44,11 +44,6 @@ class Profil_renctontre extends StatelessWidget {
                                               Brightness.dark
                                           ? Brightness.light
                                           : Brightness.dark);
-                                  if (couleur) {
-                                    couleur = false;
-                                  } else {
-                                    couleur = true;
-                                  }
                                   Baselocal().mise_a_jour();
                                 }
 
@@ -81,9 +76,7 @@ class Profil_renctontre extends StatelessWidget {
                                                           .textTheme
                                                           .display2),
                                                   RaisedButton(
-                                                      child: couleur
-                                                          ? Text("dark")
-                                                          : Text("normale"),
+                                                      child: Text("normale"),
                                                       onPressed: () async {
                                                         changeBrightness();
                                                       }),
@@ -315,11 +308,6 @@ class Presentation extends StatelessWidget {
                           Theme.of(context).brightness == Brightness.dark
                               ? Brightness.light
                               : Brightness.dark);
-                      if (couleur) {
-                        couleur = false;
-                      } else {
-                        couleur = true;
-                      }
                       Baselocal().mise_a_jour();
                     }
 
@@ -348,9 +336,7 @@ class Presentation extends StatelessWidget {
                                               .textTheme
                                               .display2),
                                       RaisedButton(
-                                          child: couleur
-                                              ? Text("dark")
-                                              : Text("normale"),
+                                          child: Text("normale"),
                                           onPressed: () async {
                                             changeBrightness();
                                           }),
