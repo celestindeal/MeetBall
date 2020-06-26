@@ -39,7 +39,7 @@ import 'models/Model_co.dart';
     return
      Scaffold(
       appBar: AppBar(
-    title: Text("MeetBall"),
+    title:  Center( child : Text("MeetBall"),),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),
@@ -261,7 +261,7 @@ import 'models/Model_co.dart';
       ),
     ],
   ),
-       // backgroundColor: Colors.black54,
+       // backgroundColor: Colors.black,
     body:     
     ScopedModelDescendant<LoginModel>(
     builder:(context, child, model){

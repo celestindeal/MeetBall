@@ -78,7 +78,7 @@ class _InscriptionState extends State<Inscription> {
     return Scaffold(
 
    
-        // backgroundColor: Colors.black54,
+        // backgroundColor: Colors.black,
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(

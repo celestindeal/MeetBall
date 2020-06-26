@@ -36,9 +36,9 @@ class _LieuDevState extends State<LieuDev> {
       });
     }
     return Scaffold(
-        // backgroundColor: Colors.black54,
+        // backgroundColor: Colors.black,
          appBar: AppBar(
-    title: Text("MeetBall"),
+    title: Center( child : Text("MeetBall"),),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),

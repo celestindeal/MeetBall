@@ -335,9 +335,9 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
             children: <Widget>[
               Divider(color: Colors.grey),
               TextFormField(
-                cursorColor: Colors.black54,
+                cursorColor: Colors.black,
                 style: TextStyle(
-                    color: Colors.black54, decorationColor: Colors.black54),
+                    color: Colors.black, decorationColor: Colors.black),
                 decoration: const InputDecoration(
                   hintText: 'Trouver un playground',
                   hintStyle: TextStyle(color: Colors.black),

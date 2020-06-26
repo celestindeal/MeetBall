@@ -58,7 +58,7 @@ class _Ajout_matchState extends State<Ajout_match> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Ajouter une rencontre"),
+          title: Center(child: Text("Ajouter une rencontre")),
           backgroundColor: Colors.indigo,
           leading: IconButton(
               icon: Icon(Icons.add),
@@ -304,7 +304,7 @@ class _Ajout_matchState extends State<Ajout_match> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        // backgroundColor: Colors.black54,
+        // backgroundColor: Colors.black,
 
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -459,13 +459,13 @@ class _Ajout_matchState extends State<Ajout_match> {
                                 controller: _controller,
                                 keyboardType: TextInputType.number,
                                 maxLength: 2,
-                                cursorColor: Colors.black54,
+                                cursorColor: Colors.black,
                                 style: TextStyle(
-                                    color: Colors.black54,
-                                    decorationColor: Colors.black54),
+                                    color: Colors.black,
+                                    decorationColor: Colors.black),
                                 decoration: const InputDecoration(
                                   hintText: 'Nombre de joueurs',
-                                  hintStyle: TextStyle(color: Colors.black54),
+                                  hintStyle: TextStyle(color: Colors.black),
                                 ),
                                 validator: (value) {
                                   if (value.isEmpty) {

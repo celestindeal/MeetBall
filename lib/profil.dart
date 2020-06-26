@@ -173,7 +173,7 @@ class _PresentationState extends State<Presentation> {
 
     return Scaffold(
         appBar: AppBar(
-    title: Text( ScopedModel.of<LoginModel>(context).pseudo),
+    title: Center( child : Text( ScopedModel.of<LoginModel>(context).pseudo),),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),

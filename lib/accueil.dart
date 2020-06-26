@@ -46,7 +46,7 @@ class _AccueilState extends State<Accueil> {
     }
     return Scaffold(
 
-      // backgroundColor: Colors.black54,
+      // backgroundColor: Colors.black,
       body: Center(
         child: SingleChildScrollView(
             child: Column(
@@ -63,7 +63,7 @@ class _AccueilState extends State<Accueil> {
                   children: <Widget>[
                     TextFormField(
                       controller: _controller1,
-                      cursorColor: Colors.black54,
+                      cursorColor: Colors.black,
                       style: TextStyle(
                           color: couleur? Colors.white : Colors.black,
                            decorationColor: Colors.white),

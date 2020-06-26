@@ -32,7 +32,7 @@ class _AvisDevState extends State<AvisDev> {
     }
     return Scaffold(
          appBar: AppBar(
-    title: Text("MeetBall"),
+    title:Center( child : Text("MeetBall"),),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),
@@ -254,7 +254,7 @@ class _AvisDevState extends State<AvisDev> {
       ),
     ],
   ),
-        // backgroundColor: Colors.black54,
+        // backgroundColor: Colors.black,
         persistentFooterButtons: <Widget>[
           Footer(),
         ],

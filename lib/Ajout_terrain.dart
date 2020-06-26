@@ -315,7 +315,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        // backgroundColor: Colors.black54,
+        // backgroundColor: Colors.black,
 
         body:
             ScopedModelDescendant<GameModel>(builder: (context, child, model) {
@@ -327,13 +327,13 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                   children: <Widget>[
                     TextFormField(
                       controller: _controller1,
-                      cursorColor: Colors.black54,
+                      cursorColor: Colors.black,
                       style: TextStyle(
-                          color: Colors.black54,
-                          decorationColor: Colors.black54),
+                          color: Colors.black,
+                          decorationColor: Colors.black),
                       decoration: const InputDecoration(
                         hintText: 'Nom',
-                        hintStyle: TextStyle(color: Colors.black54),
+                        hintStyle: TextStyle(color: Colors.black),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -347,10 +347,10 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                     ),
                     TextFormField(
                       style: TextStyle(
-                          color: Colors.black54,
-                          decorationColor: Colors.black54),
+                          color: Colors.black,
+                          decorationColor: Colors.black),
                       controller: _controller2,
-                      cursorColor: Colors.black54,
+                      cursorColor: Colors.black,
                       decoration: InputDecoration(
                         hasFloatingPlaceholder: true,
                         filled: false,
@@ -383,13 +383,13 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                     ),
                     TextFormField(
                       controller: _controller3,
-                      cursorColor: Colors.black54,
+                      cursorColor: Colors.black,
                       style: TextStyle(
-                          color: Colors.black54,
-                          decorationColor: Colors.black54),
+                          color: Colors.black,
+                          decorationColor: Colors.black),
                       decoration: const InputDecoration(
                         hintText: 'Ville',
-                        hintStyle: TextStyle(color: Colors.black54),
+                        hintStyle: TextStyle(color: Colors.black),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -405,13 +405,13 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                       controller: _controller4,
                       keyboardType: TextInputType.number,
                       maxLength: 2,
-                      cursorColor: Colors.black54,
+                      cursorColor: Colors.black,
                       style: TextStyle(
-                          color: Colors.black54,
-                          decorationColor: Colors.black54),
+                          color: Colors.black,
+                          decorationColor: Colors.black),
                       decoration: const InputDecoration(
                         hintText: 'Nombre de terrain',
-                        hintStyle: TextStyle(color: Colors.black54),
+                        hintStyle: TextStyle(color: Colors.black),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -425,13 +425,13 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                     ),
                     TextFormField(
                       controller: _controller5,
-                      cursorColor: Colors.black54,
+                      cursorColor: Colors.black,
                       style: TextStyle(
-                          color: Colors.black54,
-                          decorationColor: Colors.black54),
+                          color: Colors.black,
+                          decorationColor: Colors.black),
                       decoration: const InputDecoration(
                         hintText: 'Nature du sol',
-                        hintStyle: TextStyle(color: Colors.black54),
+                        hintStyle: TextStyle(color: Colors.black),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -445,13 +445,13 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                     ),
                     TextFormField(
                       controller: _controller6,
-                      cursorColor: Colors.black54,
+                      cursorColor: Colors.black,
                       style: TextStyle(
-                          color: Colors.black54,
-                          decorationColor: Colors.black54),
+                          color: Colors.black,
+                          decorationColor: Colors.black),
                       decoration: const InputDecoration(
                         hintText: 'Horaire Ouverture',
-                        hintStyle: TextStyle(color: Colors.black54),
+                        hintStyle: TextStyle(color: Colors.black),
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
@@ -474,7 +474,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                     'Tu ne peux pas ajouter plus de 4 photos')));
                           }
                         },
-                        textColor: Colors.black54,
+                        textColor: Colors.black,
                         padding: const EdgeInsets.all(0.0),
                         child: Text('Ajouter une photo',
                             style: TextStyle(fontSize: 20)),
@@ -543,8 +543,8 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 16.0,
-                              color: Colors.black54,
-                              decorationColor: Colors.black54,
+                              color: Colors.black,
+                              decorationColor: Colors.black,
                               fontWeight: FontWeight.w800,
                               fontFamily: 'Roboto',
                               letterSpacing: 0.5,

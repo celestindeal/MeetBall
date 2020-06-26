@@ -82,7 +82,7 @@ class _ModfState extends State<Modif> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-    title: Text("Modifier le profil"),
+    title: Center( child : Text("Modifier le profil"),),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),
@@ -304,7 +304,7 @@ class _ModfState extends State<Modif> {
       ),
     ],
   ),
-        // backgroundColor: Colors.black54,
+        // backgroundColor: Colors.black,
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
@@ -341,14 +341,14 @@ class _ModfState extends State<Modif> {
                       children: <Widget>[
                         TextFormField(
                           initialValue: model.pseudo,
-                          cursorColor: Colors.black54,
+                          cursorColor: Colors.black,
                           style: TextStyle(
-                              color: Colors.black54,
-                              decorationColor: Colors.black54),
+                              color: Colors.black,
+                              decorationColor: Colors.black),
                           decoration: const InputDecoration(
                             hintText: 'Pseudo',
                             hintStyle:
-                                TextStyle(color: Colors.black54, fontSize: 18.0),
+                                TextStyle(color: Colors.black, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -364,14 +364,14 @@ class _ModfState extends State<Modif> {
 
 TextFormField(
                           initialValue: model.nom,
-                          cursorColor: Colors.black54,
+                          cursorColor: Colors.black,
                           style: TextStyle(
-                              color: Colors.black54,
-                              decorationColor: Colors.black54),
+                              color: Colors.black,
+                              decorationColor: Colors.black),
                           decoration: const InputDecoration(
                             hintText: 'Nom',
                             hintStyle:
-                                TextStyle(color: Colors.black54, fontSize: 18.0),
+                                TextStyle(color: Colors.black, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -384,14 +384,14 @@ TextFormField(
                           },
                         ),TextFormField(
                           initialValue: model.prenom,
-                          cursorColor: Colors.black54,
+                          cursorColor: Colors.black,
                           style: TextStyle(
-                              color: Colors.black54,
-                              decorationColor: Colors.black54),
+                              color: Colors.black,
+                              decorationColor: Colors.black),
                           decoration: const InputDecoration(
                             hintText: 'Prénom',
                             hintStyle:
-                                TextStyle(color: Colors.black54, fontSize: 18.0),
+                                TextStyle(color: Colors.black, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -407,14 +407,14 @@ TextFormField(
 
                         TextFormField(
                           initialValue: model.email,
-                          cursorColor: Colors.black54,
+                          cursorColor: Colors.black,
                           style: TextStyle(
-                              color: Colors.black54,
-                              decorationColor: Colors.black54),
+                              color: Colors.black,
+                              decorationColor: Colors.black),
                           decoration: const InputDecoration(
                             hintText: 'email',
                             hintStyle:
-                                TextStyle(color: Colors.black54, fontSize: 18.0),
+                                TextStyle(color: Colors.black, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -428,14 +428,14 @@ TextFormField(
                         ),
                         TextFormField(
                           initialValue: model.password,
-                          cursorColor: Colors.black54,
+                          cursorColor: Colors.black,
                           style: TextStyle(
-                              color: Colors.black54,
-                              decorationColor: Colors.black54),
+                              color: Colors.black,
+                              decorationColor: Colors.black),
                           decoration: const InputDecoration(
                             hintText: 'password',
                             hintStyle:
-                                TextStyle(color: Colors.black54, fontSize: 18.0),
+                                TextStyle(color: Colors.black, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -512,14 +512,14 @@ TextFormField(
                */
                         TextFormField(
                           initialValue: model.club,
-                          cursorColor: Colors.black54,
+                          cursorColor: Colors.black,
                           style: TextStyle(
-                              color: Colors.black54,
-                              decorationColor: Colors.black54),
+                              color: Colors.black,
+                              decorationColor: Colors.black),
                           decoration: const InputDecoration(
                             hintText: 'club',
                             hintStyle:
-                                TextStyle(color: Colors.black54, fontSize: 18.0),
+                                TextStyle(color: Colors.black, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -533,14 +533,14 @@ TextFormField(
                         ),
                         TextFormField(
                           initialValue: model.niveau,
-                          cursorColor: Colors.black54,
+                          cursorColor: Colors.black,
                           style: TextStyle(
-                              color: Colors.black54,
-                              decorationColor: Colors.black54),
+                              color: Colors.black,
+                              decorationColor: Colors.black),
                           decoration: const InputDecoration(
                             hintText: 'niveaux',
                             hintStyle:
-                                TextStyle(color: Colors.black54, fontSize: 18.0),
+                                TextStyle(color: Colors.black, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
@@ -555,14 +555,14 @@ TextFormField(
                         TextFormField(
                           initialValue: model.description,
                           maxLines: 5,
-                          cursorColor: Colors.black54,
+                          cursorColor: Colors.black,
                           style: TextStyle(
-                              color: Colors.black54,
-                              decorationColor: Colors.black54),
+                              color: Colors.black,
+                              decorationColor: Colors.black),
                           decoration: const InputDecoration(
                             hintText: 'description',
                             hintStyle:
-                                TextStyle(color: Colors.black54, fontSize: 18.0),
+                                TextStyle(color: Colors.black, fontSize: 18.0),
                           ),
                           validator: (value) {
                             if (value.isEmpty) {

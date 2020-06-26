@@ -251,7 +251,7 @@ class Profil_renctontre extends StatelessWidget {
                   persistentFooterButtons: <Widget>[
                     Footer(),
                   ],
-                  // backgroundColor: Colors.black54,
+                  // backgroundColor: Colors.black,
                   body: Center(
                     child: CircularProgressIndicator(),
                   )));
@@ -493,7 +493,7 @@ class Presentation extends StatelessWidget {
       persistentFooterButtons: <Widget>[
         Footer(),
       ],
-      // backgroundColor: Colors.black54,
+      // backgroundColor: Colors.black,
       body: ScopedModelDescendant<LoginModel>(builder: (context, child, login) {
         return ScopedModelDescendant<GameModel>(
             builder: (context, child, model) {
@@ -749,7 +749,7 @@ class Presentation extends StatelessWidget {
                     //       TextFormField(
                     //         keyboardType: TextInputType.number,
                     //         maxLength: 2,
-                    //         cursorColor: Colors.black54,
+                    //         cursorColor: Colors.black,
                     //         style: TextStyle(
                     //             color: Colors.white,
                     //             decorationColor: Colors.white),
@@ -842,7 +842,7 @@ class Presentation extends StatelessWidget {
                             color: Colors.white70,
                             child: TextFormField(
                               maxLines: 3,
-                              cursorColor: Colors.black54,
+                              cursorColor: Colors.black,
                               style: TextStyle(
                                   color: Colors.white,
                                   decorationColor: Colors.white),

@@ -28,7 +28,7 @@ class _AvisState extends State<Avis> {
   Widget build(BuildContext context) {
     return Scaffold(
      appBar: AppBar(
-    title: Text("Avis"),
+    title: Center( child : Text("Avis"),),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),
@@ -253,7 +253,7 @@ class _AvisState extends State<Avis> {
         persistentFooterButtons: <Widget>[
                     Footer(),
                   ],
-        // backgroundColor: Colors.black54,
+        // backgroundColor: Colors.black,
         body: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
             Widget>[
           Center(

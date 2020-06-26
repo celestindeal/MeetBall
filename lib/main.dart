@@ -105,7 +105,7 @@ class _MainState extends State<Main> {
                                     color:
                                           Colors.black,
                                     decorationColor:
-                                        Colors.black54), //text Class
+                                        Colors.black), //text Class
                                 display4: TextStyle(
                                   fontSize: 32.0,
                                   inherit: false,

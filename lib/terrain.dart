@@ -35,11 +35,12 @@ class Presentation_terrain extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-    title: Text("Playground"),
+    title:  Center( child : Text("Playground"),),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),
         onPressed: () {
+          
           Navigator.pushNamedAndRemoveUntil(
               context, '/Ajout_match', (Route<dynamic> route) => false);
         }),

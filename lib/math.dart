@@ -29,7 +29,7 @@ class Match extends StatelessWidget {
                 )
               : Scaffold(
                   appBar: AppBar(
-    title: Text("MeetBall"),
+    title: Center( child : Text("MeetBall"),),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),
@@ -276,7 +276,7 @@ class Presentation extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-    title: Text("Rencontre à venir"),
+    title: Center( child : Text("Rencontre à venir"),),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),
@@ -501,7 +501,7 @@ class Presentation extends StatelessWidget {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        // backgroundColor: Colors.black54,
+        // backgroundColor: Colors.black,
         body: SmartRefresher(
           enablePullDown: true,
           header: WaterDropHeader(),
