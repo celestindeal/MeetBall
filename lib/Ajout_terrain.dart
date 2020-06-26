@@ -56,17 +56,13 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                   onTap: () async {
                     image.add(await ImagePicker.pickImage(
                         source: ImageSource.gallery));
-                    print("test");
                     setState(() {
                       image;
                       afficherimage = true;
                     });
-                    print("test");
                     List<int> imageBytes =
                         image[image.length - 1].readAsBytesSync();
-                    print("test");
                     base64Image.add(base64Encode(imageBytes));
-                    print("test");
                     Navigator.of(context).pop();
                   },
                 ),
@@ -76,17 +72,13 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                   onTap: () async {
                     image.add(await ImagePicker.pickImage(
                         source: ImageSource.camera));
-                    print("test");
                     setState(() {
                       image;
                       afficherimage = true;
                     });
-                    print("test");
                     List<int> imageBytes =
                         image[image.length - 1].readAsBytesSync();
-                    print("test");
                     base64Image.add(base64Encode(imageBytes));
-                    print("test");
                     Navigator.of(context).pop();
                   },
                 )
@@ -203,10 +195,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                       builder: (BuildContext context) {
                                         return Center(
                                           child: Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20.0),
-                                                color: Colors.indigo),
+                                            color:Colors.white,
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: <Widget>[

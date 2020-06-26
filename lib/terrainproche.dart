@@ -195,10 +195,7 @@ class _TerrainProState extends State<TerrainPro> {
                                       builder: (BuildContext context) {
                                         return Center(
                                           child: Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20.0),
-                                                color: Colors.indigo),
+                                            color:Colors.white,
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: <Widget>[
@@ -517,9 +514,6 @@ class _AffImageState extends State<AffImage> {
                                           GestureDetector(
                                             child: Text("Google map"),
                                             onTap: () async {
-                                              print(lieupro[i]['contruiction']
-                                                      ['url']
-                                                  .toString());
                                               String value = lieupro[i]
                                                       ['contruiction']['url']
                                                   .toString();
@@ -533,9 +527,6 @@ class _AffImageState extends State<AffImage> {
                                           GestureDetector(
                                             child: Text("Waze"),
                                             onTap: () async {
-                                              print(lieupro[i]['contruiction']
-                                                      ['urlwaze']
-                                                  .toString());
 
                                               String value = lieupro[i]
                                                           ['contruiction']

@@ -44,6 +44,11 @@ android {
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        // Note that it's important to keep the double quotes as part of the third argument
+        // as this represents a string in Java code
+        buildConfigField 'String', 'WONDERPUSH_CLIENT_ID', '"d112f414b5003b308ae11be728d4f4731e42cd60"'
+        buildConfigField 'String', 'WONDERPUSH_CLIENT_SECRET', '"ad552008d19235c4885b85b5194f1f1e1f7ee077280cf92488bc8dbcd779483a"'
+        buildConfigField 'String', 'WONDERPUSH_SENDER_ID', '"237685623607"'
     }
 
     buildTypes {

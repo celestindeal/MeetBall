@@ -143,10 +143,7 @@ class _LieuDevState extends State<LieuDev> {
                                       builder: (BuildContext context) {
                                         return Center(
                                           child: Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20.0),
-                                                color: Colors.indigo),
+                                            color:Colors.white,
                                             child: Column(
                                               mainAxisSize: MainAxisSize.min,
                                               children: <Widget>[
