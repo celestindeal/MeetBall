@@ -535,7 +535,7 @@ class Presentation extends StatelessWidget {
                                         .Commentaire();
                                     await ScopedModel.of<LoginModel>(context)
                                         .Personne_propose(
-                                            model.data_game[i]['per']);
+                                            model.data_game[i]['id']);
                                     //  model.rencontre_visualiser = model.data_game[i]['id'];
                                     Navigator.pushNamed(
                                         context, '/Profil_renctontre');

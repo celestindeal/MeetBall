@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meetballl/db.dart';
+import 'package:meetballl/profVisiteur.dart';
 import 'package:meetballl/profil.dart';
 import 'package:meetballl/profil_rencontre.dart';
 import 'package:meetballl/terrain.dart';
@@ -123,6 +124,8 @@ class _MainState extends State<Main> {
                               '/': (context) => Accueil(),
                               '/inscription': (context) => Inscription(),
                               '/Profil': (context) => Profil(),
+                              '/ProfilVisiteur': (context) => ProfilVisiteur(),
+
                               '/Match': (context) => Match(),
                               '/Profil_renctontre': (context) =>
                                   Profil_renctontre(),

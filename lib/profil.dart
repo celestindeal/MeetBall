@@ -570,7 +570,7 @@ class _PresentationState extends State<Presentation> {
                               ScopedModel.of<GameModel>(context).Commentaire();
                               await ScopedModel.of<LoginModel>(context)
                                   .Personne_propose(
-                                      model.participation[i]['pseudo']);
+                                      model.participation[i]['id_rencontre']);
                               Navigator.pushNamed(
                                   context, '/Profil_renctontre');
                             },

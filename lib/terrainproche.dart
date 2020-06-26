@@ -90,7 +90,7 @@ class _TerrainProState extends State<TerrainPro> {
 
     return Scaffold(
         appBar: AppBar(
-    title: Text("Playground"),
+    title: Text("Playground à coté"),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),

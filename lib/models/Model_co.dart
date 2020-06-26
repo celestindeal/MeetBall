@@ -24,13 +24,8 @@ class LoginModel extends Model {
   bool loging = false;
   bool retour_Profil = false;
   bool affmodif = true;
-  var visiter_img;
-  var visiter_pseudo;
-  var visiter_numero;
-  var visiter_age;
-  var visiter_club;
-  var visiter_niveau;
-  var visiter_description;
+  List participent =[];
+  Map profVisiteur = {};
   bool visiteur = false;
   bool boParticipation;
   String nombreIviter;
@@ -238,45 +233,36 @@ changeMode(){
     return " fin de fonction";
   }
 
-  Future<String> Personne_propose(String tpseudo) async {
+  Future<String> Personne_propose(String idrencontre) async {
     boParticipation = false;
     var url = 'http://51.210.103.151/get.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
-    bool validation = true;
     var tailledata = data.length;
+    participent.clear();
     int n = 0;
-    while (tailledata > n && validation == true) {
-      if (data[n]['pseudo'] == tpseudo) {
-        visiter_img = data[n]['photo'];
-        visiter_pseudo = data[n]['pseudo'];
-        visiter_numero = data[n]['numero'];
-        visiter_age = data[n]['age'];
-        visiter_club = data[n]['club'];
-        visiter_niveau = data[n]['niveaux'];
-        visiter_description = data[n]['message'];
-        validation = false;
-        if (tpseudo == pseudo) {
-          visiteur = false;
-        } else {
-          visiteur = true;
-        }
+    var url2 = 'http://51.210.103.151/get_participation.php';
+      http.Response response2 = await http.get(url2);
+      var data2 = jsonDecode(response2.body);
+      var tailledata2 = data2.length;
+for (var i = 0; i < tailledata2; i++) {
+  if ( idrencontre == data2[i]['ID_rencontre']){
+   n= 0;
+    
+
+    while (tailledata > n ) {
+      if (data[n]['pseudo'] == data2[i]['pseudo']) {
+      participent.add(data[n]);
       }
       n++;
     }
-    if (visiteur == true) {
-      var url = 'http://51.210.103.151/get_participation.php';
-      http.Response response = await http.get(url);
-      var data = jsonDecode(response.body);
-      bool validation = true;
-      var tailledata = data.length;
-      n = 0;
-      while (tailledata > n) {
-        if (pseudo == data[n]['pseudo']) nombreIviter = data[n]['inviter'];
-        boParticipation = true;
-        n++;
-      }
-    }
+  }
+  
+}
+
+    
+    
+   
     notifyListeners();
     return " fin de fonction";
   }
