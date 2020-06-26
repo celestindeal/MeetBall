@@ -464,8 +464,9 @@ TextFormField(
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18),
-                                    doneStyle: TextStyle(
-                                        color: Colors.black, fontSize: 16)),
+                                    cancelStyle:  TextStyle(color: Colors.white, fontSize: 16),
+                            doneStyle:
+                                TextStyle(color: Colors.white, fontSize: 16)),
                                 onChanged: (date) {}, onConfirm: (date) {
                               _date = '${date.year}-${date.month}-${date.day}';
                               setState(() {});
@@ -487,12 +488,12 @@ TextFormField(
                                           Icon(
                                             Icons.date_range,
                                             size: 18.0,
-                                            color: Colors.black54,
+                                            color: Colors.black,
                                           ),
                                           Text(
                                             " $_date",
                                             style: TextStyle(
-                                                color: Colors.black54,
+                                                color: Colors.black,
                                                 fontSize: 18.0),
                                           ),
                                         ],

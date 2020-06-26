@@ -14,7 +14,6 @@ File image;
 var form_email;
 var form_password;
 var _controller1 = TextEditingController();
-var _controller2 = TextEditingController();
 bool _passwordVisible = false;
 bool boinit = true;
 
@@ -83,7 +82,6 @@ class _AccueilState extends State<Accueil> {
                       },
                     ),
                     TextFormField(
-                      controller: _controller2,
                       obscureText: !_passwordVisible,
                       decoration: InputDecoration(
                         hasFloatingPlaceholder: true,
@@ -139,8 +137,6 @@ class _AccueilState extends State<Accueil> {
                                 if (_formKey.currentState.validate()) {
                                   _controller1 =
                                   TextEditingController(text: form_email);
-                                  _controller2 =
-                                  TextEditingController(text: form_password);
                                   ScopedModel.of<LoginModel>(context)
                                       .Connexion(form_email, form_password);
                                   Navigator.pushNamedAndRemoveUntil(
@@ -150,7 +146,7 @@ class _AccueilState extends State<Accueil> {
                                 }
                                 PushNotificationsManager().init();
                               },
-                              child: Text('connexion'),
+                              child: Text('Connexion'),
                             ),
                           ),
                         ),

@@ -76,232 +76,8 @@ class _InscriptionState extends State<Inscription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-    title: Text("MeetBall"),
-    backgroundColor: Colors.indigo,
-    leading: IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/Ajout_match', (Route<dynamic> route) => false);
-        }),
-    actions: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return StatefulBuilder(
-                  builder: (BuildContext context, StateSetter setState) {
-                changeBrightness() {
-                  DynamicTheme.of(context).setBrightness(
-                      Theme.of(context).brightness == Brightness.dark
-                          ? Brightness.light
-                          : Brightness.dark);
-                  if (couleur) {
-                    couleur = false;
-                  } else {
-                    couleur = true;
-                  }
-                  Baselocal().mise_a_jour();
-                }
 
-                return Center(
-                  child: Container(
-                      height: MediaQuery.of(context).size.height / 2,
-                      padding: const EdgeInsets.all(5),
-                      margin: const EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.grey,
-                      ),
-                      child: Center(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text("Mode d'affichage:",
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display2),
-                                  RaisedButton(
-                                      child: couleur
-                                          ? Text("dark")
-                                          : Text("normale"),
-                                      onPressed: () async {
-                                        changeBrightness();
-                                      }),
-                                ],
-                              ),
-                              RaisedButton(
-                                  child: Text(
-                                      "CONDITIONS GÉNÉRALES D’UTILISATION"),
-                                  onPressed: () async {
-                                    if (await canLaunch(
-                                        "http://51.210.103.151/conditions.php")) {
-                                      await launch(
-                                          "http://51.210.103.151/conditions.php");
-                                    }
-                                  }),
-                              RaisedButton(
-                                  child: Text("POLITIQUE DE CONFIDENTIALITÉ"),
-                                  onPressed: () async {
-                                    if (await canLaunch(
-                                        "http://51.210.103.151/confidentialite.php")) {
-                                      await launch(
-                                          "http://51.210.103.151/confidentialite.php");
-                                    }
-                                  }),
-                              RaisedButton(
-                                  child: Text("FAQ"),
-                                  onPressed: () async {
-                                    if (await canLaunch(
-                                        "http://51.210.103.151/FAQ.php")) {
-                                      await launch(
-                                          "http://51.210.103.151/FAQ.php");
-                                    }
-                                  }),
-                              RaisedButton(
-                                onPressed: () async {
-                                  Navigator.pushNamedAndRemoveUntil(context,
-                                      '/Avis', (Route<dynamic> route) => false);
-                                },
-                                child: Text('Nous contacter',
-                                    style:
-                                        Theme.of(context).textTheme.display3),
-                              ),
-                              RaisedButton(
-                                onPressed: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Center(
-                                          child: Container(
-                                            color:Colors.white,
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: <Widget>[
-                                                Text(
-                                                    'Es-tu sûr de vraiment vouloir te déconnecter ?',
-                                                    textAlign: TextAlign.center,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .display1),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: <Widget>[
-                                                    RaisedButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child: Text('non')),
-                                                    RaisedButton(
-                                                        onPressed: () async {
-                                                          await ScopedModel.of<
-                                                                      LoginModel>(
-                                                                  context)
-                                                              .Deconnection();
-                                                          await Baselocal()
-                                                              .deconnect();
-                                                          Navigator
-                                                              .pushNamedAndRemoveUntil(
-                                                                  context,
-                                                                  '/',
-                                                                  (Route<dynamic>
-                                                                          route) =>
-                                                                      false);
-                                                        },
-                                                        child: Text('oui')),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      });
-                                },
-                                child: Text('Déconnexion',
-                                    style:
-                                        Theme.of(context).textTheme.display3),
-                              ),
-                              ScopedModel.of<LoginModel>(context).devellopeur
-                                  ? Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: <Widget>[
-                                        GestureDetector(
-                                          onTap: () {
-                                            Navigator.pushNamedAndRemoveUntil(
-                                                context,
-                                                '/avisDev',
-                                                (Route<dynamic> route) =>
-                                                    false);
-                                          },
-                                          child: Container(
-                                            height: (MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                10),
-                                            child: Center(
-                                              child: Text('avisDev',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .display3),
-                                            ),
-                                          ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            ScopedModel.of<ImgModel>(context)
-                                                .Img();
-                                            ScopedModel.of<TerrainModel>(
-                                                    context)
-                                                .TerrainDev();
-                                            Navigator.pushNamedAndRemoveUntil(
-                                                context,
-                                                '/lieuDev',
-                                                (Route<dynamic> route) =>
-                                                    false);
-                                          },
-                                          child: Container(
-                                            height: (MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                10),
-                                            child: Center(
-                                              child: Text('lieuDev',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .display3),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  : Container()
-                            ],
-                          ),
-                        ),
-                      )),
-                );
-              });
-            },
-          );
-        },
-      ),
-    ],
-  ),
-        persistentFooterButtons: <Widget>[
-          Footer(),
-        ],
+   
         // backgroundColor: Colors.black54,
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -319,14 +95,18 @@ class _InscriptionState extends State<Inscription> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
+                       Image.asset(
+                'img/balise.png',
+                width: MediaQuery.of(context).size.width,
+              ),
                       TextFormField(
-                        cursorColor: Colors.black54,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                            color: Colors.white, decorationColor: Colors.white),
+                            color: Colors.black, decorationColor: Colors.black),
                         decoration: const InputDecoration(
                           hintText: 'Pseudo',
                           hintStyle:
-                              TextStyle(color: Colors.white, fontSize: 18.0),
+                              TextStyle(color: Colors.black, fontSize: 18.0),
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -344,13 +124,13 @@ class _InscriptionState extends State<Inscription> {
                       ),
 
                       TextFormField(
-                        cursorColor: Colors.black54,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                            color: Colors.white, decorationColor: Colors.white),
+                            color: Colors.black, decorationColor: Colors.black),
                         decoration: const InputDecoration(
                           hintText: 'Nom',
                           hintStyle:
-                              TextStyle(color: Colors.white, fontSize: 18.0),
+                              TextStyle(color: Colors.black, fontSize: 18.0),
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -363,13 +143,13 @@ class _InscriptionState extends State<Inscription> {
                       ),
 
                       TextFormField(
-                        cursorColor: Colors.black54,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                            color: Colors.white, decorationColor: Colors.white),
+                            color: Colors.black, decorationColor: Colors.black),
                         decoration: const InputDecoration(
                           hintText: 'Prénom',
                           hintStyle:
-                              TextStyle(color: Colors.white, fontSize: 18.0),
+                              TextStyle(color: Colors.black, fontSize: 18.0),
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -381,13 +161,13 @@ class _InscriptionState extends State<Inscription> {
                         },
                       ),
                       TextFormField(
-                        cursorColor: Colors.black54,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                            color: Colors.white, decorationColor: Colors.white),
+                            color: Colors.black, decorationColor: Colors.black),
                         decoration: const InputDecoration(
                           hintText: 'Email',
                           hintStyle:
-                              TextStyle(color: Colors.white, fontSize: 18.0),
+                              TextStyle(color: Colors.black, fontSize: 18.0),
                         ),
                         validator: (value) {
                           if (value.isEmpty) {
@@ -412,7 +192,7 @@ class _InscriptionState extends State<Inscription> {
                           filled: false,
                           fillColor: Colors.black,
                           hintText: 'Mot de passe',
-                          hintStyle: TextStyle(color: Colors.white),
+                          hintStyle: TextStyle(color: Colors.black),
                           suffixIcon: GestureDetector(
                             onLongPress: () {
                               setState(() {
@@ -445,7 +225,7 @@ class _InscriptionState extends State<Inscription> {
                           filled: false,
                           fillColor: Colors.black,
                           hintText: 'Confirmation du mot de passe',
-                          hintStyle: TextStyle(color: Colors.white),
+                          hintStyle: TextStyle(color: Colors.black),
                           suffixIcon: GestureDetector(
                             onLongPress: () {
                               setState(() {
@@ -485,12 +265,14 @@ class _InscriptionState extends State<Inscription> {
                               minTime: DateTime(1900, 0, 0),
                               maxTime: DateTime.now(),
                               theme: DatePickerTheme(
-                                  headerColor: Colors.blue,
+                                  headerColor: Colors.indigo,
                                   // backgroundColor: Colors.white,
                                   itemStyle: TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 18),
+                                  cancelStyle: TextStyle(
+                                      color: Colors.white, fontSize: 16),
                                   doneStyle: TextStyle(
                                       color: Colors.white, fontSize: 16)),
                               onChanged: (date) {}, onConfirm: (date) {
@@ -515,12 +297,12 @@ class _InscriptionState extends State<Inscription> {
                                         Icon(
                                           Icons.date_range,
                                           size: 18.0,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                         ),
                                         Text(
                                           "$_date",
                                           style: TextStyle(
-                                              color: Colors.white,
+                                              color: Colors.black,
                                               fontSize: 18.0),
                                         ),
                                       ],
@@ -531,7 +313,7 @@ class _InscriptionState extends State<Inscription> {
                             ],
                           ),
                         ),
-                        color: Colors.black,
+                        color: Colors.amber[900],
                       ),
                       Center(
                           child: RaisedButton(
@@ -556,7 +338,7 @@ class _InscriptionState extends State<Inscription> {
                             )))
                           : Center(
                               child: Container(
-                              child: Text("tu n'a pas choisi d'image"),
+                              child: Text("Tu n'a pas choisi d'image"),
                             )),
                       Container(
                         height: 10,
@@ -567,8 +349,8 @@ class _InscriptionState extends State<Inscription> {
                             softWrap: true,
                             style: TextStyle(
                               fontSize: 16.0,
-                              color: Colors.white70,
-                              decorationColor: Colors.white,
+                              color: Colors.black,
+                              decorationColor: Colors.black,
                               fontWeight: FontWeight.w800,
                               fontFamily: 'Roboto',
                               letterSpacing: 0.5,
@@ -645,7 +427,7 @@ class _InscriptionState extends State<Inscription> {
                                     .push(_createRouteformulaire());
                               }
                             },
-                            child: Text("s'incrire"),
+                            child: Text("S'inscrire"),
                           ),
                         ),
                       )
