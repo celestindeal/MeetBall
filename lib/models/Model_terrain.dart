@@ -54,7 +54,7 @@ class TerrainModel extends Model {
     var url = 'http://51.210.103.151/post_terrain.php';
     String json =
         '{"nom":"$nom","adresse":"$adresse","ville":"$ville","nombre_terrain":"$nombre_terrain","image1":"$image1","image2":"$image2","image3":"$image3","image4":"$image4","sol":"$sol","ouverture":"$ouverture"}'; // make POST request
-
+print(json);
     Response response = await post(url, body: json);
     String body = response.body;
     print(body);
