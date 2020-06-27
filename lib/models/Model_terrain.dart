@@ -57,6 +57,7 @@ class TerrainModel extends Model {
 
     Response response = await post(url, body: json);
     String body = response.body;
+    print(body);
     return body;
 
     notifyListeners();

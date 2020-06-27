@@ -316,9 +316,9 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                     TextFormField(
                       controller: _controller1,
                       cursorColor: Colors.black,
-                      style: TextStyle(
-                          color: Colors.black,
-                          decorationColor: Colors.black),
+                      style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3,
                       decoration: const InputDecoration(
                         hintText: 'Nom',
                         hintStyle: TextStyle(color: Colors.black),
@@ -334,9 +334,9 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                       },
                     ),
                     TextFormField(
-                      style: TextStyle(
-                          color: Colors.black,
-                          decorationColor: Colors.black),
+                      style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3,
                       controller: _controller2,
                       cursorColor: Colors.black,
                       decoration: InputDecoration(
@@ -372,9 +372,9 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                     TextFormField(
                       controller: _controller3,
                       cursorColor: Colors.black,
-                      style: TextStyle(
-                          color: Colors.black,
-                          decorationColor: Colors.black),
+                      style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3,
                       decoration: const InputDecoration(
                         hintText: 'Ville',
                         hintStyle: TextStyle(color: Colors.black),
@@ -394,9 +394,9 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                       keyboardType: TextInputType.number,
                       maxLength: 2,
                       cursorColor: Colors.black,
-                      style: TextStyle(
-                          color: Colors.black,
-                          decorationColor: Colors.black),
+                      style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3,
                       decoration: const InputDecoration(
                         hintText: 'Nombre de terrain',
                         hintStyle: TextStyle(color: Colors.black),
@@ -414,9 +414,9 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                     TextFormField(
                       controller: _controller5,
                       cursorColor: Colors.black,
-                      style: TextStyle(
-                          color: Colors.black,
-                          decorationColor: Colors.black),
+                      style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3,
                       decoration: const InputDecoration(
                         hintText: 'Nature du sol',
                         hintStyle: TextStyle(color: Colors.black),
@@ -434,9 +434,9 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                     TextFormField(
                       controller: _controller6,
                       cursorColor: Colors.black,
-                      style: TextStyle(
-                          color: Colors.black,
-                          decorationColor: Colors.black),
+                      style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3,
                       decoration: const InputDecoration(
                         hintText: 'Horaire Ouverture',
                         hintStyle: TextStyle(color: Colors.black),
@@ -465,7 +465,9 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                         textColor: Colors.black,
                         padding: const EdgeInsets.all(0.0),
                         child: Text('Ajouter une photo',
-                            style: TextStyle(fontSize: 20)),
+                            style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3,),
                       ),
                     ),
                     afficherimage
@@ -482,10 +484,14 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                         padding: const EdgeInsets.symmetric(vertical: 16.0),
                         child: RaisedButton(
                           onPressed: () async {
+
+
                             if (_formKey.currentState.validate()) {
+
                          Navigator.pushNamedAndRemoveUntil(
                     context, '/Profil', (Route<dynamic> route) => false);
                               //    await ScopedModel.of<GameModel>(context).Ajout_match( lieuchoisi , _date , _time , nombre_jo,pseudo);
+                
                               ScopedModel.of<TerrainModel>(context)
                                   .AjouterTerrain(
                                       nom,
@@ -500,28 +506,32 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                       ouverture);
 
                               ScopedModel.of<GameModel>(context).Match();
-                              setState(() {
-                                _controller1.clear();
-                                _controller2.clear();
-                                _controller3.clear();
-                                _controller4.clear();
-                                _controller5.clear();
-                                _controller6.clear();
+                              // setState(() {
+                              //   _controller1.clear();
+                              //   _controller2.clear();
+                              //   _controller3.clear();
+                              //   _controller4.clear();
+                              //   _controller5.clear();
+                              //   _controller6.clear();
 
-                                image = null;
-                                base64Image.clear();
-                                nom = "";
-                                adresse = "";
-                                ville = "";
-                                nombre_terrain = null;
-                                sol = " ";
-                                ouverture = " ";
-                              });
+                              //   image = null;
+                              //   base64Image.clear();
+                              //   nom = "";
+                              //   adresse = "";
+                              //   ville = "";
+                              //   nombre_terrain = null;
+                              //   sol = " ";
+                              //   ouverture = " ";
+                              // });
                               Scaffold.of(context).showSnackBar(new SnackBar(
-                                  content: new Text('Terrain Proposé')));
+                                  content: new Text('Terrain Proposé',style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3,)));
                             }
                           },
-                          child: Text('Proposer'),
+                          child: Text('Proposer',style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3,),
                         ),
                       ),
                     ),
@@ -529,14 +539,9 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                         child: Text(
                             "Ton terrain sera rajouter à la liste après validation par notre équipe",
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.black,
-                              decorationColor: Colors.black,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: 'Roboto',
-                              letterSpacing: 0.5,
-                            )))
+                            style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3,))
                   ],
                 ),
               ));

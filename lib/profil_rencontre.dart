@@ -16,6 +16,7 @@ import 'models/Model_match.dart';
 class Profil_renctontre extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
     return ScopedModelDescendant<GameModel>(builder: (context, child, model) {
       return Container(
           child: model.afficher_lieu
@@ -285,7 +286,7 @@ class Profil_renctontre extends StatelessWidget {
 
 class Presentation extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  final key_commentainer = GlobalKey<FormState>();
+  final key_commentainer = GlobalKey<FormState>(); ScrollController _scrollController = new ScrollController();
   String com;
   int nombre_inviter;
   @override
@@ -696,16 +697,14 @@ class Presentation extends StatelessWidget {
                             int ageAnne =
                                 ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
                             return GestureDetector(
-                              onTap: () { print( ScopedModel.of<LoginModel>(context)
-                                        .pseudo
-                                        .toString());
-                                print(login.participent[i]['pseudo'] );
+                              onTap: () {
+                             
                                
                                 if (login.participent[i]['pseudo'] ==
                                     ScopedModel.of<LoginModel>(context)
                                         .pseudo
                                         .toString()) {
-                                          print("yes");
+                                 
                                   Navigator.pushNamedAndRemoveUntil(
                                       context,
                                       '/Profil',
@@ -832,6 +831,7 @@ class Presentation extends StatelessWidget {
                         Container(
                           height: MediaQuery.of(context).size.height / 2,
                           child: ListView.builder(
+                            controller: _scrollController,
                               shrinkWrap: true,
                               itemCount: model.commentaire.length,
                               itemBuilder: (context, i) {
