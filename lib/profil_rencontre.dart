@@ -768,7 +768,7 @@ class Presentation extends StatelessWidget {
                     //           : Text(
                     //               "c'est toi qui à proposer cette rencontre si ça à changer combien personne invite-tu ",
                     //               textAlign: TextAlign.center),
-                    //       TextFormField(
+                    //        TextFormField(
                     //         keyboardType: TextInputType.number,
                     //         maxLength: 2,
                     //         cursorColor: Colors.black,
@@ -823,11 +823,6 @@ class Presentation extends StatelessWidget {
 //affichage des commentaires
                     Column(
                       children: <Widget>[
-                        Center(
-                            child: Text("Commentaire",
-                                textAlign: TextAlign.center,
-                                softWrap: true,
-                                style: Theme.of(context).textTheme.display4)),
                         Container(
                           height: MediaQuery.of(context).size.height / 2,
                           child: ListView.builder(
@@ -898,9 +893,7 @@ class Presentation extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Container(
-                      height: 100,
-                    ),
+                 
                     // formulaire pour commenter
                     Form(
                       key: key_commentainer,
@@ -909,7 +902,8 @@ class Presentation extends StatelessWidget {
                         children: <Widget>[
                           Container(
                             color: Colors.indigo,
-                            child: TextFormField(
+                            child:  TextFormField(
+                      autocorrect: true,
                               cursorColor: Colors.black,
                               style: TextStyle(
                                   color: Colors.black,

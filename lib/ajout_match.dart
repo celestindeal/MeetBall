@@ -229,10 +229,10 @@ class _Ajout_matchState extends State<Ajout_match> {
                                     _showReportDialog();
                                   }),
                               Text(lieuchoisi),
-                              TextFormField(
+                               TextFormField(
+                      autocorrect: true,
                                 controller: _controller,
                                 keyboardType: TextInputType.number,
-                                maxLength: 2,
                                 cursorColor: Colors.black,
                                 style: TextStyle(
                                     color: Colors.black,

@@ -313,7 +313,8 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    TextFormField(
+                     TextFormField(
+                      autocorrect: true,
                       controller: _controller1,
                       cursorColor: Colors.black,
                       style: Theme.of(context)
@@ -333,7 +334,8 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                         nom = value;
                       },
                     ),
-                    TextFormField(
+                     TextFormField(
+                      autocorrect: true,
                       style: Theme.of(context)
                                                       .textTheme
                                                       .display3,
@@ -369,7 +371,8 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                         adresse = value;
                       },
                     ),
-                    TextFormField(
+                     TextFormField(
+                      autocorrect: true,
                       controller: _controller3,
                       cursorColor: Colors.black,
                       style: Theme.of(context)
@@ -389,10 +392,10 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                         ville = value;
                       },
                     ),
-                    TextFormField(
+                     TextFormField(
+                      autocorrect: true,
                       controller: _controller4,
                       keyboardType: TextInputType.number,
-                      maxLength: 2,
                       cursorColor: Colors.black,
                       style: Theme.of(context)
                                                       .textTheme
@@ -411,7 +414,8 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                         nombre_terrain = int.parse(value);
                       },
                     ),
-                    TextFormField(
+                     TextFormField(
+                      autocorrect: true,
                       controller: _controller5,
                       cursorColor: Colors.black,
                       style: Theme.of(context)
@@ -431,7 +435,8 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                         sol = value;
                       },
                     ),
-                    TextFormField(
+                     TextFormField(
+                      autocorrect: true,
                       controller: _controller6,
                       cursorColor: Colors.black,
                       style: Theme.of(context)

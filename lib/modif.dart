@@ -134,7 +134,8 @@ class _ModfState extends State<Modif> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        TextFormField(
+                         TextFormField(
+                      autocorrect: true,
                           initialValue: model.pseudo,
                           cursorColor: Colors.black,
                           style: TextStyle(
@@ -157,7 +158,8 @@ class _ModfState extends State<Modif> {
                         ),
 
 
-TextFormField(
+ TextFormField(
+                      autocorrect: true,
                           initialValue: model.nom,
                           cursorColor: Colors.black,
                           style: TextStyle(
@@ -177,7 +179,8 @@ TextFormField(
                           onChanged: (value) {
                             nom = value;
                           },
-                        ),TextFormField(
+                        ), TextFormField(
+                      autocorrect: true,
                           initialValue: model.prenom,
                           cursorColor: Colors.black,
                           style: TextStyle(
@@ -200,7 +203,8 @@ TextFormField(
                         ),
 
 
-                        TextFormField(
+                         TextFormField(
+                      autocorrect: true,
                           initialValue: model.email,
                           cursorColor: Colors.black,
                           style: TextStyle(
@@ -221,7 +225,8 @@ TextFormField(
                             email = value;
                           },
                         ),
-                        TextFormField(
+                         TextFormField(
+                      autocorrect: true,
                           initialValue: model.password,
                           cursorColor: Colors.black,
                           style: TextStyle(
@@ -305,7 +310,8 @@ TextFormField(
                 height: 20.0,
               ),
                */
-                        TextFormField(
+                         TextFormField(
+                      autocorrect: true,
                           initialValue: model.club,
                           cursorColor: Colors.black,
                           style: TextStyle(
@@ -326,7 +332,8 @@ TextFormField(
                             club = value;
                           },
                         ),
-                        TextFormField(
+                         TextFormField(
+                      autocorrect: true,
                           initialValue: model.niveau,
                           cursorColor: Colors.black,
                           style: TextStyle(
@@ -347,7 +354,8 @@ TextFormField(
                             niveaux = value;
                           },
                         ),
-                        TextFormField(
+                         TextFormField(
+                      autocorrect: true,
                           initialValue: model.description,
                           maxLines: 5,
                           cursorColor: Colors.black,

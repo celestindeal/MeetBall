@@ -67,7 +67,8 @@ class _AvisState extends State<Avis> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      TextFormField(
+                       TextFormField(
+                      autocorrect: true,
                         controller: _controller,
                         maxLines: 5,
                         cursorColor: Colors.black,

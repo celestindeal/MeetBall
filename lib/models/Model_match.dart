@@ -7,9 +7,9 @@ import 'package:http/http.dart';
 
 class   GameModel extends Model {
   var data_game = [] ;
-  String lieu = "";
+ 
   int taille = 0;
-  String id_rencontre;
+
   var rencontre_visualiser;
   bool afficher = false;
   bool afficher_lieu = false;
@@ -20,7 +20,9 @@ class   GameModel extends Model {
   var id_terrain;
   String terrainrencontre = "";
   
-
+  // variable de sélection des la rencontre pour la page profil rencontre
+  String lieu = "";
+  String id_rencontre;
 
     
   

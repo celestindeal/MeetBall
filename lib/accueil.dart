@@ -61,7 +61,8 @@ class _AccueilState extends State<Accueil> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    TextFormField(
+                     TextFormField(
+                      autocorrect: true,
                       controller: _controller1,
                       cursorColor:   Colors.black,
                       style: Theme.of(context)
@@ -81,7 +82,8 @@ class _AccueilState extends State<Accueil> {
                         form_email = value;
                       },
                     ),
-                    TextFormField(
+                     TextFormField(
+                      autocorrect: true,
                       obscureText: !_passwordVisible,
                       decoration: InputDecoration(
                         hasFloatingPlaceholder: true,
@@ -135,6 +137,7 @@ class _AccueilState extends State<Accueil> {
                             child: RaisedButton(
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
+                                  print("connection");
                                   _controller1 =
                                   TextEditingController(text: form_email);
                                   ScopedModel.of<LoginModel>(context)

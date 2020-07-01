@@ -21,7 +21,7 @@ class Footer extends StatelessWidget {
               height: 40,) ,
               
               onPressed: () {
-                ScopedModel.of<LoginModel>(context).Participation();
+                ScopedModel.of<LoginModel>(context).ParticipationProil();
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/Profil', (Route<dynamic> route) => false);
               }),

@@ -99,7 +99,8 @@ class _InscriptionState extends State<Inscription> {
                 'img/balise.png',
                 width: MediaQuery.of(context).size.width,
               ),
-                      TextFormField(
+                       TextFormField(
+                      autocorrect: true,
                         cursorColor: Colors.black,
                         style: TextStyle(
                             color: Colors.black, decorationColor: Colors.black),
@@ -123,7 +124,8 @@ class _InscriptionState extends State<Inscription> {
                         },
                       ),
 
-                      TextFormField(
+                       TextFormField(
+                      autocorrect: true,
                         cursorColor: Colors.black,
                         style: TextStyle(
                             color: Colors.black, decorationColor: Colors.black),
@@ -142,7 +144,8 @@ class _InscriptionState extends State<Inscription> {
                         },
                       ),
 
-                      TextFormField(
+                       TextFormField(
+                      autocorrect: true,
                         cursorColor: Colors.black,
                         style: TextStyle(
                             color: Colors.black, decorationColor: Colors.black),
@@ -160,7 +163,8 @@ class _InscriptionState extends State<Inscription> {
                           prenom = value;
                         },
                       ),
-                      TextFormField(
+                       TextFormField(
+                      autocorrect: true,
                         cursorColor: Colors.black,
                         style: TextStyle(
                             color: Colors.black, decorationColor: Colors.black),
@@ -185,7 +189,8 @@ class _InscriptionState extends State<Inscription> {
                           email = value;
                         },
                       ),
-                      TextFormField(
+                       TextFormField(
+                      autocorrect: true,
                         obscureText: !_passwordVisible,
                         decoration: InputDecoration(
                           hasFloatingPlaceholder: true,
@@ -218,7 +223,8 @@ class _InscriptionState extends State<Inscription> {
                           password = value;
                         },
                       ),
-                      TextFormField(
+                       TextFormField(
+                      autocorrect: true,
                         obscureText: !_passwordVisible,
                         decoration: InputDecoration(
                           hasFloatingPlaceholder: true,

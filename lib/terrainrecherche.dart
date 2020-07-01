@@ -124,7 +124,8 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
           child: Column(
             children: <Widget>[
               Divider(color: Colors.grey),
-              TextFormField(
+               TextFormField(
+                      autocorrect: true,
                 cursorColor: Colors.black,
                 style: TextStyle(
                     color: Colors.black, decorationColor: Colors.black),

@@ -356,18 +356,18 @@ class _PresentationState extends State<Presentation> {
                           }
                           return GestureDetector(
                             onTap: () async {
-                              ScopedModel.of<GameModel>(context).lieu =
-                                  model.participation[i]['lieu'];
-                              ScopedModel.of<GameModel>(context).id_rencontre =
-                                  model.participation[i]['id_rencontre'];
+                              // on sélection la rencontre choisir
+
+                              ScopedModel.of<GameModel>(context).lieu =model.participation[i]['lieu'];
+                              ScopedModel.of<GameModel>(context).id_rencontre =model.participation[i]['id_rencontre'];
+                              // on prepare les image terrain et commentaire pour la page profil rencontre
                               ScopedModel.of<ImgModel>(context).Img();
                               ScopedModel.of<GameModel>(context).Terrain();
                               ScopedModel.of<GameModel>(context).Commentaire();
-                              await ScopedModel.of<LoginModel>(context)
-                                  .Personne_propose(
-                                      model.participation[i]['id_rencontre']);
-                              Navigator.pushNamed(
-                                  context, '/Profil_renctontre');
+
+                             // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['id_rencontre']);
+
+                              Navigator.pushNamed(context, '/Profil_renctontre');
                             },
                             child: Center(
                                 child: Container(
@@ -506,6 +506,7 @@ class _PresentationState extends State<Presentation> {
                                                                   RaisedButton(
                                                                       onPressed:
                                                                           () async {
+                                                                            
                                                                         await ScopedModel.of<GameModel>(context).Sup_participation(
                                                                             model.participation[i]
                                                                                 [
@@ -516,9 +517,10 @@ class _PresentationState extends State<Presentation> {
                                                                             model.participation[i]
                                                                                 [
                                                                                 'id_rencontre']);
+                                                                                // recalcul des participation pour le nouvelle affichage
                                                                         ScopedModel.of<LoginModel>(
                                                                                 context)
-                                                                            .Participation();
+                                                                            .ParticipationProil();
                                                                         Navigator.of(
                                                                                 context)
                                                                             .pop();

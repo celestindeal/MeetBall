@@ -49,6 +49,8 @@ changeMode(){
     var url = 'http://51.210.103.151/get.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
+    print('data');
+    print(data);
     int n = 0;
     id = "";
     img = "";
@@ -102,11 +104,11 @@ changeMode(){
     
  
     notifyListeners();
-    Participation();
+    ParticipationProil();
     return " fin de fonction";
   }
 
-  Future<String> Participation() async {
+  Future<String> ParticipationProil() async {
     participation.clear();
     var url = 'http://51.210.103.151/get_participation.php';
     http.Response response = await http.get(url);
@@ -116,12 +118,16 @@ changeMode(){
     var data_rencontre = jsonDecode(response1.body);
     int tailledata = data_participation.length;
     int taillerencontre = data_rencontre.length;
-    for (var i = 0; i < tailledata; i++) {
-      if (pseudo == data_participation[i]['pseudo']) {
 
+    // on fait le tours des la table participation 
+    for (var i = 0; i < tailledata; i++) {
+      //si les pseudo sont identique sais que tu participe à la rencomtre 
+      if (pseudo == data_participation[i]['pseudo']) {
+          // donc avec l'id de la rencontre on retrouve cette rencontre 
         for (var n = 0; n < taillerencontre; n++) {
           if (data_participation[i]['ID_rencontre'] ==
               data_rencontre[n]['id']) {
+                // et on stoke les info dans la liste participation
             Map<String, dynamic> participation_1 = {
               "id": data_participation[i]['id'],
               "jour": data_rencontre[n]['jours'],
@@ -233,6 +239,8 @@ changeMode(){
     return " fin de fonction";
   }
 
+
+
   Future<String> Personne_propose(String idrencontre) async {
     boParticipation = false;
     var url = 'http://51.210.103.151/get.php';
@@ -260,9 +268,6 @@ for (var i = 0; i < tailledata2; i++) {
   
 }
 
-    
-    
-   
     notifyListeners();
     return " fin de fonction";
   }
