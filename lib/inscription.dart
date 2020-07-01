@@ -21,7 +21,6 @@ bool _passwordVisible = false;
 String confirmation_password;
 File image;
 String base64Image = "";
-bool afficher = false;
 bool checkboxValue = false;
 
 class Inscription extends StatefulWidget {
@@ -32,46 +31,7 @@ class Inscription extends StatefulWidget {
 class _InscriptionState extends State<Inscription> {
   final _formKey = GlobalKey<FormState>();
 
-  Future<void> _choisirimage(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              title: Text('choisi entre'),
-              content: SingleChildScrollView(
-                  child: ListBody(children: <Widget>[
-                GestureDetector(
-                  child: Text("galerie"),
-                  onTap: () async {
-                    Navigator.of(context).pop();
-                    image = await ImagePicker.pickImage(
-                        source: ImageSource.gallery);
-                    setState(() {
-                      image = image;
-                      afficher = true;
-                    });
-                    List<int> imageBytes = image.readAsBytesSync();
-                    base64Image = base64Encode(imageBytes);
-                  },
-                ),
-                Padding(padding: EdgeInsets.all(8.0)),
-                GestureDetector(
-                  child: Text("caméra"),
-                  onTap: () async {
-                    Navigator.of(context).pop();
-                    image =
-                        await ImagePicker.pickImage(source: ImageSource.camera);
-                    setState(() {
-                      image = image;
-                      afficher = true;
-                    });
-                    List<int> imageBytes = image.readAsBytesSync();
-                    base64Image = base64Encode(imageBytes);
-                  },
-                )
-              ])));
-        });
-  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -321,31 +281,8 @@ class _InscriptionState extends State<Inscription> {
                         ),
                         color: Colors.amber[900],
                       ),
-                      Center(
-                          child: RaisedButton(
-                        onPressed: () {
-                          _choisirimage(context);
-                        },
-                        textColor: Colors.white,
-                        padding: const EdgeInsets.all(0.0),
-                        child: Container(
-                          padding: const EdgeInsets.all(10.0),
-                          child: const Text('photo de profil',
-                              style: TextStyle(fontSize: 20)),
-                        ),
-                      )),
-                      afficher
-                          ? Center(
-                              child: Container(
-                                  child: Image.file(
-                              image,
-                              width: 400,
-                              height: 400,
-                            )))
-                          : Center(
-                              child: Container(
-                              child: Text("Tu n'a pas choisi d'image"),
-                            )),
+                  
+                   
                       Container(
                         height: 10,
                       ),
