@@ -676,11 +676,11 @@ class Presentation extends StatelessWidget {
                             softWrap: true,
                             style: Theme.of(context).textTheme.display4)),
 
-                // ici on propose les bouton pour la participation 
-                // boParticipation est à true c'est que l'on participa déja si il est à false on participe pas encore 
+                    // ici on propose les bouton pour la participation
+                    // boParticipation est à true c'est que l'on participa déja si il est à false on participe pas encore
 
                     ScopedModel.of<LoginModel>(context).boParticipation
-                        ?  RaisedButton(
+                        ? RaisedButton(
                             onPressed: () async {
                               print('suppr');
                               await ScopedModel.of<LoginModel>(context)
@@ -697,21 +697,22 @@ class Presentation extends StatelessWidget {
                                   model.nombJoueur,
                                 );
 
+                                // maintenant on refrech la page
+                                model.nombJoueur--;
+                                print(model.nombJoueur);
+                                if (model.nombJoueur == 0) {
+                                  ScopedModel.of<LoginModel>(context)
+                                      .ParticipationProil();
 
-                                // maintenant on refrech la page 
-model.nombJoueur--;
-                                await ScopedModel.of<LoginModel>(context)
-                                      .Personne_propose(
-                                          model.id_rencontre);
-
-                                 
+                                  Navigator.pushNamed(context, '/Profil');
+                                } else {
+                                  await ScopedModel.of<LoginModel>(context)
+                                      .Personne_propose(model.id_rencontre);
+                                }
                               }
                             },
                             child: Text("supprimer ma participation"))
-                        
-                        
-                        :
-                        RaisedButton(
+                        : RaisedButton(
                             onPressed: () async {
                               await ScopedModel.of<LoginModel>(context)
                                   .Personne_propose(model.id_rencontre);
@@ -727,18 +728,14 @@ model.nombJoueur--;
                                   model.nombJoueur,
                                 );
 
+                                // maintenant on refrech la page
 
-                                // maintenant on refrech la page 
-
-
-                                  model.nombJoueur++;
+                                model.nombJoueur++;
                                 await ScopedModel.of<LoginModel>(context)
-                                      .Personne_propose(
-                                          model.id_rencontre);
+                                    .Personne_propose(model.id_rencontre);
                               }
                             },
                             child: Text("participer")),
-                        
 
                     ScopedModelDescendant<LoginModel>(
                         builder: (context, child, login) {
