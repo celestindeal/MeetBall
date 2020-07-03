@@ -492,17 +492,10 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
 
 
                             if (_formKey.currentState.validate()) {
-      //                         for (var i = 0; i < 4; i++) {
-      //                           print(i);
-      //                           print(base64Image.length);
-      //                           if(i >= base64Image.length){base64Image[i];}
-      //                         }
-      // print(base64Image);
                         base64Image.add("null");
                         base64Image.add("null");
                         base64Image.add("null");
                         base64Image.add("null");
-print(base64Image);
                          Navigator.pushNamedAndRemoveUntil(
                     context, '/Profil', (Route<dynamic> route) => false);
                               //    await ScopedModel.of<GameModel>(context).Ajout_match( lieuchoisi , _date , _time , nombre_jo,pseudo);

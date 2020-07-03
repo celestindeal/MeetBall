@@ -21,7 +21,7 @@ var email;
 var password;
 String _date = "date de naissance";
 var club;
-var niveaux ='';
+var niveaux = '';
 var description;
 var photo;
 var id;
@@ -89,8 +89,7 @@ class _ModfState extends State<Modif> {
           leading: IconButton(
               icon: Icon(Icons.add),
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/Ajout_match', (Route<dynamic> route) => false);
+                Navigator.pushNamed(context, '/Ajout_match');
               }),
           actions: <Widget>[
             IconButton(
@@ -140,9 +139,7 @@ class _ModfState extends State<Modif> {
                           autocorrect: true,
                           initialValue: model.pseudo,
                           cursorColor: Colors.black,
-                          style: Theme.of(context)
-                                                .textTheme
-                                                .display3,
+                          style: Theme.of(context).textTheme.display3,
                           decoration: const InputDecoration(
                             hintText: 'Pseudo',
                             hintStyle:
@@ -162,9 +159,7 @@ class _ModfState extends State<Modif> {
                           autocorrect: true,
                           initialValue: model.nom,
                           cursorColor: Colors.black,
-                          style: Theme.of(context)
-                                                .textTheme
-                                                .display3,
+                          style: Theme.of(context).textTheme.display3,
                           decoration: const InputDecoration(
                             hintText: 'Nom',
                             hintStyle:
@@ -184,9 +179,7 @@ class _ModfState extends State<Modif> {
                           autocorrect: true,
                           initialValue: model.prenom,
                           cursorColor: Colors.black,
-                          style: Theme.of(context)
-                                                .textTheme
-                                                .display3,
+                          style: Theme.of(context).textTheme.display3,
                           decoration: const InputDecoration(
                             hintText: 'Prénom',
                             hintStyle:
@@ -206,9 +199,7 @@ class _ModfState extends State<Modif> {
                           autocorrect: true,
                           initialValue: model.email,
                           cursorColor: Colors.black,
-                          style: Theme.of(context)
-                                                .textTheme
-                                                .display3,
+                          style: Theme.of(context).textTheme.display3,
                           decoration: const InputDecoration(
                             hintText: 'email',
                             hintStyle:
@@ -228,9 +219,7 @@ class _ModfState extends State<Modif> {
                           autocorrect: true,
                           initialValue: model.password,
                           cursorColor: Colors.black,
-                          style:Theme.of(context)
-                                                .textTheme
-                                                .display3,
+                          style: Theme.of(context).textTheme.display3,
                           decoration: const InputDecoration(
                             hintText: 'password',
                             hintStyle:
@@ -261,9 +250,8 @@ class _ModfState extends State<Modif> {
                                 theme: DatePickerTheme(
                                     headerColor: Colors.indigo,
                                     // backgroundColor: Colors.blue,
-                                    itemStyle: Theme.of(context)
-                                                .textTheme
-                                                .display3,
+                                    itemStyle:
+                                        Theme.of(context).textTheme.display3,
                                     cancelStyle: TextStyle(
                                         color: Colors.white, fontSize: 16),
                                     doneStyle: TextStyle(
@@ -315,9 +303,7 @@ class _ModfState extends State<Modif> {
                           autocorrect: true,
                           initialValue: model.club,
                           cursorColor: Colors.black,
-                          style: Theme.of(context)
-                                                .textTheme
-                                                .display3,
+                          style: Theme.of(context).textTheme.display3,
                           decoration: const InputDecoration(
                             hintText: 'club',
                             hintStyle:
@@ -333,185 +319,174 @@ class _ModfState extends State<Modif> {
                             club = value;
                           },
                         ),
-
                         DropdownButton<String>(
-        items: [
-          DropdownMenuItem<String>(
-            value: "Pro A (masculin)",
-            child: Text(
-              "Pro A (masculin)",
-            ),
-          ),
-         DropdownMenuItem<String>(
-            value: "Pro B (masculin)",
-            child: Text(
-              "Pro B (masculin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "National 1 (masculin)",
-            child: Text(
-              "National 1 (masculin)",
-            ),
-          ),DropdownMenuItem<String>(
-            value: "National 2 (masculin)",
-            child: Text(
-              "National 2 (masculin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "National 3 (masculin)",
-            child: Text(
-              "National 3 (masculin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Régionale 1 (masculin)",
-            child: Text(
-              "Régionale 1 (masculin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Régionale 2 (masculin)",
-            child: Text(
-              "Régionale 2 (masculin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Régionale 3 (masculin)",
-            child: Text(
-              "Régionale 3 (masculin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Départementale 1 (masculin)",
-            child: Text(
-              "Départementale 1 (masculin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Départementale 2 (masculin)",
-            child: Text(
-              "Départementale 2 (masculin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Départementale 3 (masculin)",
-            child: Text(
-              "Départementale 3 (masculin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Départementale 4 (masculin)",
-            child: Text(
-              "Départementale 4 (masculin)",
-            ),
-          ),
-
-
-
-
-
-            DropdownMenuItem<String>(
-            value: "Pro A (féminin)",
-            child: Text(
-              "Pro A (féminin)" ,
-            ),
-          ),
-         DropdownMenuItem<String>(
-            value: "Pro B (féminin)",
-            child: Text(
-              "Pro B (féminin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "National 1 (féminin)",
-            child: Text(
-              "National 1 (féminin)",
-            ),
-          ),DropdownMenuItem<String>(
-            value: "National 2 (féminin)",
-            child: Text(
-              "National 2 (féminin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "National 3 (féminin)",
-            child: Text(
-              "National 3 (féminin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Régionale 1 (féminin)",
-            child: Text(
-              "Régionale 1 (féminin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Régionale 2 (féminin)",
-            child: Text(
-              "Régionale 2 (féminin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Régionale 3 (féminin)",
-            child: Text(
-              "Régionale 3 (féminin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Départementale 1 (féminin)",
-            child: Text(
-              "Départementale 1 (féminin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Départementale 2 (féminin)",
-            child: Text(
-              "Départementale 2 (féminin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Départementale 3 (féminin)",
-            child: Text(
-              "Départementale 3 (féminin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "Départementale 4 (féminin)",
-            child: Text(
-              "Départementale 4 (féminin)",
-            ),
-          ),
-          DropdownMenuItem<String>(
-            value: "",
-            child: Text(
-              "aucun",
-            ),
-          ),
-        ],
-        onChanged: (value){
-            setState(() {
-              niveaux = value;
-            });
-        },
-        value: niveaux,
-        isDense: true,
-        style: Theme.of(context)
-                                                .textTheme
-                                                .display3,
-      ),
-
-                        
-                      
+                          items: [
+                            DropdownMenuItem<String>(
+                              value: "Pro A (masculin)",
+                              child: Text(
+                                "Pro A (masculin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Pro B (masculin)",
+                              child: Text(
+                                "Pro B (masculin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "National 1 (masculin)",
+                              child: Text(
+                                "National 1 (masculin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "National 2 (masculin)",
+                              child: Text(
+                                "National 2 (masculin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "National 3 (masculin)",
+                              child: Text(
+                                "National 3 (masculin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Régionale 1 (masculin)",
+                              child: Text(
+                                "Régionale 1 (masculin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Régionale 2 (masculin)",
+                              child: Text(
+                                "Régionale 2 (masculin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Régionale 3 (masculin)",
+                              child: Text(
+                                "Régionale 3 (masculin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Départementale 1 (masculin)",
+                              child: Text(
+                                "Départementale 1 (masculin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Départementale 2 (masculin)",
+                              child: Text(
+                                "Départementale 2 (masculin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Départementale 3 (masculin)",
+                              child: Text(
+                                "Départementale 3 (masculin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Départementale 4 (masculin)",
+                              child: Text(
+                                "Départementale 4 (masculin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Pro A (féminin)",
+                              child: Text(
+                                "Pro A (féminin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Pro B (féminin)",
+                              child: Text(
+                                "Pro B (féminin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "National 1 (féminin)",
+                              child: Text(
+                                "National 1 (féminin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "National 2 (féminin)",
+                              child: Text(
+                                "National 2 (féminin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "National 3 (féminin)",
+                              child: Text(
+                                "National 3 (féminin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Régionale 1 (féminin)",
+                              child: Text(
+                                "Régionale 1 (féminin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Régionale 2 (féminin)",
+                              child: Text(
+                                "Régionale 2 (féminin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Régionale 3 (féminin)",
+                              child: Text(
+                                "Régionale 3 (féminin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Départementale 1 (féminin)",
+                              child: Text(
+                                "Départementale 1 (féminin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Départementale 2 (féminin)",
+                              child: Text(
+                                "Départementale 2 (féminin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Départementale 3 (féminin)",
+                              child: Text(
+                                "Départementale 3 (féminin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Départementale 4 (féminin)",
+                              child: Text(
+                                "Départementale 4 (féminin)",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "",
+                              child: Text(
+                                "aucun",
+                              ),
+                            ),
+                          ],
+                          onChanged: (value) {
+                            setState(() {
+                              niveaux = value;
+                            });
+                          },
+                          value: niveaux,
+                          isDense: true,
+                          style: Theme.of(context).textTheme.display3,
+                        ),
                         TextFormField(
                           autocorrect: true,
                           initialValue: model.description,
                           maxLines: 5,
                           cursorColor: Colors.black,
-                          style: Theme.of(context)
-                                                .textTheme
-                                                .display3,
+                          style: Theme.of(context).textTheme.display3,
                           decoration: const InputDecoration(
                             hintText: 'description',
                             hintStyle:

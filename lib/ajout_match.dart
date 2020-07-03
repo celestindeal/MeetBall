@@ -24,7 +24,7 @@ List<String> reportList = [
 ];
 String _date = "Date";
 String _time = "Heure";
-var nombre_jo;
+var nombre_jo ="1";
 var pseudo;
 var _controller = TextEditingController();
 
@@ -60,12 +60,7 @@ class _Ajout_matchState extends State<Ajout_match> {
         appBar: AppBar(
           title: Center(child: Text("Ajouter une rencontre")),
           backgroundColor: Colors.indigo,
-          leading: IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/Ajout_match', (Route<dynamic> route) => false);
-              }),
+          
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.settings),
@@ -228,29 +223,7 @@ class _Ajout_matchState extends State<Ajout_match> {
                                             .nomlist;
                                     _showReportDialog();
                                   }),
-                              Text(lieuchoisi),
-                               TextFormField(
-                      autocorrect: true,
-                                controller: _controller,
-                                keyboardType: TextInputType.number,
-                                cursorColor: Colors.black,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    decorationColor: Colors.black),
-                                decoration: const InputDecoration(
-                                  hintText: 'Nombre de joueurs',
-                                  hintStyle: TextStyle(color: Colors.black),
-                                ),
-                                validator: (value) {
-                                  if (value.isEmpty) {
-                                    return 'Choisir un nombre de joueur(s)';
-                                  }
-                                  return null;
-                                },
-                                onChanged: (value) {
-                                  nombre_jo = value;
-                                },
-                              ),
+                              
                               Center(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(

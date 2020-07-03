@@ -180,8 +180,7 @@ class _PresentationState extends State<Presentation> {
           leading: IconButton(
               icon: Icon(Icons.add),
               onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/Ajout_match', (Route<dynamic> route) => false);
+                Navigator.pushNamed(context, '/Ajout_match');
               }),
           actions: <Widget>[
             IconButton(

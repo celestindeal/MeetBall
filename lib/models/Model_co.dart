@@ -49,8 +49,6 @@ changeMode(){
     var url = 'http://51.210.103.151/get.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
-    print('data');
-    print(data);
     int n = 0;
     id = "";
     img = "";
@@ -113,7 +111,7 @@ changeMode(){
     var url = 'http://51.210.103.151/get_participation.php';
     http.Response response = await http.get(url);
     var data_participation = jsonDecode(response.body);
-    var url1 = 'http://51.210.103.151/get_rencontre.php';
+    var url1 = 'http://51.210.103.151/get_match.php';
     http.Response response1 = await http.get(url1);
     var data_rencontre = jsonDecode(response1.body);
     int tailledata = data_participation.length;

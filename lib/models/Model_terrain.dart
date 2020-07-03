@@ -40,7 +40,7 @@ class TerrainModel extends Model {
   }
 
   Future<String> TerrainDev() async {
-    var url = 'http://51.210.103.151/get_terrainDev.php';
+    var url = 'http://51.210.103.151/get_terrain.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
     data_terrainDev = data;
@@ -54,10 +54,10 @@ class TerrainModel extends Model {
     var url = 'http://51.210.103.151/post_terrain.php';
     String json =
         '{"nom":"$nom","adresse":"$adresse","ville":"$ville","nombre_terrain":"$nombre_terrain","image1":"$image1","image2":"$image2","image3":"$image3","image4":"$image4","sol":"$sol","ouverture":"$ouverture"}'; // make POST request
-print(json);
+
     Response response = await post(url, body: json);
     String body = response.body;
-    print(body);
+ 
     return body;
 
     notifyListeners();
