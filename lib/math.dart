@@ -118,6 +118,40 @@ class Presentation extends StatelessWidget {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: model.taille,
                       itemBuilder: (context, i) {
+
+
+// calcule du temps avant le match
+                          var ms = (new DateTime.now()).millisecondsSinceEpoch;
+                          String ok =
+                              "}" + model.data_game[i]['jours'] + "/";
+                          print(ok);
+                          int ans = int.parse(ok.split('}')[1].split('-')[0]);
+
+                          int mois = int.parse(ok.split('-')[1].split('-')[0]);
+                          String placement = mois.toString() + '-';
+                          int jour =
+                              int.parse(ok.split(placement)[1].split('/')[0]);
+
+                          print(jour);
+                          var mst =
+                              new DateTime.utc(ans, mois, jour, 20, 18, 04)
+                                  .millisecondsSinceEpoch;
+                          int tkt = ((mst - ms) / (24 * 3600 * 1000)).toInt();
+
+                          print(tkt.toString());
+                          String tempsavantmatch;
+                          if (tkt < 2) {
+                            tempsavantmatch = "aujoud'hui";
+                          } else {
+                            tempsavantmatch =
+                                "dans " + tkt.toString() + " jour(s)";
+                          }
+
+
+
+
+
+
                         if (chnagecouleur) {
                           chnagecouleur = false;
                         } else {
@@ -206,8 +240,7 @@ class Presentation extends StatelessWidget {
                                                           .textTheme
                                                           .display2),
                                                   Text(
-                                                      model.data_game[i]
-                                                          ['jours'],
+                                                     tempsavantmatch,
                                                       textAlign:
                                                           TextAlign.center,
                                                       softWrap: true,
