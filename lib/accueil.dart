@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:meetballl/PushNotificationManager.dart';
 import 'package:meetballl/db.dart';
 
@@ -28,24 +29,23 @@ class _AccueilState extends State<Accueil> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-      init() async {
-        List persoonne;
-        persoonne = await Baselocal().connect();
-        ScopedModel.of<LoginModel>(context)
-            .Connexion(persoonne[0]['email'], persoonne[0]['password']);
-        Navigator.pushNamedAndRemoveUntil(
-            context, '/Profil', (Route<dynamic> route) => false);
+    init() async {
+      List persoonne;
+      persoonne = await Baselocal().connect();
+      ScopedModel.of<LoginModel>(context)
+          .Connexion(persoonne[0]['email'], persoonne[0]['password']);
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/Profil', (Route<dynamic> route) => false);
 
-        PushNotificationsManager().init();
-        return persoonne;
-      }
-      if (boinit) {
+      PushNotificationsManager().init();
+      return persoonne;
+    }
 
+    if (boinit) {
       init();
-     boinit = false;
+      boinit = false;
     }
     return Scaffold(
-
       // backgroundColor: couleur? Colors.black: Colors.white,
       body: Center(
         child: SingleChildScrollView(
@@ -61,13 +61,11 @@ class _AccueilState extends State<Accueil> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                     TextFormField(
+                    TextFormField(
                       autocorrect: true,
                       controller: _controller1,
-                      cursorColor:   Colors.black,
-                      style: Theme.of(context)
-                                                      .textTheme
-                                                      .display3,
+                      cursorColor: Colors.black,
+                      style: Theme.of(context).textTheme.display3,
                       decoration: const InputDecoration(
                         hintText: 'Email',
                         hintStyle: TextStyle(color: Colors.black),
@@ -82,13 +80,13 @@ class _AccueilState extends State<Accueil> {
                         form_email = value;
                       },
                     ),
-                     TextFormField(
+                    TextFormField(
                       autocorrect: true,
                       obscureText: !_passwordVisible,
                       decoration: InputDecoration(
                         hasFloatingPlaceholder: true,
                         filled: false,
-                        fillColor:  Colors.black,
+                        fillColor: Colors.black,
                         hintText: 'Mot de passe',
                         hintStyle: TextStyle(color: Colors.black),
                         suffixIcon: GestureDetector(
@@ -116,6 +114,60 @@ class _AccueilState extends State<Accueil> {
                         form_password = value;
                       },
                     ),
+                    FlatButton(
+                        onPressed: () {
+                          String email_chnage;
+                          return showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(content: StatefulBuilder(
+                                    builder: (BuildContext context,
+                                        StateSetter setState) {
+                                  return Column(
+                                    children: <Widget>[
+                                      TextFormField(
+                                        autocorrect: true,
+                                        decoration: InputDecoration(
+                                          hasFloatingPlaceholder: true,
+                                          filled: false,
+                                          fillColor: Colors.black,
+                                          hintText: 'adresse email',
+                                          hintStyle:
+                                              TextStyle(color: Colors.black),
+                                        ),
+                                        validator: (String value) {
+                                          if (value.isEmpty) {
+                                            return "entrer une adresse email";
+                                          }
+                                        },
+                                        onChanged: (value) {
+                                          email_chnage = value;
+                                        },
+                                      ),
+                                      RaisedButton(
+                                        onPressed: () async{
+                                          String url =
+                                              'http://51.210.103.151/post_password.php';
+                                          print('début reponse ..............................');
+                                          String json = '{"email":"$email_chnage"}';
+                                          print(json);
+                                          Response response = await post(url, body: json);
+                                          String body = response.body;
+                                          print('début reponse ..............................');
+                                          print(body);
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text(
+                                            'Ressevoir un nouveaux mots de passe'),
+                                      )
+                                    ],
+                                  );
+                                }));
+                              });
+                        },
+                        child: Text(
+                          "Mots de passe oublier",
+                        )),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
@@ -139,7 +191,7 @@ class _AccueilState extends State<Accueil> {
                                 if (_formKey.currentState.validate()) {
                                   print("connection");
                                   _controller1 =
-                                  TextEditingController(text: form_email);
+                                      TextEditingController(text: form_email);
                                   ScopedModel.of<LoginModel>(context)
                                       .Connexion(form_email, form_password);
                                   Navigator.pushNamedAndRemoveUntil(

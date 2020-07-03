@@ -21,7 +21,7 @@ var email;
 var password;
 String _date = "date de naissance";
 var club;
-var niveaux;
+var niveaux ='';
 var description;
 var photo;
 var id;
@@ -82,23 +82,25 @@ class _ModfState extends State<Modif> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-    title: Center( child : Text("Modifier le profil"),),
-    backgroundColor: Colors.indigo,
-    leading: IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/Ajout_match', (Route<dynamic> route) => false);
-        }),
-    actions: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () {
-          sdialog(context);
-        },
-      ),
-    ],
-  ),
+          title: Center(
+            child: Text("Modifier le profil"),
+          ),
+          backgroundColor: Colors.indigo,
+          leading: IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/Ajout_match', (Route<dynamic> route) => false);
+              }),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () {
+                sdialog(context);
+              },
+            ),
+          ],
+        ),
         // backgroundColor: Colors.black,
         persistentFooterButtons: <Widget>[
           Footer(),
@@ -134,13 +136,13 @@ class _ModfState extends State<Modif> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                         TextFormField(
-                      autocorrect: true,
+                        TextFormField(
+                          autocorrect: true,
                           initialValue: model.pseudo,
                           cursorColor: Colors.black,
-                          style: TextStyle(
-                              color: Colors.black,
-                              decorationColor: Colors.black),
+                          style: Theme.of(context)
+                                                .textTheme
+                                                .display3,
                           decoration: const InputDecoration(
                             hintText: 'Pseudo',
                             hintStyle:
@@ -156,15 +158,13 @@ class _ModfState extends State<Modif> {
                             pseudo = value;
                           },
                         ),
-
-
- TextFormField(
-                      autocorrect: true,
+                        TextFormField(
+                          autocorrect: true,
                           initialValue: model.nom,
                           cursorColor: Colors.black,
-                          style: TextStyle(
-                              color: Colors.black,
-                              decorationColor: Colors.black),
+                          style: Theme.of(context)
+                                                .textTheme
+                                                .display3,
                           decoration: const InputDecoration(
                             hintText: 'Nom',
                             hintStyle:
@@ -179,13 +179,14 @@ class _ModfState extends State<Modif> {
                           onChanged: (value) {
                             nom = value;
                           },
-                        ), TextFormField(
-                      autocorrect: true,
+                        ),
+                        TextFormField(
+                          autocorrect: true,
                           initialValue: model.prenom,
                           cursorColor: Colors.black,
-                          style: TextStyle(
-                              color: Colors.black,
-                              decorationColor: Colors.black),
+                          style: Theme.of(context)
+                                                .textTheme
+                                                .display3,
                           decoration: const InputDecoration(
                             hintText: 'Prénom',
                             hintStyle:
@@ -201,15 +202,13 @@ class _ModfState extends State<Modif> {
                             prenom = value;
                           },
                         ),
-
-
-                         TextFormField(
-                      autocorrect: true,
+                        TextFormField(
+                          autocorrect: true,
                           initialValue: model.email,
                           cursorColor: Colors.black,
-                          style: TextStyle(
-                              color: Colors.black,
-                              decorationColor: Colors.black),
+                          style: Theme.of(context)
+                                                .textTheme
+                                                .display3,
                           decoration: const InputDecoration(
                             hintText: 'email',
                             hintStyle:
@@ -225,13 +224,13 @@ class _ModfState extends State<Modif> {
                             email = value;
                           },
                         ),
-                         TextFormField(
-                      autocorrect: true,
+                        TextFormField(
+                          autocorrect: true,
                           initialValue: model.password,
                           cursorColor: Colors.black,
-                          style: TextStyle(
-                              color: Colors.black,
-                              decorationColor: Colors.black),
+                          style:Theme.of(context)
+                                                .textTheme
+                                                .display3,
                           decoration: const InputDecoration(
                             hintText: 'password',
                             hintStyle:
@@ -247,7 +246,9 @@ class _ModfState extends State<Modif> {
                             password = value;
                           },
                         ),
-                        Container(height: 10,),
+                        Container(
+                          height: 10,
+                        ),
                         RaisedButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0)),
@@ -260,13 +261,13 @@ class _ModfState extends State<Modif> {
                                 theme: DatePickerTheme(
                                     headerColor: Colors.indigo,
                                     // backgroundColor: Colors.blue,
-                                    itemStyle: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                    cancelStyle:  TextStyle(color: Colors.white, fontSize: 16),
-                            doneStyle:
-                                TextStyle(color: Colors.white, fontSize: 16)),
+                                    itemStyle: Theme.of(context)
+                                                .textTheme
+                                                .display3,
+                                    cancelStyle: TextStyle(
+                                        color: Colors.white, fontSize: 16),
+                                    doneStyle: TextStyle(
+                                        color: Colors.white, fontSize: 16)),
                                 onChanged: (date) {}, onConfirm: (date) {
                               _date = '${date.year}-${date.month}-${date.day}';
                               setState(() {});
@@ -292,9 +293,9 @@ class _ModfState extends State<Modif> {
                                           ),
                                           Text(
                                             " $_date",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 18.0),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .display3,
                                           ),
                                         ],
                                       ),
@@ -310,13 +311,13 @@ class _ModfState extends State<Modif> {
                 height: 20.0,
               ),
                */
-                         TextFormField(
-                      autocorrect: true,
+                        TextFormField(
+                          autocorrect: true,
                           initialValue: model.club,
                           cursorColor: Colors.black,
-                          style: TextStyle(
-                              color: Colors.black,
-                              decorationColor: Colors.black),
+                          style: Theme.of(context)
+                                                .textTheme
+                                                .display3,
                           decoration: const InputDecoration(
                             hintText: 'club',
                             hintStyle:
@@ -332,36 +333,185 @@ class _ModfState extends State<Modif> {
                             club = value;
                           },
                         ),
-                         TextFormField(
-                      autocorrect: true,
-                          initialValue: model.niveau,
-                          cursorColor: Colors.black,
-                          style: TextStyle(
-                              color: Colors.black,
-                              decorationColor: Colors.black),
-                          decoration: const InputDecoration(
-                            hintText: 'niveaux',
-                            hintStyle:
-                                TextStyle(color: Colors.black, fontSize: 18.0),
-                          ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            niveaux = value;
-                          },
-                        ),
-                         TextFormField(
-                      autocorrect: true,
+
+                        DropdownButton<String>(
+        items: [
+          DropdownMenuItem<String>(
+            value: "Pro A (masculin)",
+            child: Text(
+              "Pro A (masculin)",
+            ),
+          ),
+         DropdownMenuItem<String>(
+            value: "Pro B (masculin)",
+            child: Text(
+              "Pro B (masculin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "National 1 (masculin)",
+            child: Text(
+              "National 1 (masculin)",
+            ),
+          ),DropdownMenuItem<String>(
+            value: "National 2 (masculin)",
+            child: Text(
+              "National 2 (masculin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "National 3 (masculin)",
+            child: Text(
+              "National 3 (masculin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Régionale 1 (masculin)",
+            child: Text(
+              "Régionale 1 (masculin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Régionale 2 (masculin)",
+            child: Text(
+              "Régionale 2 (masculin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Régionale 3 (masculin)",
+            child: Text(
+              "Régionale 3 (masculin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Départementale 1 (masculin)",
+            child: Text(
+              "Départementale 1 (masculin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Départementale 2 (masculin)",
+            child: Text(
+              "Départementale 2 (masculin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Départementale 3 (masculin)",
+            child: Text(
+              "Départementale 3 (masculin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Départementale 4 (masculin)",
+            child: Text(
+              "Départementale 4 (masculin)",
+            ),
+          ),
+
+
+
+
+
+            DropdownMenuItem<String>(
+            value: "Pro A (féminin)",
+            child: Text(
+              "Pro A (féminin)" ,
+            ),
+          ),
+         DropdownMenuItem<String>(
+            value: "Pro B (féminin)",
+            child: Text(
+              "Pro B (féminin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "National 1 (féminin)",
+            child: Text(
+              "National 1 (féminin)",
+            ),
+          ),DropdownMenuItem<String>(
+            value: "National 2 (féminin)",
+            child: Text(
+              "National 2 (féminin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "National 3 (féminin)",
+            child: Text(
+              "National 3 (féminin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Régionale 1 (féminin)",
+            child: Text(
+              "Régionale 1 (féminin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Régionale 2 (féminin)",
+            child: Text(
+              "Régionale 2 (féminin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Régionale 3 (féminin)",
+            child: Text(
+              "Régionale 3 (féminin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Départementale 1 (féminin)",
+            child: Text(
+              "Départementale 1 (féminin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Départementale 2 (féminin)",
+            child: Text(
+              "Départementale 2 (féminin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Départementale 3 (féminin)",
+            child: Text(
+              "Départementale 3 (féminin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "Départementale 4 (féminin)",
+            child: Text(
+              "Départementale 4 (féminin)",
+            ),
+          ),
+          DropdownMenuItem<String>(
+            value: "",
+            child: Text(
+              "aucun",
+            ),
+          ),
+        ],
+        onChanged: (value){
+            setState(() {
+              niveaux = value;
+            });
+        },
+        value: niveaux,
+        isDense: true,
+        style: Theme.of(context)
+                                                .textTheme
+                                                .display3,
+      ),
+
+                        
+                      
+                        TextFormField(
+                          autocorrect: true,
                           initialValue: model.description,
                           maxLines: 5,
                           cursorColor: Colors.black,
-                          style: TextStyle(
-                              color: Colors.black,
-                              decorationColor: Colors.black),
+                          style: Theme.of(context)
+                                                .textTheme
+                                                .display3,
                           decoration: const InputDecoration(
                             hintText: 'description',
                             hintStyle:
@@ -377,7 +527,7 @@ class _ModfState extends State<Modif> {
                             description = value;
                           },
                         ),
-                      Center(
+                        Center(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: RaisedButton(
@@ -395,18 +545,17 @@ class _ModfState extends State<Modif> {
                                       niveaux,
                                       description,
                                       id);
-                                      if(email != model.email || password != model.password){
-                                        Navigator.pushNamedAndRemoveUntil(
-                                      context,
-                                      '/',
-                                      (Route<dynamic> route) => false);
-                                      }else{
-                                         Navigator.pushNamedAndRemoveUntil(
-                                      context,
-                                      '/Profil',
-                                      (Route<dynamic> route) => false);
-                                      }
-                                 
+                                  if (email != model.email ||
+                                      password != model.password) {
+                                    Navigator.pushNamedAndRemoveUntil(context,
+                                        '/', (Route<dynamic> route) => false);
+                                  } else {
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        '/Profil',
+                                        (Route<dynamic> route) => false);
+                                  }
+
                                   init = true;
                                   affphoto = true;
                                 }
