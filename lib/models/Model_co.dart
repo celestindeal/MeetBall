@@ -131,7 +131,6 @@ changeMode(){
               "jour": data_rencontre[n]['jours'],
               "heure": data_rencontre[n]['heure'],
               "nom_j": data_rencontre[n]['nombre_j'],
-              "inviter": data_participation[i]['inviter'],
               "id_rencontre": data_participation[i]['ID_rencontre'],
               "lieu": data_rencontre[n]['lieu'],
               "pseudo": data_rencontre[n]['per']

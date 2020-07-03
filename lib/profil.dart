@@ -367,10 +367,20 @@ class _PresentationState extends State<Presentation> {
                                   model.participation[i]['lieu'];
                               ScopedModel.of<GameModel>(context).id_rencontre =
                                   model.participation[i]['id_rencontre'];
+                                  
+                                  print("nombre de joueur");
+                                  print(model.participation[i]);
+                                  ScopedModel.of<GameModel>(context).nombJoueur =
+                                 int.parse( model.participation[i]['nom_j'].toString() );
                               // on prepare les image terrain et commentaire pour la page profil rencontre
                               ScopedModel.of<ImgModel>(context).Img();
                               ScopedModel.of<GameModel>(context).Terrain();
+
                               ScopedModel.of<GameModel>(context).Commentaire();
+
+                               await ScopedModel.of<LoginModel>(context)
+                                      .Personne_propose(
+                                           model.participation[i]['id_rencontre']);
 
                               // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['id_rencontre']);
 

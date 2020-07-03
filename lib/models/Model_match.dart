@@ -23,6 +23,7 @@ class   GameModel extends Model {
   // variable de sélection des la rencontre pour la page profil rencontre
   String lieu = "";
   String id_rencontre;
+  int nombJoueur;
 
     
   
@@ -111,9 +112,11 @@ Ajouter_ommentaire(String commentaire ,String pseudo)async{
   String body = response.body;
   return body;
 }
- Sup_participation(String inviter,String id,String id_rencontre)async{
+ Sup_participation(int id_rencontre, String pseudo, int nom_inviter)async{
   String url = 'http://51.210.103.151/post_sup_participation.php';
-  String json ='{"id_rencontre":"$id_rencontre","id_participation":"$id","inviter":"$inviter"}';  // make POST request
+  
+  String json ='{"id_rencontre":"$id_rencontre","pseudo":"$pseudo","inviter":"$nom_inviter"}';  // make POST request
+  print(json);
   Response response = await post(url,  body: json);  
   String body = response.body;
   return body;

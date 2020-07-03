@@ -16,7 +16,6 @@ import 'models/Model_match.dart';
 class Profil_renctontre extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    
     return ScopedModelDescendant<GameModel>(builder: (context, child, model) {
       return Container(
           child: model.afficher_lieu
@@ -286,7 +285,8 @@ class Profil_renctontre extends StatelessWidget {
 
 class Presentation extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
-  final key_commentainer = GlobalKey<FormState>(); ScrollController _scrollController = new ScrollController();
+  final key_commentainer = GlobalKey<FormState>();
+  ScrollController _scrollController = new ScrollController();
   String com;
   int nombre_inviter;
   @override
@@ -676,6 +676,70 @@ class Presentation extends StatelessWidget {
                             softWrap: true,
                             style: Theme.of(context).textTheme.display4)),
 
+                // ici on propose les bouton pour la participation 
+                // boParticipation est à true c'est que l'on participa déja si il est à false on participe pas encore 
+
+                    ScopedModel.of<LoginModel>(context).boParticipation
+                        ?  RaisedButton(
+                            onPressed: () async {
+                              print('suppr');
+                              await ScopedModel.of<LoginModel>(context)
+                                  .Personne_propose(model.id_rencontre);
+                              // maintenant dans login modal var participent nous avons les participent
+
+                              if (ScopedModel.of<LoginModel>(context)
+                                      .boParticipation ==
+                                  true) {
+                                // créer la participation
+                                await model.Sup_participation(
+                                  int.parse(model.id_rencontre),
+                                  ScopedModel.of<LoginModel>(context).pseudo,
+                                  model.nombJoueur,
+                                );
+
+
+                                // maintenant on refrech la page 
+model.nombJoueur--;
+                                await ScopedModel.of<LoginModel>(context)
+                                      .Personne_propose(
+                                          model.id_rencontre);
+
+                                 
+                              }
+                            },
+                            child: Text("supprimer ma participation"))
+                        
+                        
+                        :
+                        RaisedButton(
+                            onPressed: () async {
+                              await ScopedModel.of<LoginModel>(context)
+                                  .Personne_propose(model.id_rencontre);
+                              // maintenant dans login modal var participent nous avons les participent
+
+                              if (ScopedModel.of<LoginModel>(context)
+                                      .boParticipation ==
+                                  false) {
+                                // créer la participation
+                                await model.Participation(
+                                  int.parse(model.id_rencontre),
+                                  ScopedModel.of<LoginModel>(context).pseudo,
+                                  model.nombJoueur,
+                                );
+
+
+                                // maintenant on refrech la page 
+
+
+                                  model.nombJoueur++;
+                                await ScopedModel.of<LoginModel>(context)
+                                      .Personne_propose(
+                                          model.id_rencontre);
+                              }
+                            },
+                            child: Text("participer")),
+                        
+
                     ScopedModelDescendant<LoginModel>(
                         builder: (context, child, login) {
                       return ListView.builder(
@@ -698,13 +762,10 @@ class Presentation extends StatelessWidget {
                                 ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
                             return GestureDetector(
                               onTap: () {
-                             
-                               
                                 if (login.participent[i]['pseudo'] ==
                                     ScopedModel.of<LoginModel>(context)
                                         .pseudo
                                         .toString()) {
-                                 
                                   Navigator.pushNamedAndRemoveUntil(
                                       context,
                                       '/Profil',
@@ -826,7 +887,7 @@ class Presentation extends StatelessWidget {
                         Container(
                           height: MediaQuery.of(context).size.height / 2,
                           child: ListView.builder(
-                            controller: _scrollController,
+                              controller: _scrollController,
                               shrinkWrap: true,
                               itemCount: model.commentaire.length,
                               itemBuilder: (context, i) {
@@ -893,7 +954,7 @@ class Presentation extends StatelessWidget {
                         ),
                       ],
                     ),
-                 
+
                     // formulaire pour commenter
                     Form(
                       key: key_commentainer,
@@ -902,8 +963,8 @@ class Presentation extends StatelessWidget {
                         children: <Widget>[
                           Container(
                             color: Colors.indigo,
-                            child:  TextFormField(
-                      autocorrect: true,
+                            child: TextFormField(
+                              autocorrect: true,
                               cursorColor: Colors.black,
                               style: TextStyle(
                                   color: Colors.black,

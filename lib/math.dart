@@ -130,6 +130,8 @@ class Presentation extends StatelessWidget {
                                   // on sélection la rencontre choisir
                                   model.lieu = model.data_game[i]['lieu'];
                                   model.id_rencontre = model.data_game[i]['id'];
+                                  model.nombJoueur = int.parse( model.data_game[i]['nombre_j']);
+
 
                                   // on prepare les image terrain et commentaire pour la page profil rencontre
                                   ScopedModel.of<ImgModel>(context).Img();
