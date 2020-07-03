@@ -223,7 +223,13 @@ class _Ajout_matchState extends State<Ajout_match> {
                                             .nomlist;
                                     _showReportDialog();
                                   }),
-                              
+                           
+                              Text(lieuchoisi,
+                                                    softWrap: true,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .display3
+                              ),
                               Center(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
