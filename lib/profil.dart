@@ -431,17 +431,6 @@ class _PresentationState extends State<Presentation> {
                                                               Theme.of(context)
                                                                   .textTheme
                                                                   .display2),
-                                                      Text(
-                                                          "Vous avez invité " +
-                                                              model.participation[
-                                                                      i]
-                                                                  ['inviter'] +
-                                                              " personne(s)",
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
                                                     ]),
                                               ]),
                                           RaisedButton(

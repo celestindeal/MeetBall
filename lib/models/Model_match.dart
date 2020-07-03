@@ -79,9 +79,9 @@ return " fin de fonction" ;
 }
 
 
-Participation(int nom_inviter,bool mediateur, String pseudo)async{
+Participation(int id_rencontre, String pseudo, int nom_inviter )async{
   String url = 'http://51.210.103.151/post_participation.php';
-  String json ='{"id_rencontre":"$id_rencontre","nombre_joueur":"$nom_inviter","pseudo":"$pseudo","mediateur":"$mediateur"}';  // make POST request
+  String json ='{"id_rencontre":"$id_rencontre","nombre_joueur":"$nom_inviter","pseudo":"$pseudo"}';  // make POST request
   Response response = await post(url,  body: json);  
   String body = response.body;
   return body;

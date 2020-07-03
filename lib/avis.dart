@@ -103,7 +103,7 @@ class _AvisState extends State<Avis> {
                                 Scaffold.of(context).showSnackBar(
                                           new SnackBar(
                                               content: new Text(
-                                                  'Votre avis est envoyer')));
+                                                  'Ton avis est envoyer')));
                                             
                               }
                             },

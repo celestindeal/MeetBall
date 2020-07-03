@@ -258,7 +258,12 @@ for (var i = 0; i < tailledata2; i++) {
 
     while (tailledata > n ) {
       if (data[n]['pseudo'] == data2[i]['pseudo']) {
+
       participent.add(data[n]);
+       if(data[n]['pseudo'] == pseudo) {
+    boParticipation = true;
+
+       }
       }
       n++;
     }
