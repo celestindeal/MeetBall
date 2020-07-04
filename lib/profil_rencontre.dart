@@ -33,7 +33,7 @@ class Profil_renctontre extends StatelessWidget {
                       IconButton(
                         icon: const Icon(Icons.settings),
                         onPressed: () {
-                         sdialog(context);
+                          sdialog(context);
                         },
                       ),
                     ],
@@ -59,7 +59,11 @@ class Presentation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text( ScopedModel.of<GameModel>(context).daterencontre+" à "+ScopedModel.of<GameModel>(context).heurerencontre ,),
+        title: Text(
+          ScopedModel.of<GameModel>(context).daterencontre +
+              " à " +
+              ScopedModel.of<GameModel>(context).heurerencontre,
+        ),
         backgroundColor: Colors.indigo,
         actions: <Widget>[
           IconButton(
@@ -166,7 +170,7 @@ class Presentation extends StatelessWidget {
                     Container(
                       color: Colors.transparent,
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height/1.5,
+                        height: MediaQuery.of(context).size.height / 1.5,
                         child: PageView.builder(
                           controller: PageController(viewportFraction: 1),
                           itemCount: 4,
@@ -199,20 +203,21 @@ class Presentation extends StatelessWidget {
                               Container();
                             } else {
                               return GestureDetector(
-                                  onTap: () {
-                                    return showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Container(
-                                              child: PhotoView(
-                                            imageProvider: NetworkImage(image),
-                                          ));
-                                        });
-                                  },
-                                  child:  Image.network(
-                                      image,width: MediaQuery.of(context).size.width,
-                                    ),
-                                 );
+                                onTap: () {
+                                  return showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                            child: PhotoView(
+                                          imageProvider: NetworkImage(image),
+                                        ));
+                                      });
+                                },
+                                child: Image.network(
+                                  image,
+                                  width: MediaQuery.of(context).size.width,
+                                ),
+                              );
                             }
                           },
                         ),
@@ -283,7 +288,7 @@ class Presentation extends StatelessWidget {
                               }
                             },
                             child: Text("participer")),
-
+// affichage des participations
                     ScopedModelDescendant<LoginModel>(
                         builder: (context, child, login) {
                       return ListView.builder(
@@ -294,11 +299,17 @@ class Presentation extends StatelessWidget {
                             var ms =
                                 (new DateTime.now()).millisecondsSinceEpoch;
                             String ok = "}" + login.participent[i]['age'] + "/";
-                            int ans = int.parse(ok.split('}')[1].split('-')[0]);
+
+                            int jour =
+                                int.parse(ok.split('}')[1].split('-')[0]);
                             int mois =
                                 int.parse(ok.split('-')[1].split('-')[0]);
-                            int jour =
-                                int.parse(ok.split('-')[1].split('/')[0]);
+
+                            String placement =
+                                jour.toString() + '-' + mois.toString() + '-';
+                            int ans =
+                                int.parse(ok.split(placement)[1].split('/')[0]);
+
                             var mst =
                                 new DateTime.utc(ans, mois, jour, 20, 18, 04)
                                     .millisecondsSinceEpoch;
@@ -426,78 +437,90 @@ class Presentation extends StatelessWidget {
                     // ),
 
 //affichage des commentaires
-                    Column(
-                      children: <Widget>[
-                        Container(
-                          height: MediaQuery.of(context).size.height / 2,
-                          child: ListView.builder(
-                              controller: _scrollController,
-                              shrinkWrap: true,
-                              itemCount: model.commentaire.length,
-                              itemBuilder: (context, i) {
-                                bool message;
-                                if (model.commentaire[i]['pseudo'].toString() ==
-                                    ScopedModel.of<LoginModel>(context)
-                                        .pseudo
-                                        .toString()) {
-                                  message = true;
-                                } else {
-                                  message = false;
-                                }
-                                return Column(
-                                  children: <Widget>[
-                                    Row(
-                                      mainAxisAlignment: message
-                                          ? MainAxisAlignment.end
-                                          : MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Flexible(
-                                          child: Container(
-                                            padding: const EdgeInsets.all(15),
-                                            constraints: BoxConstraints(
-                                                minWidth: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    5,
-                                                maxWidth: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    1.1),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              color: message
-                                                  ? Colors.indigo
-                                                  : Colors.amber[900],
-                                            ),
-                                            child: Column(
-                                              children: <Widget>[
-                                                Text(
-                                                    model.commentaire[i]
-                                                        ['commentaire'],
-                                                    textAlign: TextAlign.center,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .display3),
-                                                Text(model.commentaire[i]
-                                                    ['pseudo']),
-                                                Text(model.commentaire[i]
-                                                    ['date']),
-                                              ],
-                                            ),
+                    model.bocommentaire
+                        ? Column(
+                            children: <Widget>[
+                              Divider(color: Colors.grey[300]),
+                              Container(
+                                height: MediaQuery.of(context).size.height / 2,
+                                color: Colors.grey,
+                                child: ListView.builder(
+                                    controller: _scrollController,
+                                    shrinkWrap: true,
+                                    itemCount: model.commentaire.length,
+                                    itemBuilder: (context, i) {
+                                      bool message;
+
+                                      if (model.commentaire[i]['pseudo']
+                                              .toString() ==
+                                          ScopedModel.of<LoginModel>(context)
+                                              .pseudo
+                                              .toString()) {
+                                        message = true;
+                                      } else {
+                                        message = false;
+                                      }
+                                      return Column(
+                                        children: <Widget>[
+                                          Row(
+                                            mainAxisAlignment: message
+                                                ? MainAxisAlignment.end
+                                                : MainAxisAlignment.start,
+                                            children: <Widget>[
+                                              Flexible(
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.all(15),
+                                                  constraints: BoxConstraints(
+                                                      minWidth:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              5,
+                                                      maxWidth:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width /
+                                                              1.1),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20.0),
+                                                    color: message
+                                                        ? Colors.indigo
+                                                        : Colors.amber[900],
+                                                  ),
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Text(
+                                                          model.commentaire[i]
+                                                              ['commentaire'],
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .display3),
+                                                      Text(model.commentaire[i]
+                                                          ['pseudo']),
+                                                      Text(model.commentaire[i]
+                                                          ['date']),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                      height: 10,
-                                    ),
-                                  ],
-                                );
-                              }),
-                        ),
-                      ],
-                    ),
+                                          Container(
+                                            height: 10,
+                                          ),
+                                        ],
+                                      );
+                                    }),
+                              ),
+                            ],
+                          )
+                        : Container(),
 
                     // formulaire pour commenter
                     Form(

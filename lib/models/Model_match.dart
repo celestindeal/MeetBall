@@ -14,6 +14,7 @@ class   GameModel extends Model {
   bool afficher = false;
   bool afficher_lieu = false;
   List commentaire = [];
+  bool bocommentaire = true ;
   var adresse_lieu ;
   var nom_t_lieu;
   var ville_lieu;
@@ -98,12 +99,17 @@ Commentaire()async{
     var data = jsonDecode(response.body);
   List list  = data as List;
     var nombre_tour = list.length;
+    bocommentaire = true;
     int n = 0;
     while  (nombre_tour > n){
        if ((data[n]['id_rencontre'].toString())==id_rencontre){
        commentaire.add(data[n]);
        }
        n++;
+     }
+     // si il n'y a pas de commentaire on n'affiche pas les container avec les commentaire 
+     if(commentaire.length == 0){
+        bocommentaire = false;
      }
   notifyListeners();
 return " fin de fonction" ;

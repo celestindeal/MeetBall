@@ -7,8 +7,6 @@ import 'package:meetballl/db.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 //import 'package:image_picker/image_picker.dart';
-import 'footer.dart';
-import 'main.dart';
 import 'models/Model_co.dart';
 
 File image;
