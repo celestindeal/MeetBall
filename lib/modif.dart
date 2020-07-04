@@ -257,7 +257,7 @@ class _ModfState extends State<Modif> {
                                     doneStyle: TextStyle(
                                         color: Colors.white, fontSize: 16)),
                                 onChanged: (date) {}, onConfirm: (date) {
-                              _date = '${date.year}-${date.month}-${date.day}';
+                               _date = '${date.day}-${date.month}-${date.year}';
                               setState(() {});
                             },
                                 currentTime: DateTime.now(),

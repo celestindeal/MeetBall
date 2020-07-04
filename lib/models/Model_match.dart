@@ -24,6 +24,9 @@ class   GameModel extends Model {
   String lieu = "";
   String id_rencontre;
   int nombJoueur;
+  String daterencontre = " ";
+  String heurerencontre = " ";
+
 
     
   
@@ -116,7 +119,6 @@ Ajouter_ommentaire(String commentaire ,String pseudo)async{
   String url = 'http://51.210.103.151/post_sup_participation.php';
   
   String json ='{"id_rencontre":"$id_rencontre","pseudo":"$pseudo","inviter":"$nom_inviter"}';  // make POST request
-  print(json);
   Response response = await post(url,  body: json);  
   String body = response.body;
   return body;

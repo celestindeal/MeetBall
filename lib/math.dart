@@ -103,7 +103,6 @@ class Presentation extends StatelessWidget {
           child: ScopedModelDescendant<GameModel>(
               builder: (context, child, model) {
             if (model.data_game.isEmpty) {
-              print("oinrov");
               return Center(
                 child: Text('Aucune rencontre est proposée',
                     softWrap: true,
@@ -124,21 +123,16 @@ class Presentation extends StatelessWidget {
                           var ms = (new DateTime.now()).millisecondsSinceEpoch;
                           String ok =
                               "}" + model.data_game[i]['jours'] + "/";
-                          print(ok);
-                          int ans = int.parse(ok.split('}')[1].split('-')[0]);
+                          int jour = int.parse(ok.split('}')[1].split('-')[0]);
 
                           int mois = int.parse(ok.split('-')[1].split('-')[0]);
-                          String placement = mois.toString() + '-';
-                          int jour =
+                            String placement = jour.toString() + '-'+ mois.toString() + '-';
+                          int ans =
                               int.parse(ok.split(placement)[1].split('/')[0]);
-
-                          print(jour);
                           var mst =
                               new DateTime.utc(ans, mois, jour, 20, 18, 04)
                                   .millisecondsSinceEpoch;
                           int tkt = ((mst - ms) / (24 * 3600 * 1000)).toInt();
-
-                          print(tkt.toString());
                           String tempsavantmatch;
                           if (tkt < 2) {
                             tempsavantmatch = "aujoud'hui";
@@ -165,6 +159,10 @@ class Presentation extends StatelessWidget {
                                   model.lieu = model.data_game[i]['lieu'];
                                   model.id_rencontre = model.data_game[i]['id'];
                                   model.nombJoueur = int.parse( model.data_game[i]['nombre_j']);
+                                  model.daterencontre =  model.data_game[i]['jours'];
+                                  model.heurerencontre =  model.data_game[i]['heure'];
+
+
 
 
                                   // on prepare les image terrain et commentaire pour la page profil rencontre

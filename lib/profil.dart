@@ -204,9 +204,12 @@ class _PresentationState extends State<Presentation> {
 // calcule de l'age
           var ms = (new DateTime.now()).millisecondsSinceEpoch;
           String ok = "}" + model.age + "/";
-          int ans = int.parse(ok.split('}')[1].split('-')[0]);
+          int jour = int.parse(ok.split('}')[1].split('-')[0]);
           int mois = int.parse(ok.split('-')[1].split('-')[0]);
-          int jour = int.parse(ok.split('-')[1].split('/')[0]);
+
+            String placement = jour.toString() + '-'+ mois.toString() + '-';
+          int ans = int.parse(ok.split(placement)[1].split('/')[0]);
+
           var mst = new DateTime.utc(ans, mois, jour, 20, 18, 04)
               .millisecondsSinceEpoch;
           int ageAnne = ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
@@ -353,28 +356,18 @@ class _PresentationState extends State<Presentation> {
                         shrinkWrap: true,
                         itemCount: model.participation.length,
                         itemBuilder: (context, i) {
-
-
                           // calcule du temps avant le match
-                          print(model.participation[i]['jour']);
                           var ms = (new DateTime.now()).millisecondsSinceEpoch;
-                          String ok =
-                              "}" + model.participation[i]['jour'] + "/";
-                          print(ok);
-                          int ans = int.parse(ok.split('}')[1].split('-')[0]);
-
+                          String ok ="}" + model.participation[i]['jour'] + "/";
+                          int jour = int.parse(ok.split('}')[1].split('-')[0]);
                           int mois = int.parse(ok.split('-')[1].split('-')[0]);
-                          String placement = mois.toString() + '-';
-                          int jour =
-                              int.parse(ok.split(placement)[1].split('/')[0]);
+                          String placement = jour.toString() + '-'+ mois.toString() + '-';
+                          int ans =int.parse(ok.split(placement)[1].split('/')[0]);
 
-                          print(jour);
                           var mst =
                               new DateTime.utc(ans, mois, jour, 20, 18, 04)
                                   .millisecondsSinceEpoch;
                           int tkt = ((mst - ms) / (24 * 3600 * 1000)).toInt();
-
-                          print(tkt.toString());
                           String tempsavantmatch;
                           if (tkt < 2) {
                             tempsavantmatch = "aujoud'hui";
@@ -382,8 +375,6 @@ class _PresentationState extends State<Presentation> {
                             tempsavantmatch =
                                 "dans " + tkt.toString() + " jour(s)";
                           }
-
-                          
 
                           if (chnagecouleur) {
                             chnagecouleur = false;
@@ -398,12 +389,15 @@ class _PresentationState extends State<Presentation> {
                                   model.participation[i]['lieu'];
                               ScopedModel.of<GameModel>(context).id_rencontre =
                                   model.participation[i]['id_rencontre'];
-
-                              print("nombre de joueur");
-                              print(model.participation[i]);
                               ScopedModel.of<GameModel>(context).nombJoueur =
                                   int.parse(model.participation[i]['nom_j']
                                       .toString());
+                              ScopedModel.of<GameModel>(context).daterencontre =
+                                  model.participation[i]['jour'];
+                              ScopedModel.of<GameModel>(context)
+                                      .heurerencontre =
+                                  model.participation[i]['heure'];
+
                               // on prepare les image terrain et commentaire pour la page profil rencontre
                               ScopedModel.of<ImgModel>(context).Img();
                               ScopedModel.of<GameModel>(context).Terrain();

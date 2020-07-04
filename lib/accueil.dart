@@ -148,13 +148,9 @@ class _AccueilState extends State<Accueil> {
                                         onPressed: () async{
                                           String url =
                                               'http://51.210.103.151/post_password.php';
-                                          print('début reponse ..............................');
                                           String json = '{"email":"$email_chnage"}';
-                                          print(json);
                                           Response response = await post(url, body: json);
                                           String body = response.body;
-                                          print('début reponse ..............................');
-                                          print(body);
                                           Navigator.of(context).pop();
                                         },
                                         child: Text(
@@ -189,7 +185,6 @@ class _AccueilState extends State<Accueil> {
                             child: RaisedButton(
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
-                                  print("connection");
                                   _controller1 =
                                       TextEditingController(text: form_email);
                                   ScopedModel.of<LoginModel>(context)
