@@ -217,13 +217,13 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                       context)
                                                                   .size
                                                                   .height /
-                                                              2,
+                                                              1.5,
                                                           child:
                                                               PageView.builder(
                                                             controller:
                                                                 PageController(
                                                                     viewportFraction:
-                                                                        0.8),
+                                                                        1),
                                                             itemCount: 4,
                                                             itemBuilder:
                                                                 (BuildContext
@@ -275,18 +275,14 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                           });
                                                                     },
                                                                     child:
-                                                                        Container(
-                                                                      width: MediaQuery.of(
+                                                                        Image
+                                                                          .network(
+                                                                        image,width: MediaQuery.of(
                                                                               context)
                                                                           .size
                                                                           .width,
-                                                                      color: Colors
-                                                                          .transparent,
-                                                                      child: Image
-                                                                          .network(
-                                                                        image,
                                                                       ),
-                                                                    ));
+                                                                    );
                                                               }
                                                             },
                                                           ),

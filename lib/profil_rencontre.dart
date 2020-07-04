@@ -166,9 +166,9 @@ class Presentation extends StatelessWidget {
                     Container(
                       color: Colors.transparent,
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height / 2,
+                        height: MediaQuery.of(context).size.height/1.5,
                         child: PageView.builder(
-                          controller: PageController(viewportFraction: 0.8),
+                          controller: PageController(viewportFraction: 1),
                           itemCount: 4,
                           itemBuilder: (BuildContext context, int itemIndex) {
                             String image = "";
@@ -209,13 +209,10 @@ class Presentation extends StatelessWidget {
                                           ));
                                         });
                                   },
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    color: Colors.transparent,
-                                    child: Image.network(
-                                      image,
+                                  child:  Image.network(
+                                      image,width: MediaQuery.of(context).size.width,
                                     ),
-                                  ));
+                                 );
                             }
                           },
                         ),

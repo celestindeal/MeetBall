@@ -186,10 +186,10 @@ class _AffImageState extends State<AffImage> {
                             return Container(
                               color: Colors.transparent,
                               child: SizedBox(
-                                height: MediaQuery.of(context).size.height / 2,
+                                height: MediaQuery.of(context).size.height / 1.5,
                                 child: PageView.builder(
                                   controller:
-                                      PageController(viewportFraction: 0.8),
+                                      PageController(viewportFraction: 1),
                                   itemCount: 4,
                                   itemBuilder:
                                       (BuildContext context, int itemIndex) {
@@ -233,15 +233,12 @@ class _AffImageState extends State<AffImage> {
                                                   ));
                                                 });
                                           },
-                                          child: Container(
-                                            width: MediaQuery.of(context)
+                                          child:  Image.network(
+                                              image, width: MediaQuery.of(context)
                                                 .size
                                                 .width,
-                                            color: Colors.transparent,
-                                            child: Image.network(
-                                              image,
                                             ),
-                                          ));
+                                          );
                                     }
                                   },
                                 ),
