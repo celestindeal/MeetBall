@@ -16,7 +16,6 @@ var _controller1 = TextEditingController();
 bool _passwordVisible = false;
 bool boinit = true;
 
-const url = 'https://flutter.dev';
 
 class Accueil extends StatefulWidget {
   @override
@@ -44,21 +43,22 @@ class _AccueilState extends State<Accueil> {
       boinit = false;
     }
     return Scaffold(
-      // backgroundColor: couleur? Colors.black: Colors.white,
       body: Center(
         child: SingleChildScrollView(
             child: Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
               Image.asset(
                 'img/balise.png',
                 width: MediaQuery.of(context).size.width,
               ),
+
+
               Form(
                 key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+
                     TextFormField(
                       autocorrect: true,
                       controller: _controller1,
@@ -78,6 +78,7 @@ class _AccueilState extends State<Accueil> {
                         form_email = value;
                       },
                     ),
+
                     TextFormField(
                       autocorrect: true,
                       obscureText: !_passwordVisible,
@@ -87,6 +88,7 @@ class _AccueilState extends State<Accueil> {
                         fillColor: Colors.black,
                         hintText: 'Mot de passe',
                         hintStyle: TextStyle(color: Colors.black),
+                        // icon pour rendre visible le password écrit
                         suffixIcon: GestureDetector(
                           onLongPress: () {
                             setState(() {
@@ -112,6 +114,7 @@ class _AccueilState extends State<Accueil> {
                         form_password = value;
                       },
                     ),
+// test mots de passe oublié 
                     FlatButton(
                         onPressed: () {
                           String email_chnage;
@@ -181,6 +184,7 @@ class _AccueilState extends State<Accueil> {
                         child: Text(
                           "Mots de passe oublier",
                         )),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
@@ -196,21 +200,24 @@ class _AccueilState extends State<Accueil> {
                             ),
                           ),
                         ),
+
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: RaisedButton(
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
-                                  _controller1 =
-                                      TextEditingController(text: form_email);
-                                  ScopedModel.of<LoginModel>(context)
-                                      .Connexion(form_email, form_password);
+                                  //enregistrer l'email écrit pour le cas ou il y as un deuxième essaye de connection
+                                  _controller1 =TextEditingController(text: form_email);
+                                  //fonction de connection 
+                                  ScopedModel.of<LoginModel>(context).Connexion(form_email, form_password);
+
                                   Navigator.pushNamedAndRemoveUntil(
                                       context,
                                       '/Profil',
                                       (Route<dynamic> route) => false);
                                 }
+                                // s'inscrirr pour resevoire les notifications
                                 PushNotificationsManager().init();
                               },
                               child: Text('Connexion'),

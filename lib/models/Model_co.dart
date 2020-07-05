@@ -44,11 +44,17 @@ changeMode(){
      notifyListeners();
 }
 
-
   Future<String> Connexion(String temail, String tpassword) async {
-    var url = 'http://51.210.103.151/get.php';
-    http.Response response = await http.get(url);
+
+    String url = 'http://51.210.103.151/post_connexion.php';
+    String json = '{"email":"$temail"}';
+    Response response = await post(url, body: json);
+    
+
+
+
     var data = jsonDecode(response.body);
+
     int n = 0;
     id = "";
     img = "";
@@ -98,8 +104,6 @@ changeMode(){
       loging = true;
       retour_Profil = true;
     }
-
-    
  
     notifyListeners();
     ParticipationProil();
