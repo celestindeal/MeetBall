@@ -26,6 +26,7 @@ class LoginModel extends Model {
   bool affmodif = true;
   List participent = [];
   Map profVisiteur = {};
+  double noteVisiteur =0;
   bool visiteur = false;
   bool boParticipation;
   String nombreIviter;
@@ -192,6 +193,25 @@ class LoginModel extends Model {
         }
       }
     }
+
+    // maintenante faire la parti notation 
+      var urle = 'http://51.210.103.151/post_note.php';
+    String jsone = '{"pseudo":"$pseudo"}';
+    Response responsee = await post(urle, body: jsone);
+    var datanote = jsonDecode(responsee.body);
+    double note =0 ;
+    print('datanote');
+    print(datanote);
+    if (datanote.length == 0){
+      noteVisiteur = 5;
+    }else{
+      for (var i = 0; i < datanote.length; i++) {
+      note = note + int.parse(datanote[i]['note']);
+    }
+      noteVisiteur = note / datanote.length;
+    }
+    
+
     img;
     notifyListeners();
     return " fin de fonction";
@@ -350,4 +370,18 @@ class LoginModel extends Model {
     notifyListeners();
     return body;
   }
+
+
+  Future<String> Envoienote(String note, String personnenoter) async {
+    String url = 'http://51.210.103.151/post_notenew.php';
+    String json = '{"pseudo":"$pseudo","personnenoter":"$personnenoter","note":"$note"}';
+    print(json);
+    Response response = await post(url, body: json);
+    String body = response.body;
+    notifyListeners();
+    print(body);
+    return body;
+  }
+
+
 }

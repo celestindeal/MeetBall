@@ -169,7 +169,7 @@ class _PresentationState extends State<Presentation> {
                   : SingleChildScrollView(
                       child: ListBody(children: <Widget>[
                       Text(
-                          "Merci de patienter le temps de l'envoie de votre photo",
+                          "Merci de patienter le temps de l'envoie de ta photo",
                           softWrap: true,
                           style: Theme.of(context).textTheme.display3),
                       Container(

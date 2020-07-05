@@ -57,6 +57,77 @@ class Presentation extends StatelessWidget {
   int nombre_inviter;
   @override
   Widget build(BuildContext context) {
+    notation(String personnenoter) {
+      return RaisedButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                    backgroundColor: Colors.transparent,
+                    
+                    content: StatefulBuilder(
+                        builder: (BuildContext context, StateSetter setState) {
+                      return Container(
+                        height:MediaQuery.of(context).size.width/5,
+                        
+                         
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            color: Colors.grey,
+                          ),
+                          child: Row (
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              IconButton(
+                                iconSize: MediaQuery.of(context).size.width/10,
+                                icon: Icon(Icons.star_border),
+                                color: Colors.yellow,
+                                onPressed: () {
+                                      ScopedModel.of<LoginModel>(context).Envoienote("1",personnenoter);
+                                      Navigator.of(context).pop();                                },
+                              ),
+                              IconButton(
+                               iconSize: MediaQuery.of(context).size.width/10,
+                                icon: Icon(Icons.star_border),
+                                color: Colors.yellow,
+                                onPressed: () {
+                                      ScopedModel.of<LoginModel>(context).Envoienote("2",personnenoter);
+                                      Navigator.of(context).pop();                                },
+                              ),
+                              IconButton(
+                               iconSize: MediaQuery.of(context).size.width/10,
+                                icon: Icon(Icons.star_border),
+                                color: Colors.yellow,
+                                onPressed: () {
+                                      ScopedModel.of<LoginModel>(context).Envoienote("3",personnenoter);
+                                      Navigator.of(context).pop();                                },
+                              ),
+                              IconButton(
+                                iconSize: MediaQuery.of(context).size.width/10,
+                                icon: Icon(Icons.star_border),
+                                color: Colors.yellow,
+                                onPressed: () {
+                                      ScopedModel.of<LoginModel>(context).Envoienote("4",personnenoter);
+                                      Navigator.of(context).pop();                                },
+                              ),
+                              IconButton(
+                               iconSize: MediaQuery.of(context).size.width/10,
+                                icon: Icon(Icons.star_border),
+                                color: Colors.yellow,
+                                onPressed: () {
+                                      ScopedModel.of<LoginModel>(context).Envoienote("5",personnenoter);
+                                      Navigator.of(context).pop();                                },
+                              ),
+                            ],
+                          ));
+                    }));
+              });
+        },
+        child: Text('noter'),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -223,7 +294,176 @@ class Presentation extends StatelessWidget {
                         ),
                       ),
                     ),
-// ce container affiche le profil de la personne qui à proposer la rencontre
+
+//affichage des commentaires
+                    ScopedModel.of<LoginModel>(context).boParticipation
+                        ? Container(
+                        
+                               
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                  ),
+                            child: Column(children: <Widget>[
+                              model.bocommentaire
+                                  ? Column(
+                                      children: <Widget>[
+                                        Divider(color: Colors.grey[300]),
+                                        Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              2,
+                                          color: Colors.grey,
+                                          child: ListView.builder(
+                                              controller: _scrollController,
+                                              shrinkWrap: true,
+                                              itemCount:
+                                                  model.commentaire.length,
+                                              itemBuilder: (context, i) {
+                                                bool message;
+
+                                                if (model.commentaire[i]
+                                                            ['pseudo']
+                                                        .toString() ==
+                                                    ScopedModel.of<LoginModel>(
+                                                            context)
+                                                        .pseudo
+                                                        .toString()) {
+                                                  message = true;
+                                                } else {
+                                                  message = false;
+                                                }
+                                                return Column(
+                                                  children: <Widget>[
+                                                    Row(
+                                                      mainAxisAlignment: message
+                                                          ? MainAxisAlignment
+                                                              .end
+                                                          : MainAxisAlignment
+                                                              .start,
+                                                      children: <Widget>[
+                                                        Flexible(
+                                                          child: Container(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(15),
+                                                            constraints: BoxConstraints(
+                                                                minWidth: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    5,
+                                                                maxWidth: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width /
+                                                                    1.1),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20.0),
+                                                              color: message
+                                                                  ? Colors
+                                                                      .indigo
+                                                                  : Colors.amber[
+                                                                      900],
+                                                            ),
+                                                            child: Column(
+                                                              children: <
+                                                                  Widget>[
+                                                                Text(
+                                                                    model.commentaire[
+                                                                            i][
+                                                                        'commentaire'],
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .display3),
+                                                                Text(model
+                                                                        .commentaire[i]
+                                                                    ['pseudo']),
+                                                                Text(model
+                                                                        .commentaire[
+                                                                    i]['date']),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Container(
+                                                      height: 10,
+                                                    ),
+                                                  ],
+                                                );
+                                              }),
+                                        ),
+                                      ],
+                                    )
+                                  : Container(),
+
+                              // formulaire pour commenter
+                              Form(
+                                key: key_commentainer,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      color: Colors.indigo,
+                                      child: TextFormField(
+                                        autocorrect: true,
+                                        cursorColor: Colors.black,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            decorationColor: Colors.black),
+                                        decoration: const InputDecoration(
+                                          hintText: 'Ecrivez un message...',
+                                          hintStyle:
+                                              TextStyle(color: Colors.black),
+                                        ),
+                                        validator: (value) {
+                                          if (value.isEmpty) {
+                                            return 'Please enter some text';
+                                          }
+                                          return null;
+                                        },
+                                        onChanged: (value) {
+                                          com = value;
+                                        },
+                                      ),
+                                    ),
+                                    Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 16.0),
+                                        child: RaisedButton(
+                                          onPressed: () async {
+                                            if (key_commentainer.currentState
+                                                .validate()) {
+                                              await ScopedModel.of<GameModel>(
+                                                      context)
+                                                  .Ajouter_ommentaire(
+                                                      com, login.pseudo);
+                                              ScopedModel.of<GameModel>(context)
+                                                  .Commentaire();
+                                            }
+                                          },
+                                          child: Text('commenter'),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ]),
+                          )
+                        : Container(),
+// ce container affiche le bouton participer ou alluler la participation
                     Center(
                         child: Text("Participants",
                             textAlign: TextAlign.center,
@@ -308,6 +548,8 @@ class Presentation extends StatelessWidget {
                                                                       .id_rencontre);
                                                         }
                                                       }
+                                                      Navigator.of(context)
+                                                          .pop();
                                                     },
                                                     child: Text('oui')),
                                               ],
@@ -344,6 +586,7 @@ class Presentation extends StatelessWidget {
                             },
                             child: Text("participer")),
 // affichage des participations
+
                     ScopedModelDescendant<LoginModel>(
                         builder: (context, child, login) {
                       return ListView.builder(
@@ -370,11 +613,20 @@ class Presentation extends StatelessWidget {
                                     .millisecondsSinceEpoch;
                             int ageAnne =
                                 ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
+                            bool bonotation = true;
+                            if (login.pseudo ==
+                                login.participent[i]['pseudo']) {
+                              bonotation = false;
+                            } else {
+                              bonotation = true;
+                            }
+
                             if (ScopedModel.of<GameModel>(context)
                                     .organisateur ==
                                 login.participent[i]['pseudo']) {
+                              // ici c'est le container pour celui qui a propose cette rencontre
                               return GestureDetector(
-                                onTap: ()async {
+                                onTap: () async {
                                   if (login.participent[i]['pseudo'] ==
                                       ScopedModel.of<LoginModel>(context)
                                           .pseudo
@@ -384,7 +636,8 @@ class Presentation extends StatelessWidget {
                                         '/Profil',
                                         (Route<dynamic> route) => false);
                                   } else {
-await login.ParticipationProilVisiteur(login.participent[i]['pseudo']);
+                                    await login.ParticipationProilVisiteur(
+                                        login.participent[i]['pseudo']);
                                     ScopedModel.of<LoginModel>(context)
                                         .profVisiteur = login.participent[i];
                                     Navigator.pushNamed(
@@ -416,13 +669,15 @@ await login.ParticipationProilVisiteur(login.participent[i]['pseudo']);
                                           style: Theme.of(context)
                                               .textTheme
                                               .display3),
+                                      bonotation ? notation(login.participent[i]['pseudo']) : Container(),
                                     ],
                                   ),
                                 ),
                               );
                             } else {
+                              //ici c'est tous les autre participent
                               return GestureDetector(
-                                onTap: ()async {
+                                onTap: () async {
                                   if (login.participent[i]['pseudo'] ==
                                       ScopedModel.of<LoginModel>(context)
                                           .pseudo
@@ -432,7 +687,8 @@ await login.ParticipationProilVisiteur(login.participent[i]['pseudo']);
                                         '/Profil',
                                         (Route<dynamic> route) => false);
                                   } else {
-                                    await login.ParticipationProilVisiteur(login.participent[i]['pseudo']);
+                                    await login.ParticipationProilVisiteur(
+                                        login.participent[i]['pseudo']);
 
                                     ScopedModel.of<LoginModel>(context)
                                         .profVisiteur = login.participent[i];
@@ -461,6 +717,7 @@ await login.ParticipationProilVisiteur(login.participent[i]['pseudo']);
                                           style: Theme.of(context)
                                               .textTheme
                                               .display3),
+                                      bonotation ? notation(login.participent[i]['pseudo']) : Container(),
                                     ],
                                   ),
                                 ),
@@ -468,144 +725,6 @@ await login.ParticipationProilVisiteur(login.participent[i]['pseudo']);
                             }
                           });
                     }),
-
-
-//affichage des commentaires
-                    model.bocommentaire
-                        ? Column(
-                            children: <Widget>[
-                              Divider(color: Colors.grey[300]),
-                              Container(
-                                height: MediaQuery.of(context).size.height / 2,
-                                color: Colors.grey,
-                                child: ListView.builder(
-                                    controller: _scrollController,
-                                    shrinkWrap: true,
-                                    itemCount: model.commentaire.length,
-                                    itemBuilder: (context, i) {
-                                      bool message;
-
-                                      if (model.commentaire[i]['pseudo']
-                                              .toString() ==
-                                          ScopedModel.of<LoginModel>(context)
-                                              .pseudo
-                                              .toString()) {
-                                        message = true;
-                                      } else {
-                                        message = false;
-                                      }
-                                      return Column(
-                                        children: <Widget>[
-                                          Row(
-                                            mainAxisAlignment: message
-                                                ? MainAxisAlignment.end
-                                                : MainAxisAlignment.start,
-                                            children: <Widget>[
-                                              Flexible(
-                                                child: Container(
-                                                  padding:
-                                                      const EdgeInsets.all(15),
-                                                  constraints: BoxConstraints(
-                                                      minWidth:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              5,
-                                                      maxWidth:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              1.1),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.0),
-                                                    color: message
-                                                        ? Colors.indigo
-                                                        : Colors.amber[900],
-                                                  ),
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      Text(
-                                                          model.commentaire[i]
-                                                              ['commentaire'],
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display3),
-                                                      Text(model.commentaire[i]
-                                                          ['pseudo']),
-                                                      Text(model.commentaire[i]
-                                                          ['date']),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Container(
-                                            height: 10,
-                                          ),
-                                        ],
-                                      );
-                                    }),
-                              ),
-                            ],
-                          )
-                        : Container(),
-
-                    // formulaire pour commenter
-                    Form(
-                      key: key_commentainer,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            color: Colors.indigo,
-                            child: TextFormField(
-                              autocorrect: true,
-                              cursorColor: Colors.black,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  decorationColor: Colors.black),
-                              decoration: const InputDecoration(
-                                hintText: 'Ecrivez un message...',
-                                hintStyle: TextStyle(color: Colors.black),
-                              ),
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return 'Please enter some text';
-                                }
-                                return null;
-                              },
-                              onChanged: (value) {
-                                com = value;
-                              },
-                            ),
-                          ),
-                          Center(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 16.0),
-                              child: RaisedButton(
-                                onPressed: () async {
-                                  if (key_commentainer.currentState
-                                      .validate()) {
-                                    await ScopedModel.of<GameModel>(context)
-                                        .Ajouter_ommentaire(com, login.pseudo);
-                                    ScopedModel.of<GameModel>(context)
-                                        .Commentaire();
-                                  }
-                                },
-                                child: Text('commenter'),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ])),
             );
           });
