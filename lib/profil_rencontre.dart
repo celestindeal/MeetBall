@@ -374,7 +374,7 @@ class Presentation extends StatelessWidget {
                                     .organisateur ==
                                 login.participent[i]['pseudo']) {
                               return GestureDetector(
-                                onTap: () {
+                                onTap: ()async {
                                   if (login.participent[i]['pseudo'] ==
                                       ScopedModel.of<LoginModel>(context)
                                           .pseudo
@@ -384,6 +384,7 @@ class Presentation extends StatelessWidget {
                                         '/Profil',
                                         (Route<dynamic> route) => false);
                                   } else {
+await login.ParticipationProilVisiteur(login.participent[i]['pseudo']);
                                     ScopedModel.of<LoginModel>(context)
                                         .profVisiteur = login.participent[i];
                                     Navigator.pushNamed(
@@ -421,7 +422,7 @@ class Presentation extends StatelessWidget {
                               );
                             } else {
                               return GestureDetector(
-                                onTap: () {
+                                onTap: ()async {
                                   if (login.participent[i]['pseudo'] ==
                                       ScopedModel.of<LoginModel>(context)
                                           .pseudo
@@ -431,6 +432,8 @@ class Presentation extends StatelessWidget {
                                         '/Profil',
                                         (Route<dynamic> route) => false);
                                   } else {
+                                    await login.ParticipationProilVisiteur(login.participent[i]['pseudo']);
+
                                     ScopedModel.of<LoginModel>(context)
                                         .profVisiteur = login.participent[i];
                                     Navigator.pushNamed(
