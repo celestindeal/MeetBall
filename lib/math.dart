@@ -156,6 +156,7 @@ class Presentation extends StatelessWidget {
                                 onTap: () async {
                                   print(model.data_game[i]);
                                   model.afficher_lieu = false;
+                                  
                                   // on sélection la rencontre choisir
                                   model.lieu = model.data_game[i]['lieu'];
                                   model.id_rencontre = model.data_game[i]['id'];

@@ -26,7 +26,9 @@ class LoginModel extends Model {
   bool affmodif = true;
   List participent = [];
   Map profVisiteur = {};
-  double noteVisiteur =0;
+  double noteVisiteur = 0;
+  double noteprofil = 0;
+
   bool visiteur = false;
   bool boParticipation;
   String nombreIviter;
@@ -48,7 +50,6 @@ class LoginModel extends Model {
   }
 
   Future<String> Connexion(String temail, String tpassword) async {
-
     String url = 'http://51.210.103.151/post_connexion.php';
     String json = '{"email":"$temail"}';
     Response response = await post(url, body: json);
@@ -86,11 +87,27 @@ class LoginModel extends Model {
           club = data[n]['club'];
           niveau = data[n]['niveaux'];
           description = data[n]['message'];
+          print('maintentnent on note');
+
+          var urle = 'http://51.210.103.151/post_note.php';
+          String jsone = '{"pseudo":"$pseudo"}';
+          Response responsee = await post(urle, body: jsone);
+          var datanote = jsonDecode(responsee.body);
+          double note = 0;
+          if (datanote.length == 0) {
+            noteprofil = 5;
+          } else {
+            for (var i = 0; i < datanote.length; i++) {
+              note = note + int.parse(datanote[i]['note']);
+            }
+            noteprofil = note / datanote.length;
+          }
+
           validation = false;
           loging = true;
           // ajout dans la base de donner sqlite l'email et le mots de passe pour la connection automatique
           Baselocal().newperso(email, password);
-          // si c'est l'un deux deux dévellopeur afficher les obption dévelloper 
+          // si c'est l'un deux deux dévellopeur afficher les obption dévelloper
           if (id == "6" || id == "46") {
             devellopeur = true;
             LieuDev();
@@ -103,11 +120,11 @@ class LoginModel extends Model {
       //  SnackBar(content: Text("yes"),);
       loging = true;
       retour_Profil = true;
-      // avec retour_Profil = false un afficher la page de chargement 
+      // avec retour_Profil = false un afficher la page de chargement
     }
     // première mise à jour de la page
     notifyListeners();
-    // recherche les participation de notre joueur 
+    // recherche les participation de notre joueur
     ParticipationProil();
     return " fin de fonction";
   }
@@ -155,7 +172,7 @@ class LoginModel extends Model {
     return " fin de fonction";
   }
 
-    Future<String> ParticipationProilVisiteur(String pseudo) async {
+  Future<String> ParticipationProilVisiteur(String pseudo) async {
     // objectif faire les liste des participation de notre joueur dans la variable participation
     participationvisiteur.clear();
     var url = 'http://51.210.103.151/post_verfparticipation.php';
@@ -194,29 +211,27 @@ class LoginModel extends Model {
       }
     }
 
-    // maintenante faire la parti notation 
-      var urle = 'http://51.210.103.151/post_note.php';
+    // maintenante faire la parti notation
+    var urle = 'http://51.210.103.151/post_note.php';
     String jsone = '{"pseudo":"$pseudo"}';
     Response responsee = await post(urle, body: jsone);
     var datanote = jsonDecode(responsee.body);
-    double note =0 ;
+    double note = 0;
     print('datanote');
     print(datanote);
-    if (datanote.length == 0){
+    if (datanote.length == 0) {
       noteVisiteur = 5;
-    }else{
+    } else {
       for (var i = 0; i < datanote.length; i++) {
-      note = note + int.parse(datanote[i]['note']);
-    }
+        note = note + int.parse(datanote[i]['note']);
+      }
       noteVisiteur = note / datanote.length;
     }
-    
 
     img;
     notifyListeners();
     return " fin de fonction";
   }
-
 
   Future<String> Postinscritpion(
       String pseudo,
@@ -280,7 +295,7 @@ class LoginModel extends Model {
   }
 
   Future<String> Verification_email(email_verifier, pseudo) async {
-    // objectif quand on as une incription on verifi les pseudo et les email pour de pas avoir de doublon 
+    // objectif quand on as une incription on verifi les pseudo et les email pour de pas avoir de doublon
     // si l'email est déjà pris emailvalide = false
     // si le pseudo est déjà pris pseudovalide = false
     var url = 'http://51.210.103.151/get.php';
@@ -310,8 +325,8 @@ class LoginModel extends Model {
   }
 
   Future<String> Personne_propose(String idrencontre) async {
-    // objectif faire la liste des participant d'une rencontre et s'avoir si notre joueur participe à cette rencontre 
-    // si boParticipatoin = true  le joueur participe déja à la rencontre 
+    // objectif faire la liste des participant d'une rencontre et s'avoir si notre joueur participe à cette rencontre
+    // si boParticipatoin = true  le joueur participe déja à la rencontre
     boParticipation = false;
 
     var url = 'http://51.210.103.151/get.php';
@@ -321,14 +336,12 @@ class LoginModel extends Model {
     participent.clear();
     int n = 0;
 
-    
     var url2 = 'http://51.210.103.151/get_participation.php';
     http.Response response2 = await http.get(url2);
     var data2 = jsonDecode(response2.body);
     var tailledata2 = data2.length;
 
     for (var i = 0; i < tailledata2; i++) {
-
       if (idrencontre == data2[i]['ID_rencontre']) {
         n = 0;
         while (tailledata > n) {
@@ -371,10 +384,10 @@ class LoginModel extends Model {
     return body;
   }
 
-
   Future<String> Envoienote(String note, String personnenoter) async {
     String url = 'http://51.210.103.151/post_notenew.php';
-    String json = '{"pseudo":"$pseudo","personnenoter":"$personnenoter","note":"$note"}';
+    String json =
+        '{"pseudo":"$pseudo","personnenoter":"$personnenoter","note":"$note"}';
     print(json);
     Response response = await post(url, body: json);
     String body = response.body;
@@ -382,6 +395,4 @@ class LoginModel extends Model {
     print(body);
     return body;
   }
-
-
 }

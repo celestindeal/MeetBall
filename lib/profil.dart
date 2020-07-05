@@ -329,6 +329,11 @@ class _PresentationState extends State<Presentation> {
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .display3),
+                                                Text("Tu est notée "+model.noteprofil.toString()+"/5",
+                                            softWrap: true,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .display3),
                                       ]),
                                 ],
                               ),
@@ -337,6 +342,7 @@ class _PresentationState extends State<Presentation> {
                     ),
                   ],
                 ),
+                 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
