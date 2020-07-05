@@ -29,8 +29,11 @@ class _AccueilState extends State<Accueil> {
     init() async {
       List persoonne ;
       persoonne = await Baselocal().connect();
+      print('personnne');
       print(persoonne);
-      if(persoonne != null){
+      persoonne.add("value");
+      if(persoonne[0] != "value"){
+        print("condition");
         ScopedModel.of<LoginModel>(context)
           .Connexion(persoonne[0]['email'], persoonne[0]['password']);
       Navigator.pushNamedAndRemoveUntil(

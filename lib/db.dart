@@ -46,15 +46,21 @@ class Baselocal {
   }
 
   connect() async {
-    List<dynamic> personne = [];
+    List<dynamic> personne = [] ;
 
     final Database db = await connexion();
 
     List tkt = await db.query('Connect');
     int nombre = tkt.length - 1;
+   print(tkt);
+  if(nombre >= 0){
+    print('condition');
+    print(nombre);
 
     personne.add(
         {"email": tkt[nombre]['email'], "password": tkt[nombre]['password']});
+  }
+    
 
     return personne;
   }
