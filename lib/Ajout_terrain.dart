@@ -16,7 +16,7 @@ import 'footer.dart';
 import 'main.dart';
 import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
-
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 String nom;
 String adresse;
 String ville;
@@ -62,7 +62,16 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                     });
                     List<int> imageBytes =
                         image[image.length - 1].readAsBytesSync();
-                    base64Image.add(base64Encode(imageBytes));
+
+              List<int> imageBytescompress =await FlutterImageCompress.compressWithList(
+            imageBytes,
+            minHeight: 1920,
+            minWidth: 1080,
+            quality: 96,
+            rotate: 0,
+          );
+
+                    base64Image.add(base64Encode(imageBytescompress));
                     Navigator.of(context).pop();
                   },
                 ),
@@ -76,9 +85,19 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                       image;
                       afficherimage = true;
                     });
+
                     List<int> imageBytes =
                         image[image.length - 1].readAsBytesSync();
-                    base64Image.add(base64Encode(imageBytes));
+
+              List<int> imageBytescompress =await FlutterImageCompress.compressWithList(
+            imageBytes,
+            minHeight: 1920,
+            minWidth: 1080,
+            quality: 96,
+            rotate: 0,
+          );
+
+                    base64Image.add(base64Encode(imageBytescompress));
                     Navigator.of(context).pop();
                   },
                 )

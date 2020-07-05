@@ -554,7 +554,14 @@ class _PresentationState extends State<Presentation> {
                                         ]))),
                           );
                         })
-                    : Text("tu n'a pas de rencontre de prevue"),
+                    : Center(child: Text("tu n'a pas de rencontre de prevue",
+                                                          softWrap: true,
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .display3
+                    
+                    )),
               ]);
         })));
   }

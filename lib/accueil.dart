@@ -118,43 +118,62 @@ class _AccueilState extends State<Accueil> {
                           return showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return AlertDialog(content: StatefulBuilder(
-                                    builder: (BuildContext context,
-                                        StateSetter setState) {
-                                  return Column(
-                                    children: <Widget>[
-                                      TextFormField(
-                                        autocorrect: true,
-                                        decoration: InputDecoration(
-                                          hasFloatingPlaceholder: true,
-                                          filled: false,
-                                          fillColor: Colors.black,
-                                          hintText: 'adresse email',
-                                          hintStyle:
-                                              TextStyle(color: Colors.black),
+                                return AlertDialog
+                                (backgroundColor: Colors.transparent,
+                                  content: StatefulBuilder(
+                                    builder: (BuildContext context,StateSetter setState) {
+                                  return 
+                                  
+                                  Container(
+                                    height:
+                                        MediaQuery.of(context).size.height / 2,
+                                    padding: const EdgeInsets.all(5),
+                                    margin: const EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20.0),
+                                      color: Colors.grey,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        TextFormField(
+                                          autocorrect: true,
+                                          decoration: InputDecoration(
+                                            hasFloatingPlaceholder: true,
+                                            filled: false,
+                                            fillColor: Colors.black,
+                                            hintText: 'adresse email',
+                                            hintStyle:
+                                                TextStyle(color: Colors.black),
+                                          ),
+                                          validator: (String value) {
+                                            if (value.isEmpty) {
+                                              return "entrer une adresse email";
+                                            }
+                                          },
+                                          onChanged: (value) {
+                                            email_chnage = value;
+                                          },
                                         ),
-                                        validator: (String value) {
-                                          if (value.isEmpty) {
-                                            return "entrer une adresse email";
-                                          }
-                                        },
-                                        onChanged: (value) {
-                                          email_chnage = value;
-                                        },
-                                      ),
-                                      RaisedButton(
-                                        onPressed: () async{
-                                          String url =
-                                              'http://51.210.103.151/post_password.php';
-                                          String json = '{"email":"$email_chnage"}';
-                                          Response response = await post(url, body: json);
-                                          String body = response.body;
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text(
-                                            'Ressevoir un nouveaux mots de passe'),
-                                      )
-                                    ],
+                                        RaisedButton(
+                                          onPressed: () async {
+                                            String url =
+                                                'http://51.210.103.151/post_password.php';
+                                            String json =
+                                                '{"email":"$email_chnage"}';
+                                                print(json);
+                                            Response response =
+                                                await post(url, body: json);
+                                            String body = response.body;
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text(
+                                            'Ressevoir un nouveaux mots de passe',
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   );
                                 }));
                               });

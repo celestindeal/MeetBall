@@ -160,6 +160,7 @@ class _MainState extends State<Main> {
                 return Center(
                   child: Container(
                       height: MediaQuery.of(context).size.height / 2,
+                      width: MediaQuery.of(context).size.width*0.8,
                       padding: const EdgeInsets.all(5),
                       margin: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
@@ -169,52 +170,16 @@ class _MainState extends State<Main> {
                       child: Center(
                         child: SingleChildScrollView(
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text("Mode d'affichage:",
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display2),
-                                  RaisedButton(
-                                      child:  Text("normale"),
+                            children: <Widget>[RaisedButton(
+                                      child:  Text("Mode d'affichage"),
                                       onPressed: () async {
                                         changeBrightness();
                                       }),
-                                ],
-                              ),
-                              RaisedButton(
-                                  child: Text(
-                                      "CONDITIONS GÉNÉRALES D’UTILISATION"),
-                                  onPressed: () async {
-                                    if (await canLaunch(
-                                        "http://51.210.103.151/conditions.php")) {
-                                      await launch(
-                                          "http://51.210.103.151/conditions.php");
-                                    }
-                                  }),
-                              RaisedButton(
-                                  child: Text("POLITIQUE DE CONFIDENTIALITÉ"),
-                                  onPressed: () async {
-                                    if (await canLaunch(
-                                        "http://51.210.103.151/confidentialite.php")) {
-                                      await launch(
-                                          "http://51.210.103.151/confidentialite.php");
-                                    }
-                                  }),
-                              RaisedButton(
-                                  child: Text("FAQ"),
-                                  onPressed: () async {
-                                    if (await canLaunch(
-                                        "http://51.210.103.151/FAQ.php")) {
-                                      await launch(
-                                          "http://51.210.103.151/FAQ.php");
-                                    }
-                                  }),
-                              RaisedButton(
+                      
+                                  
+                                       RaisedButton(
                                 onPressed: () async {
                                   Navigator.pushNamedAndRemoveUntil(context,
                                       '/Avis', (Route<dynamic> route) => false);
@@ -279,7 +244,36 @@ class _MainState extends State<Main> {
                                 child: Text('Déconnexion',
                                     style:
                                         Theme.of(context).textTheme.display3),
-                              ),
+                              ),         
+                              RaisedButton(
+                                  child: Text(
+                                      "CONDITIONS GÉNÉRALES D’UTILISATION"),
+                                  onPressed: () async {
+                                    if (await canLaunch(
+                                        "http://51.210.103.151/conditions.php")) {
+                                      await launch(
+                                          "http://51.210.103.151/conditions.php");
+                                    }
+                                  }),
+                              RaisedButton(
+                                  child: Text("POLITIQUE DE CONFIDENTIALITÉ"),
+                                  onPressed: () async {
+                                    if (await canLaunch(
+                                        "http://51.210.103.151/confidentialite.php")) {
+                                      await launch(
+                                          "http://51.210.103.151/confidentialite.php");
+                                    }
+                                  }),
+                              RaisedButton(
+                                  child: Text("FAQ"),
+                                  onPressed: () async {
+                                    if (await canLaunch(
+                                        "http://51.210.103.151/FAQ.php")) {
+                                      await launch(
+                                          "http://51.210.103.151/FAQ.php");
+                                    }
+                                  }),
+                             
                               ScopedModel.of<LoginModel>(context).devellopeur
                                   ? Row(
                                       mainAxisAlignment:

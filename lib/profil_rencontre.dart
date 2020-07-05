@@ -236,32 +236,87 @@ class Presentation extends StatelessWidget {
                     ScopedModel.of<LoginModel>(context).boParticipation
                         ? RaisedButton(
                             onPressed: () async {
-                              await ScopedModel.of<LoginModel>(context)
-                                  .Personne_propose(model.id_rencontre);
-                              // maintenant dans login modal var participent nous avons les participent
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Center(
+                                      child: Container(
+                                        color: Colors.white,
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            Text(
+                                                'Es-tu sûr de vraiment vouloir supprimer ta participation ?',
+                                                textAlign: TextAlign.center,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .display1),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: <Widget>[
+                                                RaisedButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text('non')),
+                                                RaisedButton(
+                                                    onPressed: () async {
+                                                      await ScopedModel.of<
+                                                                  LoginModel>(
+                                                              context)
+                                                          .Personne_propose(model
+                                                              .id_rencontre);
+                                                      // maintenant dans login modal var participent nous avons les participent
 
-                              if (ScopedModel.of<LoginModel>(context)
-                                      .boParticipation ==
-                                  true) {
-                                // créer la participation
-                                await model.Sup_participation(
-                                  int.parse(model.id_rencontre),
-                                  ScopedModel.of<LoginModel>(context).pseudo,
-                                  model.nombJoueur,
-                                );
+                                                      if (ScopedModel.of<
+                                                                      LoginModel>(
+                                                                  context)
+                                                              .boParticipation ==
+                                                          true) {
+                                                        // créer la participation
+                                                        await model
+                                                            .Sup_participation(
+                                                          int.parse(model
+                                                              .id_rencontre),
+                                                          ScopedModel.of<
+                                                                      LoginModel>(
+                                                                  context)
+                                                              .pseudo,
+                                                          model.nombJoueur,
+                                                        );
 
-                                // maintenant on refrech la page
-                                model.nombJoueur--;
-                                if (model.nombJoueur == 0) {
-                                  ScopedModel.of<LoginModel>(context)
-                                      .ParticipationProil();
+                                                        // maintenant on refrech la page
+                                                        model.nombJoueur--;
+                                                        if (model.nombJoueur ==
+                                                            0) {
+                                                          ScopedModel.of<
+                                                                      LoginModel>(
+                                                                  context)
+                                                              .ParticipationProil();
 
-                                  Navigator.pushNamed(context, '/Profil');
-                                } else {
-                                  await ScopedModel.of<LoginModel>(context)
-                                      .Personne_propose(model.id_rencontre);
-                                }
-                              }
+                                                          Navigator.pushNamed(
+                                                              context,
+                                                              '/Profil');
+                                                        } else {
+                                                          await ScopedModel.of<
+                                                                      LoginModel>(
+                                                                  context)
+                                                              .Personne_propose(
+                                                                  model
+                                                                      .id_rencontre);
+                                                        }
+                                                      }
+                                                    },
+                                                    child: Text('oui')),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  });
                             },
                             child: Text("supprimer ma participation"))
                         : RaisedButton(
