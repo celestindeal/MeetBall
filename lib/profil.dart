@@ -16,6 +16,7 @@ import 'main.dart';
 import 'models/Model_co.dart';
 import 'models/Model_img.dart';
 import 'models/Model_match.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 var now = new DateTime.now();
 bool rencontre = true;
@@ -119,7 +120,17 @@ class _PresentationState extends State<Presentation> {
                           });
 
                           List<int> imageBytes = image.readAsBytesSync();
-                          base64Image = await base64Encode(imageBytes);
+
+                          List<int> imageBytescompress =
+                              await FlutterImageCompress.compressWithList(
+                            imageBytes,
+                            minHeight: 1920,
+                            minWidth: 1080,
+                            quality: 96,
+                            rotate: 0,
+                          );
+
+                          base64Image = await base64Encode(imageBytescompress);
                           await ScopedModel.of<LoginModel>(context)
                               .ChangeImage(base64Image);
 
@@ -207,7 +218,7 @@ class _PresentationState extends State<Presentation> {
           int jour = int.parse(ok.split('}')[1].split('-')[0]);
           int mois = int.parse(ok.split('-')[1].split('-')[0]);
 
-            String placement = jour.toString() + '-'+ mois.toString() + '-';
+          String placement = jour.toString() + '-' + mois.toString() + '-';
           int ans = int.parse(ok.split(placement)[1].split('/')[0]);
 
           var mst = new DateTime.utc(ans, mois, jour, 20, 18, 04)
@@ -358,11 +369,14 @@ class _PresentationState extends State<Presentation> {
                         itemBuilder: (context, i) {
                           // calcule du temps avant le match
                           var ms = (new DateTime.now()).millisecondsSinceEpoch;
-                          String ok ="}" + model.participation[i]['jour'] + "/";
+                          String ok =
+                              "}" + model.participation[i]['jour'] + "/";
                           int jour = int.parse(ok.split('}')[1].split('-')[0]);
                           int mois = int.parse(ok.split('-')[1].split('-')[0]);
-                          String placement = jour.toString() + '-'+ mois.toString() + '-';
-                          int ans =int.parse(ok.split(placement)[1].split('/')[0]);
+                          String placement =
+                              jour.toString() + '-' + mois.toString() + '-';
+                          int ans =
+                              int.parse(ok.split(placement)[1].split('/')[0]);
 
                           var mst =
                               new DateTime.utc(ans, mois, jour, 20, 18, 04)
@@ -554,14 +568,10 @@ class _PresentationState extends State<Presentation> {
                                         ]))),
                           );
                         })
-                    : Center(child: Text("tu n'a pas de rencontre de prevue",
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display3
-                    
-                    )),
+                    : Center(
+                        child: Text("tu n'a pas de rencontre de prevue",
+                            softWrap: true,
+                            style: Theme.of(context).textTheme.display3)),
               ]);
         })));
   }
