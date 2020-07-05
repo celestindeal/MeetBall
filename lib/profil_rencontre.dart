@@ -65,59 +65,71 @@ class Presentation extends StatelessWidget {
               builder: (BuildContext context) {
                 return AlertDialog(
                     backgroundColor: Colors.transparent,
-                    
                     content: StatefulBuilder(
                         builder: (BuildContext context, StateSetter setState) {
                       return Container(
-                        height:MediaQuery.of(context).size.width/5,
-                        
-                         
+                          height: MediaQuery.of(context).size.width / 5,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20.0),
                             color: Colors.grey,
                           ),
-                          child: Row (
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               IconButton(
-                                iconSize: MediaQuery.of(context).size.width/10,
+                                iconSize:
+                                    MediaQuery.of(context).size.width / 10,
                                 icon: Icon(Icons.star_border),
                                 color: Colors.yellow,
                                 onPressed: () {
-                                      ScopedModel.of<LoginModel>(context).Envoienote("1",personnenoter);
-                                      Navigator.of(context).pop();                                },
+                                  ScopedModel.of<LoginModel>(context)
+                                      .Envoienote("1", personnenoter);
+                                  Navigator.of(context).pop();
+                                },
                               ),
                               IconButton(
-                               iconSize: MediaQuery.of(context).size.width/10,
+                                iconSize:
+                                    MediaQuery.of(context).size.width / 10,
                                 icon: Icon(Icons.star_border),
                                 color: Colors.yellow,
                                 onPressed: () {
-                                      ScopedModel.of<LoginModel>(context).Envoienote("2",personnenoter);
-                                      Navigator.of(context).pop();                                },
+                                  ScopedModel.of<LoginModel>(context)
+                                      .Envoienote("2", personnenoter);
+                                  Navigator.of(context).pop();
+                                },
                               ),
                               IconButton(
-                               iconSize: MediaQuery.of(context).size.width/10,
+                                iconSize:
+                                    MediaQuery.of(context).size.width / 10,
                                 icon: Icon(Icons.star_border),
                                 color: Colors.yellow,
                                 onPressed: () {
-                                      ScopedModel.of<LoginModel>(context).Envoienote("3",personnenoter);
-                                      Navigator.of(context).pop();                                },
+                                  ScopedModel.of<LoginModel>(context)
+                                      .Envoienote("3", personnenoter);
+                                  Navigator.of(context).pop();
+                                },
                               ),
                               IconButton(
-                                iconSize: MediaQuery.of(context).size.width/10,
+                                iconSize:
+                                    MediaQuery.of(context).size.width / 10,
                                 icon: Icon(Icons.star_border),
                                 color: Colors.yellow,
                                 onPressed: () {
-                                      ScopedModel.of<LoginModel>(context).Envoienote("4",personnenoter);
-                                      Navigator.of(context).pop();                                },
+                                  ScopedModel.of<LoginModel>(context)
+                                      .Envoienote("4", personnenoter);
+                                  Navigator.of(context).pop();
+                                },
                               ),
                               IconButton(
-                               iconSize: MediaQuery.of(context).size.width/10,
+                                iconSize:
+                                    MediaQuery.of(context).size.width / 10,
                                 icon: Icon(Icons.star_border),
                                 color: Colors.yellow,
                                 onPressed: () {
-                                      ScopedModel.of<LoginModel>(context).Envoienote("5",personnenoter);
-                                      Navigator.of(context).pop();                                },
+                                  ScopedModel.of<LoginModel>(context)
+                                      .Envoienote("5", personnenoter);
+                                  Navigator.of(context).pop();
+                                },
                               ),
                             ],
                           ));
@@ -192,50 +204,65 @@ class Presentation extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20.0),
                         color: Colors.indigo,
                       ),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text("Nom ",
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display2),
-                                  Text("adresse",
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display2),
-                                  Text("ville",
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display2),
-                                  Text("nombre de terrain",
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display2),
-                                ]),
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(model.lieu,
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display2),
-                                  Text(model.adresse_lieu,
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display2),
-                                  Text(model.nom_t_lieu,
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display2),
-                                  Text(model.ville_lieu,
-                                      softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display2),
-                                ]),
-                          ]),
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text("Nom ",
+                                          softWrap: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .display2),
+                                      Text("adresse",
+                                          softWrap: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .display2),
+                                      Text("ville",
+                                          softWrap: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .display2),
+                                      Text("nombre de terrain",
+                                          softWrap: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .display2),
+                                    ]),
+                                Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(model.lieu,
+                                          softWrap: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .display2),
+                                      Text(model.adresse_lieu,
+                                          softWrap: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .display2),
+                                      Text(model.nom_t_lieu,
+                                          softWrap: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .display2),
+                                      Text(model.ville_lieu,
+                                          softWrap: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .display2),
+                                    ]),
+                              ]),
+                          Text(model.commentaire_lieu,
+                              softWrap: true,
+                              style: Theme.of(context).textTheme.display2),
+                        ],
+                      ),
                     ),
 // cette colone afficher les images du lieu
                     Container(
@@ -298,11 +325,9 @@ class Presentation extends StatelessWidget {
 //affichage des commentaires
                     ScopedModel.of<LoginModel>(context).boParticipation
                         ? Container(
-                        
-                               
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                  ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
                             child: Column(children: <Widget>[
                               model.bocommentaire
                                   ? Column(
@@ -669,7 +694,10 @@ class Presentation extends StatelessWidget {
                                           style: Theme.of(context)
                                               .textTheme
                                               .display3),
-                                      bonotation ? notation(login.participent[i]['pseudo']) : Container(),
+                                      bonotation
+                                          ? notation(
+                                              login.participent[i]['pseudo'])
+                                          : Container(),
                                     ],
                                   ),
                                 ),
@@ -717,7 +745,10 @@ class Presentation extends StatelessWidget {
                                           style: Theme.of(context)
                                               .textTheme
                                               .display3),
-                                      bonotation ? notation(login.participent[i]['pseudo']) : Container(),
+                                      bonotation
+                                          ? notation(
+                                              login.participent[i]['pseudo'])
+                                          : Container(),
                                     ],
                                   ),
                                 ),

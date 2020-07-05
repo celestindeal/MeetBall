@@ -285,6 +285,12 @@ class _AffImageState extends State<AffImage> {
                                         style: Theme.of(context)
                                             .textTheme
                                             .display2),
+                                            Text(
+                                        lieupro[i]['contruiction']['commentaire'],
+                                        softWrap: true,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .display2),
                                   ]),
                             ]),
                         Center(

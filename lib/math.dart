@@ -154,7 +154,6 @@ class Presentation extends StatelessWidget {
                         return Center(
                             child: GestureDetector(
                                 onTap: () async {
-                                  print(model.data_game[i]);
                                   model.afficher_lieu = false;
                                   
                                   // on sélection la rencontre choisir

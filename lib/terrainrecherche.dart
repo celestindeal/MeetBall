@@ -355,6 +355,15 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                           context)
                                                                       .textTheme
                                                                       .display3),
+                                                                      Text(
+                                                                  terrain[i][
+                                                                      'commentaire'],
+                                                                  softWrap:
+                                                                      true,
+                                                                  style: Theme.of(
+                                                                          context)
+                                                                      .textTheme
+                                                                      .display3),
                                                             ]),
                                                       ]),
                                                   Center(

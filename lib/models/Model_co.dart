@@ -87,7 +87,6 @@ class LoginModel extends Model {
           club = data[n]['club'];
           niveau = data[n]['niveaux'];
           description = data[n]['message'];
-          print('maintentnent on note');
 
           var urle = 'http://51.210.103.151/post_note.php';
           String jsone = '{"pseudo":"$pseudo"}';
@@ -217,8 +216,6 @@ class LoginModel extends Model {
     Response responsee = await post(urle, body: jsone);
     var datanote = jsonDecode(responsee.body);
     double note = 0;
-    print('datanote');
-    print(datanote);
     if (datanote.length == 0) {
       noteVisiteur = 5;
     } else {
@@ -388,11 +385,9 @@ class LoginModel extends Model {
     String url = 'http://51.210.103.151/post_notenew.php';
     String json =
         '{"pseudo":"$pseudo","personnenoter":"$personnenoter","note":"$note"}';
-    print(json);
     Response response = await post(url, body: json);
     String body = response.body;
     notifyListeners();
-    print(body);
     return body;
   }
 }
