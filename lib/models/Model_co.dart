@@ -24,7 +24,7 @@ class LoginModel extends Model {
   bool loging = false;
   bool retour_Profil = false;
   bool affmodif = true;
-  List participent =[];
+  List participent = [];
   Map profVisiteur = {};
   bool visiteur = false;
   bool boParticipation;
@@ -35,23 +35,19 @@ class LoginModel extends Model {
 
   bool dark = false;
 
-changeMode(){
-  if(dark){
-      dark =false;
-     }else{
-      dark =true;
-     }
-     notifyListeners();
-}
+  changeMode() {
+    if (dark) {
+      dark = false;
+    } else {
+      dark = true;
+    }
+    notifyListeners();
+  }
 
   Future<String> Connexion(String temail, String tpassword) async {
-
     String url = 'http://51.210.103.151/post_connexion.php';
     String json = '{"email":"$temail"}';
     Response response = await post(url, body: json);
-    
-
-
 
     var data = jsonDecode(response.body);
 
@@ -93,8 +89,6 @@ changeMode(){
             devellopeur = true;
             LieuDev();
           }
-          
- 
         }
       }
       n++;
@@ -104,7 +98,7 @@ changeMode(){
       loging = true;
       retour_Profil = true;
     }
- 
+
     notifyListeners();
     ParticipationProil();
     return " fin de fonction";
@@ -112,24 +106,27 @@ changeMode(){
 
   Future<String> ParticipationProil() async {
     participation.clear();
-    var url = 'http://51.210.103.151/get_participation.php';
-    http.Response response = await http.get(url);
+    var url = 'http://51.210.103.151/post_verfparticipation.php';
+    String json = '{"pseudo":"$pseudo"}';
+    Response response = await post(url, body: json);
     var data_participation = jsonDecode(response.body);
+
     var url1 = 'http://51.210.103.151/get_match.php';
     http.Response response1 = await http.get(url1);
     var data_rencontre = jsonDecode(response1.body);
     int tailledata = data_participation.length;
     int taillerencontre = data_rencontre.length;
 
-    // on fait le tours des la table participation 
+    // on fait le tours des la table participation
     for (var i = 0; i < tailledata; i++) {
-      //si les pseudo sont identique sais que tu participe à la rencomtre 
+      //si les pseudo sont identique sais que tu participe à la rencomtre
+
       if (pseudo == data_participation[i]['pseudo']) {
-          // donc avec l'id de la rencontre on retrouve cette rencontre 
+        // donc avec l'id de la rencontre on retrouve cette rencontre
         for (var n = 0; n < taillerencontre; n++) {
           if (data_participation[i]['ID_rencontre'] ==
               data_rencontre[n]['id']) {
-                // et on stoke les info dans la liste participation
+            // et on stoke les info dans la liste participation
             Map<String, dynamic> participation_1 = {
               "id": data_participation[i]['id'],
               "jour": data_rencontre[n]['jours'],
@@ -145,7 +142,6 @@ changeMode(){
       }
     }
     img;
-
 
     notifyListeners();
 
@@ -205,7 +201,7 @@ changeMode(){
     affmodif = false;
     String json =
         '{"pseudo":"$pseudo","email":"$email","nom":"$nom","prenom":"$prenom","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","id":"$idd"}'; // make POST request
-   
+
     Response response = await post(url, body: json);
     String body = response.body;
     Connexion(email, password);
@@ -240,8 +236,6 @@ changeMode(){
     return " fin de fonction";
   }
 
-
-
   Future<String> Personne_propose(String idrencontre) async {
     boParticipation = false;
     var url = 'http://51.210.103.151/get.php';
@@ -250,29 +244,28 @@ changeMode(){
     var tailledata = data.length;
     participent.clear();
     int n = 0;
-    var url2 = 'http://51.210.103.151/get_participation.php';
-      http.Response response2 = await http.get(url2);
-      var data2 = jsonDecode(response2.body);
-      var tailledata2 = data2.length;
-for (var i = 0; i < tailledata2; i++) {
-  if ( idrencontre == data2[i]['ID_rencontre']){
-   n= 0;
+
     
+    var url2 = 'http://51.210.103.151/get_participation.php';
+    http.Response response2 = await http.get(url2);
+    var data2 = jsonDecode(response2.body);
+    var tailledata2 = data2.length;
 
-    while (tailledata > n ) {
-      if (data[n]['pseudo'] == data2[i]['pseudo']) {
+    for (var i = 0; i < tailledata2; i++) {
 
-      participent.add(data[n]);
-       if(data[n]['pseudo'] == pseudo) {
-    boParticipation = true;
-
-       }
+      if (idrencontre == data2[i]['ID_rencontre']) {
+        n = 0;
+        while (tailledata > n) {
+          if (data[n]['pseudo'] == data2[i]['pseudo']) {
+            participent.add(data[n]);
+            if (data[n]['pseudo'] == pseudo) {
+              boParticipation = true;
+            }
+          }
+          n++;
+        }
       }
-      n++;
     }
-  }
-  
-}
 
     notifyListeners();
     return " fin de fonction";
@@ -296,7 +289,8 @@ for (var i = 0; i < tailledata2; i++) {
     String body = response.body;
     Connexion(email, password);
     affmodif = false;
-    img= "https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg";
+    img =
+        "https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg";
     notifyListeners();
     return body;
   }

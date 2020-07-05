@@ -27,12 +27,16 @@ class _AccueilState extends State<Accueil> {
   @override
   Widget build(BuildContext context) {
     init() async {
-      List persoonne;
+      List persoonne ;
       persoonne = await Baselocal().connect();
-      ScopedModel.of<LoginModel>(context)
+      print(persoonne);
+      if(persoonne != null){
+        ScopedModel.of<LoginModel>(context)
           .Connexion(persoonne[0]['email'], persoonne[0]['password']);
       Navigator.pushNamedAndRemoveUntil(
           context, '/Profil', (Route<dynamic> route) => false);
+      }
+      
 
       PushNotificationsManager().init();
       return persoonne;
