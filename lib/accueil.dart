@@ -29,11 +29,8 @@ class _AccueilState extends State<Accueil> {
     init() async {
       List persoonne ;
       persoonne = await Baselocal().connect();
-      print('personnne');
-      print(persoonne);
       persoonne.add("value");
       if(persoonne[0] != "value"){
-        print("condition");
         ScopedModel.of<LoginModel>(context)
           .Connexion(persoonne[0]['email'], persoonne[0]['password']);
       Navigator.pushNamedAndRemoveUntil(
@@ -171,7 +168,6 @@ class _AccueilState extends State<Accueil> {
                                                 'http://51.210.103.151/post_password.php';
                                             String json =
                                                 '{"email":"$email_chnage"}';
-                                                print(json);
                                             Response response =
                                                 await post(url, body: json);
                                             String body = response.body;

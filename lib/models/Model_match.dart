@@ -27,6 +27,8 @@ class   GameModel extends Model {
   int nombJoueur;
   String daterencontre = " ";
   String heurerencontre = " ";
+  String organisateur = " ";
+
 
 
     

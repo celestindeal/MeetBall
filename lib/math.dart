@@ -154,6 +154,7 @@ class Presentation extends StatelessWidget {
                         return Center(
                             child: GestureDetector(
                                 onTap: () async {
+                                  print(model.data_game[i]);
                                   model.afficher_lieu = false;
                                   // on sélection la rencontre choisir
                                   model.lieu = model.data_game[i]['lieu'];
@@ -161,6 +162,8 @@ class Presentation extends StatelessWidget {
                                   model.nombJoueur = int.parse( model.data_game[i]['nombre_j']);
                                   model.daterencontre =  model.data_game[i]['jours'];
                                   model.heurerencontre =  model.data_game[i]['heure'];
+                                  model.organisateur =  model.data_game[i]['per'];
+
 
 
 

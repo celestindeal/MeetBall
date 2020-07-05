@@ -45,6 +45,7 @@ class LoginModel extends Model {
   }
 
   Future<String> Connexion(String temail, String tpassword) async {
+
     String url = 'http://51.210.103.151/post_connexion.php';
     String json = '{"email":"$temail"}';
     Response response = await post(url, body: json);
@@ -84,7 +85,9 @@ class LoginModel extends Model {
           description = data[n]['message'];
           validation = false;
           loging = true;
+          // ajout dans la base de donner sqlite l'email et le mots de passe pour la connection automatique
           Baselocal().newperso(email, password);
+          // si c'est l'un deux deux dévellopeur afficher les obption dévelloper 
           if (id == "6" || id == "46") {
             devellopeur = true;
             LieuDev();
@@ -97,14 +100,17 @@ class LoginModel extends Model {
       //  SnackBar(content: Text("yes"),);
       loging = true;
       retour_Profil = true;
+      // avec retour_Profil = false un afficher la page de chargement 
     }
-
+    // première mise à jour de la page
     notifyListeners();
+    // recherche les participation de notre joueur 
     ParticipationProil();
     return " fin de fonction";
   }
 
   Future<String> ParticipationProil() async {
+    // objectif faire les liste des participation de notre joueur dans la variable participation
     participation.clear();
     var url = 'http://51.210.103.151/post_verfparticipation.php';
     String json = '{"pseudo":"$pseudo"}';
@@ -142,11 +148,10 @@ class LoginModel extends Model {
       }
     }
     img;
-
     notifyListeners();
-
     return " fin de fonction";
   }
+
 
   Future<String> Postinscritpion(
       String pseudo,
@@ -210,6 +215,9 @@ class LoginModel extends Model {
   }
 
   Future<String> Verification_email(email_verifier, pseudo) async {
+    // objectif quand on as une incription on verifi les pseudo et les email pour de pas avoir de doublon 
+    // si l'email est déjà pris emailvalide = false
+    // si le pseudo est déjà pris pseudovalide = false
     var url = 'http://51.210.103.151/get.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
@@ -237,7 +245,10 @@ class LoginModel extends Model {
   }
 
   Future<String> Personne_propose(String idrencontre) async {
+    // objectif faire la liste des participant d'une rencontre et s'avoir si notre joueur participe à cette rencontre 
+    // si boParticipatoin = true  le joueur participe déja à la rencontre 
     boParticipation = false;
+
     var url = 'http://51.210.103.151/get.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
