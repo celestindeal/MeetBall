@@ -47,14 +47,25 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
           child: ScopedModelDescendant<LoginModel>(
               builder: (context, child, model) {
             // calcule de l'age
-            var ms = (new DateTime.now()).millisecondsSinceEpoch;
-            String ok = "}" + model.profVisiteur['age'].toString() + "/";
-            int ans = int.parse(ok.split('}')[1].split('-')[0]);
-            int mois = int.parse(ok.split('-')[1].split('-')[0]);
-            int jour = int.parse(ok.split('-')[1].split('/')[0]);
-            var mst = new DateTime.utc(ans, mois, jour, 20, 18, 04)
-                .millisecondsSinceEpoch;
-            int ageAnne = ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
+            var ms =
+                                (new DateTime.now()).millisecondsSinceEpoch;
+                            String ok = "}" + model.profVisiteur['age'] + "/";
+
+                            int jour =
+                                int.parse(ok.split('}')[1].split('-')[0]);
+                            int mois =
+                                int.parse(ok.split('-')[1].split('-')[0]);
+
+                            String placement =
+                                jour.toString() + '-' + mois.toString() + '-';
+                            int ans =
+                                int.parse(ok.split(placement)[1].split('/')[0]);
+
+                            var mst =
+                                new DateTime.utc(ans, mois, jour, 20, 18, 04)
+                                    .millisecondsSinceEpoch;
+                            int ageAnne =
+                                ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
 
             if (model.participationvisiteur.length == 0) {
               rencontre = false;

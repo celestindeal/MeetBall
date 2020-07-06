@@ -51,13 +51,24 @@ class Profil_renctontre extends StatelessWidget {
   }
 }
 
-class Presentation extends StatelessWidget {
+class Presentation extends StatefulWidget {
+  @override
+  _PresentationState createState() => _PresentationState();
+}
+
+class _PresentationState extends State<Presentation> {
   final _formKey = GlobalKey<FormState>();
+
   final key_commentainer = GlobalKey<FormState>();
+
   ScrollController _scrollController = new ScrollController();
 
   String com;
+
   int nombre_inviter;
+
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -352,75 +363,53 @@ class Presentation extends StatelessWidget {
                                                   model.commentaire.length,
                                               itemBuilder: (context, i) {
                                                 bool message;
-                                                if (model.commentaire[i]
-                                                            ['pseudo']
-                                                        .toString() ==
-                                                    ScopedModel.of<LoginModel>(
-                                                            context)
-                                                        .pseudo
-                                                        .toString()) {
+                                                if (model.commentaire[i]['pseudo'] .toString() ==ScopedModel.of<LoginModel>(context) .pseudo.toString()) {
                                                   message = true;
                                                 } else {
                                                   message = false;
                                                 }
+                                                
                                                 return Column(
                                                   children: <Widget>[
                                                     Row(
                                                       mainAxisAlignment: message
-                                                          ? MainAxisAlignment
-                                                              .end
-                                                          : MainAxisAlignment
-                                                              .start,
+                                                          ? MainAxisAlignment .end
+                                                          : MainAxisAlignment .start,
                                                       children: <Widget>[
                                                         Flexible(
-                                                          child: Container(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(15),
-                                                            constraints: BoxConstraints(
-                                                                minWidth: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    5,
-                                                                maxWidth: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width /
-                                                                    1.1),
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          20.0),
-                                                              color: message
-                                                                  ? Colors
-                                                                      .indigo
-                                                                  : Colors.amber[
-                                                                      900],
-                                                            ),
-                                                            child: Column(
-                                                              children: <
-                                                                  Widget>[
-                                                                Text(
-                                                                    model.commentaire[
-                                                                            i][
-                                                                        'commentaire'],
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    style: Theme.of(
-                                                                            context)
-                                                                        .textTheme
-                                                                        .display3),
-                                                                Text(model
-                                                                        .commentaire[i]
-                                                                    ['pseudo']),
-                                                                Text(model
-                                                                        .commentaire[
-                                                                    i]['date']),
-                                                              ],
+                                                          child: GestureDetector(
+                                                            onLongPress: (){
+                                                              if(message){
+                                                                print('nouveux bouton');
+                                                                
+                                                                
+                                                              }
+
+                                                            },
+                                                            child: Container(
+                                                              padding:const EdgeInsets.all(15),
+                                                              constraints: BoxConstraints(
+                                                                  minWidth: MediaQuery.of(context).size.width / 5,
+                                                                  maxWidth: MediaQuery.of(  context).size .width / 1.1),
+                                                              decoration:BoxDecoration(
+                                                                borderRadius:
+                                                                    BorderRadius.circular(20.0),
+                                                                color: message
+                                                                    ? Colors.indigo
+                                                                    : Colors.amber[ 900],
+                                                              ),
+                                                              child: 
+                                                              Column(
+                                                                children: < Widget>[
+                                                                  Text( model.commentaire[ i][ 'commentaire'],
+                                                                      textAlign: TextAlign.center,
+                                                                      style: Theme.of(context).textTheme .display3),
+                                                                  Text(model .commentaire[i]['pseudo']),
+                                                                  Text(model.commentaire[ i]['date']),
+                                                                ],
+                                                              ),
+
+
                                                             ),
                                                           ),
                                                         ),
