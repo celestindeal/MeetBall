@@ -125,8 +125,7 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
                TextFormField(
                       autocorrect: true,
                 cursorColor: Colors.black,
-                style: TextStyle(
-                    color: Colors.black, decorationColor: Colors.black),
+                style:  Theme.of(context).textTheme.display3,
                 decoration: const InputDecoration(
                   hintText: 'Trouver un joueur',
                   hintStyle: TextStyle(color: Colors.black),
