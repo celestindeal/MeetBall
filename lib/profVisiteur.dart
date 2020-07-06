@@ -120,12 +120,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                       Container(
                                         height: 50,
                                       ),
-                                      Text(model.profVisiteur['nom'],
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                      Text(model.profVisiteur['prenom'],
+                                      Text(model.profVisiteur['nom'] +" "+ model.profVisiteur['prenom'],
                                           softWrap: true,
                                           style: Theme.of(context)
                                               .textTheme

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:meetballl/db.dart';
+import 'package:meetballl/profVisiteur.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -17,6 +18,7 @@ class LoginModel extends Model {
   var age = "";
   var club = "";
   var niveau = "";
+  List profilvisiteur;
   bool emailvalide = true;
   bool pseudovalide = true;
   bool faux_pseudo = true;
@@ -389,5 +391,14 @@ class LoginModel extends Model {
     String body = response.body;
     notifyListeners();
     return body;
+  }
+
+  Future<String> ProfilVisiteur() async {
+    var url = 'http://51.210.103.151/get.php';
+    http.Response response = await http.get(url);
+     profilvisiteur = jsonDecode(response.body);
+   
+    notifyListeners();
+    return " fin de fonction";
   }
 }

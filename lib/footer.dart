@@ -35,14 +35,13 @@ class Footer extends StatelessWidget {
                     context, '/Match', (Route<dynamic> route) => false);
               }),
           IconButton(
-              icon:Image.asset('img/terrain.png',
-              width: 40,
-              height: 40,) ,
+              icon:Icon(Icons.search,
+              color: Colors.black,),
               onPressed: () {
                 ScopedModel.of<ImgModel>(context).Img();
                 ScopedModel.of<TerrainModel>(context).Terrain();
                 Navigator.pushNamedAndRemoveUntil(
-                    context, '/Terrain', (Route<dynamic> route) => false);
+                    context, '/Rechercher', (Route<dynamic> route) => false);
               }),
         ],
       ),
