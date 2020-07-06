@@ -89,8 +89,7 @@ class Presentation_rechercher extends StatelessWidget {
                 onTap: () {
                 //  ScopedModel.of<ImgModel>(context).Img();
                 // ScopedModel.of<TerrainModel>(context).Terrain();
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/Terrain', (Route<dynamic> route) => false);
+                Navigator.pushNamed(context, '/Terrain');
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20.0),

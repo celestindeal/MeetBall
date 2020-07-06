@@ -37,12 +37,6 @@ class Presentation_terrain extends StatelessWidget {
         appBar: AppBar(
     title:  Center( child : Text("Playground"),),
     backgroundColor: Colors.indigo,
-    leading: IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          Navigator.pushNamed(context, '/Ajout_match');
-             
-        }),
     actions: <Widget>[
       IconButton(
         icon: const Icon(Icons.settings),
