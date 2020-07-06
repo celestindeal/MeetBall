@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:meetballl/footer.dart';
 import 'package:meetballl/main.dart';
+import 'package:meetballl/models/Model_co.dart';
+import 'package:meetballl/models/Model_img.dart';
 import 'package:meetballl/models/Model_match.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -260,8 +262,43 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                 ),
                 margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: ListTile(
-                  title: Text(event.toString()),
-                  onTap: () => print('$event on vas au match'),
+                  title: Text(event['lieu']+ " à "+event['heure']),
+                  onTap: ()async{
+                    // on sélection la rencontre choisir
+                               ScopedModel.of<GameModel>(context).lieu =
+                                  event['lieu'];
+                              ScopedModel.of<GameModel>(context).id_rencontre =
+                                  event['id'];
+                              ScopedModel.of<GameModel>(context).nombJoueur =
+                                  int.parse(event['nombre_j']
+                                      .toString());
+                              ScopedModel.of<GameModel>(context).daterencontre =
+                                event['jours'];
+                              ScopedModel.of<GameModel>(context)
+                                      .heurerencontre =
+                                  event['heure'];
+                                   ScopedModel.of<GameModel>(context)
+                                      .organisateur =
+                                  event['pseudo'];
+
+
+
+
+
+                                  // on prepare les image terrain et commentaire pour la page profil rencontre
+                                  ScopedModel.of<ImgModel>(context).Img();
+                                  ScopedModel.of<GameModel>(context).Terrain();
+                                  ScopedModel.of<GameModel>(context)
+                                      .Commentaire();
+
+                                  await ScopedModel.of<LoginModel>(context)
+                                      .Personne_propose(
+                                          event['id']);
+
+                                  //  model.rencontre_visualiser = model.data_game[i]['id'];
+                                  Navigator.pushNamed(
+                                      context, '/Profil_renctontre');
+                  },
                 ),
               ))
           .toList(),

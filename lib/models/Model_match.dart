@@ -30,17 +30,10 @@ class GameModel extends Model {
   String organisateur = " ";
 //pour le calendar
 
-  Map <DateTime, List>  events ; 
+  Map<DateTime, List> events;
   final _selectedDay = DateTime.now();
-  
-  
-  
-   void initState() {
- 
-   
 
-
-  }
+  void initState() {}
 
   Future<String> Match() async {
     var url = 'http://51.210.103.151/get_match.php';
@@ -50,25 +43,30 @@ class GameModel extends Model {
     taille = data.length;
     afficher = true;
     notifyListeners();
-    return " fin de fonction"; 
-    
+    return " fin de fonction";
   }
 
   Future<String> MatchCalendar() async {
     var url = 'http://51.210.103.151/get_match.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
-
-    var mapGroup = new Map<String, dynamic>();
-    mapGroup["name"] = "groupName";
-    mapGroup['_id'] = "id";
-    
-events = {
-      _selectedDay.subtract(Duration(days: -1)): [mapGroup],
-      DateTime(2) :  [mapGroup],
-
-    };
     print(data);
+    print(data[0]['date']);
+
+    for (var i = 0; i < data.length; i++) {
+      String date;
+      String ok = "}" + data[i]['jours'].toString() + "/";
+      print(ok);
+      int jour = int.parse(ok.split('}')[1].split('-')[0]);
+      int mois = int.parse(ok.split('-')[1].split('-')[0]);
+      String placement = jour.toString() + '-' + mois.toString() + '-';
+      int ans = int.parse(ok.split(placement)[1].split('/')[0]);
+
+final _selectedDay =DateTime.utc(ans, mois, jour, 20, 18, 04);
+       events =  {_selectedDay : [data[i]]};
+ 
+    }
+
     notifyListeners();
     return " fin de fonction";
   }
