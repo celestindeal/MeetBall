@@ -191,134 +191,146 @@ class Presentation extends StatelessWidget {
                                           ? Colors.indigo
                                           : Colors.amber[900],
                                     ),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Text("Proposé par ",
-                                                    softWrap: true,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .display2),
-                                                Text("Jour",
-                                                    softWrap: true,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .display2),
-                                                Text("Heure",
-                                                    softWrap: true,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .display2),
-                                                Text("Nombre de joueur(s)",
-                                                    softWrap: true,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .display2),
-                                                Text("Lieu",
-                                                    softWrap: true,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .display2),
-                                              ]),
-                                          Flexible(
-                                            child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: <Widget>[
-                                                  Text(
-                                                      model.data_game[i]['per'],
-                                                      softWrap: true,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display2),
-                                                  Text(
-                                                     tempsavantmatch,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      softWrap: true,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display2),
-                                                  Text(
-                                                      model.data_game[i]
-                                                          ['heure'],
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      softWrap: true,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display2),
-                                                  Text(
-                                                      model.data_game[i]
-                                                          ['nombre_j'],
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      softWrap: true,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display2),
-                                                  Text(
-                                                      model.data_game[i]
-                                                          ['lieu'],
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      softWrap: false,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display2),
-                                                ]),
-                                          ),
-                                          RaisedButton(
-                                              onPressed: () async {
-                                                await ScopedModel.of<
-                                                        LoginModel>(context)
-                                                    .Personne_propose(model
-                                                        .data_game[i]['id']);
-                                                // maintenant dans login modal var participent nous avons les participent
-
-                                                if (ScopedModel.of<LoginModel>(
-                                                            context)
-                                                        .boParticipation ==
-                                                    false) {
-                                                  // créer la participation
-                                                  await model.Participation(
-                                                      int.parse(model
-                                                          .data_game[i]['id']),
-                                                      ScopedModel.of<
-                                                                  LoginModel>(
-                                                              context)
-                                                          .pseudo,
-                                                      int.parse(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: <Widget>[
+                                              Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: <Widget>[
+                                                    Text("Proposé par ",
+                                                        softWrap: true,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .display2),
+                                                    Text("Jour",
+                                                        softWrap: true,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .display2),
+                                                    Text("Heure",
+                                                        softWrap: true,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .display2),
+                                                    Text("Nombre de joueur(s)",
+                                                        softWrap: true,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .display2),
+                                                    Text("Lieu",
+                                                        softWrap: true,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .display2),
+                                                  ]),
+                                              Flexible(
+                                                child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: <Widget>[
+                                                      Text(
+                                                          model.data_game[i]['per'],
+                                                          softWrap: true,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .display2),
+                                                      Text(
+                                                         tempsavantmatch,
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          softWrap: true,
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .display2),
+                                                      Text(
                                                           model.data_game[i]
-                                                              ['nombre_j']));
-                                                  await ScopedModel.of<GameModel>(
-                                                          context)
-                                                      .Match();
-                                                  Navigator
-                                                      .pushNamedAndRemoveUntil(
-                                                          context,
-                                                          '/Match',
-                                                          (Route<dynamic>
-                                                                  route) =>
-                                                              false);
-                                                }else{
-                                                    Scaffold.of(context).showSnackBar(
-                                          new SnackBar(
-                                              content: new Text(
-                                                  'Tu participe déjà à cette rencontre')));
-                                                }
-                                              },
-                                              child: Text("participer"))
-                                        ]))));
+                                                              ['heure'],
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          softWrap: true,
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .display2),
+                                                      Text(
+                                                          model.data_game[i]
+                                                              ['nombre_j'],
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          softWrap: true,
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .display2),
+                                                      Text(
+                                                          model.data_game[i]
+                                                              ['lieu'],
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          softWrap: false,
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .display2),
+                                                    ]),
+                                              ),
+                                             
+                                            ]
+                                            ),
+ RaisedButton(
+                                                  onPressed: () async {
+                                                    await ScopedModel.of<
+                                                            LoginModel>(context)
+                                                        .Personne_propose(model
+                                                            .data_game[i]['id']);
+                                                    // maintenant dans login modal var participent nous avons les participent
+
+                                                    if (ScopedModel.of<LoginModel>(
+                                                                context)
+                                                            .boParticipation ==
+                                                        false) {
+                                                      // créer la participation
+                                                      await model.Participation(
+                                                          int.parse(model
+                                                              .data_game[i]['id']),
+                                                          ScopedModel.of<
+                                                                      LoginModel>(
+                                                                  context)
+                                                              .pseudo,
+                                                          int.parse(
+                                                              model.data_game[i]
+                                                                  ['nombre_j']));
+                                                      await ScopedModel.of<GameModel>(
+                                                              context)
+                                                          .Match();
+                                                      await Navigator
+                                                          .pushNamedAndRemoveUntil(
+                                                              context,
+                                                              '/Match',
+                                                              (Route<dynamic>
+                                                                      route) =>
+                                                                  false);
+                                                               
+                                                    }else{
+                                                        Scaffold.of(context).showSnackBar(
+                                              new SnackBar(
+                                                  content: new Text(
+                                                      'Tu participe déjà à cette rencontre')));
+                                                    }
+                                                  },
+                                                  child: Text("participer"))
+
+
+                                      ],
+                                    )
+                                        )
+                                        )
+                                        );
                       }),
                 ],
               );

@@ -117,6 +117,7 @@ Commentaire()async{
         bocommentaire = false;
      }
   notifyListeners();
+  
 return " fin de fonction" ;
 }
 Ajouter_ommentaire(String commentaire ,String pseudo)async{

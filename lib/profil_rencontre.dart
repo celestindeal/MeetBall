@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -53,10 +55,18 @@ class Presentation extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final key_commentainer = GlobalKey<FormState>();
   ScrollController _scrollController = new ScrollController();
+
   String com;
   int nombre_inviter;
   @override
   Widget build(BuildContext context) {
+
+    // après une seconds les commentaire scroll sur le dernier commentaire publier
+    Timer(
+    Duration(seconds: 1),
+    () => _scrollController.jumpTo(_scrollController.position.maxScrollExtent),
+  );
+
     notation(String personnenoter) {
       return RaisedButton(
         onPressed: () {
@@ -68,17 +78,13 @@ class Presentation extends StatelessWidget {
                     content: StatefulBuilder(
                         builder: (BuildContext context, StateSetter setState) {
                       return Container(
-                          height: MediaQuery.of(context).size.width / 5,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            color: Colors.grey,
-                          ),
+                          color: Colors.grey,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               IconButton(
                                 iconSize:
-                                    MediaQuery.of(context).size.width / 10,
+                                    MediaQuery.of(context).size.width / 11,
                                 icon: Icon(Icons.star_border),
                                 color: Colors.yellow,
                                 onPressed: () {
@@ -89,7 +95,7 @@ class Presentation extends StatelessWidget {
                               ),
                               IconButton(
                                 iconSize:
-                                    MediaQuery.of(context).size.width / 10,
+                                    MediaQuery.of(context).size.width / 11,
                                 icon: Icon(Icons.star_border),
                                 color: Colors.yellow,
                                 onPressed: () {
@@ -100,7 +106,7 @@ class Presentation extends StatelessWidget {
                               ),
                               IconButton(
                                 iconSize:
-                                    MediaQuery.of(context).size.width / 10,
+                                    MediaQuery.of(context).size.width / 11,
                                 icon: Icon(Icons.star_border),
                                 color: Colors.yellow,
                                 onPressed: () {
@@ -111,7 +117,7 @@ class Presentation extends StatelessWidget {
                               ),
                               IconButton(
                                 iconSize:
-                                    MediaQuery.of(context).size.width / 10,
+                                    MediaQuery.of(context).size.width / 11,
                                 icon: Icon(Icons.star_border),
                                 color: Colors.yellow,
                                 onPressed: () {
@@ -122,7 +128,7 @@ class Presentation extends StatelessWidget {
                               ),
                               IconButton(
                                 iconSize:
-                                    MediaQuery.of(context).size.width / 10,
+                                    MediaQuery.of(context).size.width / 11,
                                 icon: Icon(Icons.star_border),
                                 color: Colors.yellow,
                                 onPressed: () {
@@ -186,6 +192,7 @@ class Presentation extends StatelessWidget {
               }
               nombre_tour++;
             }
+
             return SingleChildScrollView(
               child: Center(
                   child: Column(
@@ -341,12 +348,10 @@ class Presentation extends StatelessWidget {
                                           color: Colors.grey,
                                           child: ListView.builder(
                                               controller: _scrollController,
-                                              shrinkWrap: true,
                                               itemCount:
                                                   model.commentaire.length,
                                               itemBuilder: (context, i) {
                                                 bool message;
-
                                                 if (model.commentaire[i]
                                                             ['pseudo']
                                                         .toString() ==
@@ -442,14 +447,30 @@ class Presentation extends StatelessWidget {
                                       color: Colors.indigo,
                                       child: TextFormField(
                                         autocorrect: true,
-                                        cursorColor: Colors.black,
+                                        cursorColor: Colors.white,
                                         style: TextStyle(
-                                            color: Colors.black,
-                                            decorationColor: Colors.black),
-                                        decoration: const InputDecoration(
+                                            color: Colors.white,
+                                            decorationColor: Colors.white),
+                                        decoration: InputDecoration(
                                           hintText: 'Ecrivez un message...',
                                           hintStyle:
-                                              TextStyle(color: Colors.black),
+                                              TextStyle(color: Colors.white),
+                                          suffixIcon: IconButton(
+                                            onPressed: () async {
+                                              if (key_commentainer.currentState
+                                                  .validate()) {
+                                                await ScopedModel.of<GameModel>(
+                                                        context)
+                                                    .Ajouter_ommentaire(
+                                                        com, login.pseudo);
+                                                await ScopedModel.of<GameModel>(
+                                                        context)
+                                                    .Commentaire();
+                                              }
+                                            },
+                                            icon: Icon(Icons.send),
+                                            color: Colors.white,
+                                          ),
                                         ),
                                         validator: (value) {
                                           if (value.isEmpty) {
@@ -462,32 +483,13 @@ class Presentation extends StatelessWidget {
                                         },
                                       ),
                                     ),
-                                    Center(
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 16.0),
-                                        child: RaisedButton(
-                                          onPressed: () async {
-                                            if (key_commentainer.currentState
-                                                .validate()) {
-                                              await ScopedModel.of<GameModel>(
-                                                      context)
-                                                  .Ajouter_ommentaire(
-                                                      com, login.pseudo);
-                                              ScopedModel.of<GameModel>(context)
-                                                  .Commentaire();
-                                            }
-                                          },
-                                          child: Text('commenter'),
-                                        ),
-                                      ),
-                                    ),
                                   ],
                                 ),
                               ),
                             ]),
                           )
                         : Container(),
+
 // ce container affiche le bouton participer ou alluler la participation
                     Center(
                         child: Text("Participants",
@@ -695,8 +697,11 @@ class Presentation extends StatelessWidget {
                                               .textTheme
                                               .display3),
                                       bonotation
-                                          ? notation(
-                                              login.participent[i]['pseudo'])
+                                          ? ScopedModel.of<LoginModel>(context)
+                                                  .boParticipation
+                                              ? notation(login.participent[i]
+                                                  ['pseudo'])
+                                              : Container()
                                           : Container(),
                                     ],
                                   ),
@@ -746,8 +751,11 @@ class Presentation extends StatelessWidget {
                                               .textTheme
                                               .display3),
                                       bonotation
-                                          ? notation(
-                                              login.participent[i]['pseudo'])
+                                          ? ScopedModel.of<LoginModel>(context)
+                                                  .boParticipation
+                                              ? notation(login.participent[i]
+                                                  ['pseudo'])
+                                              : Container()
                                           : Container(),
                                     ],
                                   ),
