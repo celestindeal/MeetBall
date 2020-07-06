@@ -10,7 +10,6 @@ import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/models/Model_img.dart';
 import 'package:meetballl/models/Model_match.dart';
 import 'package:meetballl/models/Model_terrain.dart';
-import 'package:meetballl/test.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';

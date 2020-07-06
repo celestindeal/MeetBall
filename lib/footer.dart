@@ -14,29 +14,43 @@ class Footer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-         
           IconButton(
-              icon:Image.asset('img/icon.jpg',
-              width: 40,
-              height: 40,) ,
-              
+              icon: Image.asset(
+                'img/icon.jpg',
+                width: 40,
+                height: 40,
+              ),
               onPressed: () {
                 ScopedModel.of<LoginModel>(context).ParticipationProil();
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/Profil', (Route<dynamic> route) => false);
               }),
           IconButton(
-               icon:Image.asset('img/rencontre.png',
-              width: 40,
-              height: 40,) ,
+              icon: Image.asset(
+                'img/rencontre.png',
+                width: 40,
+                height: 40,
+              ),
               onPressed: () {
                 ScopedModel.of<GameModel>(context).Match();
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/Match', (Route<dynamic> route) => false);
               }),
           IconButton(
-              icon:Icon(Icons.search,
-              color: Colors.black,),
+              icon: Icon(
+                Icons.calendar_today,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                ScopedModel.of<GameModel>(context).MatchCalendar();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/Calendar', (Route<dynamic> route) => false);
+              }),
+          IconButton(
+              icon: Icon(
+                Icons.search,
+                color: Colors.black,
+              ),
               onPressed: () {
                 ScopedModel.of<ImgModel>(context).Img();
                 ScopedModel.of<TerrainModel>(context).Terrain();

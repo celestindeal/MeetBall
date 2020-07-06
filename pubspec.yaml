@@ -39,6 +39,7 @@ dependencies:
   dynamic_theme: ^1.0.1
   location: ^2.3.5
   flutter_image_compress: ^0.6.8
+  table_calendar: ^2.2.3
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:meetballl/calendar.dart';
 import 'package:meetballl/db.dart';
 import 'package:meetballl/profVisiteur.dart';
 import 'package:meetballl/profil.dart';
@@ -10,7 +11,6 @@ import 'package:meetballl/terrain.dart';
 import 'package:meetballl/terrainproche.dart';
 import 'package:meetballl/terrainrecherche.dart';
 import 'package:meetballl/terrainrencontre.dart';
-import 'package:meetballl/test.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'Ajout_terrain.dart';
@@ -137,7 +137,8 @@ class _MainState extends State<Main> {
                               '/modif': (context) => Modif(),
                               '/avisDev': (context) => AvisDev(),
                               '/lieuDev': (context) => LieuDev(),
-                              '/test': (context) => MyHomePage(),
+                              '/Calendar': (context) => Calendar(),
+
 
                             },
                           );
