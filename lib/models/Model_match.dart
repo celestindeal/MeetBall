@@ -30,7 +30,7 @@ class GameModel extends Model {
   String organisateur = " ";
 //pour le calendar
 
-  Map<DateTime, List> events;
+  Map<DateTime, List> events = {};
   final _selectedDay = DateTime.now();
 
   void initState() {}
@@ -49,22 +49,25 @@ class GameModel extends Model {
   Future<String> MatchCalendar() async {
     var url = 'http://51.210.103.151/get_match.php';
     http.Response response = await http.get(url);
-    var data = jsonDecode(response.body);
-    print(data);
-    print(data[0]['date']);
+    final data = jsonDecode(response.body);
 
     for (var i = 0; i < data.length; i++) {
-      String date;
       String ok = "}" + data[i]['jours'].toString() + "/";
-      print(ok);
       int jour = int.parse(ok.split('}')[1].split('-')[0]);
       int mois = int.parse(ok.split('-')[1].split('-')[0]);
       String placement = jour.toString() + '-' + mois.toString() + '-';
       int ans = int.parse(ok.split(placement)[1].split('/')[0]);
+      final _selectedDay = DateTime.utc(ans, mois, jour, 20, 18, 04);
 
-final _selectedDay =DateTime.utc(ans, mois, jour, 20, 18, 04);
-       events =  {_selectedDay : [data[i]]};
- 
+      print(data[i]);
+      List<dynamic> valider = [];
+      valider.add(data[i]);
+
+      events.addEntries([
+        MapEntry(_selectedDay, valider),
+      ]);
+
+      print(events);
     }
 
     notifyListeners();

@@ -11,14 +11,7 @@ import 'package:meetballl/models/Model_match.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-// Example holidays
-final Map<DateTime, List> _holidays = {
-  DateTime(2019, 1, 1): ['New Year\'s Day'],
-  DateTime(2019, 1, 6): ['Epiphany'],
-  DateTime(2019, 2, 14): ['Valentine\'s Day'],
-  DateTime(2019, 4, 21): ['Easter Sunday'],
-  DateTime(2019, 4, 22): ['Easter Monday'],
-};
+
 
  
 
@@ -80,7 +73,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
   );
     return Scaffold(
        appBar: AppBar(
-    title: Text("Playground à coté"),
+    title: Text("Rencontre"),
     backgroundColor: Colors.indigo,
     actions: <Widget>[
       IconButton(
@@ -110,7 +103,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
     return TableCalendar(
       calendarController: _calendarController,
       events: _events,
-      holidays: _holidays,
+      
       startingDayOfWeek: StartingDayOfWeek.monday,
       calendarStyle: CalendarStyle(
         selectedColor: Colors.deepOrange[400],
@@ -135,7 +128,6 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
       locale: 'pl_PL',
       calendarController: _calendarController,
       events: _events,
-      holidays: _holidays,
       initialCalendarFormat: CalendarFormat.month,
       formatAnimation: FormatAnimation.slide,
       startingDayOfWeek: StartingDayOfWeek.sunday,
@@ -262,8 +254,11 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                 ),
                 margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: ListTile(
-                  title: Text(event['lieu']+ " à "+event['heure']),
+               
+                  title: 
+                     Text(event['lieu']+ " à "+event['heure']),
                   onTap: ()async{
+                    print(event);
                     // on sélection la rencontre choisir
                                ScopedModel.of<GameModel>(context).lieu =
                                   event['lieu'];
