@@ -258,7 +258,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                   title: 
                      Text(event['lieu']+ " à "+event['heure']),
                   onTap: ()async{
-                    print(event);
+                    print(event['pseudo']);
                     // on sélection la rencontre choisir
                                ScopedModel.of<GameModel>(context).lieu =
                                   event['lieu'];
@@ -274,7 +274,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                                   event['heure'];
                                    ScopedModel.of<GameModel>(context)
                                       .organisateur =
-                                  event['pseudo'];
+                                  event['per'];
 
 
 

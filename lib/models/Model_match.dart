@@ -47,6 +47,7 @@ class GameModel extends Model {
   }
 
   Future<String> MatchCalendar() async {
+    events.clear();
     var url = 'http://51.210.103.151/get_match.php';
     http.Response response = await http.get(url);
     final data = jsonDecode(response.body);
