@@ -60,7 +60,6 @@ class GameModel extends Model {
       int ans = int.parse(ok.split(placement)[1].split('/')[0]);
       final _selectedDay = DateTime.utc(ans, mois, jour, 20, 18, 04);
 
-      print(data[i]);
       List<dynamic> valider = [];
       valider.add(data[i]);
 
@@ -68,7 +67,6 @@ class GameModel extends Model {
         MapEntry(_selectedDay, valider),
       ]);
 
-      print(events);
     }
 
     notifyListeners();

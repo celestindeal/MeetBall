@@ -24,7 +24,7 @@ List<String> reportList = [
 ];
 String _date = "Date";
 String _time = "Heure";
-var nombre_jo ="1";
+var nombre_jo = "1";
 var pseudo;
 var _controller = TextEditingController();
 
@@ -60,7 +60,6 @@ class _Ajout_matchState extends State<Ajout_match> {
         appBar: AppBar(
           title: Center(child: Text("Ajouter une rencontre")),
           backgroundColor: Colors.indigo,
-          
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.settings),
@@ -154,11 +153,10 @@ class _Ajout_matchState extends State<Ajout_match> {
                   elevation: 4.0,
                   onPressed: () {
                     DatePicker.showTimePicker(context,
-                    showSecondsColumn : false,
+                        showSecondsColumn: false,
                         theme: DatePickerTheme(
                             headerColor: Colors.indigo,
-                            
-                       
+
                             // backgroundColor: Colors.blue,
                             itemStyle: TextStyle(
                                 color: Colors.black,
@@ -168,14 +166,10 @@ class _Ajout_matchState extends State<Ajout_match> {
                                 TextStyle(color: Colors.white, fontSize: 16),
                             doneStyle:
                                 TextStyle(color: Colors.white, fontSize: 16)),
-                        showTitleActions: true, 
-                        
-                        onConfirm: (time) {
-                            
+                        showTitleActions: true, onConfirm: (time) {
                       _time = '${time.hour}:${time.minute}';
                       setState(() {});
-                    },
-                     currentTime: DateTime.now(), locale: LocaleType.fr);
+                    }, currentTime: DateTime.now(), locale: LocaleType.fr);
                     setState(() {});
                   },
                   child: Container(
@@ -230,37 +224,43 @@ class _Ajout_matchState extends State<Ajout_match> {
                                             .nomlist;
                                     _showReportDialog();
                                   }),
-                           
                               Text(lieuchoisi,
-                                                    softWrap: true,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .display3
-                              ),
+                                  softWrap: true,
+                                  style: Theme.of(context).textTheme.display3),
                               Center(
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 16.0),
                                   child: RaisedButton(
                                     onPressed: () async {
-                                      if (_formKey.currentState.validate()) {
-                                        await ScopedModel.of<GameModel>(context)
-                                            .Ajout_match(lieuchoisi, _date,
-                                                _time, nombre_jo, pseudo);
-                                        await ScopedModel.of<GameModel>(context)
-                                            .Match();
-                                        setState(() {
-                                          lieuchoisi = "Choix du lieu";
-                                          _date = "Date";
-                                          _time = "Heure";
-                                          nombre_jo = null;
-                                          _controller.clear();
-                                        });
+                                      if (lieuchoisi == "Choix du lieu" ||
+                                          lieuchoisi == "Tu doit choisir un lieu") {
+                                            setState(() {
+                                              lieuchoisi = "Tu doit choisir un lieu";
+                                            });
+                                        
+                                      } else {
+                                        if (_formKey.currentState.validate()) {
+                                          await ScopedModel.of<GameModel>(
+                                                  context)
+                                              .Ajout_match(lieuchoisi, _date,
+                                                  _time, nombre_jo, pseudo);
+                                          await ScopedModel.of<GameModel>(
+                                                  context)
+                                              .Match();
+                                          setState(() {
+                                            lieuchoisi = "Choix du lieu";
+                                            _date = "Date";
+                                            _time = "Heure";
+                                            nombre_jo = null;
+                                            _controller.clear();
+                                          });
 
-                                        Scaffold.of(context).showSnackBar(
-                                            new SnackBar(
-                                                content: new Text(
-                                                    'Rencontre ajoutée')));
+                                          Scaffold.of(context).showSnackBar(
+                                              new SnackBar(
+                                                  content: new Text(
+                                                      'Rencontre ajoutée')));
+                                        }
                                       }
                                     },
                                     child: Text('Proposer'),

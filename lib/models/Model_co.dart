@@ -272,7 +272,7 @@ class LoginModel extends Model {
   }
 
   Future<String> Modif(
-      String pseudo,
+      String newpseudo,
       String email,
       String nom,
       String prenom,
@@ -286,14 +286,22 @@ class LoginModel extends Model {
     int idd = int.parse(id);
     affmodif = false;
     String json =
-        '{"pseudo":"$pseudo","email":"$email","nom":"$nom","prenom":"$prenom","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","id":"$idd"}'; // make POST request
+        '{"pseudo":"$newpseudo","email":"$email","nom":"$nom","prenom":"$prenom","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","id":"$idd"}'; // make POST request
 
     Response response = await post(url, body: json);
     String body = response.body;
+    if(newpseudo != pseudo){
+      url = 'http://51.210.103.151/post_newpseudo.php';
+       String json =
+        '{"pseudo":"$pseudo","newpseudo":"$newpseudo"}'; // make POST request
+
+    Response response = await post(url, body: json);
+    }
     Connexion(email, password);
     affmodif = false;
     return body;
-  }
+  } 
+
 
   Future<String> Verification_email(email_verifier, pseudo) async {
     // objectif quand on as une incription on verifi les pseudo et les email pour de pas avoir de doublon

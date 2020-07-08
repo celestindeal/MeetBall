@@ -77,7 +77,6 @@ class _PresentationState extends State<Presentation> {
     Duration(seconds: 1),
     () {
       if(ScopedModel.of<LoginModel>(context).boParticipation){
-        print(ScopedModel.of<LoginModel>(context).boParticipation);
         _scrollController.jumpTo(_scrollController.position.maxScrollExtent    );
       }
   
@@ -386,7 +385,6 @@ class _PresentationState extends State<Presentation> {
                                                           child: GestureDetector(
                                                             onLongPress: (){
                                                               if(message){
-                                                                print('nouveux bouton');
                                                                 
                                                                 
                                                               }
@@ -553,14 +551,8 @@ class _PresentationState extends State<Presentation> {
                                                         model.nombJoueur--;
                                                         if (model.nombJoueur ==
                                                             0) {
-                                                          ScopedModel.of<
-                                                                      LoginModel>(
-                                                                  context)
-                                                              .ParticipationProil();
 
-                                                          Navigator.pushNamed(
-                                                              context,
-                                                              '/Profil');
+                                                         Navigator.pushNamedAndRemoveUntil(context, '/Profil', (Route<dynamic> route) => false);
                                                         } else {
                                                           await ScopedModel.of<
                                                                       LoginModel>(
@@ -568,10 +560,11 @@ class _PresentationState extends State<Presentation> {
                                                               .Personne_propose(
                                                                   model
                                                                       .id_rencontre);
+                                                                      Navigator.of(context)
+                                                          .pop();
                                                         }
                                                       }
-                                                      Navigator.of(context)
-                                                          .pop();
+                                                      
                                                     },
                                                     child: Text('oui')),
                                               ],
@@ -604,6 +597,7 @@ class _PresentationState extends State<Presentation> {
                                 model.nombJoueur++;
                                 await ScopedModel.of<LoginModel>(context)
                                     .Personne_propose(model.id_rencontre);
+                                    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
                               }
                             },
                             child: Text("participer")),
@@ -642,6 +636,7 @@ class _PresentationState extends State<Presentation> {
                             } else {
                               bonotation = true;
                             }
+                            
 
                             if (ScopedModel.of<GameModel>(context)
                                     .organisateur ==

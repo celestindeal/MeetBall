@@ -51,7 +51,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
   }
 
   void _onDaySelected(DateTime day, List events) {
-    print('CALLBACK: _onDaySelected');
+ 
     setState(() {
       _selectedEvents = events;
     });
@@ -263,7 +263,6 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                   title: 
                      Text(event['lieu']+ " à "+event['heure']),
                   onTap: ()async{
-                    print(event['pseudo']);
                     // on sélection la rencontre choisir
                                ScopedModel.of<GameModel>(context).lieu =
                                   event['lieu'];

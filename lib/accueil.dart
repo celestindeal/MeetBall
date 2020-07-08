@@ -28,31 +28,7 @@ class _AccueilState extends State<Accueil> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    email(String message, String email) async {
-      var options = new GmailSmtpOptions()
-        ..username = 'equipemeetball@gmail.com'
-        ..password =
-            'Projet1*'; // Note: if you have Google's "app specific passwords" enabled,
-      // you need to use one of those here.
 
-      // How you use and store passwords is up to you. Beware of storing passwords in plain.
-
-      // Create our email transport.
-      var emailTransport = new SmtpTransport(options);
-
-      // Create our mail/envelope.
-      var envelope = new Envelope()
-        ..from = '$email'
-        ..recipients.add('$email')
-        ..subject = 'Nouveaux mots de passe'
-        ..text = 'Ton nouveau mots de passe est $message';
-
-      // Email it.
-      emailTransport
-          .send(envelope)
-          .then((envelope) => print('Email sent!'))
-          .catchError((e) => print('Error occurred: $e'));
-    }
 
     init() async {
       List persoonne;

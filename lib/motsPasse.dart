@@ -78,7 +78,6 @@ class Password extends StatelessWidget {
                     String json = '{"email":"$email_chnage"}';
                     Response response = await post(url, body: json);
                     String body = response.body;
-                    print(body);
                     email(body, email_chnage);
                     Scaffold.of(context).showSnackBar(new SnackBar(
                         content: new Text(
