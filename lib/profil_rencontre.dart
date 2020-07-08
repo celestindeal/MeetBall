@@ -75,7 +75,13 @@ class _PresentationState extends State<Presentation> {
     // après une seconds les commentaire scroll sur le dernier commentaire publier
     Timer(
     Duration(seconds: 1),
-    () => _scrollController.jumpTo(_scrollController.position.maxScrollExtent),
+    () {
+      if(ScopedModel.of<LoginModel>(context).boParticipation){
+        print(ScopedModel.of<LoginModel>(context).boParticipation);
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent    );
+      }
+  
+    }
   );
 
     notation(String personnenoter) {

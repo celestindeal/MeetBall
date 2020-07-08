@@ -154,8 +154,11 @@ class _Ajout_matchState extends State<Ajout_match> {
                   elevation: 4.0,
                   onPressed: () {
                     DatePicker.showTimePicker(context,
+                    showSecondsColumn : false,
                         theme: DatePickerTheme(
                             headerColor: Colors.indigo,
+                            
+                       
                             // backgroundColor: Colors.blue,
                             itemStyle: TextStyle(
                                 color: Colors.black,
@@ -165,10 +168,14 @@ class _Ajout_matchState extends State<Ajout_match> {
                                 TextStyle(color: Colors.white, fontSize: 16),
                             doneStyle:
                                 TextStyle(color: Colors.white, fontSize: 16)),
-                        showTitleActions: true, onConfirm: (time) {
+                        showTitleActions: true, 
+                        
+                        onConfirm: (time) {
+                            
                       _time = '${time.hour}:${time.minute}';
                       setState(() {});
-                    }, currentTime: DateTime.now(), locale: LocaleType.fr);
+                    },
+                     currentTime: DateTime.now(), locale: LocaleType.fr);
                     setState(() {});
                   },
                   child: Container(

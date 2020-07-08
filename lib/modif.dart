@@ -248,14 +248,16 @@ class _ModfState extends State<Modif> {
                                 minTime: DateTime(1900, 0, 0),
                                 maxTime: DateTime.now(),
                                 theme: DatePickerTheme(
-                                    headerColor: Colors.indigo,
-                                    // backgroundColor: Colors.blue,
-                                    itemStyle:
-                                        Theme.of(context).textTheme.display3,
-                                    cancelStyle: TextStyle(
-                                        color: Colors.white, fontSize: 16),
-                                    doneStyle: TextStyle(
-                                        color: Colors.white, fontSize: 16)),
+                                     headerColor: Colors.indigo,
+                            // backgroundColor: Colors.blue,
+                            itemStyle: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18),
+                            cancelStyle:
+                                TextStyle(color: Colors.white, fontSize: 16),
+                            doneStyle:
+                                TextStyle(color: Colors.white, fontSize: 16)),
                                 onChanged: (date) {}, onConfirm: (date) {
                                _date = '${date.day}-${date.month}-${date.year}';
                               setState(() {});

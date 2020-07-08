@@ -25,21 +25,22 @@ class Footer extends StatelessWidget {
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/Profil', (Route<dynamic> route) => false);
               }),
+          // IconButton(
+          //     icon: Image.asset(
+          //       'img/rencontre.png',
+          //       width: 40,
+          //       height: 40,
+          //     ),
+          //     onPressed: () {
+          //       ScopedModel.of<GameModel>(context).Match();
+          //       Navigator.pushNamedAndRemoveUntil(
+          //           context, '/Match', (Route<dynamic> route) => false);
+          //     }),
           IconButton(
               icon: Image.asset(
-                'img/rencontre.png',
+                'img/rencontre.png', 
                 width: 40,
                 height: 40,
-              ),
-              onPressed: () {
-                ScopedModel.of<GameModel>(context).Match();
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/Match', (Route<dynamic> route) => false);
-              }),
-          IconButton(
-              icon: Icon(
-                Icons.calendar_today,
-                color: Colors.black,
               ),
               onPressed: () {
                 ScopedModel.of<GameModel>(context).MatchCalendar();

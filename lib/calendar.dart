@@ -73,8 +73,13 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
   );
     return Scaffold(
        appBar: AppBar(
-    title: Text("Rencontre"),
+    title: Center(child: Text("Rencontre")),
     backgroundColor: Colors.indigo,
+    leading: IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.pushNamed(context, '/Ajout_match');
+              }),
     actions: <Widget>[
       IconButton(
         icon: const Icon(Icons.settings),
@@ -108,7 +113,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
       calendarStyle: CalendarStyle(
         selectedColor: Colors.deepOrange[400],
         todayColor: Colors.deepOrange[200],
-        markersColor: Colors.brown[700],
+        markersColor: Colors.indigo,
         outsideDaysVisible: false,
       ),
       headerStyle: HeaderStyle(
