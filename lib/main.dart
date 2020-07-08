@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:meetballl/calendar.dart';
 import 'package:meetballl/db.dart';
+import 'package:meetballl/motsPasse.dart';
 import 'package:meetballl/profVisiteur.dart';
 import 'package:meetballl/profil.dart';
 import 'package:meetballl/profil_rencontre.dart';
@@ -138,6 +139,8 @@ class _MainState extends State<Main> {
                               '/avisDev': (context) => AvisDev(),
                               '/lieuDev': (context) => LieuDev(),
                               '/Calendar': (context) => Calendar(),
+                              '/password': (context) => Password(),
+
 
 
                             },

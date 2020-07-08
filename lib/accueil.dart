@@ -1,10 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:mailer2/mailer.dart';
 import 'package:meetballl/PushNotificationManager.dart';
 import 'package:meetballl/db.dart';
-
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 //import 'package:image_picker/image_picker.dart';
@@ -26,30 +28,31 @@ class _AccueilState extends State<Accueil> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    email(String message, String email) async {
+      var options = new GmailSmtpOptions()
+        ..username = 'equipemeetball@gmail.com'
+        ..password =
+            'Projet1*'; // Note: if you have Google's "app specific passwords" enabled,
+      // you need to use one of those here.
 
-email(String message , String email) async {
-  var options = new GmailSmtpOptions()
-    ..username = 'equipemeetball@gmail.com'
-    ..password = 'Projet1*'; // Note: if you have Google's "app specific passwords" enabled,
-                                        // you need to use one of those here.
-                                        
-  // How you use and store passwords is up to you. Beware of storing passwords in plain.
+      // How you use and store passwords is up to you. Beware of storing passwords in plain.
 
-  // Create our email transport.
-  var emailTransport = new SmtpTransport(options);
+      // Create our email transport.
+      var emailTransport = new SmtpTransport(options);
 
-  // Create our mail/envelope.
-  var envelope = new Envelope()
-    ..from = '$email'
-    ..recipients.add('$email')
-    ..subject = 'Nouveaux mots de passe'
-    ..text = 'Ton nouveau mots de passe est $message';
+      // Create our mail/envelope.
+      var envelope = new Envelope()
+        ..from = '$email'
+        ..recipients.add('$email')
+        ..subject = 'Nouveaux mots de passe'
+        ..text = 'Ton nouveau mots de passe est $message';
 
-  // Email it.
-  emailTransport.send(envelope)
-    .then((envelope) => print('Email sent!'))
-    .catchError((e) => print('Error occurred: $e'));
-} 
+      // Email it.
+      emailTransport
+          .send(envelope)
+          .then((envelope) => print('Email sent!'))
+          .catchError((e) => print('Error occurred: $e'));
+    }
 
     init() async {
       List persoonne;
@@ -141,71 +144,7 @@ email(String message , String email) async {
 // test mots de passe oublié
                 FlatButton(
                     onPressed: () {
-                      String email_chnage;
-                      return showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                                backgroundColor: Colors.transparent,
-                                content: StatefulBuilder(builder:
-                                    (BuildContext context,
-                                        StateSetter setState) {
-                                  return Container(
-                                    height:
-                                        MediaQuery.of(context).size.height / 2,
-                                    padding: const EdgeInsets.all(5),
-                                    margin: const EdgeInsets.all(5),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      color: Colors.grey,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        TextFormField(
-                                          autocorrect: true,
-                                          decoration: InputDecoration(
-                                            hasFloatingPlaceholder: true,
-                                            filled: false,
-                                            fillColor: Colors.black,
-                                            hintText: 'adresse email',
-                                            hintStyle:
-                                                TextStyle(color: Colors.black),
-                                          ),
-                                          validator: (String value) {
-                                            if (value.isEmpty) {
-                                              return "entrer une adresse email";
-                                            }
-                                          },
-                                          onChanged: (value) {
-                                            email_chnage = value;
-                                          },
-                                        ),
-                                        RaisedButton(
-                                          onPressed: () async {
-                                            print('changement de mots depasse');
-                                            String url =
-                                                'http://51.210.103.151/post_password.php';
-                                            String json =
-                                                '{"email":"$email_chnage"}';
-                                            Response response =
-                                                await post(url, body: json);
-                                            String body = response.body;
-                                            print(body);
-                                            email(body, email_chnage);
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text(
-                                            'Ressevoir un nouveaux mots de passe',
-                                            textAlign: TextAlign.center,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                }));
-                          });
+                      Navigator.pushNamed(context, '/password');
                     },
                     child: Text(
                       "Mots de passe oublier",
