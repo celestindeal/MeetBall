@@ -27,6 +27,8 @@ var photo;
 var id;
 bool init = true;
 bool affphoto = true;
+bool _passwordVisible = false;
+String confirmation_password ;
 
 class Modif extends StatefulWidget {
   @override
@@ -121,6 +123,7 @@ class _ModfState extends State<Modif> {
 
                     email = model.email;
                     password = model.password;
+                    confirmation_password = model.password;
                     _date = model.age;
                     club = model.club;
                     niveaux = model.niveau;
@@ -145,12 +148,16 @@ class _ModfState extends State<Modif> {
                             hintStyle:
                                 TextStyle(color: Colors.black, fontSize: 18.0),
                           ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
+                         validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Pseudo manquant ';
+                          }
+                          if (ScopedModel.of<LoginModel>(context)
+                                  .pseudovalideModif ==
+                              false) {
+                            return 'Ce pseudo est déja pris';
+                          }
+                        },
                           onChanged: (value) {
                             pseudo = value;
                           },
@@ -205,36 +212,95 @@ class _ModfState extends State<Modif> {
                             hintStyle:
                                 TextStyle(color: Colors.black, fontSize: 18.0),
                           ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
+                           validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Veuillez ajouter un email';
+                          }
+                          if (ScopedModel.of<LoginModel>(context).emailvalideModif ==
+                              false) {
+                            return 'Cette adresse email est déja pris';
+                          }
+                          return value.contains('@')
+                              ? null
+                              : "Cette adresse email n'est pas validé";
+                        },
                           onChanged: (value) {
                             email = value;
                           },
                         ),
-                        TextFormField(
-                          autocorrect: true,
-                          initialValue: model.password,
-                          cursorColor: Colors.black,
-                          style: Theme.of(context).textTheme.display3,
-                          decoration: const InputDecoration(
-                            hintText: 'password',
-                            hintStyle:
-                                TextStyle(color: Colors.black, fontSize: 18.0),
+                           TextFormField(
+                             initialValue: model.password,
+                      autocorrect: true,
+                        obscureText: !_passwordVisible,
+                        decoration: InputDecoration(
+                          hasFloatingPlaceholder: true,
+                          filled: false,
+                          fillColor: Colors.black,
+                          hintText: 'Mot de passe',
+                          hintStyle: TextStyle(color: Colors.black),
+                          suffixIcon: GestureDetector(
+                            onLongPress: () {
+                              setState(() {
+                                _passwordVisible = true;
+                              });
+                            },
+                            onLongPressUp: () {
+                              setState(() {
+                                _passwordVisible = false;
+                              });
+                            },
+                            child: Icon(_passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off),
                           ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            password = value;
-                          },
                         ),
+                        validator: (String value) {
+                          if (value.isEmpty) {
+                            return "Mot de passe obligatoire";
+                          }
+                        },
+                        onChanged: (value) {
+                          password = value;
+                        },
+                      ),
+                       TextFormField(
+                         initialValue: model.password,
+                      autocorrect: true,
+                        obscureText: !_passwordVisible,
+                        decoration: InputDecoration(
+                          hasFloatingPlaceholder: true,
+                          filled: false,
+                          fillColor: Colors.black,
+                          hintText: 'Confirmation du mot de passe',
+                          hintStyle: TextStyle(color: Colors.black),
+                          suffixIcon: GestureDetector(
+                            onLongPress: () {
+                              setState(() {
+                                _passwordVisible = true;
+                              });
+                            },
+                            onLongPressUp: () {
+                              setState(() {
+                                _passwordVisible = false;
+                              });
+                            },
+                            child: Icon(_passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                          ),
+                        ),
+                        validator: (String value) {
+                          if (value.isEmpty) {
+                            return "Mot de passe obligatoire";
+                          }
+                          if (confirmation_password != password) {
+                            return "Le mot de passe est different";
+                          }
+                        },
+                        onChanged: (value) {
+                          confirmation_password = value;
+                        },
+                      ),
                         Container(
                           height: 10,
                         ),
@@ -509,6 +575,8 @@ class _ModfState extends State<Modif> {
                             padding: const EdgeInsets.symmetric(vertical: 16.0),
                             child: RaisedButton(
                               onPressed: () async {
+                                await ScopedModel.of<LoginModel>(context)
+                                  .Verification_email_modif(email, pseudo);
                                 if (_formKey.currentState.validate()) {
                                   model.loging = false;
                                   ScopedModel.of<LoginModel>(context).Modif(

@@ -21,6 +21,8 @@ class LoginModel extends Model {
   List profilvisiteur;
   bool emailvalide = true;
   bool pseudovalide = true;
+    bool emailvalideModif = true;
+  bool pseudovalideModif = true;
   bool faux_pseudo = true;
   var description = "";
   bool loging = false;
@@ -315,6 +317,36 @@ class LoginModel extends Model {
     while (tailledata > n && pseudovalide == true) {
       if (pseudo == data[n]['pseudo']) {
         pseudovalide = false;
+      }
+      n++;
+    }
+
+    notifyListeners();
+    return " fin de fonction";
+  }
+
+    Future<String> Verification_email_modif(email_verifier, pseudo_verifier) async {
+    // objectif quand on as une incription on verifi les pseudo et les email pour de pas avoir de doublon
+    // si l'email est déjà pris emailvalide = false
+    // si le pseudo est déjà pris pseudovalide = false
+    var url = 'http://51.210.103.151/get.php';
+    http.Response response = await http.get(url);
+    var data = jsonDecode(response.body);
+    emailvalideModif = true;
+    pseudovalideModif = true;
+    var tailledata = data.length;
+    int n = 0;
+
+    while (tailledata > n && emailvalide == true) {
+      if (email_verifier == data[n]['email'] && email_verifier != email) {
+        emailvalideModif = false;
+      }
+      n++;
+    }
+    n = 0;
+    while (tailledata > n && pseudovalide == true ) {
+      if (pseudo_verifier == data[n]['pseudo']&& pseudo_verifier != pseudo) {
+        pseudovalideModif = false;
       }
       n++;
     }
