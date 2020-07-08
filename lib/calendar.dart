@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -11,13 +10,7 @@ import 'package:meetballl/models/Model_match.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-
-
- 
-
 class Calendar extends StatefulWidget {
-
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -51,47 +44,42 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
   }
 
   void _onDaySelected(DateTime day, List events) {
- 
     setState(() {
       _selectedEvents = events;
     });
   }
 
- 
-
-
   @override
   Widget build(BuildContext context) {
- 
-       Timer(
-    Duration(seconds: 0),
-    () {
-      setState(() {
-              _events = ScopedModel.of<GameModel>(context).events;
-            });
-    },
-  );
+    Timer(
+      Duration(seconds: 0),
+      () {
+        setState(() {
+          _events = ScopedModel.of<GameModel>(context).events;
+        });
+      },
+    );
     return Scaffold(
-       appBar: AppBar(
-    title: Center(child: Text("Rencontre")),
-    backgroundColor: Colors.indigo,
-    leading: IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.pushNamed(context, '/Ajout_match');
-              }),
-    actions: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () {
-          sdialog(context);
-        },
-      ),
-    ],
-  ),
-        persistentFooterButtons: <Widget>[
-          Footer(),
+      appBar: AppBar(
+        title: Center(child: Text("Rencontre")),
+        backgroundColor: Colors.indigo,
+        leading: IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {
+              Navigator.pushNamed(context, '/Ajout_match');
+            }),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              sdialog(context);
+            },
+          ),
         ],
+      ),
+      persistentFooterButtons: <Widget>[
+        Footer(),
+      ],
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
@@ -108,7 +96,6 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
     return TableCalendar(
       calendarController: _calendarController,
       events: _events,
-      
       startingDayOfWeek: StartingDayOfWeek.monday,
       calendarStyle: CalendarStyle(
         selectedColor: Colors.deepOrange[400],
@@ -117,7 +104,8 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
         outsideDaysVisible: false,
       ),
       headerStyle: HeaderStyle(
-        formatButtonTextStyle: TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
+        formatButtonTextStyle:
+            TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
         formatButtonDecoration: BoxDecoration(
           color: Colors.deepOrange[400],
           borderRadius: BorderRadius.circular(16.0),
@@ -223,7 +211,9 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
         shape: BoxShape.rectangle,
         color: _calendarController.isSelected(date)
             ? Colors.brown[500]
-            : _calendarController.isToday(date) ? Colors.brown[300] : Colors.blue[400],
+            : _calendarController.isToday(date)
+                ? Colors.brown[300]
+                : Colors.blue[400],
       ),
       width: 16.0,
       height: 16.0,
@@ -247,8 +237,6 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
     );
   }
 
-
-
   Widget _buildEventList() {
     return ListView(
       children: _selectedEvents
@@ -257,46 +245,56 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                   border: Border.all(width: 0.8),
                   borderRadius: BorderRadius.circular(12.0),
                 ),
-                margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: ListTile(
-               
-                  title: 
-                     Text(event['lieu']+ " à "+event['heure']),
-                  onTap: ()async{
+                  title: Text(event['lieu'] + " à " + event['heure']),
+                  trailing: 
+                  //Text(event['nombre_j']),
+                  
+                  Container(
+                    width: 40,
+                    child: Row(
+                      children: <Widget>[
+                        Text(event['nombre_j'] + " ",
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .display3),
+                                          
+                        Icon(
+                          Icons.people,
+                          color: Colors.red,
+                          size: 20,
+                        ),
+                        
+                      ],
+                    ),
+                  ),
+                  onTap: () async {
                     // on sélection la rencontre choisir
-                               ScopedModel.of<GameModel>(context).lieu =
-                                  event['lieu'];
-                              ScopedModel.of<GameModel>(context).id_rencontre =
-                                  event['id'];
-                              ScopedModel.of<GameModel>(context).nombJoueur =
-                                  int.parse(event['nombre_j']
-                                      .toString());
-                              ScopedModel.of<GameModel>(context).daterencontre =
-                                event['jours'];
-                              ScopedModel.of<GameModel>(context)
-                                      .heurerencontre =
-                                  event['heure'];
-                                   ScopedModel.of<GameModel>(context)
-                                      .organisateur =
-                                  event['per'];
+                    ScopedModel.of<GameModel>(context).lieu = event['lieu'];
+                    ScopedModel.of<GameModel>(context).id_rencontre =
+                        event['id'];
+                    ScopedModel.of<GameModel>(context).nombJoueur =
+                        int.parse(event['nombre_j'].toString());
+                    ScopedModel.of<GameModel>(context).daterencontre =
+                        event['jours'];
+                    ScopedModel.of<GameModel>(context).heurerencontre =
+                        event['heure'];
+                    ScopedModel.of<GameModel>(context).organisateur =
+                        event['per'];
 
+                    // on prepare les image terrain et commentaire pour la page profil rencontre
+                    ScopedModel.of<ImgModel>(context).Img();
+                    ScopedModel.of<GameModel>(context).Terrain();
+                    ScopedModel.of<GameModel>(context).Commentaire();
 
+                    await ScopedModel.of<LoginModel>(context)
+                        .Personne_propose(event['id']);
 
-
-
-                                  // on prepare les image terrain et commentaire pour la page profil rencontre
-                                  ScopedModel.of<ImgModel>(context).Img();
-                                  ScopedModel.of<GameModel>(context).Terrain();
-                                  ScopedModel.of<GameModel>(context)
-                                      .Commentaire();
-
-                                  await ScopedModel.of<LoginModel>(context)
-                                      .Personne_propose(
-                                          event['id']);
-
-                                  //  model.rencontre_visualiser = model.data_game[i]['id'];
-                                  Navigator.pushNamed(
-                                      context, '/Profil_renctontre');
+                    //  model.rencontre_visualiser = model.data_game[i]['id'];
+                    Navigator.pushNamed(context, '/Profil_renctontre');
                   },
                 ),
               ))
