@@ -58,19 +58,27 @@ class GameModel extends Model {
       int mois = int.parse(ok.split('-')[1].split('-')[0]);
       String placement = jour.toString() + '-' + mois.toString() + '-';
       int ans = int.parse(ok.split(placement)[1].split('/')[0]);
-      final _selectedDay = DateTime.utc(ans, mois, jour, 20, 18, i);
+      final _selectedDay = DateTime.utc(ans, mois, jour, 20, 18, 00);
 
       List<dynamic> valider = [];
       valider.add(data[i]);
-
-      events.addEntries([
+      if(events[_selectedDay] != null){
+        print("yes");
+        print(events[_selectedDay]);
+         events.update(_selectedDay, (list) => list..add(data[i]));
+      }else{
+        events.addEntries([
         MapEntry(_selectedDay, valider),
       ]);
-      print(i);
       print(events);
+      }
+
+      
+    
 
     }
-
+    print("finnnnnnnnnnnnnnn");
+    print(events);
     notifyListeners();
     return " fin de fonction";
   }

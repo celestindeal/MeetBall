@@ -21,10 +21,14 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
   AnimationController _animationController;
   CalendarController _calendarController;
 
+
+
+
   @override
   void initState() {
     super.initState();
     final _selectedDay = DateTime.now();
+   
     _selectedEvents = _events[_selectedDay] ?? [];
     _calendarController = CalendarController();
 
@@ -55,7 +59,9 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
       Duration(seconds: 0),
       () {
         setState(() {
-          _events = ScopedModel.of<GameModel>(context).events;
+
+           _events = ScopedModel.of<GameModel>(context).events;
+
         });
       },
     );
@@ -248,15 +254,15 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                 margin:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: ListTile(
-                  title: Text(event['lieu'] + " à " + event['heure']),
+                  title:
+                  Text(event['lieu'].toString() + " à " + event['heure'].toString()),
                   trailing: 
-                  //Text(event['nombre_j']),
                   
                   Container(
                     width: 40,
                     child: Row(
                       children: <Widget>[
-                        Text(event['nombre_j'] + " ",
+                        Text(event['nombre_j'].toString() + " ",
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
