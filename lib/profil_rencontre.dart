@@ -72,7 +72,7 @@ class _PresentationState extends State<Presentation> {
   Widget build(BuildContext context) {
     // après une seconds les commentaire scroll sur le dernier commentaire publier
     Timer(Duration(seconds: 1), () {
-      if (ScopedModel.of<LoginModel>(context).boParticipation) {
+      if (ScopedModel.of<LoginModel>(context).boParticipation &&   ScopedModel.of<GameModel>(context).commentaire.length >= 1 ) {
         _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
       }
     });
@@ -95,7 +95,7 @@ class _PresentationState extends State<Presentation> {
                                   .difference(DateTime.now())
                                   .inHours;
 
-                              print(difference);
+                        
 
     notation(String personnenoter) {
       return RaisedButton(

@@ -393,7 +393,6 @@ class _PresentationState extends State<Presentation> {
                                   .millisecondsSinceEpoch;
                           int tkt = ((mst - ms) / (24 * 3600 * 1000)).toInt();
                           String tempsavantmatch;
-                          print(tkt);
 
                           if (tkt == 0) {
                             tempsavantmatch = "aujoud'hui";
