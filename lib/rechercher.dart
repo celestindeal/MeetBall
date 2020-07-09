@@ -55,7 +55,8 @@ class Presentation_rechercher extends StatelessWidget {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        body: Center(
+        backgroundColor: back,
+        body:  Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[

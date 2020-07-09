@@ -86,7 +86,8 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
       persistentFooterButtons: <Widget>[
         Footer(),
       ],
-      body: Column(
+      backgroundColor: back,
+        body:  Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           _buildTableCalendar(),

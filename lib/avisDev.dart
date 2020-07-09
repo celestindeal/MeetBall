@@ -53,7 +53,8 @@ class _AvisDevState extends State<AvisDev> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        body:
+        backgroundColor: back,
+        body: 
             ScopedModelDescendant<LoginModel>(builder: (context, child, model) {
           return ListView.builder(
               shrinkWrap: true,

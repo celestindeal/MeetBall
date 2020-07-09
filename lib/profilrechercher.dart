@@ -118,7 +118,8 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        body: SingleChildScrollView(
+        backgroundColor: back,
+        body:  SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Divider(color: Colors.grey),

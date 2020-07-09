@@ -126,7 +126,8 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
         ],
         // backgroundColor: Colors.black,
 
-        body:
+        backgroundColor: back,
+        body: 
             ScopedModelDescendant<GameModel>(builder: (context, child, model) {
           return Form(
               key: _formKey,

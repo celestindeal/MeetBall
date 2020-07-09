@@ -74,7 +74,8 @@ class _Ajout_matchState extends State<Ajout_match> {
         ],
         // backgroundColor: Colors.black,
 
-        body: Padding(
+        backgroundColor: back,
+        body:  Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
             child: Column(

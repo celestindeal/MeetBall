@@ -49,7 +49,8 @@ class Presentation_terrain extends StatelessWidget {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        body: Center(
+        backgroundColor: back,
+        body:  Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[

@@ -59,7 +59,8 @@ class _LieuDevState extends State<LieuDev> {
         persistentFooterButtons: <Widget>[
                     Footer(),
                   ],
-        body: ScopedModelDescendant<TerrainModel>(
+        backgroundColor: back,
+        body:  ScopedModelDescendant<TerrainModel>(
             builder: (context, child, model) {
           return ListView.builder(
               shrinkWrap: true,

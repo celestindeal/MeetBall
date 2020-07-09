@@ -106,7 +106,8 @@ class _ModfState extends State<Modif> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        body: Padding(
+        backgroundColor: back,
+        body:  Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: Container(

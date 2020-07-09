@@ -120,7 +120,8 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        body: SingleChildScrollView(
+        backgroundColor: back,
+        body:  SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Divider(color: Colors.grey),

@@ -103,7 +103,8 @@ class _TerrainProState extends State<TerrainPro> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        body: FutureBuilder<dynamic>(
+        backgroundColor: back,
+        body:  FutureBuilder<dynamic>(
           future: terrain(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {

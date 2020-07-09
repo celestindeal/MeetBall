@@ -7,6 +7,7 @@ import 'package:meetballl/PushNotificationManager.dart';
 import 'package:meetballl/db.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:meetballl/main.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 //import 'package:image_picker/image_picker.dart';
@@ -50,7 +51,8 @@ class _AccueilState extends State<Accueil> {
       boinit = false;
     }
     return Scaffold(
-      body: Center(
+      backgroundColor: back,
+        body:  Center(
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
           Image.asset(

@@ -44,7 +44,8 @@ class Profil_renctontre extends StatelessWidget {
                     Footer(),
                   ],
                   // backgroundColor: Colors.black,
-                  body: Center(
+                  backgroundColor: back,
+        body:  Center(
                     child: CircularProgressIndicator(),
                   )));
     });
@@ -183,7 +184,8 @@ class _PresentationState extends State<Presentation> {
         Footer(),
       ],
       // backgroundColor: Colors.black,
-      body: ScopedModelDescendant<LoginModel>(builder: (context, child, login) {
+      backgroundColor: back,
+        body:  ScopedModelDescendant<LoginModel>(builder: (context, child, login) {
         return ScopedModelDescendant<GameModel>(
             builder: (context, child, model) {
           return ScopedModelDescendant<ImgModel>(
@@ -648,6 +650,7 @@ class _PresentationState extends State<Presentation> {
                                       ScopedModel.of<LoginModel>(context)
                                           .pseudo
                                           .toString()) {
+                                            ScopedModel.of<LoginModel>(context).ParticipationProil();
                                     Navigator.pushNamedAndRemoveUntil(
                                         context,
                                         '/Profil',

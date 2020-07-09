@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:mailer2/mailer.dart';
 import 'package:http/http.dart' as http;
+import 'package:meetballl/main.dart';
 import 'package:meetballl/models/Model_co.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -36,7 +37,9 @@ class Password extends StatelessWidget {
     }
 
     String email_chnage;
-    return Scaffold(body:
+    return Scaffold(
+      backgroundColor: back,
+        body: 
         ScopedModelDescendant<LoginModel>(builder: (context, child, model) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -76,7 +79,7 @@ class Password extends StatelessWidget {
                     trueemail = true;
                     String url = 'http://51.210.103.151/post_password.php';
                     String json = '{"email":"$email_chnage"}';
-                    Response response = await post(url, body: json);
+                    Response response = await post(url,  body:  json);
                     String body = response.body;
                     email(body, email_chnage);
                     Scaffold.of(context).showSnackBar(new SnackBar(

@@ -51,7 +51,8 @@ class Match extends StatelessWidget {
                   persistentFooterButtons: <Widget>[
                     Footer(),
                   ],
-                  body: Center(
+                  backgroundColor: back,
+        body:  Center(
                     child: CircularProgressIndicator(),
                   )));
     });
@@ -95,7 +96,8 @@ class Presentation extends StatelessWidget {
           Footer(),
         ],
         // backgroundColor: Colors.black,
-        body: SmartRefresher(
+        backgroundColor: back,
+        body:  SmartRefresher(
           enablePullDown: true,
           header: WaterDropHeader(),
           controller: _refreshController,

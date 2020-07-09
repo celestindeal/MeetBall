@@ -37,7 +37,8 @@ class _ProfilState extends State<Profil> {
                 persistentFooterButtons: <Widget>[
                     Footer(),
                   ],
-                body: Center(
+                backgroundColor: back,
+        body:  Center(
                   child: CircularProgressIndicator(),
                 ))
             : model.retour_Profil
@@ -181,8 +182,10 @@ class _PresentationState extends State<Presentation> {
             }));
           });
     }
-
+     print(Theme.of(context).brightness);
     return Scaffold(
+ 
+      
         appBar: AppBar(
           title: Center(
             child: Text(ScopedModel.of<LoginModel>(context).pseudo),
@@ -205,7 +208,8 @@ class _PresentationState extends State<Presentation> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        body: SingleChildScrollView(child:
+        backgroundColor: back,
+        body:  SingleChildScrollView(child:
             ScopedModelDescendant<LoginModel>(builder: (context, child, model) {
           if (model.participation.length == 0) {
             rencontre = false;

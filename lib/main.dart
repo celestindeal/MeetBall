@@ -28,7 +28,7 @@ import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 import 'modif.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
-
+Color back ;
 void main() {
   runApp(new Main());
 }
@@ -46,6 +46,7 @@ class _MainState extends State<Main> {
         Theme.of(context).brightness == Brightness.dark
             ? Brightness.light
             : Brightness.dark);
+           
     Baselocal().mise_a_jour();
   }
 
@@ -60,11 +61,14 @@ class _MainState extends State<Main> {
       if (mode == "true") {
         DynamicTheme.of(context).setBrightness(
             Theme.of(context).brightness == Brightness.dark
-                ? Brightness.light
+                ? Brightness.values
                 : Brightness.dark);
+        
       }
     }
-
+back = Theme.of(context).brightness == Brightness.dark
+            ? Colors.red 
+            :null;
     return ScopedModel(
         model: ImgModel(),
         child: ScopedModel(
@@ -161,7 +165,11 @@ sdialog(context) {
                   ? Brightness.light
                   : Brightness.dark);
 
+
           Baselocal().mise_a_jour();
+          back = Theme.of(context).brightness == Brightness.dark
+            ? Colors.red 
+            :null;
         }
 
         return Center(

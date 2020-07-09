@@ -42,7 +42,8 @@ class _TerrainRenState extends State<TerrainRen> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        body: FutureBuilder<bool>(
+        backgroundColor: back,
+        body:  FutureBuilder<bool>(
           future: terrain(),
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData) {

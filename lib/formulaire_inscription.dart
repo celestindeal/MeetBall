@@ -57,7 +57,8 @@ import 'models/Model_co.dart';
     ],
   ),
        // backgroundColor: Colors.black,
-    body:     
+    backgroundColor: back,
+        body:      
     ScopedModelDescendant<LoginModel>(
     builder:(context, child, model){
       return

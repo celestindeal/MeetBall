@@ -43,7 +43,8 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
-        body: SingleChildScrollView(child: Center(
+        backgroundColor: back,
+        body:  SingleChildScrollView(child: Center(
           child: ScopedModelDescendant<LoginModel>(
               builder: (context, child, model) {
             // calcule de l'age
