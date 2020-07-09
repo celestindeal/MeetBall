@@ -63,22 +63,14 @@ class GameModel extends Model {
       List<dynamic> valider = [];
       valider.add(data[i]);
       if(events[_selectedDay] != null){
-        print("yes");
-        print(events[_selectedDay]);
          events.update(_selectedDay, (list) => list..add(data[i]));
       }else{
         events.addEntries([
         MapEntry(_selectedDay, valider),
       ]);
-      print(events);
       }
 
-      
-    
-
     }
-    print("finnnnnnnnnnnnnnn");
-    print(events);
     notifyListeners();
     return " fin de fonction";
   }

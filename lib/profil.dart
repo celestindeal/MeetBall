@@ -182,7 +182,6 @@ class _PresentationState extends State<Presentation> {
             }));
           });
     }
-     print(Theme.of(context).brightness);
     return Scaffold(
  
       

@@ -21,14 +21,11 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
   AnimationController _animationController;
   CalendarController _calendarController;
 
-
-
-
   @override
   void initState() {
     super.initState();
     final _selectedDay = DateTime.now();
-   
+
     _selectedEvents = _events[_selectedDay] ?? [];
     _calendarController = CalendarController();
 
@@ -59,9 +56,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
       Duration(seconds: 0),
       () {
         setState(() {
-
-           _events = ScopedModel.of<GameModel>(context).events;
-
+          _events = ScopedModel.of<GameModel>(context).events;
         });
       },
     );
@@ -87,7 +82,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
         Footer(),
       ],
       backgroundColor: back,
-        body:  Column(
+      body: Column(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           _buildTableCalendar(),
@@ -101,6 +96,12 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
   // Simple TableCalendar configuration (using Styles)
   Widget _buildTableCalendar() {
     return TableCalendar(
+      locale: 'fr_FR',
+      availableCalendarFormats: const {
+        CalendarFormat.month: 'Mois',
+        CalendarFormat.week: 'Semaine',
+        // CalendarFormat.twoWeeks: '2 Semaines',
+      },
       calendarController: _calendarController,
       events: _events,
       startingDayOfWeek: StartingDayOfWeek.monday,
@@ -122,128 +123,6 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
     );
   }
 
-  // More advanced TableCalendar configuration (using Builders & Styles)
-  Widget _buildTableCalendarWithBuilders() {
-    return TableCalendar(
-      locale: 'pl_PL',
-      calendarController: _calendarController,
-      events: _events,
-      initialCalendarFormat: CalendarFormat.month,
-      formatAnimation: FormatAnimation.slide,
-      startingDayOfWeek: StartingDayOfWeek.sunday,
-      availableGestures: AvailableGestures.all,
-      availableCalendarFormats: const {
-        CalendarFormat.month: '',
-        CalendarFormat.week: '',
-      },
-      calendarStyle: CalendarStyle(
-        outsideDaysVisible: false,
-        weekendStyle: TextStyle().copyWith(color: Colors.blue[800]),
-        holidayStyle: TextStyle().copyWith(color: Colors.blue[800]),
-      ),
-      daysOfWeekStyle: DaysOfWeekStyle(
-        weekendStyle: TextStyle().copyWith(color: Colors.blue[600]),
-      ),
-      headerStyle: HeaderStyle(
-        centerHeaderTitle: true,
-        formatButtonVisible: false,
-      ),
-      builders: CalendarBuilders(
-        selectedDayBuilder: (context, date, _) {
-          return FadeTransition(
-            opacity: Tween(begin: 0.0, end: 1.0).animate(_animationController),
-            child: Container(
-              margin: const EdgeInsets.all(4.0),
-              padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-              color: Colors.deepOrange[300],
-              width: 100,
-              height: 100,
-              child: Text(
-                '${date.day}',
-                style: TextStyle().copyWith(fontSize: 16.0),
-              ),
-            ),
-          );
-        },
-        todayDayBuilder: (context, date, _) {
-          return Container(
-            margin: const EdgeInsets.all(4.0),
-            padding: const EdgeInsets.only(top: 5.0, left: 6.0),
-            color: Colors.amber[400],
-            width: 100,
-            height: 100,
-            child: Text(
-              '${date.day}',
-              style: TextStyle().copyWith(fontSize: 16.0),
-            ),
-          );
-        },
-        markersBuilder: (context, date, events, holidays) {
-          final children = <Widget>[];
-
-          if (events.isNotEmpty) {
-            children.add(
-              Positioned(
-                right: 1,
-                bottom: 1,
-                child: _buildEventsMarker(date, events),
-              ),
-            );
-          }
-
-          if (holidays.isNotEmpty) {
-            children.add(
-              Positioned(
-                right: -2,
-                top: -2,
-                child: _buildHolidaysMarker(),
-              ),
-            );
-          }
-
-          return children;
-        },
-      ),
-      onDaySelected: (date, events) {
-        _onDaySelected(date, events);
-        _animationController.forward(from: 0.0);
-      },
-    );
-  }
-
-  Widget _buildEventsMarker(DateTime date, List events) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      decoration: BoxDecoration(
-        shape: BoxShape.rectangle,
-        color: _calendarController.isSelected(date)
-            ? Colors.brown[500]
-            : _calendarController.isToday(date)
-                ? Colors.brown[300]
-                : Colors.blue[400],
-      ),
-      width: 16.0,
-      height: 16.0,
-      child: Center(
-        child: Text(
-          '${events.length}',
-          style: TextStyle().copyWith(
-            color: Colors.white,
-            fontSize: 12.0,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHolidaysMarker() {
-    return Icon(
-      Icons.add_box,
-      size: 20.0,
-      color: Colors.blueGrey[800],
-    );
-  }
-
   Widget _buildEventList() {
     return ListView(
       children: _selectedEvents
@@ -255,26 +134,21 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                 margin:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: ListTile(
-                  title:
-                  Text(event['lieu'].toString() + " à " + event['heure'].toString()),
-                  trailing: 
-                  
-                  Container(
+                  title: Text(event['lieu'].toString() +
+                      " à " +
+                      event['heure'].toString()),
+                  trailing: Container(
                     width: 40,
                     child: Row(
                       children: <Widget>[
                         Text(event['nombre_j'].toString() + " ",
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .display3),
-                                          
+                            softWrap: true,
+                            style: Theme.of(context).textTheme.display3),
                         Icon(
                           Icons.people,
                           color: Colors.red,
                           size: 20,
                         ),
-                        
                       ],
                     ),
                   ),

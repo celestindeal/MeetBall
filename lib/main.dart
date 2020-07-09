@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:meetballl/calendar.dart';
 import 'package:meetballl/db.dart';
 import 'package:meetballl/motsPasse.dart';
@@ -28,7 +29,8 @@ import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 import 'modif.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
-Color back ;
+
+Color back;
 void main() {
   runApp(new Main());
 }
@@ -46,7 +48,7 @@ class _MainState extends State<Main> {
         Theme.of(context).brightness == Brightness.dark
             ? Brightness.light
             : Brightness.dark);
-           
+
     Baselocal().mise_a_jour();
   }
 
@@ -63,12 +65,11 @@ class _MainState extends State<Main> {
             Theme.of(context).brightness == Brightness.dark
                 ? Brightness.values
                 : Brightness.dark);
-        
       }
     }
-back = Theme.of(context).brightness == Brightness.dark
-            ? Colors.red 
-            :null;
+
+    back =
+        Theme.of(context).brightness == Brightness.dark ? Colors.white70 : null;
     return ScopedModel(
         model: ImgModel(),
         child: ScopedModel(
@@ -112,12 +113,13 @@ back = Theme.of(context).brightness == Brightness.dark
                             ),
                         themedWidgetBuilder: (context, theme) {
                           return MaterialApp(
-                            
-                            supportedLocales: [
-                              const Locale('en', 'US'), // English
-                              const Locale('th', 'TH'), // Thai
+                            localizationsDelegates: [
+                              GlobalMaterialLocalizations.delegate,
+                              GlobalWidgetsLocalizations.delegate,
                             ],
-                            
+                            supportedLocales: [
+                              const Locale('fr', ''), // English
+                            ],
                             theme: theme,
                             debugShowCheckedModeBanner: false,
                             initialRoute: '/',
@@ -131,7 +133,8 @@ back = Theme.of(context).brightness == Brightness.dark
                                   Profil_renctontre(),
                               '/Terrain': (context) => Terrain(),
                               '/Rechercher': (context) => Rechercher(),
-                              '/ProfilRechercher': (context) => ProfilRecherche(),
+                              '/ProfilRechercher': (context) =>
+                                  ProfilRecherche(),
                               '/Terrainpro': (context) => TerrainPro(),
                               '/Terrainrecherche': (context) =>
                                   TerrainRecherche(),
@@ -144,9 +147,6 @@ back = Theme.of(context).brightness == Brightness.dark
                               '/lieuDev': (context) => LieuDev(),
                               '/Calendar': (context) => Calendar(),
                               '/password': (context) => Password(),
-
-
-
                             },
                           );
                         })))));
@@ -165,11 +165,10 @@ sdialog(context) {
                   ? Brightness.light
                   : Brightness.dark);
 
-
           Baselocal().mise_a_jour();
           back = Theme.of(context).brightness == Brightness.dark
-            ? Colors.red 
-            :null;
+              ? Colors.white70
+              : null;
         }
 
         return Center(

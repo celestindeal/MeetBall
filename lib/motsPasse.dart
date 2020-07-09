@@ -31,9 +31,9 @@ class Password extends StatelessWidget {
 
       // Email it.
       emailTransport
-          .send(envelope)
-          .then((envelope) => print('Email sent!'))
-          .catchError((e) => print('Error occurred: $e'));
+          .send(envelope);
+          // .then((envelope) => print('Email sent!'))
+          // .catchError((e) => print('Error occurred: $e'));
     }
 
     String email_chnage;

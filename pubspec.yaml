@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   splashscreen:
   http: ^0.11.3+17
   scoped_model: ^1.0.1
@@ -41,6 +43,7 @@ dependencies:
   flutter_image_compress: ^0.6.8
   table_calendar: ^2.2.3
   mailer2: ^1.2.5
+
 
 
   # The following adds the Cupertino Icons font to your application.
