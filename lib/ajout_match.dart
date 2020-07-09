@@ -23,6 +23,10 @@ List<String> reportList = [
   "Uncivil"
 ];
 String _date = "Date";
+DateTime curseurdate = DateTime.now();
+DateTime curseurtime = DateTime.now();
+
+
 String _time = "Heure";
 var nombre_jo = "1";
 var pseudo;
@@ -92,6 +96,8 @@ class _Ajout_matchState extends State<Ajout_match> {
                         showTitleActions: true,
                         minTime: DateTime.now(),
                         maxTime: DateTime(2030, 12, 31),
+                        currentTime: curseurdate,
+                         locale: LocaleType.fr,
                         theme: DatePickerTheme(
                             headerColor: Colors.indigo,
                             // backgroundColor: Colors.blue,
@@ -102,11 +108,13 @@ class _Ajout_matchState extends State<Ajout_match> {
                             cancelStyle:
                                 TextStyle(color: Colors.white, fontSize: 16),
                             doneStyle:
-                                TextStyle(color: Colors.white, fontSize: 16)),
+                                TextStyle(color: Colors.white, fontSize: 16)
+                                ),
                         onChanged: (date) {}, onConfirm: (date) {
+                          curseurdate = date;
                       _date = '${date.day}-${date.month}-${date.year}';
                       setState(() {});
-                    }, currentTime: DateTime.now(), locale: LocaleType.fr);
+                    }, );
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -155,9 +163,10 @@ class _Ajout_matchState extends State<Ajout_match> {
                   onPressed: () {
                     DatePicker.showTimePicker(context,
                         showSecondsColumn: false,
+                        currentTime: curseurtime, 
+                        locale: LocaleType.fr,
                         theme: DatePickerTheme(
                             headerColor: Colors.indigo,
-
                             // backgroundColor: Colors.blue,
                             itemStyle: TextStyle(
                                 color: Colors.black,
@@ -168,9 +177,10 @@ class _Ajout_matchState extends State<Ajout_match> {
                             doneStyle:
                                 TextStyle(color: Colors.white, fontSize: 16)),
                         showTitleActions: true, onConfirm: (time) {
+                          curseurtime = time;
                       _time = '${time.hour}:${time.minute}';
                       setState(() {});
-                    }, currentTime: DateTime.now(), locale: LocaleType.fr);
+                    }, );
                     setState(() {});
                   },
                   child: Container(
@@ -254,6 +264,8 @@ class _Ajout_matchState extends State<Ajout_match> {
                                             _date = "Date";
                                             _time = "Heure";
                                             nombre_jo = null;
+                                            curseurdate = DateTime.now();
+                                            curseurtime = DateTime.now();
                                             _controller.clear();
                                           });
 

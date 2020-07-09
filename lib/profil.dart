@@ -38,7 +38,7 @@ class _ProfilState extends State<Profil> {
                     Footer(),
                   ],
                 backgroundColor: back,
-        body:  Center(
+                body: Center(
                   child: CircularProgressIndicator(),
                 ))
             : model.retour_Profil
@@ -182,9 +182,8 @@ class _PresentationState extends State<Presentation> {
             }));
           });
     }
+
     return Scaffold(
- 
-      
         appBar: AppBar(
           title: Center(
             child: Text(ScopedModel.of<LoginModel>(context).pseudo),
@@ -208,7 +207,7 @@ class _PresentationState extends State<Presentation> {
           Footer(),
         ],
         backgroundColor: back,
-        body:  SingleChildScrollView(child:
+        body: SingleChildScrollView(child:
             ScopedModelDescendant<LoginModel>(builder: (context, child, model) {
           if (model.participation.length == 0) {
             rencontre = false;
@@ -332,7 +331,10 @@ class _PresentationState extends State<Presentation> {
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .display3),
-                                                Text("Tu est notée "+model.noteprofil.toString()+"/5",
+                                        Text(
+                                            "Tu est notée " +
+                                                model.noteprofil.toString() +
+                                                "/5",
                                             softWrap: true,
                                             style: Theme.of(context)
                                                 .textTheme
@@ -345,7 +347,6 @@ class _PresentationState extends State<Presentation> {
                     ),
                   ],
                 ),
-                 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -392,7 +393,9 @@ class _PresentationState extends State<Presentation> {
                                   .millisecondsSinceEpoch;
                           int tkt = ((mst - ms) / (24 * 3600 * 1000)).toInt();
                           String tempsavantmatch;
-                          if (tkt < 2) {
+                          print(tkt);
+
+                          if (tkt == 0) {
                             tempsavantmatch = "aujoud'hui";
                           } else {
                             tempsavantmatch =
@@ -404,181 +407,107 @@ class _PresentationState extends State<Presentation> {
                           } else {
                             chnagecouleur = true;
                           }
-                          return GestureDetector(
-                            onTap: () async {
-                              // on sélection la rencontre choisir
+                          if (tkt >= 0) {
+                            return GestureDetector(
+                              onTap: () async {
+                                // on sélection la rencontre choisir
 
-                              ScopedModel.of<GameModel>(context).lieu =
-                                  model.participation[i]['lieu'];
-                              ScopedModel.of<GameModel>(context).id_rencontre =
-                                  model.participation[i]['id_rencontre'];
-                              ScopedModel.of<GameModel>(context).nombJoueur =
-                                  int.parse(model.participation[i]['nom_j']
-                                      .toString());
-                              ScopedModel.of<GameModel>(context).daterencontre =
-                                  model.participation[i]['jour'];
-                              ScopedModel.of<GameModel>(context)
-                                      .heurerencontre =
-                                  model.participation[i]['heure'];
-                                   ScopedModel.of<GameModel>(context)
-                                      .organisateur =
-                                  model.participation[i]['pseudo'];
+                                ScopedModel.of<GameModel>(context).lieu =
+                                    model.participation[i]['lieu'];
+                                ScopedModel.of<GameModel>(context)
+                                        .id_rencontre =
+                                    model.participation[i]['id_rencontre'];
+                                ScopedModel.of<GameModel>(context).nombJoueur =
+                                    int.parse(model.participation[i]['nom_j']
+                                        .toString());
+                                ScopedModel.of<GameModel>(context)
+                                        .daterencontre =
+                                    model.participation[i]['jour'];
+                                ScopedModel.of<GameModel>(context)
+                                        .heurerencontre =
+                                    model.participation[i]['heure'];
+                                ScopedModel.of<GameModel>(context)
+                                        .organisateur =
+                                    model.participation[i]['pseudo'];
 
-                              // on prepare les image terrain et commentaire pour la page profil rencontre
-                              ScopedModel.of<ImgModel>(context).Img();
-                              ScopedModel.of<GameModel>(context).Terrain();
+                                // on prepare les image terrain et commentaire pour la page profil rencontre
+                                ScopedModel.of<ImgModel>(context).Img();
+                                ScopedModel.of<GameModel>(context).Terrain();
 
-                              ScopedModel.of<GameModel>(context).Commentaire();
+                                ScopedModel.of<GameModel>(context)
+                                    .Commentaire();
 
-                              await ScopedModel.of<LoginModel>(context)
-                                  .Personne_propose(
-                                      model.participation[i]['id_rencontre']);
+                                await ScopedModel.of<LoginModel>(context)
+                                    .Personne_propose(
+                                        model.participation[i]['id_rencontre']);
 
-                              // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['id_rencontre']);
+                                // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['id_rencontre']);
 
-                              Navigator.pushNamed(
-                                  context, '/Profil_renctontre');
-                            },
-                            child: Center(
-                                child: Container(
-                                    padding: const EdgeInsets.all(5),
-                                    margin: const EdgeInsets.all(20),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      color: chnagecouleur
-                                          ? Colors.indigo
-                                          : Colors.amber[900],
-                                    ),
-                                    child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: <Widget>[
-                                                Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      Text(
-                                                          "Cette rencontre est prevue ",
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text(
-                                                          tempsavantmatch +
-                                                              " à " +
-                                                              model.participation[
-                                                                  i]['heure'],
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                      Text(
-                                                          "Il y a " +
-                                                              model.participation[
-                                                                  i]['nom_j'] +
-                                                              " personne(s) qui seront là",
-                                                          softWrap: true,
-                                                          style:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                    ]),
-                                              ]),
-                                          // RaisedButton(
-                                          //   onPressed: () {
-                                          //     showDialog(
-                                          //         context: context,
-                                          //         builder:
-                                          //             (BuildContext context) {
-                                          //           return Center(
-                                          //             child: Flexible(
-                                          //               child: Container(
-                                          //                 width: MediaQuery.of(
-                                          //                             context)
-                                          //                         .size
-                                          //                         .width /
-                                          //                     1.3,
-                                          //                 color: Colors.white,
-                                          //                 child: Column(
-                                          //                   mainAxisSize:
-                                          //                       MainAxisSize
-                                          //                           .min,
-                                          //                   children: <Widget>[
-                                          //                     Row(
-                                          //                         mainAxisAlignment:
-                                          //                             MainAxisAlignment
-                                          //                                 .start,
-                                          //                         children: <
-                                          //                             Widget>[
-                                          //                           Flexible(
-                                          //                             child: Column(
-                                          //                                 mainAxisAlignment: MainAxisAlignment
-                                          //                                     .start,
-                                          //                                 children: <
-                                          //                                     Widget>[
-                                          //                                   Center(
-                                          //                                     child: Text("Es-tu sûr de vraiment vouloir annuler la rencontre prévue le " + model.participation[i]['jour'] + " à " + model.participation[i]['heure'], softWrap: true, textAlign: TextAlign.center, style: Theme.of(context).textTheme.display3),
-                                          //                                   ),
-                                          //                                   Text("Il y a " + model.participation[i]['nom_j'] + " personne(s) qui seront là",
-                                          //                                       softWrap: true,
-                                          //                                       style: Theme.of(context).textTheme.display3),
-                                          //                                   Text("Vous avez invité " + model.participation[i]['inviter'] + " personne(s)",
-                                          //                                       softWrap: true,
-                                          //                                       style: Theme.of(context).textTheme.display3),
-                                          //                                 ]),
-                                          //                           ),
-                                          //                         ]),
-                                          //                     Row(
-                                          //                       mainAxisAlignment:
-                                          //                           MainAxisAlignment
-                                          //                               .spaceEvenly,
-                                          //                       children: <
-                                          //                           Widget>[
-                                          //                         RaisedButton(
-                                          //                             onPressed:
-                                          //                                 () {
-                                          //                               Navigator.of(context)
-                                          //                                   .pop();
-                                          //                             },
-                                          //                             child: Text(
-                                          //                                 'non')),
-                                          //                         RaisedButton(
-                                          //                             onPressed:
-                                          //                                 () async {
-                                          //                               await ScopedModel.of<GameModel>(context).Sup_participation(
-                                          //                                   model.participation[i]['inviter'],
-                                          //                                   model.participation[i]['id'],
-                                          //                                   model.participation[i]['id_rencontre']);
-                                          //                               // recalcul des participation pour le nouvelle affichage
-                                          //                               ScopedModel.of<LoginModel>(context)
-                                          //                                   .ParticipationProil();
-                                          //                               Navigator.of(context)
-                                          //                                   .pop();
-                                          //                             },
-                                          //                             child: Text(
-                                          //                                 'oui')),
-                                          //                       ],
-                                          //                     )
-                                          //                   ],
-                                          //                 ),
-                                          //               ),
-                                          //             ),
-                                          //           );
-                                          //         });
-                                          //   },
-                                          //   child: Text("Annuler"),
-                                          // ),
-                                        ]))),
-                          );
+                                Navigator.pushNamed(
+                                    context, '/Profil_renctontre');
+                              },
+                              child: Center(
+                                  child: Container(
+                                      padding: const EdgeInsets.all(5),
+                                      margin: const EdgeInsets.all(20),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
+                                        color: chnagecouleur
+                                            ? Colors.indigo
+                                            : Colors.amber[900],
+                                      ),
+                                      child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: <Widget>[
+                                                  Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: <Widget>[
+                                                        Text(
+                                                            "Cette rencontre est prevue ",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                            softWrap: true,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .display2),
+                                                        Text(
+                                                            tempsavantmatch +
+                                                                " à " +
+                                                                model.participation[
+                                                                    i]['heure'],
+                                                            softWrap: true,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .display2),
+                                                        Text(
+                                                            "Il y a " +
+                                                                model.participation[
+                                                                        i]
+                                                                    ['nom_j'] +
+                                                                " personne(s) qui seront là",
+                                                            softWrap: true,
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .display2),
+                                                      ]),
+                                                ]),
+                                          ]))),
+                            );
+                          } else {
+                            return Container();
+                          }
                         })
                     : Center(
                         child: Text("tu n'a pas de rencontre de prevue",

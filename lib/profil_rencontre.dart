@@ -45,7 +45,7 @@ class Profil_renctontre extends StatelessWidget {
                   ],
                   // backgroundColor: Colors.black,
                   backgroundColor: back,
-        body:  Center(
+                  body: Center(
                     child: CircularProgressIndicator(),
                   )));
     });
@@ -68,21 +68,34 @@ class _PresentationState extends State<Presentation> {
 
   int nombre_inviter;
 
-
-
   @override
   Widget build(BuildContext context) {
-
     // après une seconds les commentaire scroll sur le dernier commentaire publier
-    Timer(
-    Duration(seconds: 1),
-    () {
-      if(ScopedModel.of<LoginModel>(context).boParticipation){
-        _scrollController.jumpTo(_scrollController.position.maxScrollExtent    );
+    Timer(Duration(seconds: 1), () {
+      if (ScopedModel.of<LoginModel>(context).boParticipation) {
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
       }
-  
-    }
-  );
+    });
+// calcul pour savoir si la rencontre est déja passer 
+// si difference est négative la rencontre est passer 
+    String ok = "}" +
+                                  ScopedModel.of<GameModel>(context)
+                                      .daterencontre +
+                                  "/";
+                              int jour =
+                                  int.parse(ok.split('}')[1].split('-')[0]);
+                              int mois =
+                                  int.parse(ok.split('-')[1].split('-')[0]);
+
+                              String placement =
+                                  jour.toString() + '-' + mois.toString() + '-';
+                              int ans = int.parse(
+                                  ok.split(placement)[1].split('/')[0]);
+                              final difference = DateTime(ans, mois, jour)
+                                  .difference(DateTime.now())
+                                  .inHours;
+
+                              print(difference);
 
     notation(String personnenoter) {
       return RaisedButton(
@@ -185,7 +198,7 @@ class _PresentationState extends State<Presentation> {
       ],
       // backgroundColor: Colors.black,
       backgroundColor: back,
-        body:  ScopedModelDescendant<LoginModel>(builder: (context, child, login) {
+      body: ScopedModelDescendant<LoginModel>(builder: (context, child, login) {
         return ScopedModelDescendant<GameModel>(
             builder: (context, child, model) {
           return ScopedModelDescendant<ImgModel>(
@@ -370,52 +383,84 @@ class _PresentationState extends State<Presentation> {
                                                   model.commentaire.length,
                                               itemBuilder: (context, i) {
                                                 bool message;
-                                                if (model.commentaire[i]['pseudo'] .toString() ==ScopedModel.of<LoginModel>(context) .pseudo.toString()) {
+                                                if (model.commentaire[i]
+                                                            ['pseudo']
+                                                        .toString() ==
+                                                    ScopedModel.of<LoginModel>(
+                                                            context)
+                                                        .pseudo
+                                                        .toString()) {
                                                   message = true;
                                                 } else {
                                                   message = false;
                                                 }
-                                                
+
                                                 return Column(
                                                   children: <Widget>[
                                                     Row(
                                                       mainAxisAlignment: message
-                                                          ? MainAxisAlignment .end
-                                                          : MainAxisAlignment .start,
+                                                          ? MainAxisAlignment
+                                                              .end
+                                                          : MainAxisAlignment
+                                                              .start,
                                                       children: <Widget>[
                                                         Flexible(
-                                                          child: GestureDetector(
-                                                            onLongPress: (){
-                                                              if(message){
-                                                                
-                                                                
-                                                              }
-
+                                                          child:
+                                                              GestureDetector(
+                                                            onLongPress: () {
+                                                              if (message) {}
                                                             },
                                                             child: Container(
-                                                              padding:const EdgeInsets.all(15),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(15),
                                                               constraints: BoxConstraints(
-                                                                  minWidth: MediaQuery.of(context).size.width / 5,
-                                                                  maxWidth: MediaQuery.of(  context).size .width / 1.1),
-                                                              decoration:BoxDecoration(
+                                                                  minWidth: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width /
+                                                                      5,
+                                                                  maxWidth: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width /
+                                                                      1.1),
+                                                              decoration:
+                                                                  BoxDecoration(
                                                                 borderRadius:
-                                                                    BorderRadius.circular(20.0),
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20.0),
                                                                 color: message
-                                                                    ? Colors.indigo
-                                                                    : Colors.amber[ 900],
+                                                                    ? Colors
+                                                                        .indigo
+                                                                    : Colors.amber[
+                                                                        900],
                                                               ),
-                                                              child: 
-                                                              Column(
-                                                                children: < Widget>[
-                                                                  Text( model.commentaire[ i][ 'commentaire'],
-                                                                      textAlign: TextAlign.center,
-                                                                      style: Theme.of(context).textTheme .display3),
-                                                                  Text(model .commentaire[i]['pseudo']),
-                                                                  Text(model.commentaire[ i]['date']),
+                                                              child: Column(
+                                                                children: <
+                                                                    Widget>[
+                                                                  Text(
+                                                                      model.commentaire[
+                                                                              i]
+                                                                          [
+                                                                          'commentaire'],
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: Theme.of(
+                                                                              context)
+                                                                          .textTheme
+                                                                          .display3),
+                                                                  Text(model
+                                                                          .commentaire[i]
+                                                                      [
+                                                                      'pseudo']),
+                                                                  Text(model
+                                                                          .commentaire[i]
+                                                                      ['date']),
                                                                 ],
                                                               ),
-
-
                                                             ),
                                                           ),
                                                         ),
@@ -498,9 +543,17 @@ class _PresentationState extends State<Presentation> {
                     ScopedModel.of<LoginModel>(context).boParticipation
                         ? RaisedButton(
                             onPressed: () async {
+
+                              if (difference < 0) {
+                                Scaffold.of(context).showSnackBar(new SnackBar(
+                                    content: new Text(
+                                        'Cette rencontre est déja fini')));
+                              } else {
+                              
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
+                                    
                                     return Center(
                                       child: Container(
                                         color: Colors.white,
@@ -553,8 +606,13 @@ class _PresentationState extends State<Presentation> {
                                                         model.nombJoueur--;
                                                         if (model.nombJoueur ==
                                                             0) {
-
-                                                         Navigator.pushNamedAndRemoveUntil(context, '/Profil', (Route<dynamic> route) => false);
+                                                          Navigator
+                                                              .pushNamedAndRemoveUntil(
+                                                                  context,
+                                                                  '/Profil',
+                                                                  (Route<dynamic>
+                                                                          route) =>
+                                                                      false);
                                                         } else {
                                                           await ScopedModel.of<
                                                                       LoginModel>(
@@ -562,11 +620,10 @@ class _PresentationState extends State<Presentation> {
                                                               .Personne_propose(
                                                                   model
                                                                       .id_rencontre);
-                                                                      Navigator.of(context)
-                                                          .pop();
+                                                          Navigator.of(context)
+                                                              .pop();
                                                         }
                                                       }
-                                                      
                                                     },
                                                     child: Text('oui')),
                                               ],
@@ -576,30 +633,39 @@ class _PresentationState extends State<Presentation> {
                                       ),
                                     );
                                   });
+                              }
                             },
                             child: Text("supprimer ma participation"))
                         : RaisedButton(
                             onPressed: () async {
-                              await ScopedModel.of<LoginModel>(context)
-                                  .Personne_propose(model.id_rencontre);
-                              // maintenant dans login modal var participent nous avons les participent
-
-                              if (ScopedModel.of<LoginModel>(context)
-                                      .boParticipation ==
-                                  false) {
-                                // créer la participation
-                                await model.Participation(
-                                  int.parse(model.id_rencontre),
-                                  ScopedModel.of<LoginModel>(context).pseudo,
-                                  model.nombJoueur,
-                                );
-
-                                // maintenant on refrech la page
-
-                                model.nombJoueur++;
+                              
+                              if (difference < 0) {
+                                Scaffold.of(context).showSnackBar(new SnackBar(
+                                    content: new Text(
+                                        'Cette rencontre est déja fini')));
+                              } else {
                                 await ScopedModel.of<LoginModel>(context)
                                     .Personne_propose(model.id_rencontre);
-                                    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                                // maintenant dans login modal var participent nous avons les participent
+
+                                if (ScopedModel.of<LoginModel>(context)
+                                        .boParticipation ==
+                                    false) {
+                                  // créer la participation
+                                  await model.Participation(
+                                    int.parse(model.id_rencontre),
+                                    ScopedModel.of<LoginModel>(context).pseudo,
+                                    model.nombJoueur,
+                                  );
+
+                                  // maintenant on refrech la page
+
+                                  model.nombJoueur++;
+                                  await ScopedModel.of<LoginModel>(context)
+                                      .Personne_propose(model.id_rencontre);
+                                  _scrollController.jumpTo(_scrollController
+                                      .position.maxScrollExtent);
+                                }
                               }
                             },
                             child: Text("participer")),
@@ -638,7 +704,6 @@ class _PresentationState extends State<Presentation> {
                             } else {
                               bonotation = true;
                             }
-                            
 
                             if (ScopedModel.of<GameModel>(context)
                                     .organisateur ==
@@ -650,7 +715,8 @@ class _PresentationState extends State<Presentation> {
                                       ScopedModel.of<LoginModel>(context)
                                           .pseudo
                                           .toString()) {
-                                            ScopedModel.of<LoginModel>(context).ParticipationProil();
+                                    ScopedModel.of<LoginModel>(context)
+                                        .ParticipationProil();
                                     Navigator.pushNamedAndRemoveUntil(
                                         context,
                                         '/Profil',
