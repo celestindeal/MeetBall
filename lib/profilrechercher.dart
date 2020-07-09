@@ -61,6 +61,7 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
         profilvisiteur = [];
       } else {
         // on vas regarder mot pare mot si on a des lettre on commun avec la recherche
+        int plusG = 0;
         for (var i = 0;
             i < ScopedModel.of<LoginModel>(context).profilvisiteur.length;
             i++) {
@@ -70,7 +71,9 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
               ScopedModel.of<LoginModel>(context)
                   .profilvisiteur[i]['pseudo']
                   .toUpperCase());
-          if (nombre > 0) {
+          if (nombre > 0 && nombre > (plusG-1)) {
+            plusG = nombre;
+            
             // ici le lieu doit être affiche il vas dans construction
             Map tkt = {
               'contruiction':
@@ -80,7 +83,9 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
             contruction.add(tkt);
           }
         }
+      
         int copie = contruction.length;
+        profilvisiteur.clear();
         // objatif classer les lieu dans l'ordre
         for (var i = 0; i < copie; i++) {
           int nombreplus = 0;
@@ -91,8 +96,11 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
               place = n;
             }
           }
-          profilvisiteur.add(contruction[place]['contruiction']);
-          contruction.removeAt(place);
+          if(nombreplus >= (plusG-1)){
+           profilvisiteur.add(contruction[place]['contruiction']);
+          
+          }
+          contruction.removeAt(place); 
         }
       }
       setState(() {

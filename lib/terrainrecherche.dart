@@ -63,6 +63,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
         terrain = [];
       } else {
         // on vas regarder mot pare mot si on a des lettre on commun avec la recherche
+        int plusG = 0;
         for (var i = 0;
             i < ScopedModel.of<TerrainModel>(context).taille_terrain;
             i++) {
@@ -72,7 +73,8 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
               ScopedModel.of<TerrainModel>(context)
                   .data_terrain[i]['ville']
                   .toUpperCase());
-          if (nombre > 0) {
+          if (nombre > 0 && nombre > (plusG-2)) {
+            plusG = nombre;
             // ici le lieu doit être affiche il vas dans construction
             Map tkt = {
               'contruiction':
@@ -93,7 +95,9 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
               place = n;
             }
           }
+          if(nombreplus >= (plusG-1)){
           terrain.add(contruction[place]['contruiction']);
+          }
           contruction.removeAt(place);
         }
       }
