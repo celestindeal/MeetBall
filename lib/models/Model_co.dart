@@ -140,7 +140,7 @@ class LoginModel extends Model {
     Response response = await post(url, body: json);
     var data_participation = jsonDecode(response.body);
 
-    var url1 = 'http://51.210.103.151/get_match.php';
+    var url1 = 'http://51.210.103.151/get_matchFuture.php';
     http.Response response1 = await http.get(url1);
     var data_rencontre = jsonDecode(response1.body);
     int tailledata = data_participation.length;
@@ -183,7 +183,7 @@ class LoginModel extends Model {
     Response response = await post(url, body: json);
     var data_participation = jsonDecode(response.body);
 
-    var url1 = 'http://51.210.103.151/get_match.php';
+    var url1 = 'http://51.210.103.151/get_matchFuture.php';
     http.Response response1 = await http.get(url1);
     var data_rencontre = jsonDecode(response1.body);
     int tailledata = data_participation.length;
