@@ -391,14 +391,16 @@ class _PresentationState extends State<Presentation> {
                           var mst =
                               new DateTime.utc(ans, mois, jour, 20, 18, 04)
                                   .millisecondsSinceEpoch;
-                          int tkt = ((mst - ms) / (24 * 3600 * 1000)).toInt();
+                          double tkt = ((mst - ms) / (24 * 3600 * 1000));
                           String tempsavantmatch;
 
-                          if (tkt == 0) {
-                            tempsavantmatch = "aujoud'hui";
+                          if (tkt.toInt() == 0) {
+                            tempsavantmatch = "aujoud'hui à " +model.participation[i]['heure'];
+                          }else if(1 <= tkt && tkt < 2){
+                                 tempsavantmatch = "demain à " +model.participation[i]['heure'];
                           } else {
                             tempsavantmatch =
-                                "dans " + tkt.toString() + " jour(s)";
+                                "dans " + tkt.toInt().toString() + " jour(s) à " +model.participation[i]['heure'];
                           }
 
                           if (chnagecouleur) {
@@ -480,10 +482,7 @@ class _PresentationState extends State<Presentation> {
                                                                 .textTheme
                                                                 .display2),
                                                         Text(
-                                                            tempsavantmatch +
-                                                                " à " +
-                                                                model.participation[
-                                                                    i]['heure'],
+                                                            tempsavantmatch,
                                                             softWrap: true,
                                                             style: Theme.of(
                                                                     context)

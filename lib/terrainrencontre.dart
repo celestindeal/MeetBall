@@ -5,12 +5,8 @@ import 'package:meetballl/footer.dart';
 import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/models/Model_img.dart';
 import 'package:meetballl/models/Model_match.dart';
-import 'package:meetballl/models/Model_terrain.dart';
-import 'package:meetballl/profil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'main.dart';
 
 class TerrainRen extends StatefulWidget {
@@ -28,7 +24,10 @@ class _TerrainRenState extends State<TerrainRen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Rencontre prévue"),
+          title: Text(
+            "Rencontre à "+   
+          ScopedModel.of<GameModel>(context)
+                                      .terrainrencontre),
           backgroundColor: Colors.indigo,
           actions: <Widget>[
             IconButton(
@@ -98,6 +97,31 @@ class _AffRencontreState extends State<AffRencontre> {
                 shrinkWrap: true,
                 itemCount: nombreTours,
                 itemBuilder: (context, i) {
+                  // calcule du temps avant le match
+                          var ms = (new DateTime.now()).millisecondsSinceEpoch;
+                          String ok =
+                              "}" +  model.data_game[i]['jours'] + "/";
+                          int jour = int.parse(ok.split('}')[1].split('-')[0]);
+                          int mois = int.parse(ok.split('-')[1].split('-')[0]);
+                          String placement =
+                              jour.toString() + '-' + mois.toString() + '-';
+                          int ans =
+                              int.parse(ok.split(placement)[1].split('/')[0]);
+
+                          var mst =
+                              new DateTime.utc(ans, mois, jour, 20, 18, 04)
+                                  .millisecondsSinceEpoch;
+                          double tkt = ((mst - ms) / (24 * 3600 * 1000));
+                          String tempsavantmatch;
+
+                          if (tkt.toInt() == 0) {
+                            tempsavantmatch = "Aujoud'hui à " +model.data_game[i]['heure'];
+                          }else if(1 <= tkt && tkt < 2){
+                                 tempsavantmatch = "Demain à " +model.data_game[i]['heure'];
+                          } else {
+                            tempsavantmatch =
+                                "Dans " + tkt.toInt().toString() + " jour(s) à " +model.data_game[i]['heure'];
+                          }
                   if (ScopedModel.of<GameModel>(context).terrainrencontre ==
                       model.data_game[i]['lieu']) {
                     return Center(
@@ -127,7 +151,7 @@ class _AffRencontreState extends State<AffRencontre> {
                                 margin: const EdgeInsets.all(20),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20.0),
-                                  color: Colors.grey,
+                                  color: Colors.indigo,
                                 ),
                                 child: Row(
                                     mainAxisAlignment:
@@ -137,62 +161,25 @@ class _AffRencontreState extends State<AffRencontre> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                            Text("Proposé par ",
+                                            Text("Proposé par "+model.data_game[i]['per'],
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .display2),
-                                            Text("Jour",
+                                            Text(tempsavantmatch,
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .display2),
-                                            Text("Heure",
+                                        
+                                            Text("Il y as "+ model.data_game[i]['nombre_j']+" joueur(s)",
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .display2),
-                                            Text("Nombre de joueur(s)",
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .display2),
-                                            Text("Lieu",
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .display2),
+                                      
                                           ]),
-                                      Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Text(model.data_game[i]['per'],
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .display2),
-                                            Text(model.data_game[i]['jours'],
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .display2),
-                                            Text(model.data_game[i]['heure'],
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .display2),
-                                            Text(model.data_game[i]['nombre_j'],
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .display2),
-                                            Text(model.data_game[i]['lieu'],
-                                                softWrap: true,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .display2),
-                                          ]),
+                                   
                                     ]))));
                   } else {
                     return Container();

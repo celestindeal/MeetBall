@@ -70,6 +70,37 @@ class _PresentationState extends State<Presentation> {
 
   @override
   Widget build(BuildContext context) {
+
+      var ms = (new DateTime.now()).millisecondsSinceEpoch;
+                          String okr =
+                              "}" + ScopedModel.of<GameModel>(context).daterencontre + "/";
+                          int jourr = int.parse(okr.split('}')[1].split('-')[0]);
+                          int moisr = int.parse(okr.split('-')[1].split('-')[0]);
+                          String placementr =
+                              jourr.toString() + '-' + moisr.toString() + '-';
+                          int ansr =
+                              int.parse(okr.split(placementr)[1].split('/')[0]);
+
+                          var mst =
+                              new DateTime.utc(ansr, moisr, jourr, 12, 08, 04)
+                                  .millisecondsSinceEpoch;
+                          double tkt = (mst - ms) / (24 * 3600 * 1000);
+                          String tempsavantmatch;
+                          print(mst-ms);
+                          print(tkt);
+                          if (0 <= tkt && tkt < 1) {
+                            tempsavantmatch = "Aujoud'hui à "+ ScopedModel.of<GameModel>(context)
+                                      .heurerencontre;
+                          }else if(1 <= tkt && tkt < 2){
+                            tempsavantmatch =
+                                "Demain"+ ScopedModel.of<GameModel>(context)
+                                      .heurerencontre;
+
+                          } else if (tkt < 0){tempsavantmatch = "Rencontre fini";}else {
+                            tempsavantmatch =
+                                "Dans " + tkt.toInt().toString() + " jours à "+ ScopedModel.of<GameModel>(context)
+                                      .heurerencontre;
+                          }
     // après une seconds les commentaire scroll sur le dernier commentaire publier
     Timer(Duration(seconds: 1), () {
       if (ScopedModel.of<LoginModel>(context).boParticipation &&   ScopedModel.of<GameModel>(context).commentaire.length >= 1 ) {
@@ -175,13 +206,14 @@ class _PresentationState extends State<Presentation> {
         child: Text('noter'),
       );
     }
+   
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          ScopedModel.of<GameModel>(context).daterencontre +
-              " à " +
-              ScopedModel.of<GameModel>(context).heurerencontre,
+        title: Center(
+          child: Text(
+            tempsavantmatch ,
+          ),
         ),
         backgroundColor: Colors.indigo,
         actions: <Widget>[
