@@ -15,7 +15,12 @@ import 'models/Model_match.dart';
 String id_rencontre;
 bool chnagecouleur = true;
 
-class Match extends StatelessWidget {
+class Match extends StatefulWidget {
+  @override
+  _MatchState createState() => _MatchState();
+}
+
+class _MatchState extends State<Match> {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<GameModel>(builder: (context, child, model) {

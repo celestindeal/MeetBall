@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:meetballl/calendar.dart';
+import 'package:meetballl/profil.dart';
+import 'package:meetballl/rechercher.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import 'models/Model_co.dart';
 import 'models/Model_img.dart';
 import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
+
+int page = 1;
 
 class Footer extends StatelessWidget {
   @override
@@ -22,30 +27,17 @@ class Footer extends StatelessWidget {
               ),
               onPressed: () {
                 ScopedModel.of<LoginModel>(context).ParticipationProil();
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/Profil', (Route<dynamic> route) => false);
+                Navigator.of(context).push(_createRouteprofil());
               }),
-          // IconButton(
-          //     icon: Image.asset(
-          //       'img/rencontre.png',
-          //       width: 40,
-          //       height: 40,
-          //     ),
-          //     onPressed: () {
-          //       ScopedModel.of<GameModel>(context).Match();
-          //       Navigator.pushNamedAndRemoveUntil(
-          //           context, '/Match', (Route<dynamic> route) => false);
-          //     }),
           IconButton(
               icon: Image.asset(
-                'img/rencontre.png', 
+                'img/rencontre.png',
                 width: 40,
                 height: 40,
               ),
               onPressed: () {
                 ScopedModel.of<GameModel>(context).MatchCalendar();
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/Calendar', (Route<dynamic> route) => false);
+                Navigator.of(context).push(_createRouterencontre());
               }),
           IconButton(
               icon: Icon(
@@ -55,11 +47,109 @@ class Footer extends StatelessWidget {
               onPressed: () {
                 ScopedModel.of<ImgModel>(context).Img();
                 ScopedModel.of<TerrainModel>(context).Terrain();
-                Navigator.pushNamedAndRemoveUntil(
-                    context, '/Rechercher', (Route<dynamic> route) => false);
+                Navigator.of(context).push(_createRouterecherche());
               }),
         ],
       ),
     );
   }
+}
+
+Route _createRouteprofil() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => Profil(),
+    transitionsBuilder: (
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child,
+    ) {
+   return     FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+      // Offset off;
+      // if (page == 1) {
+      //   off = Offset(-0.3, 0);
+      // } else if (page == 2) {
+      //   off = Offset(-1, 0);
+      // } else {
+      //   off = Offset(-2, 0);
+      // }
+      // page = 1;
+      // return SlideTransition(
+      //   position: Tween<Offset>(
+      //     begin: off,
+      //     end: Offset.zero,
+      //   ).animate(animation),
+      //   child: child, // child is the value returned by pageBuilder
+      // );
+    },
+  );
+}
+
+Route _createRouterencontre() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => Calendar(),
+    transitionsBuilder: (
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child,
+    ) {
+       return     FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+      // Offset off;
+      // if (page == 1) {
+      //   off = Offset(1, 0);
+      // } else if (page == 2) {
+      //   off = Offset(0.3, 0);
+      // } else {
+      //   off = Offset(-1, 0);
+      // }
+      // page = 2;
+      // return SlideTransition(
+      //   position: Tween<Offset>(
+      //     begin: off,
+      //     end: Offset.zero,
+      //   ).animate(animation),
+      //   child: child, // child is the value returned by pageBuilder
+      // );
+    },
+  );
+}
+
+Route _createRouterecherche() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => Rechercher(),
+    transitionsBuilder: (
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child,
+    ) {
+       return     FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+      // Offset off;
+      // if (page == 1) {
+      //   off = Offset(2, 0);
+      // } else if (page == 2) {
+      //   off = Offset(1, 0);
+      // } else {
+      //   off = Offset(0.3, 0);
+      // }
+      // page = 3;
+      // return SlideTransition(
+      //   position: Tween<Offset>(
+      //     begin: off,
+      //     end: Offset.zero,
+      //   ).animate(animation),
+      //   child: child, // child is the value returned by pageBuilder
+      // );
+    },
+  );
 }
