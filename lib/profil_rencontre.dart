@@ -31,14 +31,7 @@ class Profil_renctontre extends StatelessWidget {
                   appBar: AppBar(
                     title: Text("Rencontre"),
                     backgroundColor: Colors.indigo,
-                    actions: <Widget>[
-                      IconButton(
-                        icon: const Icon(Icons.settings),
-                        onPressed: () {
-                          sdialog(context);
-                        },
-                      ),
-                    ],
+                    
                   ),
                   persistentFooterButtons: <Widget>[
                     Footer(),
@@ -70,63 +63,45 @@ class _PresentationState extends State<Presentation> {
 
   @override
   Widget build(BuildContext context) {
+    var ms = (new DateTime.now()).millisecondsSinceEpoch;
+    String okr = "}" + ScopedModel.of<GameModel>(context).daterencontre + "/";
+    int jourr = int.parse(okr.split('}')[1].split('-')[0]);
+    int moisr = int.parse(okr.split('-')[1].split('-')[0]);
+    String placementr = jourr.toString() + '-' + moisr.toString() + '-';
+    int ansr = int.parse(okr.split(placementr)[1].split('/')[0]);
 
-      var ms = (new DateTime.now()).millisecondsSinceEpoch;
-                          String okr =
-                              "}" + ScopedModel.of<GameModel>(context).daterencontre + "/";
-                          int jourr = int.parse(okr.split('}')[1].split('-')[0]);
-                          int moisr = int.parse(okr.split('-')[1].split('-')[0]);
-                          String placementr =
-                              jourr.toString() + '-' + moisr.toString() + '-';
-                          int ansr =
-                              int.parse(okr.split(placementr)[1].split('/')[0]);
-
-                          var mst =
-                              new DateTime.utc(ansr, moisr, jourr, 12, 08, 04)
-                                  .millisecondsSinceEpoch;
-                          double tkt = (mst - ms) / (24 * 3600 * 1000);
-                          String tempsavantmatch;
-                          print(mst-ms);
-                          print(tkt);
-                          if (0 <= tkt && tkt < 1) {
-                            tempsavantmatch = "Aujoud'hui à "+ ScopedModel.of<GameModel>(context)
-                                      .heurerencontre;
-                          }else if(1 <= tkt && tkt < 2){
-                            tempsavantmatch =
-                                "Demain"+ ScopedModel.of<GameModel>(context)
-                                      .heurerencontre;
-
-                          } else if (tkt < 0){tempsavantmatch = "Rencontre fini";}else {
-                            tempsavantmatch =
-                                "Dans " + tkt.toInt().toString() + " jours à "+ ScopedModel.of<GameModel>(context)
-                                      .heurerencontre;
-                          }
+    var mst =
+        new DateTime.utc(ansr, moisr, jourr, 12, 08, 04).millisecondsSinceEpoch;
+    double tkt = (mst - ms) / (24 * 3600 * 1000);
+    String tempsavantmatch;
+    print(mst - ms);
+    print(tkt);
+    if (0 <= tkt && tkt < 1) {
+      tempsavantmatch =
+          "Aujoud'hui à " + ScopedModel.of<GameModel>(context).heurerencontre;
+    } else if (1 <= tkt && tkt < 2) {
+      tempsavantmatch =
+          "Demain" + ScopedModel.of<GameModel>(context).heurerencontre;
+    } else if (tkt < 0) {
+      tempsavantmatch = "Rencontre fini";
+    } else {
+      tempsavantmatch = "Dans " +
+          tkt.toInt().toString() +
+          " jours à " +
+          ScopedModel.of<GameModel>(context).heurerencontre;
+    }
     // après une seconds les commentaire scroll sur le dernier commentaire publier
-    Timer(Duration(seconds: 1), () {
-      if (ScopedModel.of<LoginModel>(context).boParticipation &&   ScopedModel.of<GameModel>(context).commentaire.length >= 1 ) {
-        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-      }
-    });
-// calcul pour savoir si la rencontre est déja passer 
-// si difference est négative la rencontre est passer 
-    String ok = "}" +
-                                  ScopedModel.of<GameModel>(context)
-                                      .daterencontre +
-                                  "/";
-                              int jour =
-                                  int.parse(ok.split('}')[1].split('-')[0]);
-                              int mois =
-                                  int.parse(ok.split('-')[1].split('-')[0]);
+    
+// calcul pour savoir si la rencontre est déja passer
+// si difference est négative la rencontre est passer
+    String ok = "}" + ScopedModel.of<GameModel>(context).daterencontre + "/";
+    int jour = int.parse(ok.split('}')[1].split('-')[0]);
+    int mois = int.parse(ok.split('-')[1].split('-')[0]);
 
-                              String placement =
-                                  jour.toString() + '-' + mois.toString() + '-';
-                              int ans = int.parse(
-                                  ok.split(placement)[1].split('/')[0]);
-                              final difference = DateTime(ans, mois, jour)
-                                  .difference(DateTime.now())
-                                  .inHours;
-
-                        
+    String placement = jour.toString() + '-' + mois.toString() + '-';
+    int ans = int.parse(ok.split(placement)[1].split('/')[0]);
+    final difference =
+        DateTime(ans, mois, jour).difference(DateTime.now()).inHours;
 
     notation(String personnenoter) {
       return RaisedButton(
@@ -206,21 +181,57 @@ class _PresentationState extends State<Presentation> {
         child: Text('noter'),
       );
     }
-   
 
     return Scaffold(
       appBar: AppBar(
         title: Center(
           child: Text(
-            tempsavantmatch ,
+            ScopedModel.of<GameModel>(context).lieu,
           ),
         ),
         backgroundColor: Colors.indigo,
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.settings),
+            icon: const Icon(Icons.directions),
             onPressed: () {
-              sdialog(context);
+           showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                        title: Text('Ouvrir avec'),
+                                        content: SingleChildScrollView(
+                                            child: ListBody(children: <Widget>[
+                                          GestureDetector(
+                                            child: Text("Google map"),
+                                            onTap: () async {
+                                              String value =  ScopedModel.of<GameModel>(context).url_lieu
+                                                  .toString();
+                                              //const url = const value;
+                                              if (await canLaunch(value)) {
+                                                await launch(value);
+                                              }
+                                            },
+                                          ),
+                                          Padding(padding: EdgeInsets.all(8.0)),
+                                          GestureDetector(
+                                            child: Text("Waze"),
+                                            onTap: () async {
+
+                                              String value =  ScopedModel.of<GameModel>(context).urlwaze_lieu
+                                                  .toString();
+                                              //const url = const value;
+                                              if (await canLaunch(value)) {
+                                                await launch(value);
+                                              }
+                                            },
+                                          )
+                                        ])
+                                        )
+                                        );
+                                  }
+           );
+                            
+                          
             },
           ),
         ],
@@ -256,606 +267,481 @@ class _PresentationState extends State<Presentation> {
               nombre_tour++;
             }
 
-            return SingleChildScrollView(
-              child: Center(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                    Text("lieu de la rencontre",
-                        softWrap: true,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.display4),
-
-// ce container contient les information sur le lieu
-                    Container(
-                      padding: const EdgeInsets.all(5),
-                      margin: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20.0),
-                        color: Colors.indigo,
-                      ),
+            return Stack(
+              children: <Widget>[
+                SingleChildScrollView(
+                  child: Center(
                       child: Column(
-                        children: <Widget>[
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text("Nom ",
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display2),
-                                      Text("adresse",
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display2),
-                                      Text("ville",
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display2),
-                                      Text("nombre de terrain",
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display2),
-                                    ]),
-                                Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(model.lieu,
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display2),
-                                      Text(model.adresse_lieu,
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display2),
-                                      Text(model.nom_t_lieu,
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display2),
-                                      Text(model.ville_lieu,
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display2),
-                                    ]),
-                              ]),
-                          Text(model.commentaire_lieu,
-                              softWrap: true,
-                              style: Theme.of(context).textTheme.display2),
-                        ],
-                      ),
-                    ),
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                        // ici on propose les bouton pour la participation
+                        // boParticipation est à true c'est que l'on participa déja si il est à false on participe pas encore
+
+
+
 // cette colone afficher les images du lieu
-                    Container(
-                      color: Colors.transparent,
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height / 1.5,
-                        child: PageView.builder(
-                          controller: PageController(viewportFraction: 1),
-                          itemCount: 4,
-                          itemBuilder: (BuildContext context, int itemIndex) {
-                            String image = "";
-                            switch (itemIndex) {
-                              case 0:
-                                {
-                                  image = lien1;
+                        Container(
+                          color: Colors.transparent,
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height / 1.4,
+                            child: PageView.builder(
+                              controller: PageController(viewportFraction: 1),
+                              itemCount: 4,
+                              itemBuilder:
+                                  (BuildContext context, int itemIndex) {
+                                String image = "";
+                                switch (itemIndex) {
+                                  case 0:
+                                    {
+                                      image = lien1;
+                                    }
+                                    break;
+                                  case 1:
+                                    {
+                                      image = lien2;
+                                    }
+                                    break;
+                                  case 2:
+                                    {
+                                      image = lien3;
+                                    }
+                                    break;
+                                  case 3:
+                                    {
+                                      image = lien4;
+                                    }
+                                    break;
+                                  default:
                                 }
-                                break;
-                              case 1:
-                                {
-                                  image = lien2;
-                                }
-                                break;
-                              case 2:
-                                {
-                                  image = lien3;
-                                }
-                                break;
-                              case 3:
-                                {
-                                  image = lien4;
-                                }
-                                break;
-                              default:
-                            }
-                            if (image == "") {
-                              Container();
-                            } else {
-                              return GestureDetector(
-                                onTap: () {
-                                  return showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return Container(
-                                            child: PhotoView(
-                                          imageProvider: NetworkImage(image),
-                                        ));
-                                      });
-                                },
-                                child: Image.network(
-                                  image,
-                                  width: MediaQuery.of(context).size.width,
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                    ),
-
-//affichage des commentaires
-                    ScopedModel.of<LoginModel>(context).boParticipation
-                        ? Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child: Column(children: <Widget>[
-                              model.bocommentaire
-                                  ? Column(
-                                      children: <Widget>[
-                                        Divider(color: Colors.grey[300]),
-                                        Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height /
-                                              2,
-                                          color: Colors.grey,
-                                          child: ListView.builder(
-                                              controller: _scrollController,
-                                              itemCount:
-                                                  model.commentaire.length,
-                                              itemBuilder: (context, i) {
-                                                bool message;
-                                                if (model.commentaire[i]
-                                                            ['pseudo']
-                                                        .toString() ==
-                                                    ScopedModel.of<LoginModel>(
-                                                            context)
-                                                        .pseudo
-                                                        .toString()) {
-                                                  message = true;
-                                                } else {
-                                                  message = false;
-                                                }
-
-                                                return Column(
-                                                  children: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment: message
-                                                          ? MainAxisAlignment
-                                                              .end
-                                                          : MainAxisAlignment
-                                                              .start,
-                                                      children: <Widget>[
-                                                        Flexible(
-                                                          child:
-                                                              GestureDetector(
-                                                            onLongPress: () {
-                                                              if (message) {}
-                                                            },
-                                                            child: Container(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(15),
-                                                              constraints: BoxConstraints(
-                                                                  minWidth: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width /
-                                                                      5,
-                                                                  maxWidth: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width /
-                                                                      1.1),
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            20.0),
-                                                                color: message
-                                                                    ? Colors
-                                                                        .indigo
-                                                                    : Colors.amber[
-                                                                        900],
-                                                              ),
-                                                              child: Column(
-                                                                children: <
-                                                                    Widget>[
-                                                                  Text(
-                                                                      model.commentaire[
-                                                                              i]
-                                                                          [
-                                                                          'commentaire'],
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .center,
-                                                                      style: Theme.of(
-                                                                              context)
-                                                                          .textTheme
-                                                                          .display3),
-                                                                  Text(model
-                                                                          .commentaire[i]
-                                                                      [
-                                                                      'pseudo']),
-                                                                  Text(model
-                                                                          .commentaire[i]
-                                                                      ['date']),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Container(
-                                                      height: 10,
-                                                    ),
-                                                  ],
-                                                );
-                                              }),
-                                        ),
-                                      ],
-                                    )
-                                  : Container(),
-
-                              // formulaire pour commenter
-                              Form(
-                                key: key_commentainer,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Container(
-                                      color: Colors.indigo,
-                                      child: TextFormField(
-                                        autocorrect: true,
-                                        cursorColor: Colors.white,
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            decorationColor: Colors.white),
-                                        decoration: InputDecoration(
-                                          hintText: 'Ecrivez un message...',
-                                          hintStyle:
-                                              TextStyle(color: Colors.white),
-                                          suffixIcon: IconButton(
-                                            onPressed: () async {
-                                              if (key_commentainer.currentState
-                                                  .validate()) {
-                                                await ScopedModel.of<GameModel>(
-                                                        context)
-                                                    .Ajouter_ommentaire(
-                                                        com, login.pseudo);
-                                                await ScopedModel.of<GameModel>(
-                                                        context)
-                                                    .Commentaire();
-                                              }
-                                            },
-                                            icon: Icon(Icons.send),
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please enter some text';
-                                          }
-                                          return null;
-                                        },
-                                        onChanged: (value) {
-                                          com = value;
-                                        },
-                                      ),
+                                if (image == "") {
+                                  Container();
+                                } else {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      return showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Container(
+                                                child: PhotoView(
+                                              imageProvider:
+                                                  NetworkImage(image),
+                                            ));
+                                          });
+                                    },
+                                    child: Image.network(
+                                      image,
+                                      width: MediaQuery.of(context).size.width,
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ]),
-                          )
-                        : Container(),
-
-// ce container affiche le bouton participer ou alluler la participation
-                    Center(
-                        child: Text("Participants",
-                            textAlign: TextAlign.center,
-                            softWrap: true,
-                            style: Theme.of(context).textTheme.display4)),
-
-                    // ici on propose les bouton pour la participation
-                    // boParticipation est à true c'est que l'on participa déja si il est à false on participe pas encore
-
-                    ScopedModel.of<LoginModel>(context).boParticipation
-                        ? RaisedButton(
-                            onPressed: () async {
-
-                              if (difference < 0) {
-                                Scaffold.of(context).showSnackBar(new SnackBar(
-                                    content: new Text(
-                                        'Cette rencontre est déja fini')));
-                              } else {
-                              
-                              showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    
-                                    return Center(
-                                      child: Container(
-                                        color: Colors.white,
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Text(
-                                                'Es-tu sûr de vraiment vouloir supprimer ta participation ?',
-                                                textAlign: TextAlign.center,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .display1),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: <Widget>[
-                                                RaisedButton(
-                                                    onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    },
-                                                    child: Text('non')),
-                                                RaisedButton(
-                                                    onPressed: () async {
-                                                      await ScopedModel.of<
-                                                                  LoginModel>(
-                                                              context)
-                                                          .Personne_propose(model
-                                                              .id_rencontre);
-                                                      // maintenant dans login modal var participent nous avons les participent
-
-                                                      if (ScopedModel.of<
-                                                                      LoginModel>(
-                                                                  context)
-                                                              .boParticipation ==
-                                                          true) {
-                                                        // créer la participation
-                                                        await model
-                                                            .Sup_participation(
-                                                          int.parse(model
-                                                              .id_rencontre),
-                                                          ScopedModel.of<
-                                                                      LoginModel>(
-                                                                  context)
-                                                              .pseudo,
-                                                          model.nombJoueur,
-                                                        );
-
-                                                        // maintenant on refrech la page
-                                                        model.nombJoueur--;
-                                                        if (model.nombJoueur ==
-                                                            0) {
-                                                          Navigator
-                                                              .pushNamedAndRemoveUntil(
-                                                                  context,
-                                                                  '/Profil',
-                                                                  (Route<dynamic>
-                                                                          route) =>
-                                                                      false);
-                                                        } else {
-                                                          await ScopedModel.of<
-                                                                      LoginModel>(
-                                                                  context)
-                                                              .Personne_propose(
-                                                                  model
-                                                                      .id_rencontre);
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        }
-                                                      }
-                                                    },
-                                                    child: Text('oui')),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  });
-                              }
-                            },
-                            child: Text("supprimer ma participation"))
-                        : RaisedButton(
-                            onPressed: () async {
-                              
-                              if (difference < 0) {
-                                Scaffold.of(context).showSnackBar(new SnackBar(
-                                    content: new Text(
-                                        'Cette rencontre est déja fini')));
-                              } else {
-                                await ScopedModel.of<LoginModel>(context)
-                                    .Personne_propose(model.id_rencontre);
-                                // maintenant dans login modal var participent nous avons les participent
-
-                                if (ScopedModel.of<LoginModel>(context)
-                                        .boParticipation ==
-                                    false) {
-                                  // créer la participation
-                                  await model.Participation(
-                                    int.parse(model.id_rencontre),
-                                    ScopedModel.of<LoginModel>(context).pseudo,
-                                    model.nombJoueur,
                                   );
-
-                                  // maintenant on refrech la page
-
-                                  model.nombJoueur++;
-                                  await ScopedModel.of<LoginModel>(context)
-                                      .Personne_propose(model.id_rencontre);
-                                  _scrollController.jumpTo(_scrollController
-                                      .position.maxScrollExtent);
                                 }
-                              }
-                            },
-                            child: Text("participer")),
+                              },
+                            ),
+                          ),
+                        ),
+
+
+
+
+
+
+
+
+
+                        // ce container contient les information sur le lieu
+                        Column(
+                            children: <Widget>[
+                            
+                                    
+                                    Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                           Row(
+                                             mainAxisAlignment: MainAxisAlignment.end,
+                                             children: <Widget>[
+                                               Text(model.adresse_lieu + ", "+ model.nom_t_lieu  ,
+                                               textAlign: TextAlign.end,
+                                                  softWrap: true,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3),
+                                             ],
+                                           ),   
+                                        ]),
+                                
+                              Text(model.commentaire_lieu,
+                                  softWrap: true,
+                                  style: Theme.of(context).textTheme.display3),
+                                  
+                            ],
+                          ),
+
+                        ScopedModel.of<LoginModel>(context).boParticipation
+                            ? RaisedButton(
+                                onPressed: () async {
+                                  if (difference < 0) {
+                                    Scaffold.of(context).showSnackBar(new SnackBar(
+                                        content: new Text(
+                                            'Cette rencontre est déja fini')));
+                                  } else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Center(
+                                            child: Container(
+                                              color: Colors.white,
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: <Widget>[
+                                                  Text(
+                                                      'Es-tu sûr de vraiment vouloir supprimer ta participation ?',
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display1),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceEvenly,
+                                                    children: <Widget>[
+                                                      RaisedButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: Text('non')),
+                                                      RaisedButton(
+                                                          onPressed: () async {
+                                                            await ScopedModel
+                                                                    .of<LoginModel>(
+                                                                        context)
+                                                                .Personne_propose(
+                                                                    model
+                                                                        .id_rencontre);
+                                                            // maintenant dans login modal var participent nous avons les participent
+
+                                                            if (ScopedModel.of<
+                                                                            LoginModel>(
+                                                                        context)
+                                                                    .boParticipation ==
+                                                                true) {
+                                                              // créer la participation
+                                                              await model
+                                                                  .Sup_participation(
+                                                                int.parse(model
+                                                                    .id_rencontre),
+                                                                ScopedModel.of<
+                                                                            LoginModel>(
+                                                                        context)
+                                                                    .pseudo,
+                                                                model
+                                                                    .nombJoueur,
+                                                              );
+
+                                                              // maintenant on refrech la page
+                                                              model
+                                                                  .nombJoueur--;
+                                                              if (model
+                                                                      .nombJoueur ==
+                                                                  0) {
+                                                                Navigator.pushNamedAndRemoveUntil(
+                                                                    context,
+                                                                    '/Profil',
+                                                                    (Route<dynamic>
+                                                                            route) =>
+                                                                        false);
+                                                              } else {
+                                                                await ScopedModel.of<
+                                                                            LoginModel>(
+                                                                        context)
+                                                                    .Personne_propose(
+                                                                        model
+                                                                            .id_rencontre);
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              }
+                                                            }
+                                                          },
+                                                          child: Text('oui')),
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        });
+                                  }
+                                },
+                                child: Text("supprimer ma participation"))
+                            : RaisedButton(
+                                onPressed: () async {
+                                  if (difference < 0) {
+                                    Scaffold.of(context).showSnackBar(new SnackBar(
+                                        content: new Text(
+                                            'Cette rencontre est déja fini')));
+                                  } else {
+                                    await ScopedModel.of<LoginModel>(context)
+                                        .Personne_propose(model.id_rencontre);
+                                    // maintenant dans login modal var participent nous avons les participent
+
+                                    if (ScopedModel.of<LoginModel>(context)
+                                            .boParticipation ==
+                                        false) {
+                                      // créer la participation
+                                      await model.Participation(
+                                        int.parse(model.id_rencontre),
+                                        ScopedModel.of<LoginModel>(context)
+                                            .pseudo,
+                                        model.nombJoueur,
+                                      );
+
+                                      // maintenant on refrech la page
+
+                                      model.nombJoueur++;
+                                      await ScopedModel.of<LoginModel>(context)
+                                          .Personne_propose(model.id_rencontre);
+                                      _scrollController.jumpTo(_scrollController
+                                          .position.maxScrollExtent);
+                                    }
+                                  }
+                                },
+                                child: Text("participer")),
 // affichage des participations
 
-                    ScopedModelDescendant<LoginModel>(
-                        builder: (context, child, login) {
-                      return ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: login.participent.length,
-                          itemBuilder: (context, i) {
-                            var ms =
-                                (new DateTime.now()).millisecondsSinceEpoch;
-                            String ok = "}" + login.participent[i]['age'] + "/";
+                        ScopedModelDescendant<LoginModel>(
+                            builder: (context, child, login) {
+                          return ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: login.participent.length,
+                              itemBuilder: (context, i) {
+                                var ms =
+                                    (new DateTime.now()).millisecondsSinceEpoch;
+                                String ok =
+                                    "}" + login.participent[i]['age'] + "/";
 
-                            int jour =
-                                int.parse(ok.split('}')[1].split('-')[0]);
-                            int mois =
-                                int.parse(ok.split('-')[1].split('-')[0]);
+                                int jour =
+                                    int.parse(ok.split('}')[1].split('-')[0]);
+                                int mois =
+                                    int.parse(ok.split('-')[1].split('-')[0]);
 
-                            String placement =
-                                jour.toString() + '-' + mois.toString() + '-';
-                            int ans =
-                                int.parse(ok.split(placement)[1].split('/')[0]);
+                                String placement = jour.toString() +
+                                    '-' +
+                                    mois.toString() +
+                                    '-';
+                                int ans = int.parse(
+                                    ok.split(placement)[1].split('/')[0]);
 
-                            var mst =
-                                new DateTime.utc(ans, mois, jour, 20, 18, 04)
+                                var mst = new DateTime.utc(
+                                        ans, mois, jour, 20, 18, 04)
                                     .millisecondsSinceEpoch;
-                            int ageAnne =
-                                ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
-                            bool bonotation = true;
-                            if (login.pseudo ==
-                                login.participent[i]['pseudo']) {
-                              bonotation = false;
-                            } else {
-                              bonotation = true;
-                            }
+                                int ageAnne =
+                                    ((ms - mst) / (365 * 24 * 3600 * 1000))
+                                        .toInt();
+                                bool bonotation = true;
+                                if (login.pseudo ==
+                                    login.participent[i]['pseudo']) {
+                                  bonotation = false;
+                                } else {
+                                  bonotation = true;
+                                }
 
-                            if (ScopedModel.of<GameModel>(context)
-                                    .organisateur ==
-                                login.participent[i]['pseudo']) {
-                              // ici c'est le container pour celui qui a propose cette rencontre
-                              return GestureDetector(
-                                onTap: () async {
-                                  if (login.participent[i]['pseudo'] ==
-                                      ScopedModel.of<LoginModel>(context)
-                                          .pseudo
-                                          .toString()) {
-                                    ScopedModel.of<LoginModel>(context)
-                                        .ParticipationProil();
-                                    Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        '/Profil',
-                                        (Route<dynamic> route) => false);
-                                  } else {
-                                    await login.ParticipationProilVisiteur(
-                                        login.participent[i]['pseudo']);
-                                    ScopedModel.of<LoginModel>(context)
-                                        .profVisiteur = login.participent[i];
-                                    Navigator.pushNamed(
-                                        context, '/ProfilVisiteur');
-                                  }
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  margin: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    color: Colors.amber[900],
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                if (ScopedModel.of<GameModel>(context)
+                                        .organisateur ==
+                                    login.participent[i]['pseudo']) {
+                                  // ici c'est le container pour celui qui a propose cette rencontre
+                                  return Column(
                                     children: <Widget>[
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.yellow,
-                                      ),
-                                      Text(login.participent[i]['pseudo'],
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                      Text(ageAnne.toString() + " ans",
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                      bonotation
-                                          ? ScopedModel.of<LoginModel>(context)
-                                                  .boParticipation
-                                              ? notation(login.participent[i]
-                                                  ['pseudo'])
-                                              : Container()
-                                          : Container(),
+                                      GestureDetector(
+                                        onTap: () async {
+                                          if (login.participent[i]['pseudo'] ==
+                                              ScopedModel.of<LoginModel>(
+                                                      context)
+                                                  .pseudo
+                                                  .toString()) {
+                                            ScopedModel.of<LoginModel>(context)
+                                                .ParticipationProil();
+                                              Navigator.pushNamed(
+                                                context, '/Profil');
+                                          } else {
+                                            await login
+                                                .ParticipationProilVisiteur(
+                                                    login.participent[i]
+                                                        ['pseudo']);
+                                            ScopedModel.of<LoginModel>(context)
+                                                    .profVisiteur =
+                                                login.participent[i];
+                                            Navigator.pushNamed(
+                                                context, '/ProfilVisiteur');
+                                          }
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(width: 0.8),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 4.0, vertical: 2.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Container(
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 2.0,
+                                                        vertical: 2.0),
+                                                child: CircleAvatar(
+                                                  backgroundImage: NetworkImage(
+                                                      login.participent[i]
+                                                          ['photo']),
+                                                  radius: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      20,
+                                                ),
+                                              ),
+                                              Text(
+                                                  login.participent[i]
+                                                      ['pseudo'],
+                                                  softWrap: true,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3),
+                                              Text(ageAnne.toString() + " ans ",
+                                                  softWrap: true,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3),
+                                              bonotation
+                                                  ? ScopedModel.of<LoginModel>(
+                                                              context)
+                                                          .boParticipation
+                                                      ? notation(
+                                                          login.participent[i]
+                                                              ['pseudo'])
+                                                      : Container()
+                                                  : Container(),
+                                            ],
+                                          ),
+                                        ),
+                                      )
                                     ],
-                                  ),
-                                ),
-                              );
-                            } else {
-                              //ici c'est tous les autre participent
-                              return GestureDetector(
-                                onTap: () async {
-                                  if (login.participent[i]['pseudo'] ==
-                                      ScopedModel.of<LoginModel>(context)
-                                          .pseudo
-                                          .toString()) {
-                                    Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        '/Profil',
-                                        (Route<dynamic> route) => false);
-                                  } else {
-                                    await login.ParticipationProilVisiteur(
-                                        login.participent[i]['pseudo']);
+                                  );
+                                } else {
+                                  //ici c'est tous les autre participent
+                                  return Column(
+                                    children: <Widget>[
+                                      GestureDetector(
+                                        onTap: () async {
+                                          if (login.participent[i]['pseudo'] ==
+                                              ScopedModel.of<LoginModel>(
+                                                      context)
+                                                  .pseudo
+                                                  .toString()) {
+                                                      Navigator.pushNamed(
+                                                context, '/Profil');
+                                          } else {
+                                            await login
+                                                .ParticipationProilVisiteur(
+                                                    login.participent[i]
+                                                        ['pseudo']);
 
-                                    ScopedModel.of<LoginModel>(context)
-                                        .profVisiteur = login.participent[i];
-                                    Navigator.pushNamed(
-                                        context, '/ProfilVisiteur');
-                                  }
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(5),
-                                  margin: const EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    color: Colors.indigo,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      Text(login.participent[i]['pseudo'],
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                      Text(ageAnne.toString() + " ans",
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                      bonotation
-                                          ? ScopedModel.of<LoginModel>(context)
-                                                  .boParticipation
-                                              ? notation(login.participent[i]
-                                                  ['pseudo'])
-                                              : Container()
-                                          : Container(),
+                                            ScopedModel.of<LoginModel>(context)
+                                                    .profVisiteur =
+                                                login.participent[i];
+                                            Navigator.pushNamed(
+                                                context, '/ProfilVisiteur');
+                                          }
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(width: 0.8),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 4.0, vertical: 2.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Container(
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 2.0,
+                                                        vertical: 2.0),
+                                                child: CircleAvatar(
+                                                  backgroundImage: NetworkImage(
+                                                      login.participent[i]
+                                                          ['photo']),
+                                                  radius: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      20,
+                                                ),
+                                              ),
+                                              Text(
+                                                  login.participent[i]
+                                                      ['pseudo'],
+                                                  softWrap: true,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3),
+                                              Text(ageAnne.toString() + " ans ",
+                                                  softWrap: true,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3),
+                                              bonotation
+                                                  ? ScopedModel.of<LoginModel>(
+                                                              context)
+                                                          .boParticipation
+                                                      ? notation(
+                                                          login.participent[i]
+                                                              ['pseudo'])
+                                                      : Container()
+                                                  : Container(),
+                                            ],
+                                          ),
+                                        ),
+                                      )
                                     ],
-                                  ),
-                                ),
-                              );
-                            }
-                          });
-                    }),
-                  ])),
+                                  );
+                                }
+                              });
+                        }),
+
+
+                        
+
+                      ])),
+                ),
+      
+
+                ScopedModel.of<LoginModel>(context).boParticipation
+                    ? Transform.translate(
+                        offset: Offset(MediaQuery.of(context).size.width - 60,
+                            MediaQuery.of(context).size.height - 220),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, color: Colors.indigo),
+                          child: IconButton(
+                            iconSize: 40,
+                            icon: Icon(Icons.comment),
+                            color: Colors.white,
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/commentaire');
+                            },
+                          ),
+                        ),
+                      )
+                    : Container(),
+              ],
             );
           });
         });

@@ -267,11 +267,14 @@ class _PresentationState extends State<Presentation> {
                                 radius: MediaQuery.of(context).size.width / 6,
                               ),
                             )),
-                        Container(
-                          color: Colors.transparent,
-                          height: MediaQuery.of(context).size.width / 4,
-                          width: MediaQuery.of(context).size.width / 4,
-                        )
+                        Text(model.noteprofil.toString() + "/5",
+                            softWrap: true,
+                            style: Theme.of(context).textTheme.display3),
+                        // Container(
+                        //   color: Colors.transparent,
+                        //   height: MediaQuery.of(context).size.width / 4,
+                        //   width: MediaQuery.of(context).size.width / 4,
+                        // )
                       ],
                     ),
                     Container(
@@ -279,8 +282,8 @@ class _PresentationState extends State<Presentation> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              width: MediaQuery.of(context).size.width / 1.8,
-                              height: MediaQuery.of(context).size.height / 3,
+                              // width: MediaQuery.of(context).size.width / 1.8,
+                              // height: MediaQuery.of(context).size.height / 3,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -291,9 +294,7 @@ class _PresentationState extends State<Presentation> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
-                                        Container(
-                                          height: 50,
-                                        ),
+                                        
                                         Row(
                                           children: <Widget>[
                                             Text(model.prenom + " ",
@@ -327,14 +328,6 @@ class _PresentationState extends State<Presentation> {
                                           height: 10,
                                         ),
                                         Text(model.description,
-                                            softWrap: true,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .display3),
-                                        Text(
-                                            "Tu est notée " +
-                                                model.noteprofil.toString() +
-                                                "/5",
                                             softWrap: true,
                                             style: Theme.of(context)
                                                 .textTheme
@@ -395,12 +388,16 @@ class _PresentationState extends State<Presentation> {
                           String tempsavantmatch;
 
                           if (tkt.toInt() == 0) {
-                            tempsavantmatch = "aujoud'hui à " +model.participation[i]['heure'];
-                          }else if(1 <= tkt && tkt < 2){
-                                 tempsavantmatch = "demain à " +model.participation[i]['heure'];
-                          } else {
+                            tempsavantmatch = "aujoud'hui à " +
+                                model.participation[i]['heure'];
+                          } else if (1 <= tkt && tkt < 2) {
                             tempsavantmatch =
-                                "dans " + tkt.toInt().toString() + " jour(s) à " +model.participation[i]['heure'];
+                                "demain à " + model.participation[i]['heure'];
+                          } else {
+                            tempsavantmatch = "dans " +
+                                tkt.toInt().toString() +
+                                " jour(s) à " +
+                                model.participation[i]['heure'];
                           }
 
                           if (chnagecouleur) {
@@ -481,8 +478,7 @@ class _PresentationState extends State<Presentation> {
                                                                     context)
                                                                 .textTheme
                                                                 .display2),
-                                                        Text(
-                                                            tempsavantmatch,
+                                                        Text(tempsavantmatch,
                                                             softWrap: true,
                                                             style: Theme.of(
                                                                     context)

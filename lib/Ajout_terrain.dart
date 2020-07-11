@@ -112,14 +112,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
     title: Text("Ajouter un playground"),
     backgroundColor: Colors.indigo,
    
-    actions: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () {
-          sdialog(context) ;
-        },
-      ),
-    ],
+    
   ),
         persistentFooterButtons: <Widget>[
           Footer(),

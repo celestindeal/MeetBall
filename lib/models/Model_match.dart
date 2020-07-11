@@ -15,6 +15,8 @@ class GameModel extends Model {
   List commentaire = [];
   bool bocommentaire = true;
   var adresse_lieu;
+  var url_lieu;
+  var urlwaze_lieu;
   var commentaire_lieu;
   var nom_t_lieu;
   var ville_lieu;
@@ -96,6 +98,8 @@ class GameModel extends Model {
     while (nombre_tour > n && validation == true) {
       if ((data[n]['nom'].toString() + " ") == lieu.toString()) {
         adresse_lieu = data[n]['adresse'];
+        url_lieu = data[n]['url'];
+        urlwaze_lieu = data[n]['urlwaze'];
         commentaire_lieu = data[n]['commentaire'];
         nom_t_lieu = data[n]['ville'];
         ville_lieu = data[n]['nom_t'];
@@ -109,6 +113,8 @@ class GameModel extends Model {
         nom_t_lieu = data[n]['ville'];
         ville_lieu = data[n]['nom_t'];
         id_terrain = data[n]['id'];
+        url_lieu = data[n]['url'];
+        urlwaze_lieu = data[n]['urlwaze'];
 
         validation = false;
       }

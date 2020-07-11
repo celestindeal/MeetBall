@@ -114,14 +114,7 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
     title: Text("Rechercher un joueur"),
     backgroundColor: Colors.indigo,
   
-    actions: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () {
-          sdialog(context);
-        },
-      ),
-    ],
+    
   ),
         persistentFooterButtons: <Widget>[
           Footer(),

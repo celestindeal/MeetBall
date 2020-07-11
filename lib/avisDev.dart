@@ -40,14 +40,7 @@ class _AvisDevState extends State<AvisDev> {
           Navigator.pushNamedAndRemoveUntil(
               context, '/Ajout_match', (Route<dynamic> route) => false);
         }),
-    actions: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () {
-           sdialog(context);
-        },
-      ),
-    ],
+
   ),
         // backgroundColor: Colors.black,
         persistentFooterButtons: <Widget>[

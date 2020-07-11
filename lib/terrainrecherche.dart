@@ -112,14 +112,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
     title: Text("Rechercher un playground"),
     backgroundColor: Colors.indigo,
   
-    actions: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () {
-          sdialog(context);
-        },
-      ),
-    ],
+    
   ),
         persistentFooterButtons: <Widget>[
           Footer(),

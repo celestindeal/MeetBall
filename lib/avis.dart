@@ -36,14 +36,7 @@ class _AvisState extends State<Avis> {
           Navigator.pushNamedAndRemoveUntil(
               context, '/Ajout_match', (Route<dynamic> route) => false);
         }),
-    actions: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () {
-          sdialog(context);
-        },
-      ),
-    ],
+   
   ),
         persistentFooterButtons: <Widget>[
                     Footer(),

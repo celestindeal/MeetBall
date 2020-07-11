@@ -37,14 +37,7 @@ class Presentation_terrain extends StatelessWidget {
         appBar: AppBar(
     title:  Center( child : Text("Playground"),),
     backgroundColor: Colors.indigo,
-    actions: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () {
-          sdialog(context);
-        },
-      ),
-    ],
+   
   ),
         persistentFooterButtons: <Widget>[
           Footer(),

@@ -69,14 +69,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
             onPressed: () {
               Navigator.pushNamed(context, '/Ajout_match');
             }),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              sdialog(context);
-            },
-          ),
-        ],
+        
       ),
       persistentFooterButtons: <Widget>[
         Footer(),

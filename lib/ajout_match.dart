@@ -64,14 +64,6 @@ class _Ajout_matchState extends State<Ajout_match> {
         appBar: AppBar(
           title: Center(child: Text("Ajouter une rencontre")),
           backgroundColor: Colors.indigo,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                sdialog(context);
-              },
-            ),
-          ],
         ),
         persistentFooterButtons: <Widget>[
           Footer(),

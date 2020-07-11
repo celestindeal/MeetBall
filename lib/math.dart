@@ -44,14 +44,7 @@ class _MatchState extends State<Match> {
                           Navigator.pushNamedAndRemoveUntil(context,
                               '/Ajout_match', (Route<dynamic> route) => false);
                         }),
-                    actions: <Widget>[
-                      IconButton(
-                        icon: const Icon(Icons.settings),
-                        onPressed: () {
-                          sdialog(context);
-                        },
-                      ),
-                    ],
+                   
                   ),
                   persistentFooterButtons: <Widget>[
                     Footer(),
@@ -88,14 +81,7 @@ class Presentation extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(context, '/Ajout_match');
               }),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                sdialog(context);
-              },
-            ),
-          ],
+         
         ),
         persistentFooterButtons: <Widget>[
           Footer(),

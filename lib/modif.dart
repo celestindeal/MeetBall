@@ -93,14 +93,8 @@ class _ModfState extends State<Modif> {
               onPressed: () {
                 Navigator.pushNamed(context, '/Ajout_match');
               }),
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                sdialog(context);
-              },
-            ),
-          ],
+          
+          
         ),
         // backgroundColor: Colors.black,
         persistentFooterButtons: <Widget>[

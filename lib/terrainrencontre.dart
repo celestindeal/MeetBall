@@ -29,14 +29,7 @@ class _TerrainRenState extends State<TerrainRen> {
           ScopedModel.of<GameModel>(context)
                                       .terrainrencontre),
           backgroundColor: Colors.indigo,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                sdialog(context);
-              },
-            ),
-          ],
+         
         ),
         persistentFooterButtons: <Widget>[
           Footer(),

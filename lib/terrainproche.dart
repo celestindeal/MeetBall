@@ -91,14 +91,7 @@ class _TerrainProState extends State<TerrainPro> {
         appBar: AppBar(
     title: Text("Playground à coté"),
     backgroundColor: Colors.indigo,
-    actions: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () {
-          sdialog(context);
-        },
-      ),
-    ],
+    
   ),
         persistentFooterButtons: <Widget>[
           Footer(),

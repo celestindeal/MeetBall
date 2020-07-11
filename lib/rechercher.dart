@@ -43,14 +43,7 @@ class Presentation_rechercher extends StatelessWidget {
           Navigator.pushNamed(context, '/Ajout_match');
              
         }),
-    actions: <Widget>[
-      IconButton(
-        icon: const Icon(Icons.settings),
-        onPressed: () {
-          sdialog(context);
-        },
-      ),
-    ],
+    
   ),
         persistentFooterButtons: <Widget>[
           Footer(),
