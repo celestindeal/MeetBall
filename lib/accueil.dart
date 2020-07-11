@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:mailer2/mailer.dart';
-import 'package:meetballl/PushNotificationManager.dart';
 import 'package:meetballl/db.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -42,7 +41,7 @@ class _AccueilState extends State<Accueil> {
             context, '/Profil', (Route<dynamic> route) => false);
       }
 
-      PushNotificationsManager().init();
+
       return persoonne;
     }
 
@@ -137,7 +136,7 @@ class _AccueilState extends State<Accueil> {
                         child: RaisedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/inscription');
-                            PushNotificationsManager().init();
+                          
                           },
                           child: Text('Inscription'),
                         ),
@@ -159,8 +158,6 @@ class _AccueilState extends State<Accueil> {
                               Navigator.pushNamedAndRemoveUntil(context,
                                   '/Profil', (Route<dynamic> route) => false);
                             }
-                            // s'inscrirr pour resevoire les notifications
-                            PushNotificationsManager().init();
                           },
                           child: Text('Connexion'),
                         ),
