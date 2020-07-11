@@ -185,9 +185,9 @@ class _PresentationState extends State<Presentation> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Center(
-            child: Text(ScopedModel.of<LoginModel>(context).pseudo),
-          ),
+           centerTitle: true,
+    title:   Text(ScopedModel.of<LoginModel>(context).pseudo),
+          
           backgroundColor: Colors.indigo,
           leading: IconButton(
               icon: Icon(Icons.add),
@@ -270,11 +270,6 @@ class _PresentationState extends State<Presentation> {
                         Text(model.noteprofil.toString() + "/5",
                             softWrap: true,
                             style: Theme.of(context).textTheme.display3),
-                        // Container(
-                        //   color: Colors.transparent,
-                        //   height: MediaQuery.of(context).size.width / 4,
-                        //   width: MediaQuery.of(context).size.width / 4,
-                        // )
                       ],
                     ),
                     Container(
@@ -282,8 +277,6 @@ class _PresentationState extends State<Presentation> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Container(
-                              // width: MediaQuery.of(context).size.width / 1.8,
-                              // height: MediaQuery.of(context).size.height / 3,
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

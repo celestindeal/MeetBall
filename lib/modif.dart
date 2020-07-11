@@ -44,7 +44,7 @@ class _ModfState extends State<Modif> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text('choisi entre'),
+    title:  Text('choisi entre'),
               content: SingleChildScrollView(
                   child: ListBody(children: <Widget>[
                 GestureDetector(
@@ -84,9 +84,9 @@ class _ModfState extends State<Modif> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Center(
-            child: Text("Modifier le profil"),
-          ),
+           centerTitle: true,
+    title:  Text("Modifier le profil"),
+          
           backgroundColor: Colors.indigo,
           leading: IconButton(
               icon: Icon(Icons.add),

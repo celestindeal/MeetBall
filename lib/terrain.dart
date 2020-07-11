@@ -35,7 +35,8 @@ class Presentation_terrain extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-    title:  Center( child : Text("Playground"),),
+     centerTitle: true,
+    title:   Text("Playground"),
     backgroundColor: Colors.indigo,
    
   ),

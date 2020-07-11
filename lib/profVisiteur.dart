@@ -26,10 +26,10 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Center(
-            child: Text(
+           centerTitle: true,
+    title:   Text(
                 ScopedModel.of<LoginModel>(context).profVisiteur['pseudo']),
-          ),
+          
           backgroundColor: Colors.indigo,
           
         ),

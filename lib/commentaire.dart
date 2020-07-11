@@ -29,9 +29,9 @@ class _CommentaireState extends State<Commentaire> {
     });
     return Scaffold(
         appBar: AppBar(
-          title: Center(
-            child: Text("Commentaire"),
-          ),
+           centerTitle: true,
+    title:   Text("Commentaire"),
+          
           backgroundColor: Colors.indigo,
       
         ),

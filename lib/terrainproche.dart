@@ -89,7 +89,8 @@ class _TerrainProState extends State<TerrainPro> {
 
     return Scaffold(
         appBar: AppBar(
-    title: Text("Playground à coté"),
+     centerTitle: true,
+    title:  Text("Playground à coté"),
     backgroundColor: Colors.indigo,
     
   ),
@@ -293,7 +294,7 @@ class _AffImageState extends State<AffImage> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                        title: Text('Ouvrir avec'),
+    title:  Text('Ouvrir avec'),
                                         content: SingleChildScrollView(
                                             child: ListBody(children: <Widget>[
                                           GestureDetector(

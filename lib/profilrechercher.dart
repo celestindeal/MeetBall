@@ -111,7 +111,8 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
 
     return Scaffold(
         appBar: AppBar(
-    title: Text("Rechercher un joueur"),
+     centerTitle: true,
+    title:  Text("Rechercher un joueur"),
     backgroundColor: Colors.indigo,
   
     

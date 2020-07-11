@@ -44,7 +44,7 @@ class _Ajout_matchState extends State<Ajout_match> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Choisi ton lieu"),
+    title:  Text("Choisi ton lieu"),
             content: MultiSelectChip(reportList),
             actions: <Widget>[
               FlatButton(
@@ -62,7 +62,8 @@ class _Ajout_matchState extends State<Ajout_match> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Text("Ajouter une rencontre")),
+           centerTitle: true,
+    title:  Text("Ajouter une rencontre"),
           backgroundColor: Colors.indigo,
         ),
         persistentFooterButtons: <Widget>[

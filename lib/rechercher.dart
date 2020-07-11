@@ -35,7 +35,9 @@ class Presentation_rechercher extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-    title:  Center( child : Text("Rechercher"),),
+           centerTitle: true,
+   
+    title:    Text("Rechercher",textAlign: TextAlign.center),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),

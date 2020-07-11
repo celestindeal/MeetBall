@@ -109,7 +109,8 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
 
     return Scaffold(
         appBar: AppBar(
-    title: Text("Rechercher un playground"),
+     centerTitle: true,
+    title:  Text("Rechercher un playground"),
     backgroundColor: Colors.indigo,
   
     
@@ -372,7 +373,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                 (BuildContext
                                                                     context) {
                                                               return AlertDialog(
-                                                                  title: Text(
+    title:  Text(
                                                                       'Ouvrir avec'),
                                                                   content:
                                                                       SingleChildScrollView(

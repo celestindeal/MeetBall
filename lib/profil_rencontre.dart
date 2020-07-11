@@ -29,7 +29,8 @@ class Profil_renctontre extends StatelessWidget {
                 )
               : Scaffold(
                   appBar: AppBar(
-                    title: Text("Rencontre"),
+                     centerTitle: true,
+    title:  Text("Rencontre"),
                     backgroundColor: Colors.indigo,
                     
                   ),
@@ -184,10 +185,10 @@ class _PresentationState extends State<Presentation> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(
+         centerTitle: true,
+    title:   Text(
             ScopedModel.of<GameModel>(context).lieu,
-          ),
+          
         ),
         backgroundColor: Colors.indigo,
         actions: <Widget>[
@@ -198,7 +199,7 @@ class _PresentationState extends State<Presentation> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                        title: Text('Ouvrir avec'),
+    title:  Text('Ouvrir avec'),
                                         content: SingleChildScrollView(
                                             child: ListBody(children: <Widget>[
                                           GestureDetector(

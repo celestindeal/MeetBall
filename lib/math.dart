@@ -34,9 +34,9 @@ class _MatchState extends State<Match> {
                 )
               : Scaffold(
                   appBar: AppBar(
-                    title: Center(
-                      child: Text("MeetBall"),
-                    ),
+                     centerTitle: true,
+    title:   Text("MeetBall"),
+                    
                     backgroundColor: Colors.indigo,
                     leading: IconButton(
                         icon: Icon(Icons.add),
@@ -72,9 +72,9 @@ class Presentation extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Center(
-            child: Text("Rencontre à venir"),
-          ),
+           centerTitle: true,
+    title:  Text("Rencontre à venir"),
+          
           backgroundColor: Colors.indigo,
           leading: IconButton(
               icon: Icon(Icons.add),

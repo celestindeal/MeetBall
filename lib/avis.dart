@@ -28,7 +28,8 @@ class _AvisState extends State<Avis> {
   Widget build(BuildContext context) {
     return Scaffold(
      appBar: AppBar(
-    title: Center( child : Text("Avis"),),
+     centerTitle: true,
+    title:   Text("Avis"),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),

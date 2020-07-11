@@ -48,7 +48,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text('choisi entre'),
+    title:  Text('choisi entre'),
               content: SingleChildScrollView(
                   child: ListBody(children: <Widget>[
                 GestureDetector(
@@ -109,7 +109,8 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
   Widget build(BuildContext context) {
     return Scaffold(
           appBar: AppBar(
-    title: Text("Ajouter un playground"),
+     centerTitle: true,
+    title:  Text("Ajouter un playground"),
     backgroundColor: Colors.indigo,
    
     

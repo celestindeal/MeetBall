@@ -39,7 +39,8 @@ import 'models/Model_co.dart';
     return
      Scaffold(
       appBar: AppBar(
-    title:  Center( child : Text("MeetBall"),),
+     centerTitle: true,
+    title:    Text("MeetBall"),
     backgroundColor: Colors.indigo,
     leading: IconButton(
         icon: Icon(Icons.add),

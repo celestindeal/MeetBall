@@ -62,7 +62,8 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
     );
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Rencontre")),
+         centerTitle: true,
+    title:   Text("Rencontre"),
         backgroundColor: Colors.indigo,
         leading: IconButton(
             icon: Icon(Icons.add),
@@ -127,7 +128,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                 margin:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: ListTile(
-                  title: Text(event['lieu'].toString() +
+    title:  Text(event['lieu'].toString() +
                       " à " +
                       event['heure'].toString()),
                   trailing: Container(

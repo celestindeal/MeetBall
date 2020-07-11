@@ -24,7 +24,8 @@ class _TerrainRenState extends State<TerrainRen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(
+           centerTitle: true,
+    title:  Text(
             "Rencontre à "+   
           ScopedModel.of<GameModel>(context)
                                       .terrainrencontre),
