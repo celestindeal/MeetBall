@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
 import 'package:meetballl/db.dart';
 import 'package:meetballl/models/Model_terrain.dart';
 import 'package:photo_view/photo_view.dart';
@@ -29,10 +30,9 @@ class Profil_renctontre extends StatelessWidget {
                 )
               : Scaffold(
                   appBar: AppBar(
-                     centerTitle: true,
-    title:  Text("Rencontre"),
+                    centerTitle: true,
+                    title: Text("Rencontre"),
                     backgroundColor: Colors.indigo,
-                    
                   ),
                   persistentFooterButtons: <Widget>[
                     Footer(),
@@ -50,6 +50,12 @@ class Presentation extends StatefulWidget {
   @override
   _PresentationState createState() => _PresentationState();
 }
+
+double largeur = 0.5;
+double hauteur = 0.5;
+double largeurMessage = 20;
+double hauteurMessage = 0;
+bool init = true;
 
 class _PresentationState extends State<Presentation> {
   final _formKey = GlobalKey<FormState>();
@@ -75,8 +81,6 @@ class _PresentationState extends State<Presentation> {
         new DateTime.utc(ansr, moisr, jourr, 12, 08, 04).millisecondsSinceEpoch;
     double tkt = (mst - ms) / (24 * 3600 * 1000);
     String tempsavantmatch;
-    print(mst - ms);
-    print(tkt);
     if (0 <= tkt && tkt < 1) {
       tempsavantmatch =
           "Aujoud'hui à " + ScopedModel.of<GameModel>(context).heurerencontre;
@@ -92,7 +96,7 @@ class _PresentationState extends State<Presentation> {
           ScopedModel.of<GameModel>(context).heurerencontre;
     }
     // après une seconds les commentaire scroll sur le dernier commentaire publier
-    
+
 // calcul pour savoir si la rencontre est déja passer
 // si difference est négative la rencontre est passer
     String ok = "}" + ScopedModel.of<GameModel>(context).daterencontre + "/";
@@ -185,54 +189,49 @@ class _PresentationState extends State<Presentation> {
 
     return Scaffold(
       appBar: AppBar(
-         centerTitle: true,
-    title:   Text(
-            ScopedModel.of<GameModel>(context).lieu,
-          
+        centerTitle: true,
+        title: Text(
+          ScopedModel.of<GameModel>(context).lieu,
         ),
         backgroundColor: Colors.indigo,
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.directions),
             onPressed: () {
-           showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-    title:  Text('Ouvrir avec'),
-                                        content: SingleChildScrollView(
-                                            child: ListBody(children: <Widget>[
-                                          GestureDetector(
-                                            child: Text("Google map"),
-                                            onTap: () async {
-                                              String value =  ScopedModel.of<GameModel>(context).url_lieu
-                                                  .toString();
-                                              //const url = const value;
-                                              if (await canLaunch(value)) {
-                                                await launch(value);
-                                              }
-                                            },
-                                          ),
-                                          Padding(padding: EdgeInsets.all(8.0)),
-                                          GestureDetector(
-                                            child: Text("Waze"),
-                                            onTap: () async {
-
-                                              String value =  ScopedModel.of<GameModel>(context).urlwaze_lieu
-                                                  .toString();
-                                              //const url = const value;
-                                              if (await canLaunch(value)) {
-                                                await launch(value);
-                                              }
-                                            },
-                                          )
-                                        ])
-                                        )
-                                        );
-                                  }
-           );
-                            
-                          
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        title: Text('Ouvrir avec'),
+                        content: SingleChildScrollView(
+                            child: ListBody(children: <Widget>[
+                          GestureDetector(
+                            child: Text("Google map"),
+                            onTap: () async {
+                              String value = ScopedModel.of<GameModel>(context)
+                                  .url_lieu
+                                  .toString();
+                              //const url = const value;
+                              if (await canLaunch(value)) {
+                                await launch(value);
+                              }
+                            },
+                          ),
+                          Padding(padding: EdgeInsets.all(8.0)),
+                          GestureDetector(
+                            child: Text("Waze"),
+                            onTap: () async {
+                              String value = ScopedModel.of<GameModel>(context)
+                                  .urlwaze_lieu
+                                  .toString();
+                              //const url = const value;
+                              if (await canLaunch(value)) {
+                                await launch(value);
+                              }
+                            },
+                          )
+                        ])));
+                  });
             },
           ),
         ],
@@ -277,8 +276,6 @@ class _PresentationState extends State<Presentation> {
                           children: <Widget>[
                         // ici on propose les bouton pour la participation
                         // boParticipation est à true c'est que l'on participa déja si il est à false on participe pas encore
-
-
 
 // cette colone afficher les images du lieu
                         Container(
@@ -340,42 +337,32 @@ class _PresentationState extends State<Presentation> {
                           ),
                         ),
 
-
-
-
-
-
-
-
-
                         // ce container contient les information sur le lieu
                         Column(
-                            children: <Widget>[
-                            
-                                    
-                                    Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: <Widget>[
-                                           Row(
-                                             mainAxisAlignment: MainAxisAlignment.end,
-                                             children: <Widget>[
-                                               Text(model.adresse_lieu + ", "+ model.nom_t_lieu  ,
-                                               textAlign: TextAlign.end,
-                                                  softWrap: true,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .display3),
-                                             ],
-                                           ),   
-                                        ]),
-                                
-                              Text(model.commentaire_lieu,
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.display3),
-                                  
-                            ],
-                          ),
+                          children: <Widget>[
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text(
+                                          model.adresse_lieu +
+                                              ", " +
+                                              model.nom_t_lieu,
+                                          textAlign: TextAlign.end,
+                                          softWrap: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .display3),
+                                    ],
+                                  ),
+                                ]),
+                            Text(model.commentaire_lieu,
+                                softWrap: true,
+                                style: Theme.of(context).textTheme.display3),
+                          ],
+                        ),
 
                         ScopedModel.of<LoginModel>(context).boParticipation
                             ? RaisedButton(
@@ -565,7 +552,7 @@ class _PresentationState extends State<Presentation> {
                                                   .toString()) {
                                             ScopedModel.of<LoginModel>(context)
                                                 .ParticipationProil();
-                                              Navigator.pushNamed(
+                                            Navigator.pushNamed(
                                                 context, '/Profil');
                                           } else {
                                             await login
@@ -644,7 +631,7 @@ class _PresentationState extends State<Presentation> {
                                                       context)
                                                   .pseudo
                                                   .toString()) {
-                                                      Navigator.pushNamed(
+                                            Navigator.pushNamed(
                                                 context, '/Profil');
                                           } else {
                                             await login
@@ -716,31 +703,70 @@ class _PresentationState extends State<Presentation> {
                                 }
                               });
                         }),
-
-
-                        
-
                       ])),
                 ),
-      
-
                 ScopedModel.of<LoginModel>(context).boParticipation
-                    ? Transform.translate(
-                        offset: Offset(MediaQuery.of(context).size.width - 60,
-                            MediaQuery.of(context).size.height - 220),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.indigo),
-                          child: IconButton(
-                            iconSize: 40,
-                            icon: Icon(Icons.comment),
-                            color: Colors.white,
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/commentaire');
-                            },
-                          ),
-                        ),
-                      )
+                    ? 
+                    // Container(
+                    //     width: MediaQuery.of(context).size.width / 2,
+                    //     height: MediaQuery.of(context).size.height,
+                    //     decoration: BoxDecoration(
+                    //         shape: BoxShape.circle, color: Colors.indigo),
+                    //     child: IconButton(
+                    //       iconSize: 40,
+                    //       icon: Icon(Icons.comment),
+                    //       color: Colors.white,
+                    //       onPressed: () {
+                    //         Navigator.pushNamed(context, '/commentaire');
+                    //       },
+                    //     ),
+                    //   )
+
+                  
+                       
+
+                        //  MatrixGestureDetector(
+                        //     onMatrixUpdate: (m, tm, sm, rm) {
+
+                        //        if (init == false) {
+                        //                               init = true;
+                        //                              largeur = m.entry(0, 3) ;
+                        //       hauteur = m.entry(1, 3) ;
+                        //                             }
+
+                        //                             setState(() {
+                        //                             largeurMessage = m.entry(0, 3) ;
+                        //                             hauteurMessage = m.entry(1, 3);
+                        //                             });
+
+                        //                             largeur = m.entry(0, 3) ;
+                        //                             hauteur = m.entry(1, 3);
+
+                        //     },
+                        //     child:
+                               Transform.translate(
+                                offset: Offset(largeurMessage,
+                                    hauteurMessage),
+                                child: 
+                                   
+                                      
+                                     
+                                        IconButton(
+                                        iconSize: 40,
+                                        icon: Icon(Icons.comment,color: Colors.red,),
+                                        color: Colors.white,
+                                        onPressed: () {
+                                          Navigator.pushNamed(context, '/commentaire');
+                                        },
+                                    ),
+                                     
+                                  
+                                
+                               )
+                            
+                        //  ,)
+                       
+                     
                     : Container(),
               ],
             );

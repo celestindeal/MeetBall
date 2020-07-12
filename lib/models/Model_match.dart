@@ -13,7 +13,8 @@ class GameModel extends Model {
   bool afficher = false;
   bool afficher_lieu = false;
   List commentaire = [];
-  bool bocommentaire = true;
+  bool scrool = true;
+
   var adresse_lieu;
   var url_lieu;
   var urlwaze_lieu;
@@ -22,7 +23,9 @@ class GameModel extends Model {
   var ville_lieu;
   var id_terrain;
   String terrainrencontre = "";
-
+  int nombre = 0;
+  int mmax = 10;
+  int lastmmax;
   // variable de sélection des la rencontre pour la page profil rencontre
   String lieu = "";
   String id_rencontre;
@@ -64,14 +67,13 @@ class GameModel extends Model {
 
       List<dynamic> valider = [];
       valider.add(data[i]);
-      if(events[_selectedDay] != null){
-         events.update(_selectedDay, (list) => list..add(data[i]));
-      }else{
+      if (events[_selectedDay] != null) {
+        events.update(_selectedDay, (list) => list..add(data[i]));
+      } else {
         events.addEntries([
-        MapEntry(_selectedDay, valider),
-      ]);
+          MapEntry(_selectedDay, valider),
+        ]);
       }
-
     }
     notifyListeners();
     return " fin de fonction";
@@ -135,25 +137,37 @@ class GameModel extends Model {
   }
 
   Commentaire() async {
-    commentaire.clear();
-    var url = 'http://51.210.103.151/get_commentaire.php';
-    http.Response response = await http.get(url);
-    var data = jsonDecode(response.body);
+    var url = 'http://51.210.103.151/post_commentaire_rencontre.php';
+    String json = '{"id_rencontre":"$id_rencontre"}'; // make POST request
+    Response response = await post(url, body: json);
+    var data;
+    if (response.body.isNotEmpty) {
+      data = jsonDecode(response.body);
+    }
     List list = data as List;
-    var nombre_tour = list.length;
-    bocommentaire = true;
-    int n = 0;
-    while (nombre_tour > n) {
-      if ((data[n]['id_rencontre'].toString()) == id_rencontre) {
-        commentaire.add(data[n]);
+    // on veux savoir des nouveaux commentaires
+
+   // si il y as un nouveau message || l'on doit affiche plus de message 
+    if (list.length > nombre || mmax > lastmmax) {
+      lastmmax = mmax;
+      commentaire.clear();
+      var nombre_tour = list.length;
+      int n = 0;
+      while (nombre_tour > n) {
+        if ((list[n]['id_rencontre'].toString()) == id_rencontre &&
+            (nombre_tour - n) < mmax) {
+          commentaire.add(list[n]);
+        }
+        n++;
       }
-      n++;
+      // si il n'y a pas de commentaire on n'affiche pas les container avec les commentaire
+      nombre = n;
+      notifyListeners();
+      // on déclanche le nouveau scroll en bas que si c'est pour un nouveau message et pas pour le nouvelle affichage des messages avec les plus vieux
+      if (mmax < lastmmax) {
+        scrool = true;
+      }
     }
-    // si il n'y a pas de commentaire on n'affiche pas les container avec les commentaire
-    if (commentaire.length == 0) {
-      bocommentaire = false;
-    }
-    notifyListeners();
 
     return " fin de fonction";
   }
