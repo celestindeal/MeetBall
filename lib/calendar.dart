@@ -157,8 +157,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                         event['jours'];
                     ScopedModel.of<GameModel>(context).heurerencontre =
                         event['heure'];
-                    ScopedModel.of<GameModel>(context).organisateur =
-                        event['per'];
+                    
 
                     // on prepare les image terrain et commentaire pour la page profil rencontre
                     ScopedModel.of<ImgModel>(context).Img();

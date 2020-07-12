@@ -32,7 +32,6 @@ class GameModel extends Model {
   int nombJoueur;
   String daterencontre = " ";
   String heurerencontre = " ";
-  String organisateur = " ";
 //pour le calendar
 
   Map<DateTime, List> events = {};

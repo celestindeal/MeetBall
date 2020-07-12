@@ -417,9 +417,6 @@ class _PresentationState extends State<Presentation> {
                                 ScopedModel.of<GameModel>(context)
                                         .heurerencontre =
                                     model.participation[i]['heure'];
-                                ScopedModel.of<GameModel>(context)
-                                        .organisateur =
-                                    model.participation[i]['pseudo'];
 
                                 // on prepare les image terrain et commentaire pour la page profil rencontre
                                 ScopedModel.of<ImgModel>(context).Img();

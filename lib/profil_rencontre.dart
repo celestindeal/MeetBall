@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
@@ -51,11 +52,12 @@ class Presentation extends StatefulWidget {
   _PresentationState createState() => _PresentationState();
 }
 
-double largeur = 0.5;
-double hauteur = 0.5;
-double largeurMessage = 20;
-double hauteurMessage = 0;
+double largeur = 0.9;
+double hauteur = 0.9;
+double largeurMessage = 0;
+double hauteurMessage = 200;
 bool init = true;
+bool initmove = true;
 
 class _PresentationState extends State<Presentation> {
   final _formKey = GlobalKey<FormState>();
@@ -70,6 +72,16 @@ class _PresentationState extends State<Presentation> {
 
   @override
   Widget build(BuildContext context) {
+    if (init) {
+      init = false;
+      setState(() {
+        print('init');
+        largeurMessage = MediaQuery.of(context).size.width * 0.4 / .15;
+        hauteurMessage = MediaQuery.of(context).size.height * 0.35 / .15;
+        print(hauteurMessage);
+      });
+    }
+
     var ms = (new DateTime.now()).millisecondsSinceEpoch;
     String okr = "}" + ScopedModel.of<GameModel>(context).daterencontre + "/";
     int jourr = int.parse(okr.split('}')[1].split('-')[0]);
@@ -109,81 +121,85 @@ class _PresentationState extends State<Presentation> {
         DateTime(ans, mois, jour).difference(DateTime.now()).inHours;
 
     notation(String personnenoter) {
-      return RaisedButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                    backgroundColor: Colors.transparent,
-                    content: StatefulBuilder(
-                        builder: (BuildContext context, StateSetter setState) {
-                      return Container(
-                          color: Colors.grey,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              IconButton(
-                                iconSize:
-                                    MediaQuery.of(context).size.width / 11,
-                                icon: Icon(Icons.star_border),
-                                color: Colors.yellow,
-                                onPressed: () {
-                                  ScopedModel.of<LoginModel>(context)
-                                      .Envoienote("1", personnenoter);
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              IconButton(
-                                iconSize:
-                                    MediaQuery.of(context).size.width / 11,
-                                icon: Icon(Icons.star_border),
-                                color: Colors.yellow,
-                                onPressed: () {
-                                  ScopedModel.of<LoginModel>(context)
-                                      .Envoienote("2", personnenoter);
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              IconButton(
-                                iconSize:
-                                    MediaQuery.of(context).size.width / 11,
-                                icon: Icon(Icons.star_border),
-                                color: Colors.yellow,
-                                onPressed: () {
-                                  ScopedModel.of<LoginModel>(context)
-                                      .Envoienote("3", personnenoter);
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              IconButton(
-                                iconSize:
-                                    MediaQuery.of(context).size.width / 11,
-                                icon: Icon(Icons.star_border),
-                                color: Colors.yellow,
-                                onPressed: () {
-                                  ScopedModel.of<LoginModel>(context)
-                                      .Envoienote("4", personnenoter);
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                              IconButton(
-                                iconSize:
-                                    MediaQuery.of(context).size.width / 11,
-                                icon: Icon(Icons.star_border),
-                                color: Colors.yellow,
-                                onPressed: () {
-                                  ScopedModel.of<LoginModel>(context)
-                                      .Envoienote("5", personnenoter);
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          ));
-                    }));
-              });
-        },
-        child: Text('noter'),
+      return Container(
+        width: MediaQuery.of(context).size.width*.2,
+        child: FlatButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                      backgroundColor: Colors.transparent,
+                      content: StatefulBuilder(
+                          builder: (BuildContext context, StateSetter setState) {
+                        return Container(
+                            color: Colors.grey,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                IconButton(
+                                  iconSize:
+                                      MediaQuery.of(context).size.width / 11,
+                                  icon: Icon(Icons.star_border),
+                                  color: Colors.yellow,
+                                  onPressed: () {
+                                    ScopedModel.of<LoginModel>(context)
+                                        .Envoienote("1", personnenoter);
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                IconButton(
+                                  iconSize:
+                                      MediaQuery.of(context).size.width / 11,
+                                  icon: Icon(Icons.star_border),
+                                  color: Colors.yellow,
+                                  onPressed: () {
+                                    ScopedModel.of<LoginModel>(context)
+                                        .Envoienote("2", personnenoter);
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                IconButton(
+                                  iconSize:
+                                      MediaQuery.of(context).size.width / 11,
+                                  icon: Icon(Icons.star_border),
+                                  color: Colors.yellow,
+                                  onPressed: () {
+                                    ScopedModel.of<LoginModel>(context)
+                                        .Envoienote("3", personnenoter);
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                IconButton(
+                                  iconSize:
+                                      MediaQuery.of(context).size.width / 11,
+                                  icon: Icon(Icons.star_border),
+                                  color: Colors.yellow,
+                                  onPressed: () {
+                                    ScopedModel.of<LoginModel>(context)
+                                        .Envoienote("4", personnenoter);
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                IconButton(
+                                  iconSize:
+                                      MediaQuery.of(context).size.width / 11,
+                                  icon: Icon(Icons.star_border),
+                                  color: Colors.yellow,
+                                  onPressed: () {
+                                    ScopedModel.of<LoginModel>(context)
+                                        .Envoienote("5", personnenoter);
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            ));
+                      }));
+                });
+          },
+          child: Text('noter'),
+           
+        ),
       );
     }
 
@@ -267,6 +283,26 @@ class _PresentationState extends State<Presentation> {
               nombre_tour++;
             }
 
+            // on calcul le coff de l'image pour definir la taille du sizebox ou l'on vas les afficher
+            double hauteurimage = 1;
+            double largeur_image = 1;
+            double douCoffImage = 1.333;
+
+            // Image file_image = Image.network(lien1);
+
+            // file_image.image.resolve(ImageConfiguration()).addListener(
+            //   ImageStreamListener(
+            //     (ImageInfo image, bool synchronousCall) {
+            //       hauteurimage = image.image.height.toDouble();
+            //       largeur_image = image.image.width.toDouble();
+                  
+            //       setState(() {
+            //         douCoffImage = (hauteurimage / largeur_image);
+            //       });
+            //     },
+            //   ),
+            // );
+
             return Stack(
               children: <Widget>[
                 SingleChildScrollView(
@@ -279,9 +315,9 @@ class _PresentationState extends State<Presentation> {
 
 // cette colone afficher les images du lieu
                         Container(
-                          color: Colors.transparent,
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height / 1.4,
+                            height: MediaQuery.of(context).size.width *
+                                douCoffImage,
                             child: PageView.builder(
                               controller: PageController(viewportFraction: 1),
                               itemCount: 4,
@@ -537,9 +573,7 @@ class _PresentationState extends State<Presentation> {
                                   bonotation = true;
                                 }
 
-                                if (ScopedModel.of<GameModel>(context)
-                                        .organisateur ==
-                                    login.participent[i]['pseudo']) {
+                              
                                   // ici c'est le container pour celui qui a propose cette rencontre
                                   return Column(
                                     children: <Widget>[
@@ -566,207 +600,112 @@ class _PresentationState extends State<Presentation> {
                                                 context, '/ProfilVisiteur');
                                           }
                                         },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(width: 0.8),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 4.0, vertical: 2.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Container(
-                                                margin:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 2.0,
-                                                        vertical: 2.0),
-                                                child: CircleAvatar(
-                                                  backgroundImage: NetworkImage(
-                                                      login.participent[i]
-                                                          ['photo']),
-                                                  radius: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      20,
-                                                ),
+                                        child:
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                border: Border.all(width: 0.8),
+                                                borderRadius:
+                                                    BorderRadius.circular(12.0),
                                               ),
-                                              Text(
-                                                  login.participent[i]
-                                                      ['pseudo'],
-                                                  softWrap: true,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .display3),
-                                              Text(ageAnne.toString() + " ans ",
-                                                  softWrap: true,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .display3),
-                                              bonotation
-                                                  ? ScopedModel.of<LoginModel>(
-                                                              context)
-                                                          .boParticipation
-                                                      ? notation(
+                                              margin: const EdgeInsets.symmetric(
+                                                  horizontal: 4.0, vertical: 2.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceBetween,
+                                                children: <Widget>[
+                                                  Container(
+                                                    margin:
+                                                        const EdgeInsets.symmetric(
+                                                            horizontal: 2.0,
+                                                            vertical: 2.0),
+                                                    child: CircleAvatar(
+                                                      backgroundImage: NetworkImage(
                                                           login.participent[i]
-                                                              ['pseudo'])
-                                                      : Container()
-                                                  : Container(),
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  );
-                                } else {
-                                  //ici c'est tous les autre participent
-                                  return Column(
-                                    children: <Widget>[
-                                      GestureDetector(
-                                        onTap: () async {
-                                          if (login.participent[i]['pseudo'] ==
-                                              ScopedModel.of<LoginModel>(
-                                                      context)
-                                                  .pseudo
-                                                  .toString()) {
-                                            Navigator.pushNamed(
-                                                context, '/Profil');
-                                          } else {
-                                            await login
-                                                .ParticipationProilVisiteur(
-                                                    login.participent[i]
-                                                        ['pseudo']);
+                                                              ['photo']),
+                                                      radius: MediaQuery.of(context)
+                                                              .size
+                                                              .width /
+                                                          20,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                      login.participent[i]
+                                                          ['pseudo'],
+                                                      softWrap: true,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display3),
+                                                  Text(ageAnne.toString() + " ans ",
+                                                      softWrap: true,
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .display3),
 
-                                            ScopedModel.of<LoginModel>(context)
-                                                    .profVisiteur =
-                                                login.participent[i];
-                                            Navigator.pushNamed(
-                                                context, '/ProfilVisiteur');
-                                          }
-                                        },
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(width: 0.8),
-                                            borderRadius:
-                                                BorderRadius.circular(12.0),
-                                          ),
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 4.0, vertical: 2.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Container(
-                                                margin:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 2.0,
-                                                        vertical: 2.0),
-                                                child: CircleAvatar(
-                                                  backgroundImage: NetworkImage(
-                                                      login.participent[i]
-                                                          ['photo']),
-                                                  radius: MediaQuery.of(context)
-                                                          .size
-                                                          .width /
-                                                      20,
-                                                ),
+                                                    bonotation
+                                                      ? ScopedModel.of<LoginModel>(
+                                                                  context)
+                                                              .boParticipation
+                                                          ? notation(
+                                                              login.participent[i]
+                                                                  ['pseudo'])
+                                                          : Container()
+                                                      : Container(),
+                                                ],
                                               ),
-                                              Text(
-                                                  login.participent[i]
-                                                      ['pseudo'],
-                                                  softWrap: true,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .display3),
-                                              Text(ageAnne.toString() + " ans ",
-                                                  softWrap: true,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .display3),
-                                              bonotation
-                                                  ? ScopedModel.of<LoginModel>(
-                                                              context)
-                                                          .boParticipation
-                                                      ? notation(
-                                                          login.participent[i]
-                                                              ['pseudo'])
-                                                      : Container()
-                                                  : Container(),
-                                            ],
-                                          ),
-                                        ),
+                                            ),
+
+                                          
                                       )
                                     ],
                                   );
-                                }
+                    
                               });
                         }),
                       ])),
                 ),
                 ScopedModel.of<LoginModel>(context).boParticipation
-                    ? 
-                    // Container(
-                    //     width: MediaQuery.of(context).size.width / 2,
-                    //     height: MediaQuery.of(context).size.height,
-                    //     decoration: BoxDecoration(
-                    //         shape: BoxShape.circle, color: Colors.indigo),
-                    //     child: IconButton(
-                    //       iconSize: 40,
-                    //       icon: Icon(Icons.comment),
-                    //       color: Colors.white,
-                    //       onPressed: () {
-                    //         Navigator.pushNamed(context, '/commentaire');
-                    //       },
-                    //     ),
-                    //   )
+                    ? Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        child: MatrixGestureDetector(
+                          onMatrixUpdate: (m, tm, sm, rm) {
+                            if (initmove) {
+                              initmove = false;
+                              largeur = m.entry(0, 3) / .15;
+                              hauteur = m.entry(1, 3) / .15;
+                            }
 
-                  
-                       
+                            setState(() {
+                              largeurMessage = largeurMessage +
+                                  ((m.entry(0, 3) / .15) - largeur);
+                              hauteurMessage = hauteurMessage +
+                                  ((m.entry(1, 3) / .15) - hauteur);
+                            });
 
-                        //  MatrixGestureDetector(
-                        //     onMatrixUpdate: (m, tm, sm, rm) {
-
-                        //        if (init == false) {
-                        //                               init = true;
-                        //                              largeur = m.entry(0, 3) ;
-                        //       hauteur = m.entry(1, 3) ;
-                        //                             }
-
-                        //                             setState(() {
-                        //                             largeurMessage = m.entry(0, 3) ;
-                        //                             hauteurMessage = m.entry(1, 3);
-                        //                             });
-
-                        //                             largeur = m.entry(0, 3) ;
-                        //                             hauteur = m.entry(1, 3);
-
-                        //     },
-                        //     child:
-                               Transform.translate(
-                                offset: Offset(largeurMessage,
-                                    hauteurMessage),
-                                child: 
-                                   
-                                      
-                                     
-                                        IconButton(
-                                        iconSize: 40,
-                                        icon: Icon(Icons.comment,color: Colors.red,),
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          Navigator.pushNamed(context, '/commentaire');
-                                        },
-                                    ),
-                                     
-                                  
-                                
-                               )
-                            
-                        //  ,)
-                       
-                     
+                            largeur = m.entry(0, 3) / .15;
+                            hauteur = m.entry(1, 3) / .15;
+                          },
+                          child: Transform.scale(
+                            scale: .15,
+                            child: Transform.translate(
+                                offset: Offset(largeurMessage, hauteurMessage),
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, '/commentaire');
+                                  },
+                                  color: Colors.indigo,
+                                  textColor: Colors.white,
+                                  child: Icon(
+                                    Icons.comment,
+                                    size: 300,
+                                  ),
+                                  padding: EdgeInsets.all(16),
+                                  shape: CircleBorder(),
+                                )),
+                          ),
+                        ),
+                      )
                     : Container(),
               ],
             );

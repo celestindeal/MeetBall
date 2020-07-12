@@ -201,9 +201,6 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                   ScopedModel.of<GameModel>(context)
                                           .heurerencontre =
                                       model.participationvisiteur[i]['heure'];
-                                  ScopedModel.of<GameModel>(context)
-                                          .organisateur =
-                                      model.participationvisiteur[i]['pseudo'];
 
                                   // on prepare les image terrain et commentaire pour la page profil rencontre
                                   ScopedModel.of<ImgModel>(context).Img();

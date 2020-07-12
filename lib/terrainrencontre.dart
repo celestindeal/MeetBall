@@ -130,7 +130,6 @@ class _AffRencontreState extends State<AffRencontre> {
                               model.daterencontre = model.data_game[i]['jours'];
                               model.heurerencontre =
                                   model.data_game[i]['heure'];
-                              model.organisateur = model.data_game[i]['per'];
                               ScopedModel.of<ImgModel>(context).Img();
                               ScopedModel.of<GameModel>(context).Terrain();
                               ScopedModel.of<GameModel>(context).Commentaire();
