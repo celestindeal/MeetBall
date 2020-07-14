@@ -12,7 +12,7 @@ class Commentaire extends StatefulWidget {
   _CommentaireState createState() => _CommentaireState();
 }
 
-
+bool attend = true ;
 
 class _CommentaireState extends State<Commentaire> {
   ScrollController _scrollController = new ScrollController();
@@ -28,12 +28,14 @@ class _CommentaireState extends State<Commentaire> {
       // si il y as un nouveau commentainer  on scroll la page pour voir le nouveau com
       if (ScopedModel.of<GameModel>(context).scrool) {
         ScopedModel.of<GameModel>(context).scrool = false;
+        print('scroll');
         Timer(Duration(microseconds: 1), () {
           _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
         });
       }
       // si l'utilisateur a scroller en haut pour avoir plus de message 
-      if(_scrollController.position.pixels==0){
+      if(_scrollController.position.pixels==0  && attend){
+        attend = false;
          _scrollController.jumpTo(10);
          // on rajoute 10 message suplementaire 
         ScopedModel.of<GameModel>(context).mmax = ScopedModel.of<GameModel>(context).mmax +10;
@@ -42,7 +44,8 @@ class _CommentaireState extends State<Commentaire> {
         double max = _scrollController.position.maxScrollExtent;
         await ScopedModel.of<GameModel>(context).Commentaire();
         Timer(Duration(microseconds: 1), () {
-            _scrollController.jumpTo((_scrollController.position.maxScrollExtent-max));
+            _scrollController.jumpTo((_scrollController.position.maxScrollExtent-max+10));
+            attend = true;                                                                                                                                                                                                                                                                                                                                                              
         });
       }
     }
@@ -109,7 +112,8 @@ class _CommentaireState extends State<Commentaire> {
                                       if (message) {}
                                     },
                                     child: Container(
-                                      padding: const EdgeInsets.all(15),
+                                      padding: const EdgeInsets.all(5),
+
                                       constraints: BoxConstraints(
                                           minWidth: MediaQuery.of(context)
                                                   .size
@@ -141,7 +145,7 @@ class _CommentaireState extends State<Commentaire> {
                                       ),
                                     ),
                                   ),
-                                ),
+                                )
                               ],
                             ),
                             Container(
