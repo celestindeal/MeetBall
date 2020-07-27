@@ -10,6 +10,7 @@ import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 
 int page = 1;
+Color bouton = Colors.amber[900];
 
 class Footer extends StatelessWidget {
   @override
@@ -19,36 +20,54 @@ class Footer extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          IconButton(
-              icon: Image.asset(
-                'img/icon.jpg',
-                width: 40,
-                height: 40,
-              ),
-              onPressed: () {
-                ScopedModel.of<LoginModel>(context).ParticipationProil();
-                Navigator.of(context).push(_createRouteprofil());
-              }),
-          IconButton(
-              icon: Image.asset(
-                'img/rencontre.png',
-                width: 40,
-                height: 40,
-              ),
-              onPressed: () {
-                ScopedModel.of<GameModel>(context).MatchCalendar();
-                Navigator.of(context).push(_createRouterencontre());
-              }),
-          IconButton(
-              icon: Icon(
-                Icons.search,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                ScopedModel.of<ImgModel>(context).Img();
-                ScopedModel.of<TerrainModel>(context).Terrain();
-                Navigator.of(context).push(_createRouterecherche());
-              }),
+          Container(
+            decoration: new BoxDecoration(
+              shape: BoxShape.circle,
+              color: page == 1 ?bouton: Colors.transparent,
+            ),
+            child: IconButton(
+                icon: Image.asset(
+                  'img/icon.jpg',
+                  width: 40,
+                  height: 40,
+                ),
+                onPressed: () {
+                  ScopedModel.of<LoginModel>(context).ParticipationProil();
+                  Navigator.of(context).push(_createRouteprofil());
+                }),
+          ),
+          Container(
+            decoration: new BoxDecoration(
+              shape: BoxShape.circle,
+              color: page == 2 ? bouton : Colors.transparent,
+            ),
+            child: IconButton(
+                icon: Image.asset(
+                  'img/rencontre.png',
+                  width: 40,
+                  height: 40,
+                ),
+                onPressed: () {
+                  ScopedModel.of<GameModel>(context).MatchCalendar();
+                  Navigator.of(context).push(_createRouterencontre());
+                }),
+          ),
+          Container(
+            decoration: new BoxDecoration(
+              shape: BoxShape.circle,
+              color: page == 3 ?bouton : Colors.transparent,
+            ),
+            child: IconButton(
+                icon: Icon(
+                  Icons.search,
+                  color: Colors.black,
+                ),
+                onPressed: () {
+                  ScopedModel.of<ImgModel>(context).Img();
+                  ScopedModel.of<TerrainModel>(context).Terrain();
+                  Navigator.of(context).push(_createRouterecherche());
+                }),
+          ),
         ],
       ),
     );
@@ -56,6 +75,7 @@ class Footer extends StatelessWidget {
 }
 
 Route _createRouteprofil() {
+  page = 1;
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => Profil(),
     transitionsBuilder: (
@@ -64,10 +84,10 @@ Route _createRouteprofil() {
       Animation<double> secondaryAnimation,
       Widget child,
     ) {
-   return     FadeTransition(
-                opacity: animation,
-                child: child,
-              );
+      return FadeTransition(
+        opacity: animation,
+        child: child,
+      );
       // Offset off;
       // if (page == 1) {
       //   off = Offset(-0.3, 0);
@@ -89,6 +109,7 @@ Route _createRouteprofil() {
 }
 
 Route _createRouterencontre() {
+  page = 2;
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => Calendar(),
     transitionsBuilder: (
@@ -97,10 +118,10 @@ Route _createRouterencontre() {
       Animation<double> secondaryAnimation,
       Widget child,
     ) {
-       return     FadeTransition(
-                opacity: animation,
-                child: child,
-              );
+      return FadeTransition(
+        opacity: animation,
+        child: child,
+      );
       // Offset off;
       // if (page == 1) {
       //   off = Offset(1, 0);
@@ -122,6 +143,7 @@ Route _createRouterencontre() {
 }
 
 Route _createRouterecherche() {
+  page = 3;
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => Rechercher(),
     transitionsBuilder: (
@@ -130,10 +152,10 @@ Route _createRouterecherche() {
       Animation<double> secondaryAnimation,
       Widget child,
     ) {
-       return     FadeTransition(
-                opacity: animation,
-                child: child,
-              );
+      return FadeTransition(
+        opacity: animation,
+        child: child,
+      );
       // Offset off;
       // if (page == 1) {
       //   off = Offset(2, 0);
