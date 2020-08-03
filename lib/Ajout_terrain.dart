@@ -1,17 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:dynamic_theme/dynamic_theme.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
-import 'package:meetballl/db.dart';
-import 'package:meetballl/models/Model_co.dart';
-import 'package:meetballl/models/Model_img.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'footer.dart';
 import 'main.dart';
 import 'models/Model_match.dart';
@@ -314,8 +307,6 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                         base64Image.add("null");
                          Navigator.pushNamedAndRemoveUntil(
                     context, '/Profil', (Route<dynamic> route) => false);
-                              //    await ScopedModel.of<GameModel>(context).Ajout_match( lieuchoisi , _date , _time , nombre_jo,pseudo);
-                
                               ScopedModel.of<TerrainModel>(context)
                                   .AjouterTerrain(
                                       nom,
@@ -328,25 +319,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                       base64Image[3],
                                       sol,
                                       ouverture);
-
                               ScopedModel.of<GameModel>(context).Match();
-                              // setState(() {
-                              //   _controller1.clear();
-                              //   _controller2.clear();
-                              //   _controller3.clear();
-                              //   _controller4.clear();
-                              //   _controller5.clear();
-                              //   _controller6.clear();
-
-                              //   image = null;
-                              //   base64Image.clear();
-                              //   nom = "";
-                              //   adresse = "";
-                              //   ville = "";
-                              //   nombre_terrain = null;
-                              //   sol = " ";
-                              //   ouverture = " ";
-                              // });
                               Scaffold.of(context).showSnackBar(new SnackBar(
                                   content: new Text('Terrain Proposé',style: Theme.of(context)
                                                       .textTheme

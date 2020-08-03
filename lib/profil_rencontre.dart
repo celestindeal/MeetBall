@@ -465,11 +465,9 @@ class _PresentationState extends State<Presentation> {
                                                               );
 
                                                               // maintenant on refrech la page
-                                                              model
-                                                                  .nombJoueur--;
-                                                              if (model
-                                                                      .nombJoueur ==
-                                                                  0) {
+                                                              model.nombJoueur--;
+                                                              if (model.nombJoueur == 0) {
+                                                                    ScopedModel.of<LoginModel>(context).ParticipationProil();
                                                                 Navigator.pushNamedAndRemoveUntil(
                                                                     context,
                                                                     '/Profil',
