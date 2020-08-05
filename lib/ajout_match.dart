@@ -1,13 +1,9 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:meetballl/db.dart';
 import 'package:meetballl/main.dart';
-import 'package:meetballl/models/Model_img.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'footer.dart';
 import 'models/Model_co.dart';
@@ -15,22 +11,18 @@ import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 
 String lieuchoisi = "Choix du lieu";
-List<String> reportList = [
-  "Not relevant",
-  "Illegal",
-  "Spam",
-  "Offensive",
-  "Uncivil"
-];
+
 String _date = "Date";
 DateTime curseurdate = DateTime.now();
 DateTime curseurtime = DateTime.now();
-
 
 String _time = "Heure";
 var nombre_jo = "1";
 var pseudo;
 var _controller = TextEditingController();
+List terrain = [];
+bool init = true;
+bool afficher = true;
 
 class Ajout_match extends StatefulWidget {
   @override
@@ -38,23 +30,139 @@ class Ajout_match extends StatefulWidget {
 }
 
 class _Ajout_matchState extends State<Ajout_match> {
-  final _formKey = GlobalKey<FormState>();
+  terrainre(String terrainre) async {
+    List contruction = [];
+    await ScopedModel.of<TerrainModel>(context).Terrain();
+    terrain.clear();
+    if (terrainre.isEmpty) {
+      // quand l'utilisateur viens d'appuyer mais qu'il n'a rien écrit on passe ici et on affiche tous
+      terrain = [];
+    } else {
+      // on vas regarder mot pare mot si on a des lettre on commun avec la recherche
+      int plusG = 0;
+      for (var i = 0;
+          i < ScopedModel.of<TerrainModel>(context).taille_terrain;
+          i++) {
+        int nombre = 0;
+        nombre = comparestring(
+            terrainre.toUpperCase(),
+            ScopedModel.of<TerrainModel>(context)
+                .data_terrain[i]['ville']
+                .toUpperCase());
+        if (nombre > 0 && nombre > (plusG - 2)) {
+          plusG = nombre;
+          // ici le lieu doit être affiche il vas dans construction
+          Map tkt = {
+            'contruiction':
+                ScopedModel.of<TerrainModel>(context).data_terrain[i],
+            "nombre": nombre
+          };
+          contruction.add(tkt);
+        }
+      }
+      int copie = contruction.length;
+      // objatif classer les lieu dans l'ordre
+      for (var i = 0; i < copie; i++) {
+        int nombreplus = 0;
+        int place;
+        for (var n = 0; n < contruction.length; n++) {
+          if (contruction[n]['nombre'] >= nombreplus) {
+            nombreplus = contruction[n]['nombre'];
+            place = n;
+          }
+        }
+        if (nombreplus >= (plusG - 1)) {
+          terrain.add(contruction[place]['contruiction']);
+        }
+        contruction.removeAt(place);
+      }
+    }
+    afficher = true;
+  }
+lieutrouver(String lieu ){
+    Navigator.of(context).pop();
+                                        setState(() {
+                                          lieuchoisi =lieu;
+                                        });
+}
   _showReportDialog() {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return AlertDialog(
-    title:  Text("Choisi ton lieu"),
-            content: MultiSelectChip(reportList),
-            actions: <Widget>[
-              FlatButton(
-                  child: Text("valider"),
-                  onPressed: () {
-                    setState(() {});
-                    Navigator.of(context).pop();
-                  })
-            ],
-          );
+          print(terrain);
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              backgroundColor: back,
+              title: Text("Choisi ton lieu"),
+              actions: <Widget>[
+                Container(
+                  height: MediaQuery.of(context).size.height / 3,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: <Widget>[
+                      Divider(color: Colors.grey),
+                      TextFormField(
+                        autocorrect: true,
+                        cursorColor: Colors.black,
+                        style: Theme.of(context).textTheme.display3,
+                        decoration: const InputDecoration(
+                          hintText: 'Trouver un playground',
+                          hintStyle: TextStyle(color: Colors.black),
+                        ),
+                        onChanged: (value) async {
+                          setState(() {
+                            afficher = false;
+                          });
+                          await terrainre(value);
+                          setState(() {
+                            terrain;
+                            afficher;
+                          });
+                        },
+                      ),
+                      Flexible(
+                        child: Container(
+                          child: afficher
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: terrain.length,
+                                  itemBuilder: (context, i) {
+                                    print('normale affichage');
+                                    return GestureDetector(
+                                      onTap: (){
+                                        lieutrouver(terrain[i]['nom']);
+                                      
+                                      },
+                                      child: Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                20,
+                                        child: Center(
+                                          child: Text(
+                                              terrain[i]['nom'] +
+                                                  " (" +
+                                                  terrain[i]['ville'] +
+                                                  ')',
+                                              softWrap: true,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .display3),
+                                        ),
+                                      ),
+                                    );
+                                  })
+                              : CircularProgressIndicator(),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            );
+          });
         });
   }
 
@@ -62,8 +170,8 @@ class _Ajout_matchState extends State<Ajout_match> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-           centerTitle: true,
-    title:  Text("Ajouter une rencontre"),
+          centerTitle: true,
+          title: Text("Ajouter une rencontre"),
           backgroundColor: Colors.indigo,
         ),
         persistentFooterButtons: <Widget>[
@@ -72,7 +180,7 @@ class _Ajout_matchState extends State<Ajout_match> {
         // backgroundColor: Colors.black,
 
         backgroundColor: back,
-        body:  Padding(
+        body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Container(
             child: Column(
@@ -85,29 +193,31 @@ class _Ajout_matchState extends State<Ajout_match> {
                       borderRadius: BorderRadius.circular(5.0)),
                   elevation: 4.0,
                   onPressed: () {
-                    DatePicker.showDatePicker(context,
-                        showTitleActions: true,
-                        minTime: DateTime.now(),
-                        maxTime: DateTime(2030, 12, 31),
-                        currentTime: curseurdate,
-                         locale: LocaleType.fr,
-                        theme: DatePickerTheme(
-                            headerColor: Colors.indigo,
-                            // backgroundColor: Colors.blue,
-                            itemStyle: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18),
-                            cancelStyle:
-                                TextStyle(color: Colors.white, fontSize: 16),
-                            doneStyle:
-                                TextStyle(color: Colors.white, fontSize: 16)
-                                ),
-                        onChanged: (date) {}, onConfirm: (date) {
-                          curseurdate = date;
-                      _date = '${date.day}-${date.month}-${date.year}';
-                      setState(() {});
-                    }, );
+                    DatePicker.showDatePicker(
+                      context,
+                      showTitleActions: true,
+                      minTime: DateTime.now(),
+                      maxTime: DateTime(2030, 12, 31),
+                      currentTime: curseurdate,
+                      locale: LocaleType.fr,
+                      theme: DatePickerTheme(
+                          headerColor: Colors.indigo,
+                          // backgroundColor: Colors.blue,
+                          itemStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                          cancelStyle:
+                              TextStyle(color: Colors.white, fontSize: 16),
+                          doneStyle:
+                              TextStyle(color: Colors.white, fontSize: 16)),
+                      onChanged: (date) {},
+                      onConfirm: (date) {
+                        curseurdate = date;
+                        _date = '${date.day}-${date.month}-${date.year}';
+                        setState(() {});
+                      },
+                    );
                   },
                   child: Container(
                     alignment: Alignment.center,
@@ -140,11 +250,6 @@ class _Ajout_matchState extends State<Ajout_match> {
                   ),
                   color: Colors.amber[900],
                 ),
-                /* SizedBox(
-                height: 20.0,
-              ),
-             */
-
                 Container(
                   height: 10,
                 ),
@@ -154,26 +259,29 @@ class _Ajout_matchState extends State<Ajout_match> {
                       borderRadius: BorderRadius.circular(5.0)),
                   elevation: 4.0,
                   onPressed: () {
-                    DatePicker.showTimePicker(context,
-                        showSecondsColumn: false,
-                        currentTime: curseurtime, 
-                        locale: LocaleType.fr,
-                        theme: DatePickerTheme(
-                            headerColor: Colors.indigo,
-                            // backgroundColor: Colors.blue,
-                            itemStyle: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18),
-                            cancelStyle:
-                                TextStyle(color: Colors.white, fontSize: 16),
-                            doneStyle:
-                                TextStyle(color: Colors.white, fontSize: 16)),
-                        showTitleActions: true, onConfirm: (time) {
-                          curseurtime = time;
-                      _time = '${time.hour}:${time.minute}';
-                      setState(() {});
-                    }, );
+                    DatePicker.showTimePicker(
+                      context,
+                      showSecondsColumn: false,
+                      currentTime: curseurtime,
+                      locale: LocaleType.fr,
+                      theme: DatePickerTheme(
+                          headerColor: Colors.indigo,
+                          // backgroundColor: Colors.blue,
+                          itemStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                          cancelStyle:
+                              TextStyle(color: Colors.white, fontSize: 16),
+                          doneStyle:
+                              TextStyle(color: Colors.white, fontSize: 16)),
+                      showTitleActions: true,
+                      onConfirm: (time) {
+                        curseurtime = time;
+                        _time = '${time.hour}:${time.minute}';
+                        setState(() {});
+                      },
+                    );
                     setState(() {});
                   },
                   child: Container(
@@ -212,113 +320,74 @@ class _Ajout_matchState extends State<Ajout_match> {
                   return ScopedModelDescendant<LoginModel>(
                       builder: (context, child, model) {
                     pseudo = model.pseudo;
-                    return Form(
-                        key: _formKey,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              RaisedButton(
-                                  child: Text("Lieu"),
-                                  onPressed: () async {
-                                    await ScopedModel.of<TerrainModel>(context)
-                                        .List();
-                                    reportList =
-                                        ScopedModel.of<TerrainModel>(context)
-                                            .nomlist;
-                                    _showReportDialog();
-                                  }),
-                              Text(lieuchoisi,
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.display3),
-                              Center(
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 16.0),
-                                  child: RaisedButton(
-                                    onPressed: () async {
-                                      if (lieuchoisi == "Choix du lieu" ||
-                                          lieuchoisi == "Tu doit choisir un lieu") {
-                                            setState(() {
-                                              lieuchoisi = "Tu doit choisir un lieu";
-                                            });
-                                        
-                                      } else {
-                                        if (_formKey.currentState.validate()) {
-                                          await ScopedModel.of<GameModel>(
-                                                  context)
-                                              .Ajout_match(lieuchoisi, _date,
-                                                  _time, nombre_jo, pseudo);
-                                          await ScopedModel.of<GameModel>(
-                                                  context)
-                                              .Match();
-                                          setState(() {
-                                            lieuchoisi = "Choix du lieu";
-                                            _date = "Date";
-                                            _time = "Heure";
-                                            nombre_jo = null;
-                                            curseurdate = DateTime.now();
-                                            curseurtime = DateTime.now();
-                                            _controller.clear();
-                                          });
+                    return SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          RaisedButton(
+                              child: Text(lieuchoisi),
+                              onPressed: () async {
+                                _showReportDialog();
+                              }),
+                          Center(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 16.0),
+                              child: RaisedButton(
+                                onPressed: () async {
+                                  if (_date == "Date") {
+                                    Scaffold.of(context).showSnackBar(
+                                        new SnackBar(
+                                            content: new Text(
+                                                'Tu doit choisir une date')));
+                                  } else if (_time == "Heure") {
+                                    Scaffold.of(context).showSnackBar(
+                                        new SnackBar(
+                                            content: new Text(
+                                                'Tu doit choisir une heure')));
+                                  } else {
+                                    if (lieuchoisi == "Choix du lieu" ||
+                                        lieuchoisi ==
+                                            "Tu doit choisir un lieu") {
+                                      Scaffold.of(context).showSnackBar(
+                                          new SnackBar(
+                                              content: new Text(
+                                                  'Tu doit choisir un lieu')));
+                                    } else {
+                                      await ScopedModel.of<GameModel>(context)
+                                          .Ajout_match(lieuchoisi, _date, _time,
+                                              nombre_jo, pseudo);
+                                      await ScopedModel.of<GameModel>(context)
+                                          .Match();
+                                      setState(() {
+                                        lieuchoisi = "Choix du lieu";
+                                        _date = "Date";
+                                        _time = "Heure";
+                                        nombre_jo = null;
+                                        curseurdate = DateTime.now();
+                                        curseurtime = DateTime.now();
+                                        _controller.clear();
+                                      });
 
-                                          Scaffold.of(context).showSnackBar(
-                                              new SnackBar(
-                                                  content: new Text(
-                                                      'Rencontre ajoutée')));
-                                        }
-                                      }
-                                    },
-                                    child: Text('Proposer'),
-                                  ),
-                                ),
+                                      Scaffold.of(context).showSnackBar(
+                                          new SnackBar(
+                                              content: new Text(
+                                                  'Rencontre ajoutée')));
+                                    }
+                                  }
+                                },
+                                child: Text('Proposer'),
                               ),
-                            ],
+                            ),
                           ),
-                        ));
+                        ],
+                      ),
+                    );
                   });
                 })
               ],
             ),
           ),
         ));
-  }
-}
-
-class MultiSelectChip extends StatefulWidget {
-  final List<String> reportList;
-  MultiSelectChip(this.reportList);
-  @override
-  _MultiSelectChipState createState() => _MultiSelectChipState();
-}
-
-class _MultiSelectChipState extends State<MultiSelectChip> {
-  String selectedChoice =
-      ""; // this function will build and return the choice list
-  _buildChoiceList() {
-    List<Widget> choices = List();
-    widget.reportList.forEach((item) {
-      choices.add(Container(
-        padding: const EdgeInsets.all(2.0),
-        child: ChoiceChip(
-          label: Text(item),
-          selected: selectedChoice == item,
-          onSelected: (selected) {
-            setState(() {
-              selectedChoice = item;
-              lieuchoisi = item;
-            });
-          },
-        ),
-      ));
-    });
-    return choices;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      children: _buildChoiceList(),
-    );
   }
 }

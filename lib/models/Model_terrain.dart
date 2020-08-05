@@ -8,7 +8,6 @@ import 'package:http/http.dart';
 class TerrainModel extends Model {
   var data_terrain = [];
   var data_terrainDev = [];
-  var nomlist = ["Not relevant"];
   int taille_terrain = 0;
   int taille_terrainDev = 0;
   bool afficher = false;
@@ -24,20 +23,6 @@ class TerrainModel extends Model {
     return " fin de fonction";
   }
 
-  Future<String> List() async {
-    var url = 'http://51.210.103.151/get_terrain.php';
-    http.Response response = await http.get(url);
-    var data = jsonDecode(response.body);
-    int n = 0;
-    taille_terrain = data.length;
-    nomlist.clear();
-    while (taille_terrain > n) {
-      nomlist.add(data[n]['nom']);
-      n++;
-    }
-    notifyListeners();
-    return " fin de fonction";
-  }
 
   Future<String> TerrainDev() async {
     var url = 'http://51.210.103.151/get_terrain.php';
