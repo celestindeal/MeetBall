@@ -11,6 +11,7 @@ class TerrainModel extends Model {
   int taille_terrain = 0;
   int taille_terrainDev = 0;
   bool afficher = false;
+  bool nom_verifier = true;
 
   Future<String> Terrain() async {
     var url = 'http://51.210.103.151/get_terrain.php';
@@ -31,6 +32,28 @@ class TerrainModel extends Model {
     data_terrainDev = data;
     taille_terrainDev = data.length;
     notifyListeners();
+    return " fin de fonction";
+  }
+
+  Future<String> Verification_nom(String nom_ecrit) async {
+    print('fonction');
+
+    var url = 'http://51.210.103.151/get_terrain_nom.php';
+    http.Response response = await http.get(url);
+    var data = jsonDecode(response.body);
+    print(data.length);
+    
+    nom_verifier = true;
+    bool obtimisation = false;
+    int nombre = data.length;
+    for (var i = 0; i < nombre && obtimisation == false; i++) {
+      print(data[i]);
+      if(nom_ecrit == data[i]){
+        nom_verifier = false;
+        obtimisation = true;
+      }
+    }
+    print('fonction');
     return " fin de fonction";
   }
 

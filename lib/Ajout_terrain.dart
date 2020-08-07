@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -253,59 +252,76 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                   const EdgeInsets.symmetric(vertical: 16.0),
                               child: RaisedButton(
                                 onPressed: () async {
-                                  if (_formKey.currentState.validate()) {
-                                    for (var i = 0; i < images.length; i++) {
-                                      ByteData test =
-                                          await images[i].getByteData();
-                                      Uint8List audioUint8List = test.buffer
-                                          .asUint8List(test.offsetInBytes,
-                                              test.lengthInBytes);
-                                      List<int> audioListInt = audioUint8List
-                                          .map((eachUint8) => eachUint8.toInt())
-                                          .toList();
+                                  print('object');
+                                  await ScopedModel.of<TerrainModel>(context).Verification_nom(nom);
+                                  if (ScopedModel.of<TerrainModel>(context)
+                                          .nom_verifier ==
+                                      true) {
+                                        print("valider");
+                                    if (_formKey.currentState.validate()) {
+                                      for (var i = 0; i < images.length; i++) {
+                                        ByteData test =
+                                            await images[i].getByteData();
+                                        Uint8List audioUint8List = test.buffer
+                                            .asUint8List(test.offsetInBytes,
+                                                test.lengthInBytes);
+                                        List<int> audioListInt = audioUint8List
+                                            .map((eachUint8) =>
+                                                eachUint8.toInt())
+                                            .toList();
 
-                                      List<int> imageBytescompress =
-                                          await FlutterImageCompress
-                                              .compressWithList(
-                                        audioListInt,
-                                        minHeight: 1920,
-                                        minWidth: 1080,
-                                        quality: 96,
-                                        rotate: 0,
-                                      );
+                                        List<int> imageBytescompress =
+                                            await FlutterImageCompress
+                                                .compressWithList(
+                                          audioListInt,
+                                          minHeight: 1920,
+                                          minWidth: 1080,
+                                          quality: 96,
+                                          rotate: 0,
+                                        );
 
-                                      base64Image.add(
-                                          base64Encode(imageBytescompress));
+                                        base64Image.add(
+                                            base64Encode(imageBytescompress));
+                                      }
+
+                                      base64Image.add("null");
+                                      base64Image.add("null");
+                                      base64Image.add("null");
+                                      base64Image.add("null");
+                                      Navigator.pushNamedAndRemoveUntil(
+                                          context,
+                                          '/Profil',
+                                          (Route<dynamic> route) => false);
+                                      ScopedModel.of<TerrainModel>(context)
+                                          .AjouterTerrain(
+                                              nom,
+                                              adresse,
+                                              ville,
+                                              nombre_terrain,
+                                              base64Image[0],
+                                              base64Image[1],
+                                              base64Image[2],
+                                              base64Image[3],
+                                              sol,
+                                              ouverture);
+                                      ScopedModel.of<GameModel>(context)
+                                          .Match();
+                                      Scaffold.of(context)
+                                          .showSnackBar(new SnackBar(
+                                              content: new Text(
+                                        'Terrain Proposé',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .display3,
+                                      )));
                                     }
-
-                                    base64Image.add("null");
-                                    base64Image.add("null");
-                                    base64Image.add("null");
-                                    base64Image.add("null");
-                                    Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        '/Profil',
-                                        (Route<dynamic> route) => false);
-                                    ScopedModel.of<TerrainModel>(context)
-                                        .AjouterTerrain(
-                                            nom,
-                                            adresse,
-                                            ville,
-                                            nombre_terrain,
-                                            base64Image[0],
-                                            base64Image[1],
-                                            base64Image[2],
-                                            base64Image[3],
-                                            sol,
-                                            ouverture);
-                                    ScopedModel.of<GameModel>(context).Match();
-                                    Scaffold.of(context)
-                                        .showSnackBar(new SnackBar(
-                                            content: new Text(
-                                      'Terrain Proposé',
-                                      style:
-                                          Theme.of(context).textTheme.display3,
-                                    )));
+                                  } else {
+                                    // le nom est déja pris
+                                     Scaffold.of(context).showSnackBar(
+                                          new SnackBar(
+                                              content: new Text(
+                                                  'Ce nom est déja pris un autre terrain')));
+                               
                                   }
                                 },
                                 child: Text(
