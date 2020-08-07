@@ -14,6 +14,7 @@ import 'package:meetballl/terrain.dart';
 import 'package:meetballl/terrainproche.dart';
 import 'package:meetballl/terrainrecherche.dart';
 import 'package:meetballl/terrainrencontre.dart';
+import 'package:meetballl/test.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'Ajout_terrain.dart';
@@ -150,6 +151,8 @@ class _MainState extends State<Main> {
                               '/Calendar': (context) => Calendar(),
                               '/password': (context) => Password(),
                               '/commentaire': (context) => Commentaire(),
+                              '/test': (context) => MyApp(),
+
 
                             },
                           );

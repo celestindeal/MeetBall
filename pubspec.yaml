@@ -43,6 +43,7 @@ dependencies:
   table_calendar: ^2.2.3
   mailer2: ^1.2.5
   matrix_gesture_detector: ^0.1.0
+  multi_image_picker: ^4.7.10
 
 
 
