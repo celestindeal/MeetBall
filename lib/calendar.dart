@@ -49,6 +49,13 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
       _selectedEvents = events;
     });
   }
+   void _onDaySelectedlong(DateTime day, List events) {
+     print(day.day);
+     print(day.hour);
+
+   Navigator.pushNamed(context, '/Ajout_match');
+   ScopedModel.of<GameModel>(context).Initdate('${day.day}-${day.month}-${day.year}','${day.hour}:${day.minute}');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +121,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
         ),
       ),
       onDaySelected: _onDaySelected,
+      onDayLongPressed :  _onDaySelectedlong,
     );
   }
 

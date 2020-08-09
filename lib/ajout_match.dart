@@ -12,11 +12,10 @@ import 'models/Model_terrain.dart';
 
 String lieuchoisi = "Choix du lieu";
 
-String _date = "Date";
+
 DateTime curseurdate = DateTime.now();
 DateTime curseurtime = DateTime.now();
 
-String _time = "Heure";
 var nombre_jo = "1";
 var pseudo;
 var _controller = TextEditingController();
@@ -214,7 +213,7 @@ lieutrouver(String lieu ){
                       onChanged: (date) {},
                       onConfirm: (date) {
                         curseurdate = date;
-                        _date = '${date.day}-${date.month}-${date.year}';
+                         ScopedModel.of<GameModel>(context).date = '${date.day}-${date.month}-${date.year}';
                         setState(() {});
                       },
                     );
@@ -236,7 +235,7 @@ lieutrouver(String lieu ){
                                     color: Colors.black,
                                   ),
                                   Text(
-                                    " $_date",
+                                    ScopedModel.of<GameModel>(context).date.toString(),
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 18.0),
                                   ),
@@ -278,7 +277,7 @@ lieutrouver(String lieu ){
                       showTitleActions: true,
                       onConfirm: (time) {
                         curseurtime = time;
-                        _time = '${time.hour}:${time.minute}';
+                        ScopedModel.of<GameModel>(context).time = '${time.hour}:${time.minute}';
                         setState(() {});
                       },
                     );
@@ -301,7 +300,7 @@ lieutrouver(String lieu ){
                                     color: Colors.black,
                                   ),
                                   Text(
-                                    " $_time",
+                                    ScopedModel.of<GameModel>(context).time.toString(),
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 18.0),
                                   ),
@@ -335,12 +334,12 @@ lieutrouver(String lieu ){
                                   const EdgeInsets.symmetric(vertical: 16.0),
                               child: RaisedButton(
                                 onPressed: () async {
-                                  if (_date == "Date") {
+                                  if (ScopedModel.of<GameModel>(context).date == "Date") {
                                     Scaffold.of(context).showSnackBar(
                                         new SnackBar(
                                             content: new Text(
                                                 'Tu doit choisir une date')));
-                                  } else if (_time == "Heure") {
+                                  } else if (ScopedModel.of<GameModel>(context).time == "Heure") {
                                     Scaffold.of(context).showSnackBar(
                                         new SnackBar(
                                             content: new Text(
@@ -355,14 +354,14 @@ lieutrouver(String lieu ){
                                                   'Tu doit choisir un lieu')));
                                     } else {
                                       await ScopedModel.of<GameModel>(context)
-                                          .Ajout_match(lieuchoisi, _date, _time,
+                                          .Ajout_match(lieuchoisi, ScopedModel.of<GameModel>(context).date, ScopedModel.of<GameModel>(context).time,
                                               nombre_jo, pseudo);
                                       await ScopedModel.of<GameModel>(context)
                                           .Match();
                                       setState(() {
                                         lieuchoisi = "Choix du lieu";
-                                        _date = "Date";
-                                        _time = "Heure";
+                                        ScopedModel.of<GameModel>(context).date = "Date";
+                                        ScopedModel.of<GameModel>(context).time = "Heure";
                                         nombre_jo = null;
                                         curseurdate = DateTime.now();
                                         curseurtime = DateTime.now();

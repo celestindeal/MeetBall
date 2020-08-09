@@ -37,6 +37,10 @@ class GameModel extends Model {
   Map<DateTime, List> events = {};
   final _selectedDay = DateTime.now();
 
+  // variable pour rajouter un match 
+  String date = "Date";
+String time = "Heure";
+
   void initState() {}
 
   Future<String> Match() async {
@@ -188,5 +192,11 @@ class GameModel extends Model {
     Response response = await post(url, body: json);
     String body = response.body;
     return body;
+  }
+  Initdate(String newdate, String newtime) async {
+    date= newdate;
+    time = newtime;
+     notifyListeners();
+    return ;
   }
 }
