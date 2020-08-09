@@ -9,7 +9,7 @@ import 'models/Model_img.dart';
 import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 
-int page = 1;
+
 Color bouton = Colors.amber[900];
 
 class Footer extends StatelessWidget {
@@ -23,7 +23,8 @@ class Footer extends StatelessWidget {
           Container(
             decoration: new BoxDecoration(
               shape: BoxShape.circle,
-              color: page == 1 ?bouton: Colors.transparent,
+              color: ScopedModel.of<LoginModel>(context)
+                                          .page == 1 ?bouton: Colors.transparent,
             ),
             child: IconButton(
                 icon: Image.asset(
@@ -33,13 +34,14 @@ class Footer extends StatelessWidget {
                 ),
                 onPressed: () {
                   ScopedModel.of<LoginModel>(context).ParticipationProil();
-                  Navigator.of(context).push(_createRouteprofil());
+                  Navigator.of(context).push(_createRouteprofil(context));
                 }),
           ),
           Container(
             decoration: new BoxDecoration(
               shape: BoxShape.circle,
-              color: page == 2 ? bouton : Colors.transparent,
+              color: ScopedModel.of<LoginModel>(context)
+                                          .page == 2 ? bouton : Colors.transparent,
             ),
             child: IconButton(
                 icon: Image.asset(
@@ -49,13 +51,14 @@ class Footer extends StatelessWidget {
                 ),
                 onPressed: () {
                   ScopedModel.of<GameModel>(context).MatchCalendar();
-                  Navigator.of(context).push(_createRouterencontre());
+                  Navigator.of(context).push(_createRouterencontre(context));
                 }),
           ),
           Container(
             decoration: new BoxDecoration(
               shape: BoxShape.circle,
-              color: page == 3 ?bouton : Colors.transparent,
+              color: ScopedModel.of<LoginModel>(context)
+                                          .page == 3 ?bouton : Colors.transparent,
             ),
             child: IconButton(
                 icon: Icon(
@@ -65,7 +68,7 @@ class Footer extends StatelessWidget {
                 onPressed: () {
                   ScopedModel.of<ImgModel>(context).Img();
                   ScopedModel.of<TerrainModel>(context).Terrain();
-                  Navigator.of(context).push(_createRouterecherche());
+                  Navigator.of(context).push(_createRouterecherche(context));
                 }),
           ),
         ],
@@ -74,8 +77,9 @@ class Footer extends StatelessWidget {
   }
 }
 
-Route _createRouteprofil() {
-  page = 1;
+Route _createRouteprofil(BuildContext context) {
+  ScopedModel.of<LoginModel>(context)
+                                          .page = 1;
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => Profil(),
     transitionsBuilder: (
@@ -88,28 +92,13 @@ Route _createRouteprofil() {
         opacity: animation,
         child: child,
       );
-      // Offset off;
-      // if (page == 1) {
-      //   off = Offset(-0.3, 0);
-      // } else if (page == 2) {
-      //   off = Offset(-1, 0);
-      // } else {
-      //   off = Offset(-2, 0);
-      // }
-      // page = 1;
-      // return SlideTransition(
-      //   position: Tween<Offset>(
-      //     begin: off,
-      //     end: Offset.zero,
-      //   ).animate(animation),
-      //   child: child, // child is the value returned by pageBuilder
-      // );
     },
   );
 }
 
-Route _createRouterencontre() {
-  page = 2;
+Route _createRouterencontre(BuildContext context) {
+  ScopedModel.of<LoginModel>(context)
+                                          .page = 2;
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => Calendar(),
     transitionsBuilder: (
@@ -122,28 +111,13 @@ Route _createRouterencontre() {
         opacity: animation,
         child: child,
       );
-      // Offset off;
-      // if (page == 1) {
-      //   off = Offset(1, 0);
-      // } else if (page == 2) {
-      //   off = Offset(0.3, 0);
-      // } else {
-      //   off = Offset(-1, 0);
-      // }
-      // page = 2;
-      // return SlideTransition(
-      //   position: Tween<Offset>(
-      //     begin: off,
-      //     end: Offset.zero,
-      //   ).animate(animation),
-      //   child: child, // child is the value returned by pageBuilder
-      // );
     },
   );
 }
 
-Route _createRouterecherche() {
-  page = 3;
+Route _createRouterecherche(BuildContext context) {
+  ScopedModel.of<LoginModel>(context)
+                                          .page = 3;
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => Rechercher(),
     transitionsBuilder: (
@@ -156,22 +130,6 @@ Route _createRouterecherche() {
         opacity: animation,
         child: child,
       );
-      // Offset off;
-      // if (page == 1) {
-      //   off = Offset(2, 0);
-      // } else if (page == 2) {
-      //   off = Offset(1, 0);
-      // } else {
-      //   off = Offset(0.3, 0);
-      // }
-      // page = 3;
-      // return SlideTransition(
-      //   position: Tween<Offset>(
-      //     begin: off,
-      //     end: Offset.zero,
-      //   ).animate(animation),
-      //   child: child, // child is the value returned by pageBuilder
-      // );
     },
   );
 }

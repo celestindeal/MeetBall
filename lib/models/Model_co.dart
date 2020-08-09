@@ -43,6 +43,7 @@ class LoginModel extends Model {
   bool devellopeur = false;
 
   bool dark = false;
+  int page = 1;
 
   changeMode() {
     if (dark) {

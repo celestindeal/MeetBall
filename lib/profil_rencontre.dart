@@ -468,6 +468,8 @@ class _PresentationState extends State<Presentation> {
                                                               model.nombJoueur--;
                                                               if (model.nombJoueur == 0) {
                                                                     ScopedModel.of<LoginModel>(context).ParticipationProil();
+                                                                    ScopedModel.of<LoginModel>(context)
+                                          .page = 1;
                                                                 Navigator.pushNamedAndRemoveUntil(
                                                                     context,
                                                                     '/Profil',
@@ -584,8 +586,11 @@ class _PresentationState extends State<Presentation> {
                                                   .toString()) {
                                             ScopedModel.of<LoginModel>(context)
                                                 .ParticipationProil();
+                                                ScopedModel.of<LoginModel>(context)
+                                          .page =1;
                                             Navigator.pushNamed(
                                                 context, '/Profil');
+                                                
                                           } else {
                                             await login
                                                 .ParticipationProilVisiteur(
