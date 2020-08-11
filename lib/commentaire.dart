@@ -28,7 +28,6 @@ class _CommentaireState extends State<Commentaire> {
       // si il y as un nouveau commentainer  on scroll la page pour voir le nouveau com
       if (ScopedModel.of<GameModel>(context).scrool) {
         ScopedModel.of<GameModel>(context).scrool = false;
-        print('scroll');
         Timer(Duration(microseconds: 1), () {
           _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
         });
@@ -39,7 +38,6 @@ class _CommentaireState extends State<Commentaire> {
          _scrollController.jumpTo(10);
          // on rajoute 10 message suplementaire 
         ScopedModel.of<GameModel>(context).mmax = ScopedModel.of<GameModel>(context).mmax +10;
-        print("plus 1à message");
         // calcul et placement du nouveau scroll
         double max = _scrollController.position.maxScrollExtent;
         await ScopedModel.of<GameModel>(context).Commentaire();

@@ -288,7 +288,7 @@ class LoginModel extends Model {
     affmodif = false;
     String json =
         '{"pseudo":"$newpseudo","email":"$email","nom":"$nom","prenom":"$prenom","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","id":"$idd"}'; // make POST request
-
+    print(json);
     Response response = await post(url, body: json);
     String body = response.body;
     if(newpseudo != pseudo){
@@ -297,6 +297,7 @@ class LoginModel extends Model {
         '{"pseudo":"$pseudo","newpseudo":"$newpseudo"}'; // make POST request
 
     Response response = await post(url, body: json);
+    print(response);
     }
     Connexion(email, password);
     affmodif = false;
@@ -347,7 +348,10 @@ class LoginModel extends Model {
     int n = 0;
 
     while (tailledata > n && emailvalide == true) {
+      
       if (email_verifier == data[n]['email'] && email_verifier != email) {
+        print(email_verifier);
+        print(email);
         emailvalideModif = false;
       }
       n++;

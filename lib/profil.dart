@@ -341,8 +341,8 @@ class _PresentationState extends State<Presentation> {
                         child: Text('Modifier le profil'),
                         onPressed: () {
                           model.affmodif = true;
-                          Navigator.pushNamedAndRemoveUntil(context, '/modif',
-                              (Route<dynamic> route) => false);
+                          Navigator.pushNamed(
+                                    context, '/modif');
                         }),
                     RaisedButton(
                         child: Text("organiser une rencontre"),

@@ -75,10 +75,8 @@ class _PresentationState extends State<Presentation> {
     if (init) {
       init = false;
       setState(() {
-        print('init');
         largeurMessage = MediaQuery.of(context).size.width * 0.4 / .15;
         hauteurMessage = MediaQuery.of(context).size.height * 0.35 / .15;
-        print(hauteurMessage);
       });
     }
 

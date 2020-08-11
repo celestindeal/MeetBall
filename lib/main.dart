@@ -218,8 +218,8 @@ sdialog(context) {
                           }),
                       RaisedButton(
                         onPressed: () async {
-                          Navigator.pushNamedAndRemoveUntil(context, '/Avis',
-                              (Route<dynamic> route) => false);
+                      
+                              Navigator.pushNamed(context, '/Avis');
                         },
                         child: Text('Nous contacter',
                             style: Theme.of(context).textTheme.display3),

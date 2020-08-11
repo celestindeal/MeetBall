@@ -88,11 +88,7 @@ class _ModfState extends State<Modif> {
     title:  Text("Modifier le profil"),
           
           backgroundColor: Colors.indigo,
-          leading: IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                Navigator.pushNamed(context, '/Ajout_match');
-              }),
+        
           
           
         ),

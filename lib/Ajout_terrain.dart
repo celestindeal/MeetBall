@@ -252,12 +252,10 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                   const EdgeInsets.symmetric(vertical: 16.0),
                               child: RaisedButton(
                                 onPressed: () async {
-                                  print('object');
                                   await ScopedModel.of<TerrainModel>(context).Verification_nom(nom);
                                   if (ScopedModel.of<TerrainModel>(context)
                                           .nom_verifier ==
                                       true) {
-                                        print("valider");
                                     if (_formKey.currentState.validate()) {
                                       for (var i = 0; i < images.length; i++) {
                                         ByteData test =

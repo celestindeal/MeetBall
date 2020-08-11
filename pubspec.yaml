@@ -44,6 +44,7 @@ dependencies:
   mailer2: ^1.2.5
   matrix_gesture_detector: ^0.1.0
   multi_image_picker: ^4.7.10
+  connectivity: ^0.4.9
 
 
 

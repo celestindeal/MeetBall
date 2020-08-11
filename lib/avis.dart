@@ -31,12 +31,7 @@ class _AvisState extends State<Avis> {
      centerTitle: true,
     title:   Text("Avis"),
     backgroundColor: Colors.indigo,
-    leading: IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, '/Ajout_match', (Route<dynamic> route) => false);
-        }),
+   
    
   ),
         persistentFooterButtons: <Widget>[

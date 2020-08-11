@@ -50,9 +50,6 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
     });
   }
    void _onDaySelectedlong(DateTime day, List events) {
-     print(day.day);
-     print(day.hour);
-
    Navigator.pushNamed(context, '/Ajout_match');
    ScopedModel.of<GameModel>(context).Initdate('${day.day}-${day.month}-${day.year}','${day.hour}:${day.minute}');
   }
@@ -84,6 +81,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
       ],
       backgroundColor: back,
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           _buildTableCalendar(),
@@ -101,12 +99,11 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
       availableCalendarFormats: const {
         CalendarFormat.month: 'Mois',
         CalendarFormat.week: 'Semaine',
-        // CalendarFormat.twoWeeks: '2 Semaines',
       },
-      calendarController: _calendarController,
-      events: _events,
       startingDayOfWeek: StartingDayOfWeek.monday,
       calendarStyle: CalendarStyle(
+        weekdayStyle: TextStyle().copyWith( fontSize: 20.0),
+        weekendStyle: TextStyle().copyWith(color:Colors.deepOrange[400], fontSize: 25.0),
         selectedColor: Colors.deepOrange[400],
         todayColor: Colors.deepOrange[200],
         markersColor: Colors.indigo,
@@ -114,7 +111,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
       ),
       headerStyle: HeaderStyle(
         formatButtonTextStyle:
-            TextStyle().copyWith(color: Colors.white, fontSize: 15.0),
+            TextStyle().copyWith(color: Colors.white, fontSize: 25.0),
         formatButtonDecoration: BoxDecoration(
           color: Colors.deepOrange[400],
           borderRadius: BorderRadius.circular(16.0),
@@ -122,6 +119,8 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
       ),
       onDaySelected: _onDaySelected,
       onDayLongPressed :  _onDaySelectedlong,
+      calendarController: _calendarController,
+      events: _events,
     );
   }
 

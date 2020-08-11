@@ -88,7 +88,6 @@ lieutrouver(String lieu ){
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          print(terrain);
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter setState) {
             return AlertDialog(
@@ -127,7 +126,6 @@ lieutrouver(String lieu ){
                                   shrinkWrap: true,
                                   itemCount: terrain.length,
                                   itemBuilder: (context, i) {
-                                    print('normale affichage');
                                     return GestureDetector(
                                       onTap: (){
                                         lieutrouver(terrain[i]['nom']);
