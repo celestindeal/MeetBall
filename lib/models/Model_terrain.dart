@@ -26,7 +26,7 @@ class TerrainModel extends Model {
 
 
   Future<String> TerrainDev() async {
-    var url = 'http://51.210.103.151/get_terrain.php';
+    var url = 'http://51.210.103.151/get_terrain_dev.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
     data_terrainDev = data;

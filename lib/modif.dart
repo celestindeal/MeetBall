@@ -354,10 +354,6 @@ class _ModfState extends State<Modif> {
                           ),
                           color: Colors.amber[900],
                         ),
-                        /* SizedBox(
-                height: 20.0,
-              ),
-               */
                         TextFormField(
                           autocorrect: true,
                           initialValue: model.club,

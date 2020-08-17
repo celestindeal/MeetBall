@@ -289,15 +289,19 @@ class LoginModel extends Model {
     String json =
         '{"pseudo":"$newpseudo","email":"$email","nom":"$nom","prenom":"$prenom","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","id":"$idd"}'; // make POST request
     print(json);
+    print(url);
     Response response = await post(url, body: json);
     String body = response.body;
+    print(body.toString());
+
     if(newpseudo != pseudo){
+      print('on ne doit pas passer la');
       url = 'http://51.210.103.151/post_newpseudo.php';
        String json =
         '{"pseudo":"$pseudo","newpseudo":"$newpseudo"}'; // make POST request
 
     Response response = await post(url, body: json);
-    print(response);
+    
     }
     Connexion(email, password);
     affmodif = false;

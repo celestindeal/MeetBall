@@ -347,8 +347,8 @@ class _PresentationState extends State<Presentation> {
                     RaisedButton(
                         child: Text("organiser une rencontre"),
                         onPressed: () {
-                          Navigator.pushNamedAndRemoveUntil(context,
-                              '/Ajout_match', (Route<dynamic> route) => false);
+                           Navigator.pushNamed(
+                                    context, '/Ajout_match');
                         }),
                   ],
                 ),
