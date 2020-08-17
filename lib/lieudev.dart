@@ -114,8 +114,7 @@ class _LieuDevState extends State<LieuDev> {
         images = resultList;
         _error = error;
       });
-     await  envoie_image(idterrain, nomlieu);
-    
+      await envoie_image(idterrain, nomlieu);
 
       Navigator.pushNamedAndRemoveUntil(
           context, '/Profil', (Route<dynamic> route) => false);
@@ -246,6 +245,19 @@ class _LieuDevState extends State<LieuDev> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: <Widget>[
+                                                  terrain[i]['auto'] == '0'
+                                                      ? Text("Pas afficher",
+                                                          softWrap: true,
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .display4)
+                                                      : Text("Afficher",
+                                                          softWrap: true,
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .display4),
                                                   ScopedModelDescendant<
                                                           ImgModel>(
                                                       builder: (context, child,
@@ -515,6 +527,50 @@ class _LieuDevState extends State<LieuDev> {
                                                                   ['nom']);
                                                         }),
                                                   ),
+                                                  terrain[i]['auto'] == '0'
+                                                      ? RaisedButton(
+                                                          onPressed: ()async {
+                                                            String idterrain = terrain[i]['id'];
+                                                            var url =
+                                                                'http://51.210.103.151/post_modif_auto_terrain.php';
+                                                            String json =
+                                                                '{"id":"$idterrain","auto":"1"}'; // make POST request
+
+                                                            Response response =
+                                                                await post(url,body: json);
+                                                            String body =
+                                                                response.body;
+                                                                Navigator.pushNamedAndRemoveUntil(context, '/lieuDev', (Route<dynamic> route) => false);
+                                                          },
+                                                          child: Text(
+                                                              "Afficher",
+                                                              softWrap: true,
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .display3))
+                                                      : RaisedButton(
+                                                          onPressed: ()async {
+
+                                                              String idterrain = terrain[i]['id'];
+                                                            var url =
+                                                                'http://51.210.103.151/post_modif_auto_terrain.php';
+                                                            String json =
+                                                                '{"id":"$idterrain","auto":"0"}'; // make POST request
+
+                                                            Response response =
+                                                                await post(url,body: json);
+                                                            String body =
+                                                                response.body;
+                                                                Navigator.pushNamedAndRemoveUntil(context, '/lieuDev', (Route<dynamic> route) => false);
+                                                          },
+                                                          child: Text(
+                                                              "Pas afficher",
+                                                              softWrap: true,
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .display3))
                                                 ]))),
                                   );
                                 });
@@ -523,13 +579,30 @@ class _LieuDevState extends State<LieuDev> {
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height / 20,
                             child: Center(
-                              child: Text(
-                                  terrain[i]['nom'] +
-                                      " (" +
-                                      terrain[i]['ville'] +
-                                      ')',
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.display3),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                      terrain[i]['nom'] +
+                                          " (" +
+                                          terrain[i]['ville'] +
+                                          ')',
+                                      softWrap: true,
+                                      style:
+                                          Theme.of(context).textTheme.display3),
+                                  terrain[i]['auto'] == '0'
+                                      ? Icon(
+                                          Icons.clear,
+                                          color: Colors.red,
+                                          size: 20.0,
+                                        )
+                                      : Icon(
+                                          Icons.check,
+                                          color: Colors.green,
+                                          size: 20.0,
+                                        ),
+                                ],
+                              ),
                             ),
                           ),
                         );
