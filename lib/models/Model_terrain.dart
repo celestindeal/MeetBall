@@ -11,6 +11,8 @@ class TerrainModel extends Model {
   int taille_terrain = 0;
   int taille_terrainDev = 0;
   bool afficher = false;
+  bool afficher_dev = false;
+
   bool nom_verifier = true;
 
   Future<String> Terrain() async {
@@ -23,6 +25,7 @@ class TerrainModel extends Model {
     notifyListeners();
     return " fin de fonction";
   }
+
 
 
   Future<String> TerrainDev() async {

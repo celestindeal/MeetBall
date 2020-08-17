@@ -43,8 +43,12 @@ class _LieuDevState extends State<LieuDev> {
   String _error = 'No Error Dectected';
 
   List base64Image = [];
+  String lien1 = "";
+  String lien2 = "";
+  String lien3 = "";
+  String lien4 = "";
   Widget build(BuildContext context) {
-    envoie_image(String idlieu,String nomlieu) async {
+    envoie_image(String idlieu, String nomlieu) async {
       for (var i = 0; i < images.length; i++) {
         ByteData test = await images[i].getByteData();
         Uint8List audioUint8List =
@@ -68,22 +72,22 @@ class _LieuDevState extends State<LieuDev> {
       base64Image.add("null");
       base64Image.add("null");
       base64Image.add("null");
-      String image1 =  base64Image[0];
-      String image2 =  base64Image[1];
-      String image3 =  base64Image[2];
-      String image4 =  base64Image[3];
+      String image1 = base64Image[0];
+      String image2 = base64Image[1];
+      String image3 = base64Image[2];
+      String image4 = base64Image[3];
 
-         var url = 'http://51.210.103.151/post_terrain_modif.php';
-    String json =
-        '{"nom":"$nomlieu","id":"$idlieu","image1":"$image1","image2":"$image2","image3":"$image3","image4":"$image4"}'; // make POST request
-    print(json);
-    Response response = await post(url, body: json);
-    String body = response.body;
- print(body);
-    return body;
+      var url = 'http://51.210.103.151/post_terrain_modif.php';
+      String json =
+          '{"nom":"$nomlieu","id":"$idlieu","image1":"$image1","image2":"$image2","image3":"$image3","image4":"$image4"}'; // make POST request
+      print(json);
+      Response response = await post(url, body: json);
+      String body = response.body;
+      print(body);
+      return body;
     }
 
-    Future<void> loadAssets(String idterrain,String nomlieu) async {
+    Future<void> loadAssets(String idterrain, String nomlieu) async {
       List<Asset> resultList = List<Asset>();
       String error = 'No Error Dectected';
 
@@ -110,9 +114,11 @@ class _LieuDevState extends State<LieuDev> {
         images = resultList;
         _error = error;
       });
+     await  envoie_image(idterrain, nomlieu);
+    
+
       Navigator.pushNamedAndRemoveUntil(
-          context, '/lieuDev', (Route<dynamic> route) => false);
-      envoie_image(idterrain,nomlieu);
+          context, '/Profil', (Route<dynamic> route) => false);
     }
 
     supprimer_lieu(String id) async {
@@ -132,7 +138,7 @@ class _LieuDevState extends State<LieuDev> {
 
     terrainre(String terrainre) async {
       List contruction = [];
-      await ScopedModel.of<TerrainModel>(context).Terrain();
+      await ScopedModel.of<TerrainModel>(context).TerrainDev();
       terrain.clear();
       if (terrainre.isEmpty) {
         // quand l'utilisateur viens d'appuyer mais qu'il n'a rien écrit on passe ici et on affiche tous
@@ -141,20 +147,20 @@ class _LieuDevState extends State<LieuDev> {
         // on vas regarder mot pare mot si on a des lettre on commun avec la recherche
         int plusG = 0;
         for (var i = 0;
-            i < ScopedModel.of<TerrainModel>(context).taille_terrain;
+            i < ScopedModel.of<TerrainModel>(context).taille_terrainDev;
             i++) {
           int nombre = 0;
           nombre = comparestring(
               terrainre.toUpperCase(),
               ScopedModel.of<TerrainModel>(context)
-                  .data_terrain[i]['ville']
+                  .data_terrainDev[i]['ville']
                   .toUpperCase());
           if (nombre > 0 && nombre > (plusG - 2)) {
             plusG = nombre;
             // ici le lieu doit être affiche il vas dans construction
             Map tkt = {
               'contruiction':
-                  ScopedModel.of<TerrainModel>(context).data_terrain[i],
+                  ScopedModel.of<TerrainModel>(context).data_terrainDev[i],
               "nombre": nombre
             };
             contruction.add(tkt);
@@ -245,10 +251,7 @@ class _LieuDevState extends State<LieuDev> {
                                                       builder: (context, child,
                                                           img) {
                                                     int nombre_tour = 0;
-                                                    String lien1 = "";
-                                                    String lien2 = "";
-                                                    String lien3 = "";
-                                                    String lien4 = "";
+
                                                     while (img.taille_img >
                                                         nombre_tour) {
                                                       if (terrain[i]['id'] ==
@@ -503,14 +506,14 @@ class _LieuDevState extends State<LieuDev> {
                                                   ),
                                                   Center(
                                                     child: RaisedButton(
-                                                      child: Text(
-                                                          "Ajouter des photos"),
-                                                      onPressed:(){
-                                                         loadAssets(terrain[i]
-                                                                      ['id'],terrain[i]
-                                                                      ['nom']);
-                                                      }
-                                                    ),
+                                                        child: Text(
+                                                            "Ajouter des photos"),
+                                                        onPressed: () {
+                                                          loadAssets(
+                                                              terrain[i]['id'],
+                                                              terrain[i]
+                                                                  ['nom']);
+                                                        }),
                                                   ),
                                                 ]))),
                                   );
