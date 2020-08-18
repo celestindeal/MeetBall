@@ -266,18 +266,16 @@ class _PresentationState extends State<Presentation> {
             String lien3 = "";
             String lien4 = "";
 // dans la boucle while je fait le tours de tous les images de la bases de donner avec img.data et quand les id correspond je met les lien dans les variables pour les afficher plus tard
-            while (img.taille_img > nombre_tour) {
-              if (model.id_terrain == img.data_img[nombre_tour]["id_lieu"]) {
+            while (img.imagelieu.length > nombre_tour) {
                 if (lien1 == "") {
-                  lien1 = img.data_img[nombre_tour]["lien"];
+                  lien1 = img.imagelieu[nombre_tour]["lien"];
                 } else if (lien2 == "") {
-                  lien2 = img.data_img[nombre_tour]["lien"];
+                  lien2 = img.imagelieu[nombre_tour]["lien"];
                 } else if (lien3 == "") {
-                  lien3 = img.data_img[nombre_tour]["lien"];
+                  lien3 = img.imagelieu[nombre_tour]["lien"];
                 } else if (lien4 == "") {
-                  lien4 = img.data_img[nombre_tour]["lien"];
+                  lien4 = img.imagelieu[nombre_tour]["lien"];
                 }
-              }
               nombre_tour++;
             }
 
@@ -285,21 +283,6 @@ class _PresentationState extends State<Presentation> {
             double hauteurimage = 1;
             double largeur_image = 1;
             double douCoffImage = 1.333;
-
-            // Image file_image = Image.network(lien1);
-
-            // file_image.image.resolve(ImageConfiguration()).addListener(
-            //   ImageStreamListener(
-            //     (ImageInfo image, bool synchronousCall) {
-            //       hauteurimage = image.image.height.toDouble();
-            //       largeur_image = image.image.width.toDouble();
-                  
-            //       setState(() {
-            //         douCoffImage = (hauteurimage / largeur_image);
-            //       });
-            //     },
-            //   ),
-            // );
 
             return Stack(
               children: <Widget>[

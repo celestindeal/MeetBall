@@ -4,25 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
-
-class   ImgModel extends Model {
-  var data_img = [] ;
+class ImgModel extends Model {
+  var data_img = [];
   int taille_img = 0;
-  
-
-  
-
-  
-  Future<String> Img() async{
+  List imagelieu = [];
+  Future<String> Img() async {
     var url = 'http://51.210.103.151/get_img.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
     data_img = data;
     taille_img = data.length;
-  notifyListeners();
-return " fin de fonction" ;
+    notifyListeners();
+    return " fin de fonction";
+  }
+
+  Future<List> Img_terrain_id(String id) async {
+    // cette fonction est utiliser lors d'un appuye sur le calendrier 
+    String url = 'http://51.210.103.151/post_img_terrain_id.php';
+    String json = '{"lieu":"$id"}';
+    print(json);
+    Response response = await post(url, body: json);
+    print(jsonDecode(response.body));
+    List data = jsonDecode(response.body);
+    imagelieu= data;
+    notifyListeners();
+    return data;
+  }
 }
-}
-
-
-

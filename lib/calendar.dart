@@ -7,6 +7,7 @@ import 'package:meetballl/main.dart';
 import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/models/Model_img.dart';
 import 'package:meetballl/models/Model_match.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -53,9 +54,15 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
    Navigator.pushNamed(context, '/Ajout_match');
    ScopedModel.of<GameModel>(context).Initdate('${day.day}-${day.month}-${day.year}','${day.hour}:${day.minute}');
   }
-
+ RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
   @override
   Widget build(BuildContext context) {
+    void _onRefresh() async {
+      ScopedModel.of<GameModel>(context).MatchCalendar();
+      
+      _refreshController.refreshCompleted();
+    }
     Timer(
       Duration(seconds: 0),
       () {
@@ -80,14 +87,20 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
         Footer(),
       ],
       backgroundColor: back,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          _buildTableCalendar(),
-          const SizedBox(height: 8.0),
-          Expanded(child: _buildEventList()),
-        ],
+      body: SmartRefresher(
+      enablePullDown: true,
+      header: WaterDropHeader(),
+      controller: _refreshController,
+      onRefresh: _onRefresh,
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            _buildTableCalendar(),
+            const SizedBox(height: 8.0),
+            Expanded(child: _buildEventList()),
+          ],
+        ),
       ),
     );
   }
@@ -155,6 +168,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                   ),
                   onTap: () async {
                     // on sélection la rencontre choisir
+                    print(event);
                     ScopedModel.of<GameModel>(context).lieu = event['lieu'];
                     ScopedModel.of<GameModel>(context).id_rencontre =
                         event['id'];
@@ -167,12 +181,12 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                     
 
                     // on prepare les image terrain et commentaire pour la page profil rencontre
-                    ScopedModel.of<ImgModel>(context).Img();
+                    ScopedModel.of<ImgModel>(context).Img_terrain_id(event['lieu']);
                     ScopedModel.of<GameModel>(context).Terrain();
                     ScopedModel.of<GameModel>(context).Commentaire();
 
                     await ScopedModel.of<LoginModel>(context)
-                        .Personne_propose(event['id']);
+                        .Personne_propose(event['lieu']);
 
                     //  model.rencontre_visualiser = model.data_game[i]['id'];
                     Navigator.pushNamed(context, '/Profil_renctontre');

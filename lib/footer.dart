@@ -9,8 +9,9 @@ import 'models/Model_img.dart';
 import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 
-
 Color bouton = Colors.amber[900];
+bool matchafficher = true;
+bool participationafficher = true;
 
 class Footer extends StatelessWidget {
   @override
@@ -23,8 +24,9 @@ class Footer extends StatelessWidget {
           Container(
             decoration: new BoxDecoration(
               shape: BoxShape.circle,
-              color: ScopedModel.of<LoginModel>(context)
-                                          .page == 1 ?bouton: Colors.transparent,
+              color: ScopedModel.of<LoginModel>(context).page == 1
+                  ? bouton
+                  : Colors.transparent,
             ),
             child: IconButton(
                 icon: Image.asset(
@@ -33,15 +35,20 @@ class Footer extends StatelessWidget {
                   height: 40,
                 ),
                 onPressed: () {
-                  ScopedModel.of<LoginModel>(context).ParticipationProil();
+                  if (participationafficher) {
+                    participationafficher = false;
+                    ScopedModel.of<LoginModel>(context).ParticipationProil();
+                  }
+
                   Navigator.of(context).push(_createRouteprofil(context));
                 }),
           ),
           Container(
             decoration: new BoxDecoration(
               shape: BoxShape.circle,
-              color: ScopedModel.of<LoginModel>(context)
-                                          .page == 2 ? bouton : Colors.transparent,
+              color: ScopedModel.of<LoginModel>(context).page == 2
+                  ? bouton
+                  : Colors.transparent,
             ),
             child: IconButton(
                 icon: Image.asset(
@@ -50,15 +57,20 @@ class Footer extends StatelessWidget {
                   height: 40,
                 ),
                 onPressed: () {
-                  ScopedModel.of<GameModel>(context).MatchCalendar();
+                  if (matchafficher) {
+                    ScopedModel.of<GameModel>(context).MatchCalendar();
+                    matchafficher = false;
+                  }
+
                   Navigator.of(context).push(_createRouterencontre(context));
                 }),
           ),
           Container(
             decoration: new BoxDecoration(
               shape: BoxShape.circle,
-              color: ScopedModel.of<LoginModel>(context)
-                                          .page == 3 ?bouton : Colors.transparent,
+              color: ScopedModel.of<LoginModel>(context).page == 3
+                  ? bouton
+                  : Colors.transparent,
             ),
             child: IconButton(
                 icon: Icon(
@@ -78,8 +90,7 @@ class Footer extends StatelessWidget {
 }
 
 Route _createRouteprofil(BuildContext context) {
-  ScopedModel.of<LoginModel>(context)
-                                          .page = 1;
+  ScopedModel.of<LoginModel>(context).page = 1;
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => Profil(),
     transitionsBuilder: (
@@ -97,8 +108,7 @@ Route _createRouteprofil(BuildContext context) {
 }
 
 Route _createRouterencontre(BuildContext context) {
-  ScopedModel.of<LoginModel>(context)
-                                          .page = 2;
+  ScopedModel.of<LoginModel>(context).page = 2;
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => Calendar(),
     transitionsBuilder: (
@@ -116,8 +126,7 @@ Route _createRouterencontre(BuildContext context) {
 }
 
 Route _createRouterecherche(BuildContext context) {
-  ScopedModel.of<LoginModel>(context)
-                                          .page = 3;
+  ScopedModel.of<LoginModel>(context).page = 3;
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => Rechercher(),
     transitionsBuilder: (
