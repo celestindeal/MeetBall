@@ -1,24 +1,16 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http/http.dart';
-import 'package:meetballl/Ajout_terrain.dart';
-import 'package:meetballl/db.dart';
 import 'package:meetballl/footer.dart';
 import 'package:meetballl/main.dart';
-import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/models/Model_terrain.dart';
-import 'package:meetballl/modif.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'models/Model_img.dart';
-import 'models/Model_match.dart';
 
 List lieupro = [];
 
@@ -78,8 +70,7 @@ class _LieuDevState extends State<LieuDev> {
       String image4 = base64Image[3];
 
       var url = 'http://51.210.103.151/post_terrain_modif.php';
-      String json =
-          '{"nom":"$nomlieu","id":"$idlieu","image1":"$image1","image2":"$image2","image3":"$image3","image4":"$image4"}'; // make POST request
+      String json ='{"nom":"$nomlieu","id":"$idlieu","image1":"$image1","image2":"$image2","image3":"$image3","image4":"$image4"}'; // make POST request
       print(json);
       Response response = await post(url, body: json);
       String body = response.body;

@@ -675,6 +675,8 @@ class _PresentationState extends State<Presentation> {
                                 offset: Offset(largeurMessage, hauteurMessage),
                                 child: MaterialButton(
                                   onPressed: () {
+                                     ScopedModel.of<GameModel>(context)
+                                      .Commentaire();
                                     Navigator.pushNamed(
                                         context, '/commentaire');
                                   },

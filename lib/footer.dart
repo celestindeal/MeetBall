@@ -3,7 +3,6 @@ import 'package:meetballl/calendar.dart';
 import 'package:meetballl/profil.dart';
 import 'package:meetballl/rechercher.dart';
 import 'package:scoped_model/scoped_model.dart';
-
 import 'models/Model_co.dart';
 import 'models/Model_img.dart';
 import 'models/Model_match.dart';
@@ -39,7 +38,6 @@ class Footer extends StatelessWidget {
                     participationafficher = false;
                     ScopedModel.of<LoginModel>(context).ParticipationProil();
                   }
-
                   Navigator.of(context).push(_createRouteprofil(context));
                 }),
           ),

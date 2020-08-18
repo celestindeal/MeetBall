@@ -1,9 +1,6 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:meetballl/db.dart';
-import 'package:meetballl/profVisiteur.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 

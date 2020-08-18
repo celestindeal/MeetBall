@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'footer.dart';
@@ -173,8 +172,7 @@ class _CommentaireState extends State<Commentaire> {
                             if (key_commentainer.currentState.validate()) {
                               await ScopedModel.of<GameModel>(context)
                                   .Ajouter_ommentaire(com, login.pseudo);
-                              await ScopedModel.of<GameModel>(context)
-                                  .Commentaire();
+                              await ScopedModel.of<GameModel>(context).Commentaire();
                               com = null;
                               _controller.clear();
                               Timer(Duration(seconds: 1), () {

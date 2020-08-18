@@ -4,7 +4,6 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:meetballl/main.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'footer.dart';
 import 'models/Model_co.dart';
 import 'models/Model_match.dart';
@@ -365,7 +364,8 @@ lieutrouver(String lieu ){
                                         curseurtime = DateTime.now();
                                         _controller.clear();
                                       });
-
+                                      ScopedModel.of<GameModel>(context).MatchCalendar();
+                                      ScopedModel.of<LoginModel>(context).ParticipationProil();
                                       Scaffold.of(context).showSnackBar(
                                           new SnackBar(
                                               content: new Text(
