@@ -15,7 +15,7 @@ class LoginModel extends Model {
   var age = "";
   var club = "";
   var niveau = "";
-  List profilvisiteur;
+  List profilvisiteur=[];
   bool emailvalide = true;
   bool pseudovalide = true;
   bool emailvalideModif = true;
@@ -56,8 +56,8 @@ class LoginModel extends Model {
     String json = '{"email":"$temail"}';
     Response response = await post(url, body: json);
 
-    var data = jsonDecode(response.body);
-
+    List data = jsonDecode(response.body);
+    print(data);
     int n = 0;
     id = "";
     img = "";
@@ -243,9 +243,11 @@ class LoginModel extends Model {
       String niveaux,
       String description,
       String image) async {
+    print('inscription');
     String url = 'http://51.210.103.151/post_inscription.php';
     String json =
         '{"pseudo":"$pseudo","email":"$email","nom":"$nom","prenom":"$prenom","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","photo":"$image"}'; // make POST request
+    print(json);
     Response response = await post(url, body: json);
     String body = response.body;
     Connexion(email, password);
@@ -285,10 +287,9 @@ class LoginModel extends Model {
     affmodif = false;
     String json =
         '{"pseudo":"$newpseudo","email":"$email","nom":"$nom","prenom":"$prenom","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","id":"$idd"}'; // make POST request
-    
+
     Response response = await post(url, body: json);
     String body = response.body;
-  
 
     if (newpseudo != pseudo) {
       url = 'http://51.210.103.151/post_newpseudo.php';
@@ -302,30 +303,29 @@ class LoginModel extends Model {
     return body;
   }
 
-  Future<String> Verification_email(email_verifier, pseudo) async {
+  Future<String> Verification_inscription(email_verifier, pseudo) async {
     // objectif quand on as une incription on verifi les pseudo et les email pour de pas avoir de doublon
     // si l'email est déjà pris emailvalide = false
     // si le pseudo est déjà pris pseudovalide = false
-    var url = 'http://51.210.103.151/get.php';
-    http.Response response = await http.get(url);
-    var data = jsonDecode(response.body);
-    emailvalide = true;
-    pseudovalide = true;
-    var tailledata = data.length;
-    int n = 0;
-
-    while (tailledata > n && emailvalide == true) {
-      if (email_verifier == data[n]['email']) {
-        emailvalide = false;
-      }
-      n++;
+    String url =
+        'http://51.210.103.151/post_connexion_pseudo.php'; // vérification pseudo
+    String json = '{"pseudo":"$pseudo"}';
+    Response response = await post(url, body: json);
+    List listpersonne = jsonDecode(response.body);
+    if (listpersonne.isEmpty) {
+      pseudovalide = true;
+    } else {
+      pseudovalide = false;
     }
-    n = 0;
-    while (tailledata > n && pseudovalide == true) {
-      if (pseudo == data[n]['pseudo']) {
-        pseudovalide = false;
-      }
-      n++;
+
+    url = 'http://51.210.103.151/post_connexion.php'; // vérification pseudo
+    json = '{"email":"$email_verifier"}';
+    response = await post(url, body: json);
+    listpersonne = jsonDecode(response.body);
+    if (listpersonne.isEmpty) {
+      emailvalide = true;
+    } else {
+      emailvalide = false;
     }
 
     notifyListeners();
@@ -337,83 +337,53 @@ class LoginModel extends Model {
     // objectif quand on as une incription on verifi les pseudo et les email pour de pas avoir de doublon
     // si l'email est déjà pris emailvalide = false
     // si le pseudo est déjà pris pseudovalide = false
-    var url = 'http://51.210.103.151/get.php';
-    http.Response response = await http.get(url);
-    var data = jsonDecode(response.body);
+    print(Verification_email_modif);
     emailvalideModif = true;
     pseudovalideModif = true;
-    var tailledata = data.length;
-    int n = 0;
-
-    while (tailledata > n && emailvalide == true) {
-      if (email_verifier == data[n]['email'] && email_verifier != email) {
-        emailvalideModif = false;
-      }
-      n++;
-    }
-    n = 0;
-    while (tailledata > n && pseudovalide == true) {
-      if (pseudo_verifier == data[n]['pseudo'] && pseudo_verifier != pseudo) {
+ String url =
+        'http://51.210.103.151/post_connexion_pseudo.php'; // vérification pseudo
+    String json = '{"pseudo":"$pseudo_verifier"}';
+    Response response = await post(url, body: json);
+    List listpersonne = jsonDecode(response.body);
+    if (listpersonne.isNotEmpty && pseudo_verifier != pseudo) {
         pseudovalideModif = false;
       }
-      n++;
-    }
 
+    url = 'http://51.210.103.151/post_connexion.php'; // vérification email
+    json = '{"email":"$email_verifier"}';
+    response = await post(url, body: json);
+    listpersonne = jsonDecode(response.body);
+    if (listpersonne.isNotEmpty && email_verifier != email) {
+        emailvalideModif = false;
+      }
     notifyListeners();
     return " fin de fonction";
   }
 
   Future<String> Personne_propose(String idrencontre) async {
-    print('Personne_propose');
     // objectif faire la liste des participant d'une rencontre et s'avoir si notre joueur participe à cette rencontre
     // si boParticipatoin = true  le joueur participe déja à la rencontre
     boParticipation = false;
     participent.clear();
     String url = 'http://51.210.103.151/post_participation_id.php';
     String json = '{"id":"$idrencontre"}';
-    print(json);
-    Response response = await post(url, body: json);
+    Response response = await post(url,
+        body: json); // on reçoit tous les participation de cette rencontre
     List listparticipant = jsonDecode(response.body);
-    print(listparticipant);
 
     for (var i = 0; i < listparticipant.length; i++) {
-      String url = 'http://51.210.103.151/post_connexion_pseudo.php';
+      String url =
+          'http://51.210.103.151/post_connexion_pseudo.php'; // pour chaque participation on vas recherche le profil de la personne
       String pseudo_joueur = listparticipant[i]['pseudo'];
       String json = '{"pseudo":"$pseudo_joueur"}';
       Response response = await post(url, body: json);
       List listpersonne = jsonDecode(response.body);
-
 
       participent.add(listpersonne[0]);
       if (pseudo_joueur == pseudo) {
         boParticipation = true;
       }
     }
-
-    // var url = 'http://51.210.103.151/get.php';
-    // http.Response response = await http.get(url);
-    // var data = jsonDecode(response.body);
-    // var tailledata = data.length;
-    // int n = 0;
-    // var url2 = 'http://51.210.103.151/get_participation.php';
-    // http.Response response2 = await http.get(url2);
-    // var data2 = jsonDecode(response2.body);
-    // var tailledata2 = data2.length;
-    // for (var i = 0; i < tailledata2; i++) {
-    //   if (idrencontre == data2[i]['ID_rencontre']) {
-    //     n = 0;
-    //     while (tailledata > n) {
-    //       if (data[n]['pseudo'] == data2[i]['pseudo']) {
-    //         participent.add(data[n]);
-    //         if (data[n]['pseudo'] == pseudo) {
-    //           boParticipation = true;
-    //         }
-    //       }
-    //       n++;
-    //     }
-    //   }
-    // }
-
     notifyListeners();
     return " fin de fonction";
   }
@@ -453,6 +423,7 @@ class LoginModel extends Model {
   }
 
   Future<String> ProfilVisiteur() async {
+    // ici on as tous les profil pour la recherhce d'un profil visiteur
     var url = 'http://51.210.103.151/get.php';
     http.Response response = await http.get(url);
     profilvisiteur = jsonDecode(response.body);

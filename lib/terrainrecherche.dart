@@ -41,7 +41,10 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
 
     terrainre(String terrainre) async {
       List contruction = [];
-      await ScopedModel.of<TerrainModel>(context).Terrain();
+      if(ScopedModel.of<TerrainModel>(context).data_terrain.isEmpty){
+       await ScopedModel.of<TerrainModel>(context).Terrain();
+      }
+      
       terrain.clear();
       if (terrainre.isEmpty) {
         // quand l'utilisateur viens d'appuyer mais qu'il n'a rien écrit on passe ici et on affiche tous

@@ -344,7 +344,7 @@ class _InscriptionState extends State<Inscription> {
                               email = email;
                               pseudo = pseudo;
                               await ScopedModel.of<LoginModel>(context)
-                                  .Verification_email(email, pseudo);
+                                  .Verification_inscription(email, pseudo);
                               if (_formKey.currentState.validate() &&
                                   checkboxValue == true) {
                                 pseudo = pseudo;

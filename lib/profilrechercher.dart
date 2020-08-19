@@ -54,7 +54,11 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
 
     terrainre(String terrainre) async {
       List contruction = [];
-      await ScopedModel.of<LoginModel>(context).ProfilVisiteur();
+      if(ScopedModel.of<LoginModel>(context).profilvisiteur.isEmpty){
+        await ScopedModel.of<LoginModel>(context).ProfilVisiteur();
+        print('recherche profil');
+      }
+      
       profilvisiteur.clear();
       if (terrainre.isEmpty) {
         // quand l'utilisateur viens d'appuyer mais qu'il n'a rien écrit on passe ici et on affiche tous

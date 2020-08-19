@@ -10,7 +10,6 @@ import 'models/Model_terrain.dart';
 
 Color bouton = Colors.amber[900];
 
-
 class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -33,9 +32,8 @@ class Footer extends StatelessWidget {
                   height: 40,
                 ),
                 onPressed: () {
-                  
-                    ScopedModel.of<LoginModel>(context).ParticipationProil();
-                  
+                  ScopedModel.of<LoginModel>(context).ParticipationProil();
+
                   Navigator.of(context).push(_createRouteprofil(context));
                 }),
           ),
@@ -53,9 +51,7 @@ class Footer extends StatelessWidget {
                   height: 40,
                 ),
                 onPressed: () {
-                  
-                    ScopedModel.of<GameModel>(context).MatchCalendar();
-                 
+                  ScopedModel.of<GameModel>(context).MatchCalendar();
 
                   Navigator.of(context).push(_createRouterencontre(context));
                 }),
@@ -74,7 +70,11 @@ class Footer extends StatelessWidget {
                 ),
                 onPressed: () {
                   ScopedModel.of<ImgModel>(context).Img();
-                  ScopedModel.of<TerrainModel>(context).Terrain();
+                  if (ScopedModel.of<TerrainModel>(context)
+                      .data_terrain
+                      .isEmpty) {
+                    ScopedModel.of<TerrainModel>(context).Terrain();
+                  }
                   Navigator.of(context).push(_createRouterecherche(context));
                 }),
           ),

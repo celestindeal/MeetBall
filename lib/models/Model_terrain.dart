@@ -15,6 +15,8 @@ class TerrainModel extends Model {
   bool nom_verifier = true;
 
   Future<String> Terrain() async {
+    // pour la recherche des terrains nous avons ici la list de tout les terrain visible par les utilisateurs
+    print('fonction terrain');
     var url = 'http://51.210.103.151/get_terrain.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
