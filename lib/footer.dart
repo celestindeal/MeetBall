@@ -9,8 +9,7 @@ import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 
 Color bouton = Colors.amber[900];
-bool matchafficher = true;
-bool participationafficher = true;
+
 
 class Footer extends StatelessWidget {
   @override
@@ -34,10 +33,9 @@ class Footer extends StatelessWidget {
                   height: 40,
                 ),
                 onPressed: () {
-                  if (participationafficher) {
-                    participationafficher = false;
+                  
                     ScopedModel.of<LoginModel>(context).ParticipationProil();
-                  }
+                  
                   Navigator.of(context).push(_createRouteprofil(context));
                 }),
           ),
@@ -55,10 +53,9 @@ class Footer extends StatelessWidget {
                   height: 40,
                 ),
                 onPressed: () {
-                  if (matchafficher) {
+                  
                     ScopedModel.of<GameModel>(context).MatchCalendar();
-                    matchafficher = false;
-                  }
+                 
 
                   Navigator.of(context).push(_createRouterencontre(context));
                 }),

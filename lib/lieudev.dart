@@ -71,10 +71,9 @@ class _LieuDevState extends State<LieuDev> {
 
       var url = 'http://51.210.103.151/post_terrain_modif.php';
       String json ='{"nom":"$nomlieu","id":"$idlieu","image1":"$image1","image2":"$image2","image3":"$image3","image4":"$image4"}'; // make POST request
-      print(json);
+     
       Response response = await post(url, body: json);
       String body = response.body;
-      print(body);
       return body;
     }
 

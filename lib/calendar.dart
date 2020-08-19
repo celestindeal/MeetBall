@@ -166,7 +166,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                   ),
                   onTap: () async {
                     // on sélection la rencontre choisir
-                    print(event);
+                   
                     ScopedModel.of<GameModel>(context).lieu = event['lieu'];
                     ScopedModel.of<GameModel>(context).id_rencontre =
                         event['id'];
@@ -184,7 +184,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                     ScopedModel.of<GameModel>(context).Commentaire();
 
                     await ScopedModel.of<LoginModel>(context)
-                        .Personne_propose(event['lieu']);
+                        .Personne_propose(event['id']);
 
                     //  model.rencontre_visualiser = model.data_game[i]['id'];
                     Navigator.pushNamed(context, '/Profil_renctontre');
