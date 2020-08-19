@@ -15,7 +15,7 @@ class LoginModel extends Model {
   var age = "";
   var club = "";
   var niveau = "";
-  List profilvisiteur=[];
+  List profilvisiteur = [];
   bool emailvalide = true;
   bool pseudovalide = true;
   bool emailvalideModif = true;
@@ -103,7 +103,7 @@ class LoginModel extends Model {
             }
             noteprofil = note / datanote.length;
           }
-
+          noteprofil = num.parse(noteprofil.toStringAsFixed(2));
           validation = false;
           loging = true;
           // ajout dans la base de donner sqlite l'email et le mots de passe pour la connection automatique
@@ -224,9 +224,9 @@ class LoginModel extends Model {
       for (var i = 0; i < datanote.length; i++) {
         note = note + int.parse(datanote[i]['note']);
       }
-      noteVisiteur = note / datanote.length;
+      noteVisiteur = (note / datanote.length);
     }
-
+    noteVisiteur = num.parse(noteVisiteur.toStringAsFixed(2));
     img;
     notifyListeners();
     return " fin de fonction";
@@ -244,6 +244,9 @@ class LoginModel extends Model {
       String description,
       String image) async {
     print('inscription');
+    niveaux = 'aucun';
+    description = 'description';
+    club = 'club';
     String url = 'http://51.210.103.151/post_inscription.php';
     String json =
         '{"pseudo":"$pseudo","email":"$email","nom":"$nom","prenom":"$prenom","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","photo":"$image"}'; // make POST request
@@ -340,22 +343,22 @@ class LoginModel extends Model {
     print(Verification_email_modif);
     emailvalideModif = true;
     pseudovalideModif = true;
- String url =
+    String url =
         'http://51.210.103.151/post_connexion_pseudo.php'; // vérification pseudo
     String json = '{"pseudo":"$pseudo_verifier"}';
     Response response = await post(url, body: json);
     List listpersonne = jsonDecode(response.body);
     if (listpersonne.isNotEmpty && pseudo_verifier != pseudo) {
-        pseudovalideModif = false;
-      }
+      pseudovalideModif = false;
+    }
 
     url = 'http://51.210.103.151/post_connexion.php'; // vérification email
     json = '{"email":"$email_verifier"}';
     response = await post(url, body: json);
     listpersonne = jsonDecode(response.body);
     if (listpersonne.isNotEmpty && email_verifier != email) {
-        emailvalideModif = false;
-      }
+      emailvalideModif = false;
+    }
     notifyListeners();
     return " fin de fonction";
   }

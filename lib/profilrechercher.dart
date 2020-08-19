@@ -1,15 +1,11 @@
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:meetballl/footer.dart';
 import 'package:meetballl/main.dart';
 import 'package:meetballl/models/Model_co.dart';
-import 'package:meetballl/models/Model_terrain.dart';
-import 'package:photo_view/photo_view.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import 'models/Model_img.dart';
-import 'models/Model_match.dart';
 
 List lieupro = [];
 
@@ -54,11 +50,11 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
 
     terrainre(String terrainre) async {
       List contruction = [];
-      if(ScopedModel.of<LoginModel>(context).profilvisiteur.isEmpty){
+      if (ScopedModel.of<LoginModel>(context).profilvisiteur.isEmpty) {
         await ScopedModel.of<LoginModel>(context).ProfilVisiteur();
         print('recherche profil');
       }
-      
+
       profilvisiteur.clear();
       if (terrainre.isEmpty) {
         // quand l'utilisateur viens d'appuyer mais qu'il n'a rien écrit on passe ici et on affiche tous
@@ -75,9 +71,9 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
               ScopedModel.of<LoginModel>(context)
                   .profilvisiteur[i]['pseudo']
                   .toUpperCase());
-          if (nombre > 0 && nombre > (plusG-1)) {
+          if (nombre > 0 && nombre > (plusG - 1)) {
             plusG = nombre;
-            
+
             // ici le lieu doit être affiche il vas dans construction
             Map tkt = {
               'contruiction':
@@ -87,7 +83,7 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
             contruction.add(tkt);
           }
         }
-      
+
         int copie = contruction.length;
         profilvisiteur.clear();
         // objatif classer les lieu dans l'ordre
@@ -100,11 +96,10 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
               place = n;
             }
           }
-          if(nombreplus >= (plusG-1)){
-           profilvisiteur.add(contruction[place]['contruiction']);
-          
+          if (nombreplus >= (plusG - 1)) {
+            profilvisiteur.add(contruction[place]['contruiction']);
           }
-          contruction.removeAt(place); 
+          contruction.removeAt(place);
         }
       }
       setState(() {
@@ -115,24 +110,22 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
 
     return Scaffold(
         appBar: AppBar(
-     centerTitle: true,
-    title:  Text("Rechercher un joueur"),
-    backgroundColor: Colors.indigo,
-  
-    
-  ),
+          centerTitle: true,
+          title: Text("Rechercher un joueur"),
+          backgroundColor: Colors.indigo,
+        ),
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
         backgroundColor: back,
-        body:  SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Divider(color: Colors.grey),
-               TextFormField(
-                      autocorrect: true,
+              TextFormField(
+                autocorrect: true,
                 cursorColor: Colors.black,
-                style:  Theme.of(context).textTheme.display3,
+                style: Theme.of(context).textTheme.display3,
                 decoration: const InputDecoration(
                   hintText: 'Trouver un joueur',
                   hintStyle: TextStyle(color: Colors.black),
@@ -154,17 +147,32 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
                       itemCount: profilvisiteur.length,
                       itemBuilder: (context, i) {
                         return GestureDetector(
-                          onTap: () async{
-                           await ScopedModel.of<LoginModel>(context).ParticipationProilVisiteur(profilvisiteur[i]['pseudo']);
-                                    ScopedModel.of<LoginModel>(context) .profVisiteur = profilvisiteur[i];
+                          onTap: () async {
+                            await ScopedModel.of<LoginModel>(context)
+                                .ParticipationProilVisiteur(
+                                    profilvisiteur[i]['pseudo']);
+                                    // on vas rechercher le profil de la personne selectionner
+                            String pseudo = profilvisiteur[i]['pseudo'];
+                            String url ='http://51.210.103.151/post_connexion_pseudo.php'; // vérification pseudo
+                            String json = '{"pseudo":"$pseudo"}';
+                            Response response = await post(url, body: json);
+                            List listpersonne = jsonDecode(response.body);
 
-                                    Navigator.pushNamed(context, '/ProfilVisiteur');
+                            ScopedModel.of<LoginModel>(context).profVisiteur =listpersonne[0];
+
+                            Navigator.pushNamed(context, '/ProfilVisiteur');
                           },
                           child: Container(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height / 20,
                             child: Center(
-                              child: Text(profilvisiteur[i]['pseudo'] +" ("+ profilvisiteur[i]['nom'] +" "+ profilvisiteur[i]['prenom'] + ")"  ,
+                              child: Text(
+                                  profilvisiteur[i]['pseudo'] +
+                                      " (" +
+                                      profilvisiteur[i]['nom'] +
+                                      " " +
+                                      profilvisiteur[i]['prenom'] +
+                                      ")",
                                   softWrap: true,
                                   style: Theme.of(context).textTheme.display3),
                             ),

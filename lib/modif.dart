@@ -521,7 +521,7 @@ class _ModfState extends State<Modif> {
                               ),
                             ),
                             DropdownMenuItem<String>(
-                              value: "",
+                              value: "aucun",
                               child: Text(
                                 "aucun",
                               ),
