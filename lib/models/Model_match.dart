@@ -24,7 +24,7 @@ class GameModel extends Model {
   String terrainrencontre = "";
   int nombre = 0;
   int mmax = 10;
-  int lastmmax;
+  int lastmmax =0;
   // variable de sélection des la rencontre pour la page profil rencontre
   String lieu = "";
   String id_rencontre;

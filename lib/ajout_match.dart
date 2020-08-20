@@ -166,6 +166,43 @@ class _Ajout_matchState extends State<Ajout_match> {
 
   @override
   Widget build(BuildContext context) {
+    proposer() async {
+      if (ScopedModel.of<GameModel>(context).date == "Date") {
+        Scaffold.of(context).showSnackBar(
+            new SnackBar(content: new Text('Tu doit choisir une date')));
+      } else if (ScopedModel.of<GameModel>(context).time == "Heure") {
+        Scaffold.of(context).showSnackBar(
+            new SnackBar(content: new Text('Tu doit choisir une heure')));
+      } else {
+        if (lieuchoisi == "Choix du lieu" ||
+            lieuchoisi == "Tu doit choisir un lieu") {
+          Scaffold.of(context).showSnackBar(
+              new SnackBar(content: new Text('Tu doit choisir un lieu')));
+        } else {
+          await ScopedModel.of<GameModel>(context).Ajout_match(
+              lieuchoisi,
+              ScopedModel.of<GameModel>(context).date,
+              ScopedModel.of<GameModel>(context).time,
+              nombre_jo,
+              pseudo);
+          await ScopedModel.of<GameModel>(context).Match();
+          setState(() {
+            lieuchoisi = "Choix du lieu";
+            ScopedModel.of<GameModel>(context).date = "Date";
+            ScopedModel.of<GameModel>(context).time = "Heure";
+            nombre_jo = null;
+            curseurdate = DateTime.now();
+            curseurtime = DateTime.now();
+            _controller.clear();
+          });
+          ScopedModel.of<GameModel>(context).MatchCalendar();
+          ScopedModel.of<LoginModel>(context).ParticipationProil();
+        }
+        
+      }
+      return Navigator.of(context).pop();
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -339,60 +376,18 @@ class _Ajout_matchState extends State<Ajout_match> {
                                   const EdgeInsets.symmetric(vertical: 16.0),
                               child: RaisedButton(
                                 onPressed: () async {
-                                  if (ScopedModel.of<GameModel>(context).date ==
-                                      "Date") {
-                                    Scaffold.of(context).showSnackBar(
-                                        new SnackBar(
-                                            content: new Text(
-                                                'Tu doit choisir une date')));
-                                  } else if (ScopedModel.of<GameModel>(context)
-                                          .time ==
-                                      "Heure") {
-                                    Scaffold.of(context).showSnackBar(
-                                        new SnackBar(
-                                            content: new Text(
-                                                'Tu doit choisir une heure')));
-                                  } else {
-                                    if (lieuchoisi == "Choix du lieu" ||
-                                        lieuchoisi ==
-                                            "Tu doit choisir un lieu") {
-                                      Scaffold.of(context).showSnackBar(
-                                          new SnackBar(
-                                              content: new Text(
-                                                  'Tu doit choisir un lieu')));
-                                    } else {
-                                      await ScopedModel.of<GameModel>(context)
-                                          .Ajout_match(
-                                              lieuchoisi,
-                                              ScopedModel.of<GameModel>(context)
-                                                  .date,
-                                              ScopedModel.of<GameModel>(context)
-                                                  .time,
-                                              nombre_jo,
-                                              pseudo);
-                                      await ScopedModel.of<GameModel>(context)
-                                          .Match();
-                                      setState(() {
-                                        lieuchoisi = "Choix du lieu";
-                                        ScopedModel.of<GameModel>(context)
-                                            .date = "Date";
-                                        ScopedModel.of<GameModel>(context)
-                                            .time = "Heure";
-                                        nombre_jo = null;
-                                        curseurdate = DateTime.now();
-                                        curseurtime = DateTime.now();
-                                        _controller.clear();
+                                  proposer();
+                                  return showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Center(
+                                          child: SizedBox(
+                                            child: CircularProgressIndicator(),
+                                            width: 60,
+                                            height: 60,
+                                          ),
+                                        );
                                       });
-                                      ScopedModel.of<GameModel>(context)
-                                          .MatchCalendar();
-                                      ScopedModel.of<LoginModel>(context)
-                                          .ParticipationProil();
-                                      Scaffold.of(context).showSnackBar(
-                                          new SnackBar(
-                                              content: new Text(
-                                                  'Rencontre ajoutée')));
-                                    }
-                                  }
                                 },
                                 child: Text('Proposer'),
                               ),

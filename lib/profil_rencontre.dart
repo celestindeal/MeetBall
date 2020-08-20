@@ -59,6 +59,7 @@ double hauteurMessage = 200;
 bool init = true;
 bool initmove = true;
 
+
 class _PresentationState extends State<Presentation> {
   final _formKey = GlobalKey<FormState>();
 
@@ -69,7 +70,8 @@ class _PresentationState extends State<Presentation> {
   String com;
 
   int nombre_inviter;
-  bool aff_participent = false; // false = afficher tous les participent     true = afficher seulement trois participent 
+  bool aff_participent =
+      false; // false = afficher tous les participent     true = afficher seulement trois participent
 
   @override
   Widget build(BuildContext context) {
@@ -117,11 +119,11 @@ class _PresentationState extends State<Presentation> {
     String placement = jour.toString() + '-' + mois.toString() + '-';
     int ans = int.parse(ok.split(placement)[1].split('/')[0]);
     final difference =
-    DateTime(ans, mois, jour).difference(DateTime.now()).inHours;
+        DateTime(ans, mois, jour).difference(DateTime.now()).inHours;
 
     notation(String personnenoter) {
       return Container(
-        width: MediaQuery.of(context).size.width*.2,
+        width: MediaQuery.of(context).size.width * .2,
         child: FlatButton(
           onPressed: () {
             showDialog(
@@ -129,8 +131,8 @@ class _PresentationState extends State<Presentation> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                       backgroundColor: Colors.transparent,
-                      content: StatefulBuilder(
-                          builder: (BuildContext context, StateSetter setState) {
+                      content: StatefulBuilder(builder:
+                          (BuildContext context, StateSetter setState) {
                         return Container(
                             color: Colors.grey,
                             child: Row(
@@ -197,7 +199,6 @@ class _PresentationState extends State<Presentation> {
                 });
           },
           child: Text('noter'),
-           
         ),
       );
     }
@@ -268,15 +269,15 @@ class _PresentationState extends State<Presentation> {
             String lien4 = "";
 // dans la boucle while je fait le tours de tous les images de la bases de donner avec img.data et quand les id correspond je met les lien dans les variables pour les afficher plus tard
             while (img.imagelieu.length > nombre_tour) {
-                if (lien1 == "") {
-                  lien1 = img.imagelieu[nombre_tour]["lien"];
-                } else if (lien2 == "") {
-                  lien2 = img.imagelieu[nombre_tour]["lien"];
-                } else if (lien3 == "") {
-                  lien3 = img.imagelieu[nombre_tour]["lien"];
-                } else if (lien4 == "") {
-                  lien4 = img.imagelieu[nombre_tour]["lien"];
-                }
+              if (lien1 == "") {
+                lien1 = img.imagelieu[nombre_tour]["lien"];
+              } else if (lien2 == "") {
+                lien2 = img.imagelieu[nombre_tour]["lien"];
+              } else if (lien3 == "") {
+                lien3 = img.imagelieu[nombre_tour]["lien"];
+              } else if (lien4 == "") {
+                lien4 = img.imagelieu[nombre_tour]["lien"];
+              }
               nombre_tour++;
             }
 
@@ -447,11 +448,19 @@ class _PresentationState extends State<Presentation> {
                                                               );
 
                                                               // maintenant on refrech la page
-                                                              model.nombJoueur--;
-                                                              if (model.nombJoueur == 0) {
-                                                                    ScopedModel.of<LoginModel>(context).ParticipationProil();
-                                                                    ScopedModel.of<LoginModel>(context)
-                                          .page = 1;
+                                                              model
+                                                                  .nombJoueur--;
+                                                              if (model
+                                                                      .nombJoueur ==
+                                                                  0) {
+                                                                ScopedModel.of<
+                                                                            LoginModel>(
+                                                                        context)
+                                                                    .ParticipationProil();
+                                                                ScopedModel.of<
+                                                                            LoginModel>(
+                                                                        context)
+                                                                    .page = 1;
                                                                 Navigator.pushNamedAndRemoveUntil(
                                                                     context,
                                                                     '/Profil',
@@ -519,16 +528,18 @@ class _PresentationState extends State<Presentation> {
 
                         ScopedModelDescendant<LoginModel>(
                             builder: (context, child, login) {
-                              // calcule du nombre de personne à afficher
-                              int affichage_participent= login.participent.length;
-                              if(affichage_participent>3 && aff_participent==false){
-                                affichage_participent=3;
-                              }
+                          // calcule du nombre de personne à afficher
+                          int affichage_participent = login.participent.length;
+                          
+                          if (affichage_participent > 3 &&
+                              aff_participent == false) {
+                            affichage_participent = 3;
+                          }
 
                           return ListView.builder(
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: affichage_participent ,
+                              itemCount: affichage_participent,
                               itemBuilder: (context, i) {
                                 var ms =
                                     (new DateTime.now()).millisecondsSinceEpoch;
@@ -561,104 +572,97 @@ class _PresentationState extends State<Presentation> {
                                   bonotation = true;
                                 }
 
-                              
-                                  // ici c'est le container pour celui qui a propose cette rencontre
-                                  return Column(
-                                    children: <Widget>[
-                                      GestureDetector(
-                                        onTap: () async {
-                                          if (login.participent[i]['pseudo'] ==
-                                              ScopedModel.of<LoginModel>(
-                                                      context)
-                                                  .pseudo
-                                                  .toString()) {
+                                // ici c'est le container pour celui qui a propose cette rencontre
+                                return Column(
+                                  children: <Widget>[
+                                    GestureDetector(
+                                      onTap: () async {
+                                        if (login.participent[i]['pseudo'] ==
                                             ScopedModel.of<LoginModel>(context)
-                                                .ParticipationProil();
-                                                ScopedModel.of<LoginModel>(context)
-                                          .page =1;
-                                            Navigator.pushNamed(
-                                                context, '/Profil');
-                                                
-                                          } else {
-                                            await login
-                                                .ParticipationProilVisiteur(
-                                                    login.participent[i]
-                                                        ['pseudo']);
-                                            ScopedModel.of<LoginModel>(context)
-                                                    .profVisiteur =
-                                                login.participent[i];
-                                            Navigator.pushNamed(
-                                                context, '/ProfilVisiteur');
-                                          }
-                                        },
-                                        child:
+                                                .pseudo
+                                                .toString()) {
+                                          ScopedModel.of<LoginModel>(context)
+                                              .ParticipationProil();
+                                          ScopedModel.of<LoginModel>(context)
+                                              .page = 1;
+                                          Navigator.pushNamed(
+                                              context, '/Profil');
+                                        } else {
+                                          await login
+                                              .ParticipationProilVisiteur(login
+                                                  .participent[i]['pseudo']);
+                                          ScopedModel.of<LoginModel>(context)
+                                                  .profVisiteur =
+                                              login.participent[i];
+                                          Navigator.pushNamed(
+                                              context, '/ProfilVisiteur');
+                                        }
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(width: 0.8),
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 4.0, vertical: 2.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
                                             Container(
-                                              decoration: BoxDecoration(
-                                                border: Border.all(width: 0.8),
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              margin: const EdgeInsets.symmetric(
-                                                  horizontal: 4.0, vertical: 2.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.spaceBetween,
-                                                children: <Widget>[
-                                                  Container(
-                                                    margin:
-                                                        const EdgeInsets.symmetric(
-                                                            horizontal: 2.0,
-                                                            vertical: 2.0),
-                                                    child: CircleAvatar(
-                                                      backgroundImage: NetworkImage(
-                                                          login.participent[i]
-                                                              ['photo']),
-                                                      radius: MediaQuery.of(context)
-                                                              .size
-                                                              .width /
-                                                          20,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                      login.participent[i]
-                                                          ['pseudo'],
-                                                      softWrap: true,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display3),
-                                                  Text(ageAnne.toString() + " ans ",
-                                                      softWrap: true,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display3),
-
-                                                    bonotation
-                                                      ? ScopedModel.of<LoginModel>(
-                                                                  context)
-                                                              .boParticipation
-                                                          ? notation(
-                                                              login.participent[i]
-                                                                  ['pseudo'])
-                                                          : Container()
-                                                      : Container(),
-                                                ],
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 2.0,
+                                                      vertical: 2.0),
+                                              child: CircleAvatar(
+                                                backgroundImage: NetworkImage(
+                                                    login.participent[i]
+                                                        ['photo']),
+                                                radius: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    20,
                                               ),
                                             ),
-
-                                          
-                                      )
-                                    ],
-                                  );
-                    
+                                            Text(login.participent[i]['pseudo'],
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .display3),
+                                            Text(ageAnne.toString() + " ans ",
+                                                softWrap: true,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .display3),
+                                            bonotation
+                                                ? ScopedModel.of<LoginModel>(
+                                                            context)
+                                                        .boParticipation
+                                                    ? notation(
+                                                        login.participent[i]
+                                                            ['pseudo'])
+                                                    : Container()
+                                                : Container(),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                );
                               });
                         }),
-                        IconButton(icon: aff_participent? Icon(Icons.arrow_upward): Icon(Icons.arrow_downward) ,
-                         onPressed: (){
-                           setState(() {
-                             aff_participent = !aff_participent;
-                           });
-                         }
-                         )
+                        login.participent.length > 3
+                            ? IconButton(
+                                icon: aff_participent
+                                    ? Icon(Icons.arrow_upward)
+                                    : Icon(Icons.arrow_downward),
+                                onPressed: () {
+                                  setState(() {
+                                    aff_participent = !aff_participent;
+                                  });
+                                })
+                            : Container()
                       ])),
                 ),
                 ScopedModel.of<LoginModel>(context).boParticipation
@@ -689,8 +693,8 @@ class _PresentationState extends State<Presentation> {
                                 offset: Offset(largeurMessage, hauteurMessage),
                                 child: MaterialButton(
                                   onPressed: () {
-                                     ScopedModel.of<GameModel>(context)
-                                      .Commentaire();
+                                    ScopedModel.of<GameModel>(context)
+                                        .Commentaire();
                                     Navigator.pushNamed(
                                         context, '/commentaire');
                                   },
