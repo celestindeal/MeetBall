@@ -69,6 +69,7 @@ class _PresentationState extends State<Presentation> {
   String com;
 
   int nombre_inviter;
+  bool aff_participent = false; // false = afficher tous les participent     true = afficher seulement trois participent 
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +117,7 @@ class _PresentationState extends State<Presentation> {
     String placement = jour.toString() + '-' + mois.toString() + '-';
     int ans = int.parse(ok.split(placement)[1].split('/')[0]);
     final difference =
-        DateTime(ans, mois, jour).difference(DateTime.now()).inHours;
+    DateTime(ans, mois, jour).difference(DateTime.now()).inHours;
 
     notation(String personnenoter) {
       return Container(
@@ -518,10 +519,16 @@ class _PresentationState extends State<Presentation> {
 
                         ScopedModelDescendant<LoginModel>(
                             builder: (context, child, login) {
+                              // calcule du nombre de personne à afficher
+                              int affichage_participent= login.participent.length;
+                              if(affichage_participent>3 && aff_participent==false){
+                                affichage_participent=3;
+                              }
+
                           return ListView.builder(
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
-                              itemCount: login.participent.length,
+                              itemCount: affichage_participent ,
                               itemBuilder: (context, i) {
                                 var ms =
                                     (new DateTime.now()).millisecondsSinceEpoch;
@@ -645,6 +652,13 @@ class _PresentationState extends State<Presentation> {
                     
                               });
                         }),
+                        IconButton(icon: aff_participent? Icon(Icons.arrow_upward): Icon(Icons.arrow_downward) ,
+                         onPressed: (){
+                           setState(() {
+                             aff_participent = !aff_participent;
+                           });
+                         }
+                         )
                       ])),
                 ),
                 ScopedModel.of<LoginModel>(context).boParticipation

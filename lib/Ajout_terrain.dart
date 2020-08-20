@@ -93,6 +93,33 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
     });
   }
 
+  localisation() async {
+    var location = new Location();
+    var currentLocation = await location.getLocation();
+
+    urlgoogle = "https://www.google.fr/maps/dir//" +
+        currentLocation.latitude.toString() +
+        "," +
+        currentLocation.longitude.toString();
+    urlwaze = "https://www.waze.com/fr/livemap/directions?latlng=" +
+        currentLocation.latitude.toString() +
+        "%2C" +
+        currentLocation.longitude.toString() +
+        "&utm_campaign=waze_website&utm_expid=.K6QI8s_pTz6FfRdYRPpI3A.0&utm_referrer=&utm_source=waze_website";
+    final coordinates =
+        new Coordinates(currentLocation.latitude, currentLocation.longitude);
+    var addresses =
+        await Geocoder.local.findAddressesFromCoordinates(coordinates);
+    var first = addresses.first;
+    adresse = first.featureName + " " + first.thoroughfare;
+    ville = first.locality + " " + first.postalCode;
+    setState(() {
+      _controller2 = TextEditingController(text: adresse);
+      _controller3 = TextEditingController(text: ville);
+    });
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,38 +177,24 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                               hintStyle: TextStyle(color: Colors.black),
                               suffixIcon: GestureDetector(
                                 onTap: () async {
-                                  var location = new Location();
-                                  var currentLocation =
-                                      await location.getLocation();
-
-                                    urlgoogle="https://www.google.fr/maps/dir//"+ currentLocation.latitude.toString()+","+currentLocation.longitude.toString() ;
-                                    urlwaze ="https://www.waze.com/fr/livemap/directions?latlng="+ currentLocation.latitude.toString()+"%2C"+currentLocation.longitude.toString()+"&utm_campaign=waze_website&utm_expid=.K6QI8s_pTz6FfRdYRPpI3A.0&utm_referrer=&utm_source=waze_website";
-                                  final coordinates = new Coordinates(
-                                      currentLocation.latitude,
-                                      currentLocation.longitude);
-                                  var addresses = await Geocoder.local
-                                      .findAddressesFromCoordinates(
-                                          coordinates);
-                                  var first = addresses.first;
-                                  adresse = first.featureName +
-                                      " " +
-                                      first.thoroughfare;
-                                  ville =
-                                       first.locality+ " " + first.postalCode;
-                                  setState(() {
-                                    _controller2 =
-                                        TextEditingController(text: adresse);
-                                    _controller3 =
-                                        TextEditingController(text: ville);
-                                  });
+                                  localisation();
+                                  return showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Center(
+                                          child: SizedBox(
+                                            child: CircularProgressIndicator(),
+                                            width: 60,
+                                            height: 60,
+                                          ),
+                                        );
+                                      });
                                 },
                                 child: Icon(Icons.gps_fixed),
                               ),
                             ),
                             validator: (String value) {
-                              if (value.isEmpty) {
-                                return "Il faut une adresse";
-                              }
+                              if (value.isEmpty) {}
                             },
                             onChanged: (value) {
                               adresse = value;
