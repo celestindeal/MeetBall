@@ -14,8 +14,7 @@ class Password extends StatelessWidget {
       print("envoie d'un email");
       var options = new GmailSmtpOptions()
         ..username = 'equipemeetball@gmail.com'
-        ..password =
-            'Projet1*'; 
+        ..password = 'Projet1*';
       var emailTransport = new SmtpTransport(options);
 
       // Create our mail/envelope.
@@ -61,32 +60,27 @@ class Password extends StatelessWidget {
               RaisedButton(
                   onPressed: () async {
                     // vérification de l'email pour s'avoir si il fait bien partir de notre basse de donner
-                    var listemail = 'http://51.210.103.151/get_email.php';
-                    http.Response mail = await http.get(listemail);
-                    var data = jsonDecode(mail.body);
-                    bool trueemail = false;
-                    for (var i = 0; i < data.length; i++) {
-                      if (data[i]['email'] == email_chnage &&
-                          trueemail == false) {
-                        trueemail = true;
-                        String url = 'http://51.210.103.151/post_password.php';
-                        String json = '{"email":"$email_chnage"}';
-                        Response response = await post(url, body: json);
-                        String body = response.body;
-                        email(body, email_chnage);
-                        Scaffold.of(context).showSnackBar(new SnackBar(
-                            content: new Text(
-                                "Le nouveau mots de passe est envoyer à l'adresse mail")));
-                      }
-                    }
-                    if (trueemail == false) {
+                    String url =
+                        'http://51.210.103.151/post_connexion.php'; // vérification email
+                    String json = '{"email":"$email_chnage"}';
+                    Response response = await post(url, body: json);
+                    List listpersonne = jsonDecode(response.body);
+                    if (listpersonne.isNotEmpty) {
+                      String url = 'http://51.210.103.151/post_password.php';
+                      String json = '{"email":"$email_chnage"}';
+                      Response response = await post(url, body: json);
+                      String body = response.body;
+                      email(body, email_chnage);
+                      Scaffold.of(context).showSnackBar(new SnackBar(
+                          content: new Text(
+                              "Le nouveau mots de passe est envoyer à l'adresse mail")));
+                    } else {
                       Scaffold.of(context).showSnackBar(
                         SnackBar(
                           content: Text("Cette email n'exist pas "),
                         ),
                       );
-                    }
-                  },
+                    }                  },
                   child: Text(
                     'Ressevoir un nouveaux mots de passe',
                     textAlign: TextAlign.center,

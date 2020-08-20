@@ -401,6 +401,7 @@ class LoginModel extends Model {
   }
 
   Future<String> ChangeImage(String image) async {
+    // objectif changer la photo d'un utilisateur 
     String url = 'http://51.210.103.151/post_changeImage.php';
     int idd = int.parse(id);
     affmodif = false;
@@ -409,8 +410,7 @@ class LoginModel extends Model {
     String body = response.body;
     Connexion(email, password);
     affmodif = false;
-    img =
-        "https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg";
+    img="https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg";
     notifyListeners();
     return body;
   }

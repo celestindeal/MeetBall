@@ -114,7 +114,6 @@ class _LieuDevState extends State<LieuDev> {
       var url = 'http://51.210.103.151/post_sup_terrain.php';
       String json = '{"id":"$id"}';
       Response response = await post(url, body: json);
-      print(jsonDecode(response.body));
       return " fin de fonction";
     }
 

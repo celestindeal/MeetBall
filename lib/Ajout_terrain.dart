@@ -12,6 +12,8 @@ import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:geocoder/geocoder.dart';
 
 String nom;
 String adresse;
@@ -19,6 +21,9 @@ String ville;
 int nombre_terrain;
 String sol = " ";
 String ouverture = " ";
+String urlgoogle = "non ";
+String urlwaze = "non ";
+
 int n = 0;
 var _controller1 = TextEditingController();
 var _controller2 = TextEditingController();
@@ -148,8 +153,21 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                   var location = new Location();
                                   var currentLocation =
                                       await location.getLocation();
-                                  adresse = currentLocation.latitude.toString();
-                                  ville = currentLocation.longitude.toString();
+
+                                    urlgoogle="https://www.google.fr/maps/dir//"+ currentLocation.latitude.toString()+","+currentLocation.longitude.toString() ;
+                                    urlwaze ="https://www.waze.com/fr/livemap/directions?latlng="+ currentLocation.latitude.toString()+"%2C"+currentLocation.longitude.toString()+"&utm_campaign=waze_website&utm_expid=.K6QI8s_pTz6FfRdYRPpI3A.0&utm_referrer=&utm_source=waze_website";
+                                  final coordinates = new Coordinates(
+                                      currentLocation.latitude,
+                                      currentLocation.longitude);
+                                  var addresses = await Geocoder.local
+                                      .findAddressesFromCoordinates(
+                                          coordinates);
+                                  var first = addresses.first;
+                                  adresse = first.featureName +
+                                      " " +
+                                      first.thoroughfare;
+                                  ville =
+                                       first.locality+ " " + first.postalCode;
                                   setState(() {
                                     _controller2 =
                                         TextEditingController(text: adresse);
@@ -252,7 +270,8 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                   const EdgeInsets.symmetric(vertical: 16.0),
                               child: RaisedButton(
                                 onPressed: () async {
-                                  await ScopedModel.of<TerrainModel>(context).Verification_nom(nom);
+                                  await ScopedModel.of<TerrainModel>(context)
+                                      .Verification_nom(nom);
                                   if (ScopedModel.of<TerrainModel>(context)
                                           .nom_verifier ==
                                       true) {
@@ -301,7 +320,9 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                               base64Image[2],
                                               base64Image[3],
                                               sol,
-                                              ouverture);
+                                              ouverture,
+                                              urlgoogle,
+                                              urlwaze);
                                       ScopedModel.of<GameModel>(context)
                                           .Match();
                                       Scaffold.of(context)
@@ -315,11 +336,9 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                     }
                                   } else {
                                     // le nom est déja pris
-                                     Scaffold.of(context).showSnackBar(
-                                          new SnackBar(
-                                              content: new Text(
-                                                  'Ce nom est déja pris un autre terrain')));
-                               
+                                    Scaffold.of(context).showSnackBar(new SnackBar(
+                                        content: new Text(
+                                            'Ce nom est déja pris un autre terrain')));
                                   }
                                 },
                                 child: Text(

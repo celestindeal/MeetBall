@@ -58,14 +58,14 @@ class TerrainModel extends Model {
   }
 
   Future<String> AjouterTerrain(String nom, String adresse, String ville,
-      int nombre_terrain, String image1,String image2, String image3,String image4,String sol, String ouverture) async {
+      int nombre_terrain, String image1,String image2, String image3,String image4,String sol, String ouverture,String urlgoogle, String urlwaze) async {
     var url = 'http://51.210.103.151/post_terrain.php';
     String json =
-        '{"nom":"$nom","adresse":"$adresse","ville":"$ville","nombre_terrain":"$nombre_terrain","image1":"$image1","image2":"$image2","image3":"$image3","image4":"$image4","sol":"$sol","ouverture":"$ouverture"}'; // make POST request
+        '{"nom":"$nom","adresse":"$adresse","ville":"$ville","nombre_terrain":"$nombre_terrain","image1":"$image1","image2":"$image2","image3":"$image3","image4":"$image4","sol":"$sol","ouverture":"$ouverture","urlgoogle":"$urlgoogle","urlwaze":"$urlwaze"}'; // make POST request
 
     Response response = await post(url, body: json);
     String body = response.body;
- 
+    print(body);
     return body;
 
     notifyListeners();

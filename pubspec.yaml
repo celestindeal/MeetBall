@@ -45,6 +45,8 @@ dependencies:
   matrix_gesture_detector: ^0.1.0
   multi_image_picker: ^4.7.10
   connectivity: ^0.4.9
+  geolocator: '^5.1.1'
+  geocoder: ^0.2.1
 
 
 
