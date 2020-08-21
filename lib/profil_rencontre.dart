@@ -59,7 +59,6 @@ double hauteurMessage = 200;
 bool init = true;
 bool initmove = true;
 
-
 class _PresentationState extends State<Presentation> {
   final _formKey = GlobalKey<FormState>();
 
@@ -118,90 +117,179 @@ class _PresentationState extends State<Presentation> {
 
     String placement = jour.toString() + '-' + mois.toString() + '-';
     int ans = int.parse(ok.split(placement)[1].split('/')[0]);
+
+    String heure =
+        "}" + ScopedModel.of<GameModel>(context).heurerencontre + "/";
+    int heur = int.parse(heure.split('}')[1].split(':')[0]);
+
     final difference =
-        DateTime(ans, mois, jour).difference(DateTime.now()).inHours;
+        DateTime(ans, mois, jour, heur).difference(DateTime.now()).inHours;
 
     notation(String personnenoter) {
-      return Container(
-        width: MediaQuery.of(context).size.width * .2,
-        child: FlatButton(
-          onPressed: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                      backgroundColor: Colors.transparent,
-                      content: StatefulBuilder(builder:
-                          (BuildContext context, StateSetter setState) {
-                        return Container(
-                            color: Colors.grey,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                IconButton(
-                                  iconSize:
-                                      MediaQuery.of(context).size.width / 11,
-                                  icon: Icon(Icons.star_border),
-                                  color: Colors.yellow,
-                                  onPressed: () {
-                                    ScopedModel.of<LoginModel>(context)
-                                        .Envoienote("1", personnenoter);
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                IconButton(
-                                  iconSize:
-                                      MediaQuery.of(context).size.width / 11,
-                                  icon: Icon(Icons.star_border),
-                                  color: Colors.yellow,
-                                  onPressed: () {
-                                    ScopedModel.of<LoginModel>(context)
-                                        .Envoienote("2", personnenoter);
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                IconButton(
-                                  iconSize:
-                                      MediaQuery.of(context).size.width / 11,
-                                  icon: Icon(Icons.star_border),
-                                  color: Colors.yellow,
-                                  onPressed: () {
-                                    ScopedModel.of<LoginModel>(context)
-                                        .Envoienote("3", personnenoter);
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                IconButton(
-                                  iconSize:
-                                      MediaQuery.of(context).size.width / 11,
-                                  icon: Icon(Icons.star_border),
-                                  color: Colors.yellow,
-                                  onPressed: () {
-                                    ScopedModel.of<LoginModel>(context)
-                                        .Envoienote("4", personnenoter);
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                IconButton(
-                                  iconSize:
-                                      MediaQuery.of(context).size.width / 11,
-                                  icon: Icon(Icons.star_border),
-                                  color: Colors.yellow,
-                                  onPressed: () {
-                                    ScopedModel.of<LoginModel>(context)
-                                        .Envoienote("5", personnenoter);
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            ));
-                      }));
-                });
-          },
-          child: Text('noter'),
-        ),
-      );
+      return showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+                backgroundColor: Colors.transparent,
+                content: StatefulBuilder(
+                    builder: (BuildContext context, StateSetter setState) {
+                  return Container(
+                      height: MediaQuery.of(context).size.height / 5,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20.0),
+                        color: Colors.grey,
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          Text('Tu veux noter ' + personnenoter),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              IconButton(
+                                iconSize:
+                                    MediaQuery.of(context).size.width / 11,
+                                icon: Icon(Icons.star_border),
+                                color: Colors.yellow,
+                                onPressed: () {
+                                  ScopedModel.of<LoginModel>(context)
+                                      .Envoienote("1", personnenoter);
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              IconButton(
+                                iconSize:
+                                    MediaQuery.of(context).size.width / 11,
+                                icon: Icon(Icons.star_border),
+                                color: Colors.yellow,
+                                onPressed: () {
+                                  ScopedModel.of<LoginModel>(context)
+                                      .Envoienote("2", personnenoter);
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              IconButton(
+                                iconSize:
+                                    MediaQuery.of(context).size.width / 11,
+                                icon: Icon(Icons.star_border),
+                                color: Colors.yellow,
+                                onPressed: () {
+                                  ScopedModel.of<LoginModel>(context)
+                                      .Envoienote("3", personnenoter);
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              IconButton(
+                                iconSize:
+                                    MediaQuery.of(context).size.width / 11,
+                                icon: Icon(Icons.star_border),
+                                color: Colors.yellow,
+                                onPressed: () {
+                                  ScopedModel.of<LoginModel>(context)
+                                      .Envoienote("4", personnenoter);
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              IconButton(
+                                iconSize:
+                                    MediaQuery.of(context).size.width / 11,
+                                icon: Icon(Icons.star_border),
+                                color: Colors.yellow,
+                                onPressed: () {
+                                  ScopedModel.of<LoginModel>(context)
+                                      .Envoienote("5", personnenoter);
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ));
+                }));
+          });
     }
+    // notation(String personnenoter) {
+    //   return Container(
+    //     width: MediaQuery.of(context).size.width * .2,
+    //     child: FlatButton(
+    //       onPressed: () {
+    //         showDialog(
+    //             context: context,
+    //             builder: (BuildContext context) {
+    //               return AlertDialog(
+    //                   backgroundColor: Colors.transparent,
+    //                   content: StatefulBuilder(builder:
+    //                       (BuildContext context, StateSetter setState) {
+    //                     return Container(
+    //                         color: Colors.grey,
+    //                         child: Row(
+    //                           mainAxisAlignment: MainAxisAlignment.center,
+    //                           children: <Widget>[
+    //                             IconButton(
+    //                               iconSize:
+    //                                   MediaQuery.of(context).size.width / 11,
+    //                               icon: Icon(Icons.star_border),
+    //                               color: Colors.yellow,
+    //                               onPressed: () {
+    //                                 ScopedModel.of<LoginModel>(context)
+    //                                     .Envoienote("1", personnenoter);
+    //                                 Navigator.of(context).pop();
+    //                               },
+    //                             ),
+    //                             IconButton(
+    //                               iconSize:
+    //                                   MediaQuery.of(context).size.width / 11,
+    //                               icon: Icon(Icons.star_border),
+    //                               color: Colors.yellow,
+    //                               onPressed: () {
+    //                                 ScopedModel.of<LoginModel>(context)
+    //                                     .Envoienote("2", personnenoter);
+    //                                 Navigator.of(context).pop();
+    //                               },
+    //                             ),
+    //                             IconButton(
+    //                               iconSize:
+    //                                   MediaQuery.of(context).size.width / 11,
+    //                               icon: Icon(Icons.star_border),
+    //                               color: Colors.yellow,
+    //                               onPressed: () {
+    //                                 ScopedModel.of<LoginModel>(context)
+    //                                     .Envoienote("3", personnenoter);
+    //                                 Navigator.of(context).pop();
+    //                               },
+    //                             ),
+    //                             IconButton(
+    //                               iconSize:
+    //                                   MediaQuery.of(context).size.width / 11,
+    //                               icon: Icon(Icons.star_border),
+    //                               color: Colors.yellow,
+    //                               onPressed: () {
+    //                                 ScopedModel.of<LoginModel>(context)
+    //                                     .Envoienote("4", personnenoter);
+    //                                 Navigator.of(context).pop();
+    //                               },
+    //                             ),
+    //                             IconButton(
+    //                               iconSize:
+    //                                   MediaQuery.of(context).size.width / 11,
+    //                               icon: Icon(Icons.star_border),
+    //                               color: Colors.yellow,
+    //                               onPressed: () {
+    //                                 ScopedModel.of<LoginModel>(context)
+    //                                     .Envoienote("5", personnenoter);
+    //                                 Navigator.of(context).pop();
+    //                               },
+    //                             ),
+    //                           ],
+    //                         ));
+    //                   }));
+    //             });
+    //       },
+    //       child: Text('noter'),
+    //     ),
+    //   );
+    // }
 
     return Scaffold(
       appBar: AppBar(
@@ -530,7 +618,7 @@ class _PresentationState extends State<Presentation> {
                             builder: (context, child, login) {
                           // calcule du nombre de personne à afficher
                           int affichage_participent = login.participent.length;
-                          
+
                           if (affichage_participent > 3 &&
                               aff_participent == false) {
                             affichage_participent = 3;
@@ -541,6 +629,7 @@ class _PresentationState extends State<Presentation> {
                               shrinkWrap: true,
                               itemCount: affichage_participent,
                               itemBuilder: (context, i) {
+                                ;
                                 var ms =
                                     (new DateTime.now()).millisecondsSinceEpoch;
                                 String ok =
@@ -639,9 +728,22 @@ class _PresentationState extends State<Presentation> {
                                                 ? ScopedModel.of<LoginModel>(
                                                             context)
                                                         .boParticipation
-                                                    ? notation(
-                                                        login.participent[i]
-                                                            ['pseudo'])
+                                                    ? FlatButton(
+                                                        onPressed: () {
+                                                          if (difference < 0) {
+                                                            notation(login
+                                                                    .participent[
+                                                                i]['pseudo']);
+                                                          } else {
+                                                            Scaffold.of(context)
+                                                                .showSnackBar(
+                                                                    new SnackBar(
+                                                                        content:
+                                                                            new Text('Tu pourra noter cette personne après la rencontre')));
+                                                          }
+                                                        },
+                                                        child: Text('noter'),
+                                                      )
                                                     : Container()
                                                 : Container(),
                                           ],

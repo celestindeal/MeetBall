@@ -16,7 +16,6 @@ class TerrainModel extends Model {
 
   Future<String> Terrain() async {
     // pour la recherche des terrains nous avons ici la list de tout les terrain visible par les utilisateurs
-    print('fonction terrain');
     var url = 'http://51.210.103.151/get_terrain.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
@@ -65,7 +64,6 @@ class TerrainModel extends Model {
 
     Response response = await post(url, body: json);
     String body = response.body;
-    print(body);
     return body;
 
     notifyListeners();

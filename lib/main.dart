@@ -40,7 +40,6 @@ void main() {
 class Main extends StatefulWidget {
   @override
   _MainState createState() => _MainState();
-  
 }
 
 class _MainState extends State<Main> {
@@ -152,30 +151,27 @@ class _MainState extends State<Main> {
                               '/password': (context) => Password(),
                               '/commentaire': (context) => Commentaire(),
                               '/test': (context) => MyApp(),
-
-
                             },
                           );
                         })))));
   }
 }
 
-// fonction pour comparer deux string et renvoye un nombre 
-    comparestring(String mot1, String mot2) {
-      // on compparre deux mots si il ont des lettre en commun on renvoie un nombre sinon on renvoie 0
-      int taille1 = mot1.length;
-      int taille2 = mot2.length;
-      int compare = 0;
-      for (var i = 0; i < taille1; i++) {
-        String lettre1 = mot1[i];
-        bool ok = mot2.contains(lettre1);
-        if (ok) {
-          compare++;
-        }
-      }
-      return compare;
+// fonction pour comparer deux string et renvoye un nombre
+comparestring(String mot1, String mot2) {
+  // on compparre deux mots si il ont des lettre en commun on renvoie un nombre sinon on renvoie 0
+  int taille1 = mot1.length;
+  int taille2 = mot2.length;
+  int compare = 0;
+  for (var i = 0; i < taille1; i++) {
+    String lettre1 = mot1[i];
+    bool ok = mot2.contains(lettre1);
+    if (ok) {
+      compare++;
     }
-
+  }
+  return compare;
+}
 
 sdialog(context) {
   showDialog(
@@ -218,8 +214,7 @@ sdialog(context) {
                           }),
                       RaisedButton(
                         onPressed: () async {
-                      
-                              Navigator.pushNamed(context, '/Avis');
+                          Navigator.pushNamed(context, '/Avis');
                         },
                         child: Text('Nous contacter',
                             style: Theme.of(context).textTheme.display3),

@@ -351,7 +351,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                     // le nom est déja pris
                                     Scaffold.of(context).showSnackBar(new SnackBar(
                                         content: new Text(
-                                            'Ce nom est déja pris un autre terrain')));
+                                            'Ce nom est déja pris par un autre terrain')));
                                   }
                                 },
                                 child: Text(

@@ -52,7 +52,6 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
       List contruction = [];
       if (ScopedModel.of<LoginModel>(context).profilvisiteur.isEmpty) {
         await ScopedModel.of<LoginModel>(context).ProfilVisiteur();
-        print('recherche profil');
       }
 
       profilvisiteur.clear();

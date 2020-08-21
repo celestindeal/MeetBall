@@ -48,19 +48,23 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
       _selectedEvents = events;
     });
   }
-   void _onDaySelectedlong(DateTime day, List events) {
-   Navigator.pushNamed(context, '/Ajout_match');
-   ScopedModel.of<GameModel>(context).Initdate('${day.day}-${day.month}-${day.year}','${day.hour}:${day.minute}');
+
+  void _onDaySelectedlong(DateTime day, List events) {
+    Navigator.pushNamed(context, '/Ajout_match');
+    ScopedModel.of<GameModel>(context).Initdate(
+        '${day.day}-${day.month}-${day.year}', '${day.hour}:${day.minute}');
   }
- RefreshController _refreshController =
+
+  RefreshController _refreshController =
       RefreshController(initialRefresh: false);
   @override
   Widget build(BuildContext context) {
     void _onRefresh() async {
       ScopedModel.of<GameModel>(context).MatchCalendar();
-      
+
       _refreshController.refreshCompleted();
     }
+
     Timer(
       Duration(seconds: 0),
       () {
@@ -71,26 +75,25 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
     );
     return Scaffold(
       appBar: AppBar(
-         centerTitle: true,
-    title:   Text("Rencontre"),
+        centerTitle: true,
+        title: Text("Rencontre"),
         backgroundColor: Colors.indigo,
         leading: IconButton(
             icon: Icon(Icons.add),
             onPressed: () {
               Navigator.pushNamed(context, '/Ajout_match');
             }),
-        
       ),
       persistentFooterButtons: <Widget>[
         Footer(),
       ],
       backgroundColor: back,
       body: SmartRefresher(
-      enablePullDown: true,
-      header: WaterDropHeader(),
-      controller: _refreshController,
-      onRefresh: _onRefresh,
-      child: Column(
+        enablePullDown: true,
+        header: WaterDropHeader(),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
@@ -113,8 +116,9 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
       },
       startingDayOfWeek: StartingDayOfWeek.monday,
       calendarStyle: CalendarStyle(
-        weekdayStyle: TextStyle().copyWith( fontSize: 20.0),
-        weekendStyle: TextStyle().copyWith(color:Colors.deepOrange[400], fontSize: 25.0),
+        weekdayStyle: TextStyle().copyWith(fontSize: 20.0),
+        weekendStyle:
+            TextStyle().copyWith(color: Colors.deepOrange[400], fontSize: 25.0),
         selectedColor: Colors.deepOrange[400],
         todayColor: Colors.deepOrange[200],
         markersColor: Colors.indigo,
@@ -129,7 +133,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
         ),
       ),
       onDaySelected: _onDaySelected,
-      onDayLongPressed :  _onDaySelectedlong,
+      onDayLongPressed: _onDaySelectedlong,
       calendarController: _calendarController,
       events: _events,
     );
@@ -146,7 +150,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                 margin:
                     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
                 child: ListTile(
-    title:  Text(event['lieu'].toString() +
+                  title: Text(event['lieu'].toString() +
                       " à " +
                       event['heure'].toString()),
                   trailing: Container(
@@ -166,7 +170,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                   ),
                   onTap: () async {
                     // on sélection la rencontre choisir
-                   
+
                     ScopedModel.of<GameModel>(context).lieu = event['lieu'];
                     ScopedModel.of<GameModel>(context).id_rencontre =
                         event['id'];
@@ -176,10 +180,10 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                         event['jours'];
                     ScopedModel.of<GameModel>(context).heurerencontre =
                         event['heure'];
-                    
 
                     // on prepare les image terrain et commentaire pour la page profil rencontre
-                    ScopedModel.of<ImgModel>(context).Img_terrain_id(event['lieu']);
+                    ScopedModel.of<ImgModel>(context)
+                        .Img_terrain_id(event['lieu']);
                     ScopedModel.of<GameModel>(context).Terrain();
                     ScopedModel.of<GameModel>(context).Commentaire();
 

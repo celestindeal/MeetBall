@@ -11,7 +11,6 @@ class Password extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     email(String message, String email) async {
-      print("envoie d'un email");
       var options = new GmailSmtpOptions()
         ..username = 'equipemeetball@gmail.com'
         ..password = 'Projet1*';

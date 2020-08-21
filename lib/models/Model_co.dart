@@ -57,7 +57,6 @@ class LoginModel extends Model {
     Response response = await post(url, body: json);
 
     List data = jsonDecode(response.body);
-    print(data);
     int n = 0;
     id = "";
     img = "";
@@ -109,6 +108,7 @@ class LoginModel extends Model {
           // ajout dans la base de donner sqlite l'email et le mots de passe pour la connection automatique
           Baselocal().newperso(email, password);
           // si c'est l'un deux deux dévellopeur afficher les obption dévelloper
+          devellopeur = false;
           if (id == "6" || id == "46") {
             devellopeur = true;
             LieuDev();
@@ -243,14 +243,13 @@ class LoginModel extends Model {
       String niveaux,
       String description,
       String image) async {
-    print('inscription');
     niveaux = 'aucun';
     description = 'description';
     club = 'club';
     String url = 'http://51.210.103.151/post_inscription.php';
     String json =
         '{"pseudo":"$pseudo","email":"$email","nom":"$nom","prenom":"$prenom","password":"$password","jour":"$jour","club":"$club","niveaux":"$niveaux","description":"$description","photo":"$image"}'; // make POST request
-    print(json);
+
     Response response = await post(url, body: json);
     String body = response.body;
     Connexion(email, password);
@@ -340,7 +339,6 @@ class LoginModel extends Model {
     // objectif quand on as une incription on verifi les pseudo et les email pour de pas avoir de doublon
     // si l'email est déjà pris emailvalide = false
     // si le pseudo est déjà pris pseudovalide = false
-    print(Verification_email_modif);
     emailvalideModif = true;
     pseudovalideModif = true;
     String url =
@@ -401,7 +399,7 @@ class LoginModel extends Model {
   }
 
   Future<String> ChangeImage(String image) async {
-    // objectif changer la photo d'un utilisateur 
+    // objectif changer la photo d'un utilisateur
     String url = 'http://51.210.103.151/post_changeImage.php';
     int idd = int.parse(id);
     affmodif = false;
@@ -410,7 +408,8 @@ class LoginModel extends Model {
     String body = response.body;
     Connexion(email, password);
     affmodif = false;
-    img="https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg";
+    img =
+        "https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg";
     notifyListeners();
     return body;
   }
