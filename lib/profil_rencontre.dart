@@ -209,88 +209,6 @@ class _PresentationState extends State<Presentation> {
                 }));
           });
     }
-    // notation(String personnenoter) {
-    //   return Container(
-    //     width: MediaQuery.of(context).size.width * .2,
-    //     child: FlatButton(
-    //       onPressed: () {
-    //         showDialog(
-    //             context: context,
-    //             builder: (BuildContext context) {
-    //               return AlertDialog(
-    //                   backgroundColor: Colors.transparent,
-    //                   content: StatefulBuilder(builder:
-    //                       (BuildContext context, StateSetter setState) {
-    //                     return Container(
-    //                         color: Colors.grey,
-    //                         child: Row(
-    //                           mainAxisAlignment: MainAxisAlignment.center,
-    //                           children: <Widget>[
-    //                             IconButton(
-    //                               iconSize:
-    //                                   MediaQuery.of(context).size.width / 11,
-    //                               icon: Icon(Icons.star_border),
-    //                               color: Colors.yellow,
-    //                               onPressed: () {
-    //                                 ScopedModel.of<LoginModel>(context)
-    //                                     .Envoienote("1", personnenoter);
-    //                                 Navigator.of(context).pop();
-    //                               },
-    //                             ),
-    //                             IconButton(
-    //                               iconSize:
-    //                                   MediaQuery.of(context).size.width / 11,
-    //                               icon: Icon(Icons.star_border),
-    //                               color: Colors.yellow,
-    //                               onPressed: () {
-    //                                 ScopedModel.of<LoginModel>(context)
-    //                                     .Envoienote("2", personnenoter);
-    //                                 Navigator.of(context).pop();
-    //                               },
-    //                             ),
-    //                             IconButton(
-    //                               iconSize:
-    //                                   MediaQuery.of(context).size.width / 11,
-    //                               icon: Icon(Icons.star_border),
-    //                               color: Colors.yellow,
-    //                               onPressed: () {
-    //                                 ScopedModel.of<LoginModel>(context)
-    //                                     .Envoienote("3", personnenoter);
-    //                                 Navigator.of(context).pop();
-    //                               },
-    //                             ),
-    //                             IconButton(
-    //                               iconSize:
-    //                                   MediaQuery.of(context).size.width / 11,
-    //                               icon: Icon(Icons.star_border),
-    //                               color: Colors.yellow,
-    //                               onPressed: () {
-    //                                 ScopedModel.of<LoginModel>(context)
-    //                                     .Envoienote("4", personnenoter);
-    //                                 Navigator.of(context).pop();
-    //                               },
-    //                             ),
-    //                             IconButton(
-    //                               iconSize:
-    //                                   MediaQuery.of(context).size.width / 11,
-    //                               icon: Icon(Icons.star_border),
-    //                               color: Colors.yellow,
-    //                               onPressed: () {
-    //                                 ScopedModel.of<LoginModel>(context)
-    //                                     .Envoienote("5", personnenoter);
-    //                                 Navigator.of(context).pop();
-    //                               },
-    //                             ),
-    //                           ],
-    //                         ));
-    //                   }));
-    //             });
-    //       },
-    //       child: Text('noter'),
-    //     ),
-    //   );
-    // }
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -606,8 +524,7 @@ class _PresentationState extends State<Presentation> {
                                       model.nombJoueur++;
                                       await ScopedModel.of<LoginModel>(context)
                                           .Personne_propose(model.id_rencontre);
-                                      _scrollController.jumpTo(_scrollController
-                                          .position.maxScrollExtent);
+                                      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
                                     }
                                   }
                                 },

@@ -136,37 +136,21 @@ class LoginModel extends Model {
     var url = 'http://51.210.103.151/post_verfparticipation.php';
     String json = '{"pseudo":"$pseudo"}';
     Response response = await post(url, body: json);
-    var data_participation = jsonDecode(response.body);
+    var data_rencontre = jsonDecode(response.body);
 
-    var url1 = 'http://51.210.103.151/get_matchFuture.php';
-    http.Response response1 = await http.get(url1);
-    var data_rencontre = jsonDecode(response1.body);
-    int tailledata = data_participation.length;
-    int taillerencontre = data_rencontre.length;
-
-    // on fait le tours des la table participation
-    for (var i = 0; i < tailledata; i++) {
-      //si les pseudo sont identique sais que tu participe à la rencomtre
-
-      if (pseudo == data_participation[i]['pseudo']) {
-        // donc avec l'id de la rencontre on retrouve cette rencontre
-        for (var n = 0; n < taillerencontre; n++) {
-          if (data_participation[i]['ID_rencontre'] ==
-              data_rencontre[n]['id']) {
-            // et on stoke les info dans la liste participation
-            Map<String, dynamic> participation_1 = {
-              "id": data_participation[i]['id'],
-              "jour": data_rencontre[n]['jours'],
-              "heure": data_rencontre[n]['heure'],
-              "nom_j": data_rencontre[n]['nombre_j'],
-              "id_rencontre": data_participation[i]['ID_rencontre'],
-              "lieu": data_rencontre[n]['lieu'],
-              "pseudo": data_rencontre[n]['per']
-            };
-            participation.add(participation_1);
-          }
-        }
-      }
+    for (var n = 0; n < data_rencontre.length; n++) {
+      // et on stoke les info dans la liste participation
+      Map<String, dynamic> participation_1 = {
+        // "id": data_participation[i]['id'],
+        "jour": data_rencontre[n]['jours'],
+        "heure": data_rencontre[n]['heure'],
+        "nom_j": data_rencontre[n]['nombre_j'],
+        // "id_rencontre": data_participation[i]['ID_rencontre'],
+        "id_rencontre": data_rencontre[n]['id'],
+        "lieu": data_rencontre[n]['lieu'],
+        "pseudo": data_rencontre[n]['per']
+      };
+      participation.add(participation_1);
     }
     img;
     notifyListeners();
@@ -179,37 +163,22 @@ class LoginModel extends Model {
     var url = 'http://51.210.103.151/post_verfparticipation.php';
     String json = '{"pseudo":"$pseudo"}';
     Response response = await post(url, body: json);
-    var data_participation = jsonDecode(response.body);
 
-    var url1 = 'http://51.210.103.151/get_matchFuture.php';
-    http.Response response1 = await http.get(url1);
-    var data_rencontre = jsonDecode(response1.body);
-    int tailledata = data_participation.length;
-    int taillerencontre = data_rencontre.length;
+    var data_rencontre = jsonDecode(response.body);
 
-    // on fait le tours des la table participation
-    for (var i = 0; i < tailledata; i++) {
-      //si les pseudo sont identique sais que tu participe à la rencomtre
-
-      if (pseudo == data_participation[i]['pseudo']) {
-        // donc avec l'id de la rencontre on retrouve cette rencontre
-        for (var n = 0; n < taillerencontre; n++) {
-          if (data_participation[i]['ID_rencontre'] ==
-              data_rencontre[n]['id']) {
-            // et on stoke les info dans la liste participation
-            Map<String, dynamic> participation_1 = {
-              "id": data_participation[i]['id'],
-              "jour": data_rencontre[n]['jours'],
-              "heure": data_rencontre[n]['heure'],
-              "nom_j": data_rencontre[n]['nombre_j'],
-              "id_rencontre": data_participation[i]['ID_rencontre'],
-              "lieu": data_rencontre[n]['lieu'],
-              "pseudo": data_rencontre[n]['per']
-            };
-            participationvisiteur.add(participation_1);
-          }
-        }
-      }
+    for (var n = 0; n < data_rencontre.length; n++) {
+      // et on stoke les info dans la liste participation
+      Map<String, dynamic> participation_1 = {
+        // "id": data_participation[i]['id'],
+        "jour": data_rencontre[n]['jours'],
+        "heure": data_rencontre[n]['heure'],
+        "nom_j": data_rencontre[n]['nombre_j'],
+        // "id_rencontre": data_participation[i]['ID_rencontre'],
+        "id_rencontre": data_rencontre[n]['id'],
+        "lieu": data_rencontre[n]['lieu'],
+        "pseudo": data_rencontre[n]['per']
+      };
+      participationvisiteur.add(participation_1);
     }
 
     // maintenante faire la parti notation
