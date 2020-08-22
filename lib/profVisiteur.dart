@@ -245,7 +245,11 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                                                 .center,
                                                         children: <Widget>[
                                                           Text(
-                                                              "Cette rencontre est prevue ",
+                                                              "Rencontre prevue "+tempsavantmatch +
+                                                                  " à " +
+                                                                  model.participationvisiteur[
+                                                                          i]
+                                                                      ['heure'],
                                                               textAlign:
                                                                   TextAlign
                                                                       .center,
@@ -254,23 +258,14 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                                                       context)
                                                                   .textTheme
                                                                   .display2),
+                                                   
+                                             
                                                           Text(
-                                                              tempsavantmatch +
-                                                                  " à " +
-                                                                  model.participationvisiteur[
-                                                                          i]
-                                                                      ['heure'],
-                                                              softWrap: true,
-                                                              style: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .display2),
-                                                          Text(
-                                                              "Il y a " +
+                                                            
                                                                   model.participationvisiteur[
                                                                           i][
                                                                       'nom_j'] +
-                                                                  " personne(s) qui seront là",
+                                                                  " Joueur(s) ",
                                                               softWrap: true,
                                                               style: Theme.of(
                                                                       context)

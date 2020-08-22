@@ -56,6 +56,7 @@ class _CommentaireState extends State<Commentaire> {
       if (ScopedModel.of<LoginModel>(context).boParticipation) {
         _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
         ScopedModel.of<GameModel>(context).Commentaire();
+        print("pf,");
       }
     });
     return Scaffold(

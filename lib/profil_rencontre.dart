@@ -82,49 +82,25 @@ class _PresentationState extends State<Presentation> {
       });
     }
 
+    String ok = "}" + ScopedModel.of<GameModel>(context).daterencontre + "/";
+    String heure ="}" + ScopedModel.of<GameModel>(context).heurerencontre + "/";
+    int jour = int.parse(ok.split('}')[1].split('-')[0]);
+    int mois = int.parse(ok.split('-')[1].split('-')[0]);
+    int heur = int.parse(heure.split('}')[1].split(':')[0]);
+    String placement = jour.toString() + '-' + mois.toString() + '-';
+    int ans = int.parse(ok.split(placement)[1].split('/')[0]);
     var ms = (new DateTime.now()).millisecondsSinceEpoch;
-    String okr = "}" + ScopedModel.of<GameModel>(context).daterencontre + "/";
-    int jourr = int.parse(okr.split('}')[1].split('-')[0]);
-    int moisr = int.parse(okr.split('-')[1].split('-')[0]);
-    String placementr = jourr.toString() + '-' + moisr.toString() + '-';
-    int ansr = int.parse(okr.split(placementr)[1].split('/')[0]);
-
-    var mst =
-        new DateTime.utc(ansr, moisr, jourr, 12, 08, 04).millisecondsSinceEpoch;
-    double tkt = (mst - ms) / (24 * 3600 * 1000);
-    String tempsavantmatch;
-    if (0 <= tkt && tkt < 1) {
-      tempsavantmatch =
-          "Aujoud'hui à " + ScopedModel.of<GameModel>(context).heurerencontre;
-    } else if (1 <= tkt && tkt < 2) {
-      tempsavantmatch =
-          "Demain" + ScopedModel.of<GameModel>(context).heurerencontre;
-    } else if (tkt < 0) {
-      tempsavantmatch = "Rencontre fini";
-    } else {
-      tempsavantmatch = "Dans " +
-          tkt.toInt().toString() +
-          " jours à " +
-          ScopedModel.of<GameModel>(context).heurerencontre;
-    }
+    var mst =new DateTime.utc(ans, mois, jour, heur, 00, 04).millisecondsSinceEpoch;
+   double tkt = (mst - ms) / (3600 * 1000);
+    final difference = DateTime(ans, mois, jour, heur).difference(DateTime.now()).inHours;
+    String tempsavantmatch = tkt.round().toString() + " heures";
+    
     // après une seconds les commentaire scroll sur le dernier commentaire publier
 
 // calcul pour savoir si la rencontre est déja passer
 // si difference est négative la rencontre est passer
-    String ok = "}" + ScopedModel.of<GameModel>(context).daterencontre + "/";
-    int jour = int.parse(ok.split('}')[1].split('-')[0]);
-    int mois = int.parse(ok.split('-')[1].split('-')[0]);
 
-    String placement = jour.toString() + '-' + mois.toString() + '-';
-    int ans = int.parse(ok.split(placement)[1].split('/')[0]);
-
-    String heure =
-        "}" + ScopedModel.of<GameModel>(context).heurerencontre + "/";
-    int heur = int.parse(heure.split('}')[1].split(':')[0]);
-
-    final difference =
-        DateTime(ans, mois, jour, heur).difference(DateTime.now()).inHours;
-
+ 
     notation(String personnenoter) {
       return showDialog(
           context: context,
@@ -209,6 +185,7 @@ class _PresentationState extends State<Presentation> {
                 }));
           });
     }
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -382,6 +359,22 @@ class _PresentationState extends State<Presentation> {
                                               .display3),
                                     ],
                                   ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text(
+                                          ScopedModel.of<GameModel>(context)
+                                                  .daterencontre +
+                                              ", " +
+                                              ScopedModel.of<GameModel>(context)
+                                                  .heurerencontre,
+                                          textAlign: TextAlign.end,
+                                          softWrap: true,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .display3),
+                                    ],
+                                  ),
                                 ]),
                             Text(model.commentaire_lieu,
                                 softWrap: true,
@@ -524,7 +517,8 @@ class _PresentationState extends State<Presentation> {
                                       model.nombJoueur++;
                                       await ScopedModel.of<LoginModel>(context)
                                           .Personne_propose(model.id_rencontre);
-                                      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+                                      _scrollController.jumpTo(_scrollController
+                                          .position.maxScrollExtent);
                                     }
                                   }
                                 },
@@ -653,10 +647,10 @@ class _PresentationState extends State<Presentation> {
                                                                 i]['pseudo']);
                                                           } else {
                                                             Scaffold.of(context)
-                                                                .showSnackBar(
-                                                                    new SnackBar(
-                                                                        content:
-                                                                            new Text('Tu pourra noter cette personne après la rencontre')));
+                                                                .showSnackBar(new SnackBar(
+                                                                    content: new Text(
+                                                                        'Tu pourra noter cette personne dans ' +
+                                                                            tempsavantmatch)));
                                                           }
                                                         },
                                                         child: Text('noter'),

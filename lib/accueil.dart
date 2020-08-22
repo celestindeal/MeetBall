@@ -12,7 +12,7 @@ var form_email;
 var form_password;
 var _controller1 = TextEditingController();
 bool _passwordVisible = false;
-bool boinit = true;
+
 
 class Accueil extends StatefulWidget {
   @override
@@ -35,14 +35,12 @@ class _AccueilState extends State<Accueil> {
         Navigator.pushNamedAndRemoveUntil(
             context, '/Profil', (Route<dynamic> route) => false);
       }
-
-
       return persoonne;
     }
 
-    if (boinit) {
+    if (boConnexionAuto) {
       init();
-      boinit = false;
+      boConnexionAuto = false;
     }
     return Scaffold(
       backgroundColor: back,

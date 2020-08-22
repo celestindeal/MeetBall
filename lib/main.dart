@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -31,8 +33,11 @@ import 'models/Model_match.dart';
 import 'models/Model_terrain.dart';
 import 'modif.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
+import 'package:connectivity/connectivity.dart';
 
 Color back;
+var connectivityResult;
+bool boConnexionAuto = true;
 void main() {
   runApp(new Main());
 }
@@ -45,6 +50,7 @@ class Main extends StatefulWidget {
 class _MainState extends State<Main> {
   @override
   Brightness _brightness = Brightness.light;
+  bool connexion = true;
   changeBrightness() {
     DynamicTheme.of(context).setBrightness(
         Theme.of(context).brightness == Brightness.dark
@@ -55,6 +61,37 @@ class _MainState extends State<Main> {
   }
 
   Widget build(BuildContext context) {
+
+    connection() async {
+      // si on est connecter à internet connexion = true;    et si on n'a pas de connexion = false;
+      connectivityResult = await Connectivity().checkConnectivity();
+      print(connectivityResult);
+
+      if (connectivityResult == ConnectivityResult.mobile ||
+          connectivityResult == ConnectivityResult.wifi) {
+        if (connexion == false) {
+          setState(() {
+            print('true');
+            connexion = true;
+            boConnexionAuto = true; // relance la connexion automatique
+          });
+        }
+      } else if (connectivityResult == ConnectivityResult.none) {
+        if (connexion = !false) {
+          setState(() {
+            connexion = false;
+          });
+        }
+      }
+      print('...............................');
+    }
+
+// toutes les deux seconds on verrifi la conneciton à internet 
+    const oneSec = const Duration(seconds: 2);
+    new Timer.periodic(oneSec, (Timer t) {
+      connection();
+    });
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -72,88 +109,109 @@ class _MainState extends State<Main> {
 
     back =
         Theme.of(context).brightness == Brightness.dark ? Colors.white70 : null;
-    return ScopedModel(
-        model: ImgModel(),
-        child: ScopedModel(
-            model: TerrainModel(),
-            child: ScopedModel(
-                model: GameModel(),
-                child: ScopedModel(
-                    model: LoginModel(),
-                    child: DynamicTheme(
-                        defaultBrightness: Brightness.light,
-                        data: (brightness) => ThemeData(
-                              brightness: brightness,
-                              textTheme: TextTheme(
-                                body1: TextStyle(fontSize: 10.0),
-                                body2: TextStyle(fontSize: 16.0),
-                                display1: TextStyle(
-                                    fontSize: 25.0,
-                                    color: Colors.red,
-                                    decorationColor: Colors.white), // darwer
-                                display2: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.white,
-                                  decorationColor: Colors.white,
-                                  fontWeight: FontWeight.w800,
-                                  fontFamily: 'Roboto',
-                                  letterSpacing: 0.5,
-                                ), //text stiler
-                                display3: TextStyle(
+
+    if (connexion) {
+      return ScopedModel(
+          model: ImgModel(),
+          child: ScopedModel(
+              model: TerrainModel(),
+              child: ScopedModel(
+                  model: GameModel(),
+                  child: ScopedModel(
+                      model: LoginModel(),
+                      child: DynamicTheme(
+                          defaultBrightness: Brightness.light,
+                          data: (brightness) => ThemeData(
+                                brightness: brightness,
+                                textTheme: TextTheme(
+                                  body1: TextStyle(fontSize: 10.0),
+                                  body2: TextStyle(fontSize: 16.0),
+                                  display1: TextStyle(
+                                      fontSize: 25.0,
+                                      color: Colors.red,
+                                      decorationColor: Colors.white), // darwer
+                                  display2: TextStyle(
                                     fontSize: 16.0,
-                                    color: brightness == Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black,
-                                    decorationColor: Colors.black), //text Class
-                                display4: TextStyle(
-                                  fontSize: 32.0,
-                                  inherit: false,
-                                  letterSpacing: 0.5,
-                                  color: Colors.red,
+                                    color: Colors.white,
+                                    decorationColor: Colors.white,
+                                    fontWeight: FontWeight.w800,
+                                    fontFamily: 'Roboto',
+                                    letterSpacing: 0.5,
+                                  ), //text stiler
+                                  display3: TextStyle(
+                                      fontSize: 16.0,
+                                      color: brightness == Brightness.dark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      decorationColor:
+                                          Colors.black), //text Class
+                                  display4: TextStyle(
+                                    fontSize: 32.0,
+                                    inherit: false,
+                                    letterSpacing: 0.5,
+                                    color: Colors.red,
+                                  ),
                                 ),
                               ),
-                            ),
-                        themedWidgetBuilder: (context, theme) {
-                          return MaterialApp(
-                            localizationsDelegates: [
-                              GlobalMaterialLocalizations.delegate,
-                              GlobalWidgetsLocalizations.delegate,
-                            ],
-                            supportedLocales: [
-                              const Locale('fr', ''), // English
-                            ],
-                            theme: theme,
-                            debugShowCheckedModeBanner: false,
-                            initialRoute: '/',
-                            routes: {
-                              '/': (context) => Accueil(),
-                              '/inscription': (context) => Inscription(),
-                              '/Profil': (context) => Profil(),
-                              '/ProfilVisiteur': (context) => ProfilVisiteur(),
-                              '/Match': (context) => Match(),
-                              '/Profil_renctontre': (context) =>
-                                  Profil_renctontre(),
-                              '/Terrain': (context) => Terrain(),
-                              '/Rechercher': (context) => Rechercher(),
-                              '/ProfilRechercher': (context) =>
-                                  ProfilRecherche(),
-                              '/Terrainpro': (context) => TerrainPro(),
-                              '/Terrainrecherche': (context) =>
-                                  TerrainRecherche(),
-                              '/TerrainRencontre': (context) => TerrainRen(),
-                              '/Ajout_terrain': (context) => Ajout_terrain(),
-                              '/Ajout_match': (context) => Ajout_match(),
-                              '/Avis': (context) => Avis(),
-                              '/modif': (context) => Modif(),
-                              '/avisDev': (context) => AvisDev(),
-                              '/lieuDev': (context) => LieuDev(),
-                              '/Calendar': (context) => Calendar(),
-                              '/password': (context) => Password(),
-                              '/commentaire': (context) => Commentaire(),
-                              '/test': (context) => MyApp(),
-                            },
-                          );
-                        })))));
+                          themedWidgetBuilder: (context, theme) {
+                            connexion_auto(){
+                              
+                            }
+                            return MaterialApp(
+                              localizationsDelegates: [
+                                GlobalMaterialLocalizations.delegate,
+                                GlobalWidgetsLocalizations.delegate,
+                              ],
+                              supportedLocales: [
+                                const Locale('fr', ''), // English
+                              ],
+                              theme: theme,
+                              debugShowCheckedModeBanner: false,
+                              initialRoute: '/',
+                              routes: {
+                                '/': (context) => Accueil(),
+                                '/inscription': (context) => Inscription(),
+                                '/Profil': (context) => Profil(),
+                                '/ProfilVisiteur': (context) =>
+                                    ProfilVisiteur(),
+                                '/Match': (context) => Match(),
+                                '/Profil_renctontre': (context) =>
+                                    Profil_renctontre(),
+                                '/Terrain': (context) => Terrain(),
+                                '/Rechercher': (context) => Rechercher(),
+                                '/ProfilRechercher': (context) =>
+                                    ProfilRecherche(),
+                                '/Terrainpro': (context) => TerrainPro(),
+                                '/Terrainrecherche': (context) =>
+                                    TerrainRecherche(),
+                                '/TerrainRencontre': (context) => TerrainRen(),
+                                '/Ajout_terrain': (context) => Ajout_terrain(),
+                                '/Ajout_match': (context) => Ajout_match(),
+                                '/Avis': (context) => Avis(),
+                                '/modif': (context) => Modif(),
+                                '/avisDev': (context) => AvisDev(),
+                                '/lieuDev': (context) => LieuDev(),
+                                '/Calendar': (context) => Calendar(),
+                                '/password': (context) => Password(),
+                                '/commentaire': (context) => Commentaire(),
+                                '/test': (context) => MyApp(),
+                              },
+                            );
+                          })))));
+    } else {
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Problème de connection',
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Problème de connection'),
+          ),
+          body: Center(
+            child: Text('Vérifie ta connection'),
+          ),
+        ),
+      );
+    }
   }
 }
 
