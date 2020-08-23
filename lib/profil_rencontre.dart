@@ -705,9 +705,11 @@ class _PresentationState extends State<Presentation> {
                             child: Transform.translate(
                                 offset: Offset(largeurMessage, hauteurMessage),
                                 child: MaterialButton(
-                                  onPressed: () {
-                                    ScopedModel.of<GameModel>(context)
-                                        .Commentaire();
+                                  onPressed: () async{
+                                    ScopedModel.of<GameModel>(context).commentaire.clear();
+                                    ScopedModel.of<GameModel>(context).nombre=0; // sela premette de reconmmencer l'affichage 
+                                    await ScopedModel.of<GameModel>(context).Commentaire();
+                                    print('sqfezfez');
                                     Navigator.pushNamed(
                                         context, '/commentaire');
                                   },

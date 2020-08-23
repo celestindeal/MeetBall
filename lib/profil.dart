@@ -195,9 +195,11 @@ class _PresentationState extends State<Presentation> {
               }),
           actions: <Widget>[
             IconButton(
-              icon: const Icon(Icons.settings),
+             // icon: const Icon(Icons.settings),
+              icon: const Icon(Icons.more_vert),
+
               onPressed: () {
-                sdialog(context);
+                 Navigator.pushNamed(context, '/parametre');
               },
             ),
           ],

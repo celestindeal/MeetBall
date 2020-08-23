@@ -1,12 +1,7 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:meetballl/db.dart';
 import 'package:meetballl/main.dart';
-import 'package:meetballl/models/Model_co.dart';
-import 'package:meetballl/models/Model_img.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'footer.dart';
 import 'models/Model_terrain.dart';
 

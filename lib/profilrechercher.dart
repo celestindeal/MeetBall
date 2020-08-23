@@ -145,38 +145,46 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
                       shrinkWrap: true,
                       itemCount: profilvisiteur.length,
                       itemBuilder: (context, i) {
-                        return GestureDetector(
-                          onTap: () async {
-                            await ScopedModel.of<LoginModel>(context)
-                                .ParticipationProilVisiteur(
-                                    profilvisiteur[i]['pseudo']);
-                                    // on vas rechercher le profil de la personne selectionner
-                            String pseudo = profilvisiteur[i]['pseudo'];
-                            String url ='http://51.210.103.151/post_connexion_pseudo.php'; // vérification pseudo
-                            String json = '{"pseudo":"$pseudo"}';
-                            Response response = await post(url, body: json);
-                            List listpersonne = jsonDecode(response.body);
+                        if (profilvisiteur[i]['pseudo'] ==
+                            ScopedModel.of<LoginModel>(context).pseudo) {
+                          return Container();
+                        } else {
+                          return GestureDetector(
+                            onTap: () async {
+                              await ScopedModel.of<LoginModel>(context)
+                                  .ParticipationProilVisiteur(
+                                      profilvisiteur[i]['pseudo']);
+                              // on vas rechercher le profil de la personne selectionner
+                              String pseudo = profilvisiteur[i]['pseudo'];
+                              String url =
+                                  'http://51.210.103.151/post_connexion_pseudo.php'; // vérification pseudo
+                              String json = '{"pseudo":"$pseudo"}';
+                              Response response = await post(url, body: json);
+                              List listpersonne = jsonDecode(response.body);
 
-                            ScopedModel.of<LoginModel>(context).profVisiteur =listpersonne[0];
+                              ScopedModel.of<LoginModel>(context).profVisiteur =
+                                  listpersonne[0];
 
-                            Navigator.pushNamed(context, '/ProfilVisiteur');
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height / 20,
-                            child: Center(
-                              child: Text(
-                                  profilvisiteur[i]['pseudo'] +
-                                      " (" +
-                                      profilvisiteur[i]['nom'] +
-                                      " " +
-                                      profilvisiteur[i]['prenom'] +
-                                      ")",
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.display3),
+                              Navigator.pushNamed(context, '/ProfilVisiteur');
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height / 20,
+                              child: Center(
+                                child: Text(
+                                    profilvisiteur[i]['pseudo'] +
+                                        " (" +
+                                        profilvisiteur[i]['nom'] +
+                                        " " +
+                                        profilvisiteur[i]['prenom'] +
+                                        ")",
+                                    softWrap: true,
+                                    style:
+                                        Theme.of(context).textTheme.display3),
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        }
                       })
                   : CircularProgressIndicator(),
             ],

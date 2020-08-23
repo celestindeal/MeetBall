@@ -7,6 +7,7 @@ import 'package:meetballl/calendar.dart';
 import 'package:meetballl/commentaire.dart';
 import 'package:meetballl/db.dart';
 import 'package:meetballl/motsPasse.dart';
+import 'package:meetballl/parametrz.dart';
 import 'package:meetballl/profVisiteur.dart';
 import 'package:meetballl/profil.dart';
 import 'package:meetballl/profil_rencontre.dart';
@@ -65,13 +66,13 @@ class _MainState extends State<Main> {
     connection() async {
       // si on est connecter à internet connexion = true;    et si on n'a pas de connexion = false;
       connectivityResult = await Connectivity().checkConnectivity();
-      print(connectivityResult);
+     
 
       if (connectivityResult == ConnectivityResult.mobile ||
           connectivityResult == ConnectivityResult.wifi) {
         if (connexion == false) {
           setState(() {
-            print('true');
+          
             connexion = true;
             boConnexionAuto = true; // relance la connexion automatique
           });
@@ -83,7 +84,7 @@ class _MainState extends State<Main> {
           });
         }
       }
-      print('...............................');
+      
     }
 
 // toutes les deux seconds on verrifi la conneciton à internet 
@@ -108,7 +109,7 @@ class _MainState extends State<Main> {
     }
 
     back =
-        Theme.of(context).brightness == Brightness.dark ? Colors.white70 : null;
+        Theme.of(context).brightness == Brightness.dark ? Colors.white : null;
 
     if (connexion) {
       return ScopedModel(
@@ -195,6 +196,8 @@ class _MainState extends State<Main> {
                                 '/password': (context) => Password(),
                                 '/commentaire': (context) => Commentaire(),
                                 '/test': (context) => MyApp(),
+                                '/parametre': (context) => Parametre(),
+
                               },
                             );
                           })))));
@@ -231,184 +234,4 @@ comparestring(String mot1, String mot2) {
   return compare;
 }
 
-sdialog(context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState) {
-        changeBrightness() {
-          DynamicTheme.of(context).setBrightness(
-              Theme.of(context).brightness == Brightness.dark
-                  ? Brightness.light
-                  : Brightness.dark);
 
-          Baselocal().mise_a_jour();
-          back = Theme.of(context).brightness == Brightness.dark
-              ? Colors.white70
-              : null;
-        }
-
-        return Center(
-          child: Container(
-              height: MediaQuery.of(context).size.height / 2,
-              width: MediaQuery.of(context).size.width * 0.8,
-              padding: const EdgeInsets.all(5),
-              margin: const EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Colors.grey,
-              ),
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      RaisedButton(
-                          child: Text("Mode d'affichage"),
-                          onPressed: () async {
-                            changeBrightness();
-                          }),
-                      RaisedButton(
-                        onPressed: () async {
-                          Navigator.pushNamed(context, '/Avis');
-                        },
-                        child: Text('Nous contacter',
-                            style: Theme.of(context).textTheme.display3),
-                      ),
-                      RaisedButton(
-                        onPressed: () {
-                          showDialog(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return Center(
-                                  child: Container(
-                                    color: Colors.white,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Text(
-                                            'Es-tu sûr de vraiment vouloir te déconnecter ?',
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .display1),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: <Widget>[
-                                            RaisedButton(
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                child: Text('non')),
-                                            RaisedButton(
-                                                onPressed: () async {
-                                                  await ScopedModel.of<
-                                                          LoginModel>(context)
-                                                      .Deconnection();
-                                                  await Baselocal().deconnect();
-                                                  Navigator
-                                                      .pushNamedAndRemoveUntil(
-                                                          context,
-                                                          '/',
-                                                          (Route<dynamic>
-                                                                  route) =>
-                                                              false);
-                                                },
-                                                child: Text('oui')),
-                                          ],
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              });
-                        },
-                        child: Text('Déconnexion',
-                            style: Theme.of(context).textTheme.display3),
-                      ),
-                      RaisedButton(
-                          child: Text("CONDITIONS GÉNÉRALES D’UTILISATION"),
-                          onPressed: () async {
-                            if (await canLaunch(
-                                "http://51.210.103.151/conditions.php")) {
-                              await launch(
-                                  "http://51.210.103.151/conditions.php");
-                            }
-                          }),
-                      RaisedButton(
-                          child: Text("POLITIQUE DE CONFIDENTIALITÉ"),
-                          onPressed: () async {
-                            if (await canLaunch(
-                                "http://51.210.103.151/confidentialite.php")) {
-                              await launch(
-                                  "http://51.210.103.151/confidentialite.php");
-                            }
-                          }),
-                      RaisedButton(
-                          child: Text("FAQ"),
-                          onPressed: () async {
-                            if (await canLaunch(
-                                "http://51.210.103.151/FAQ.php")) {
-                              await launch("http://51.210.103.151/FAQ.php");
-                            }
-                          }),
-                      ScopedModel.of<LoginModel>(context).devellopeur
-                          ? Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                GestureDetector(
-                                  onTap: () {
-                                    Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        '/avisDev',
-                                        (Route<dynamic> route) => false);
-                                  },
-                                  child: Container(
-                                    height:
-                                        (MediaQuery.of(context).size.height /
-                                            10),
-                                    child: Center(
-                                      child: Text('avisDev',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                    ),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    ScopedModel.of<ImgModel>(context).Img();
-                                    ScopedModel.of<TerrainModel>(context)
-                                        .TerrainDev();
-                                    Navigator.pushNamedAndRemoveUntil(
-                                        context,
-                                        '/lieuDev',
-                                        (Route<dynamic> route) => false);
-                                  },
-                                  child: Container(
-                                    height:
-                                        (MediaQuery.of(context).size.height /
-                                            10),
-                                    child: Center(
-                                      child: Text('lieuDev',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          : Container()
-                    ],
-                  ),
-                ),
-              )),
-        );
-      });
-    },
-  );
-}

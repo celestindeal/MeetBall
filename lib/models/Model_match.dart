@@ -23,7 +23,7 @@ class GameModel extends Model {
   var id_terrain;
   String terrainrencontre = "";
   int nombre = 0;
-  int mmax = 10;
+  int mmax = 15;
   int lastmmax =0;
   // variable de sélection des la rencontre pour la page profil rencontre
   String lieu = "";
@@ -39,6 +39,8 @@ class GameModel extends Model {
   // variable pour rajouter un match 
   String date = "Date";
 String time = "Heure";
+// variable pour les commentaire 
+
 
   void initState() {}
 

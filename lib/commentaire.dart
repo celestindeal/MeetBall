@@ -12,6 +12,7 @@ class Commentaire extends StatefulWidget {
 }
 
 bool attend = true ;
+double lastscrool = 0;
 
 class _CommentaireState extends State<Commentaire> {
   ScrollController _scrollController = new ScrollController();
@@ -23,7 +24,7 @@ class _CommentaireState extends State<Commentaire> {
 
     void checkForNewSharedLists() async {
       // on refait la fonction pour aller chercher les commentaire
-      await ScopedModel.of<GameModel>(context).Commentaire();
+      ScopedModel.of<GameModel>(context).Commentaire();
       // si il y as un nouveau commentainer  on scroll la page pour voir le nouveau com
       if (ScopedModel.of<GameModel>(context).scrool) {
         ScopedModel.of<GameModel>(context).scrool = false;
@@ -32,19 +33,24 @@ class _CommentaireState extends State<Commentaire> {
         });
       }
       // si l'utilisateur a scroller en haut pour avoir plus de message 
-      if(_scrollController.position.pixels==0  && attend){
+      
+      if(_scrollController.position.pixels==0  && attend && lastscrool>0){
+        
         attend = false;
-         _scrollController.jumpTo(10);
+        //  _scrollController.jumpTo(10);
          // on rajoute 10 message suplementaire 
         ScopedModel.of<GameModel>(context).mmax = ScopedModel.of<GameModel>(context).mmax +10;
         // calcul et placement du nouveau scroll
         double max = _scrollController.position.maxScrollExtent;
         await ScopedModel.of<GameModel>(context).Commentaire();
-        Timer(Duration(microseconds: 1), () {
-            _scrollController.jumpTo((_scrollController.position.maxScrollExtent-max+10));
+        Timer(Duration(microseconds: 10), () {
+          print(_scrollController.position.maxScrollExtent);
+          print(max);
+
+            _scrollController.jumpTo((_scrollController.position.maxScrollExtent-max));
             attend = true;                                                                                                                                                                                                                                                                                                                                                              
         });
-      }
+      }lastscrool=_scrollController.position.pixels;
     }
 
 
@@ -81,7 +87,14 @@ class _CommentaireState extends State<Commentaire> {
                 Container(
                   height: (MediaQuery.of(context).size.height - 200),
                   color: Colors.transparent,
-                  child: ListView.builder(
+                  child: 
+                  model.commentaire.length ==0? Text("Il n'y as pas encore de commentaire",
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .display3):
+                  
+                  ListView.builder(
                       controller: _scrollController,
                       itemCount: model.commentaire.length,
                       itemBuilder: (context, i) {
@@ -99,6 +112,7 @@ class _CommentaireState extends State<Commentaire> {
 
                         return Column(
                           children: <Widget>[
+                            Container(height: 10,),
                             Row(
                               mainAxisAlignment: message
                                   ? MainAxisAlignment.end
