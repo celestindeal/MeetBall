@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -92,6 +91,7 @@ class _MainState extends State<Main> {
     new Timer.periodic(oneSec, (Timer t) {
       connection();
     });
+    
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -197,6 +197,7 @@ class _MainState extends State<Main> {
                                 '/commentaire': (context) => Commentaire(),
                                 '/test': (context) => MyApp(),
                                 '/parametre': (context) => Parametre(),
+
 
                               },
                             );

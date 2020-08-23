@@ -41,6 +41,7 @@ class LoginModel extends Model {
 
   bool dark = false;
   int page = 1;
+  bool participationProilfuture= true;
 
   changeMode() {
     if (dark) {
@@ -133,11 +134,16 @@ class LoginModel extends Model {
   Future<String> ParticipationProil() async {
     // objectif faire les liste des participation de notre joueur dans la variable participation
     participation.clear();
-    var url = 'http://51.210.103.151/post_verfparticipation.php';
+    var url;
+    if (participationProilfuture) {
+      url = 'http://51.210.103.151/post_verfparticipation.php';
+    } else {
+      url = 'http://51.210.103.151/post_verfparticipationPass.php';
+    }
+
     String json = '{"pseudo":"$pseudo"}';
     Response response = await post(url, body: json);
     var data_rencontre = jsonDecode(response.body);
-
     for (var n = 0; n < data_rencontre.length; n++) {
       // et on stoke les info dans la liste participation
       Map<String, dynamic> participation_1 = {
@@ -152,6 +158,7 @@ class LoginModel extends Model {
       };
       participation.add(participation_1);
     }
+    print(participation);
     img;
     notifyListeners();
     return " fin de fonction";

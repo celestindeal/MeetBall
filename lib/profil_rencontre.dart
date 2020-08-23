@@ -653,10 +653,10 @@ class _PresentationState extends State<Presentation> {
                                                                             tempsavantmatch)));
                                                           }
                                                         },
-                                                        child: Text('noter'),
+                                                        child: Text('noter', style: TextStyle(fontSize:16,),),
                                                       )
                                                     : Container()
-                                                : Container(),
+                                                : Container(child: FlatButton(child: Text('     ', style: TextStyle(fontSize:16,)))),
                                           ],
                                         ),
                                       ),
