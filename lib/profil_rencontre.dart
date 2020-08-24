@@ -200,7 +200,6 @@ class _PresentationState extends State<Presentation> {
       String id = ScopedModel.of<GameModel>(context).id_rencontre;
       List listpersonne = [];
       String url = 'http://51.210.103.151/post_note_id.php';
-      print(participent.length);
       for (var i = 0; i < participent.length; i++) {
         String pseudo_joueur = participent[i]['pseudo'];
         String json = '{"pseudo":"$pseudo_joueur","id":"$id"}';
@@ -209,7 +208,6 @@ class _PresentationState extends State<Presentation> {
         Map contruction = {'participent': participent[i], "note": personne};
         listpersonne.add(contruction);
       }
-      print('fin');
       return listpersonne;
     }
 
@@ -906,20 +904,28 @@ class _AffParticipentState extends State<AffParticipent> {
   Widget build(BuildContext context) {
     List participant = widget.participant;
     return ScopedModelDescendant<LoginModel>(builder: (context, child, login) {
-      print(participant.length);
-
       return Container(
           child: ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemCount: participant.length,
               itemBuilder: (context, i) {
-                double moyenne = 0;
+
+                // on calcule la moyenne
+                double doubleMoyenne = 0;
+                String moyenne = 'Aucune note';
                 for (var a = 0; a < participant[i]['note'].length; a++) {
-                  moyenne = moyenne +
+                  doubleMoyenne = doubleMoyenne +
                       int.parse(participant[i]['note'][a]['note'].toString());
-                  moyenne = moyenne / participant[i]['note'].length;
                 }
+                if(participant[i]['note'].length != 0){
+                  doubleMoyenne = doubleMoyenne /
+                    double.parse(participant[i]['note'].length.toString());
+                    moyenne ="Moyenne: " + doubleMoyenne.toString();
+                }
+                
+
+                // on calcul l'age de la personne 
                 var ms = (new DateTime.now()).millisecondsSinceEpoch;
                 String ok = "}" + participant[i]['participent']['age'] + "/";
 
@@ -933,6 +939,8 @@ class _AffParticipentState extends State<AffParticipent> {
                 var mst = new DateTime.utc(ans, mois, jour, 20, 18, 04)
                     .millisecondsSinceEpoch;
                 int ageAnne = ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
+
+                // on veux savoir si cette personne est nous même
                 bool bonotation = true;
                 if (login.pseudo == participant[i]['participent']['pseudo']) {
                   bonotation = false;
@@ -992,13 +1000,10 @@ class _AffParticipentState extends State<AffParticipent> {
                                         .boParticipation
                                     ? FlatButton(
                                         onPressed: () {
-                                          print(participant[i]['note']
-                                                  ['id_rencontre']
-                                              .toString());
                                           notation(
                                               participant[i]['participent']
                                                   ['pseudo'],
-                                              participant[i]['note']
+                                              participant[i]['note'][0]
                                                       ['id_rencontre']
                                                   .toString());
                                         },
@@ -1039,7 +1044,7 @@ class _AffParticipentState extends State<AffParticipent> {
                             ],
                           );
                         }),
-                    Text("Moyenne" + moyenne.toString(),
+                    Text( moyenne,
                         softWrap: true,
                         style: Theme.of(context).textTheme.display3),
                   ],
