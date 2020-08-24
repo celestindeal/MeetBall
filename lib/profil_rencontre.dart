@@ -101,7 +101,7 @@ class _PresentationState extends State<Presentation> {
 // si difference est négative la rencontre est passer
 
  
-    notation(String personnenoter) {
+    notation(String personnenoter,String id_rencontre) {
       return showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -130,7 +130,7 @@ class _PresentationState extends State<Presentation> {
                                 color: Colors.yellow,
                                 onPressed: () {
                                   ScopedModel.of<LoginModel>(context)
-                                      .Envoienote("1", personnenoter);
+                                      .Envoienote("1", personnenoter,id_rencontre);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -141,7 +141,7 @@ class _PresentationState extends State<Presentation> {
                                 color: Colors.yellow,
                                 onPressed: () {
                                   ScopedModel.of<LoginModel>(context)
-                                      .Envoienote("2", personnenoter);
+                                      .Envoienote("2", personnenoter,id_rencontre);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -152,7 +152,7 @@ class _PresentationState extends State<Presentation> {
                                 color: Colors.yellow,
                                 onPressed: () {
                                   ScopedModel.of<LoginModel>(context)
-                                      .Envoienote("3", personnenoter);
+                                      .Envoienote("3", personnenoter,id_rencontre);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -163,7 +163,7 @@ class _PresentationState extends State<Presentation> {
                                 color: Colors.yellow,
                                 onPressed: () {
                                   ScopedModel.of<LoginModel>(context)
-                                      .Envoienote("4", personnenoter);
+                                      .Envoienote("4", personnenoter,id_rencontre);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -174,7 +174,7 @@ class _PresentationState extends State<Presentation> {
                                 color: Colors.yellow,
                                 onPressed: () {
                                   ScopedModel.of<LoginModel>(context)
-                                      .Envoienote("5", personnenoter);
+                                      .Envoienote("5", personnenoter,id_rencontre);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -644,7 +644,7 @@ class _PresentationState extends State<Presentation> {
                                                           if (difference < 0) {
                                                             notation(login
                                                                     .participent[
-                                                                i]['pseudo']);
+                                                                i]['pseudo'],model.id_rencontre);
                                                           } else {
                                                             Scaffold.of(context)
                                                                 .showSnackBar(new SnackBar(
@@ -709,7 +709,6 @@ class _PresentationState extends State<Presentation> {
                                     ScopedModel.of<GameModel>(context).commentaire.clear();
                                     ScopedModel.of<GameModel>(context).nombre=0; // sela premette de reconmmencer l'affichage 
                                     await ScopedModel.of<GameModel>(context).Commentaire();
-                                    print('sqfezfez');
                                     Navigator.pushNamed(
                                         context, '/commentaire');
                                   },

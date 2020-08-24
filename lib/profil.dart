@@ -414,191 +414,191 @@ class _PresentationState extends State<Presentation> {
                       ],
                     ),
                     rencontre
-                        ? GestureDetector(
-                          onHorizontalDragEnd: ( details) {setState(() {
-                            model.participationProilfuture= !model.participationProilfuture;
-                          }); },
-                          child: Container(
-                              height: (MediaQuery.of(context).size.height / 2.1)-11,
-                              color: Colors.grey,
-                              child: Expanded(
-                                child: ListView.builder(
-                                    // physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: model.participation.length,
-                                    itemBuilder: (context, i) {
-                                      // calcule du temps avant le match
-                                      var ms = (new DateTime.now())
-                                          .millisecondsSinceEpoch;
-                                      String ok = "}" +
-                                          model.participation[i]['jour'] +
-                                          "/";
-                                      int jour = int.parse(
-                                          ok.split('}')[1].split('-')[0]);
-                                      int mois = int.parse(
-                                          ok.split('-')[1].split('-')[0]);
-                                      String placement = jour.toString() +
-                                          '-' +
-                                          mois.toString() +
-                                          '-';
-                                      int ans = int.parse(
-                                          ok.split(placement)[1].split('/')[0]);
+                        ? Expanded(
+                          child: GestureDetector(
+                            onHorizontalDragEnd: ( details) {setState(() {
+                              model.participationProilfuture= !model.participationProilfuture;
+                            }); },
+                            child: Container(
+                                color: Colors.grey,
+                                  child: ListView.builder(
+                                      // physics: NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: model.participation.length,
+                                      itemBuilder: (context, i) {
+                                        // calcule du temps avant le match
+                                        var ms = (new DateTime.now())
+                                            .millisecondsSinceEpoch;
+                                        String ok = "}" +
+                                            model.participation[i]['jour'] +
+                                            "/";
+                                        int jour = int.parse(
+                                            ok.split('}')[1].split('-')[0]);
+                                        int mois = int.parse(
+                                            ok.split('-')[1].split('-')[0]);
+                                        String placement = jour.toString() +
+                                            '-' +
+                                            mois.toString() +
+                                            '-';
+                                        int ans = int.parse(
+                                            ok.split(placement)[1].split('/')[0]);
 
-                                      var mst = new DateTime.utc(
-                                              ans, mois, jour, 20, 18, 04)
-                                          .millisecondsSinceEpoch;
+                                        var mst = new DateTime.utc(
+                                                ans, mois, jour, 20, 18, 04)
+                                            .millisecondsSinceEpoch;
 
-                                      String tempsavantmatch = 'bnokt';
-                                      double tkt =
-                                          ((mst - ms) / (24 * 3600 * 1000)).abs();
+                                        String tempsavantmatch = 'bnokt';
+                                        double tkt =
+                                            ((mst - ms) / (24 * 3600 * 1000)).abs();
 
-                                      if (ms >= mst) {
-                                        // dans le passer
+                                        if (ms >= mst) {
+                                          // dans le passer
 
-                                        tempsavantmatch = "il y as " +
-                                            tkt.toInt().toString() +
-                                            " jour(s) à " +
-                                            model.participation[i]['heure'];
-                                      } else {
-                                        //dans le future
-                                        if (tkt.toInt() == 0) {
-                                          tempsavantmatch = "aujoud'hui à " +
-                                              model.participation[i]['heure'];
-                                        } else if (1 <= tkt && tkt < 2) {
-                                          tempsavantmatch = "demain à " +
-                                              model.participation[i]['heure'];
-                                        } else {
-                                          tempsavantmatch = "dans " +
+                                          tempsavantmatch = "il y as " +
                                               tkt.toInt().toString() +
                                               " jour(s) à " +
                                               model.participation[i]['heure'];
-                                        }
-                                      }
-                                      if (chnagecouleur) {
-                                        chnagecouleur = false;
-                                      } else {
-                                        chnagecouleur = true;
-                                      }
-                                      if (tkt >= 0) {
-                                        return GestureDetector(
-                                          
-                                          onTap: () async {
-                         
-                                            // on sélection la rencontre choisir
-
-                                            ScopedModel.of<GameModel>(context)
-                                                    .lieu =
-                                                model.participation[i]['lieu'];
-                                            ScopedModel.of<GameModel>(context)
-                                                    .id_rencontre =
-                                                model.participation[i]
-                                                    ['id_rencontre'];
-                                            ScopedModel.of<GameModel>(context)
-                                                    .nombJoueur =
-                                                int.parse(model.participation[i]
-                                                        ['nom_j']
-                                                    .toString());
-                                            ScopedModel.of<GameModel>(context)
-                                                    .daterencontre =
-                                                model.participation[i]['jour'];
-                                            ScopedModel.of<GameModel>(context)
-                                                    .heurerencontre =
+                                        } else {
+                                          //dans le future
+                                          if (tkt.toInt() == 0) {
+                                            tempsavantmatch = "aujoud'hui à " +
                                                 model.participation[i]['heure'];
-                                            ScopedModel.of<ImgModel>(context)
-                                                .Img_terrain_id(model
-                                                    .participation[i]['lieu']);
+                                          } else if (1 <= tkt && tkt < 2) {
+                                            tempsavantmatch = "demain à " +
+                                                model.participation[i]['heure'];
+                                          } else {
+                                            tempsavantmatch = "dans " +
+                                                tkt.toInt().toString() +
+                                                " jour(s) à " +
+                                                model.participation[i]['heure'];
+                                          }
+                                        }
+                                        if (chnagecouleur) {
+                                          chnagecouleur = false;
+                                        } else {
+                                          chnagecouleur = true;
+                                        }
+                                        if (tkt >= 0) {
+                                          return GestureDetector(
+                                            
+                                            onTap: () async {
+                           
+                                              // on sélection la rencontre choisir
 
-                                            // on prepare les image terrain et commentaire pour la page profil rencontre
-                                            ScopedModel.of<ImgModel>(context)
-                                                .Img();
-                                            ScopedModel.of<GameModel>(context)
-                                                .Terrain();
+                                              ScopedModel.of<GameModel>(context)
+                                                      .lieu =
+                                                  model.participation[i]['lieu'];
+                                              ScopedModel.of<GameModel>(context)
+                                                      .id_rencontre =
+                                                  model.participation[i]
+                                                      ['id_rencontre'];
+                                              ScopedModel.of<GameModel>(context)
+                                                      .nombJoueur =
+                                                  int.parse(model.participation[i]
+                                                          ['nom_j']
+                                                      .toString());
+                                              ScopedModel.of<GameModel>(context)
+                                                      .daterencontre =
+                                                  model.participation[i]['jour'];
+                                              ScopedModel.of<GameModel>(context)
+                                                      .heurerencontre =
+                                                  model.participation[i]['heure'];
+                                              ScopedModel.of<ImgModel>(context)
+                                                  .Img_terrain_id(model
+                                                      .participation[i]['lieu']);
 
-                                            // ScopedModel.of<GameModel>(context)
-                                            //     .Commentaire();
+                                              // on prepare les image terrain et commentaire pour la page profil rencontre
+                                              ScopedModel.of<ImgModel>(context)
+                                                  .Img();
+                                              ScopedModel.of<GameModel>(context)
+                                                  .Terrain();
 
-                                             ScopedModel.of<LoginModel>(
-                                                    context)
-                                                .Personne_propose(
-                                                    model.participation[i]
-                                                        ['id_rencontre']);
+                                              // ScopedModel.of<GameModel>(context)
+                                              //     .Commentaire();
 
-                                            // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['id_rencontre']);
-                                           
-                                            Navigator.pushNamed(
-                                                context, '/Profil_renctontre');
-                                          },
-                                          child: Center(
-                                              child: Container(
-                                                  padding:
-                                                      const EdgeInsets.all(5),
-                                                  margin:
-                                                      const EdgeInsets.all(20),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20.0),
-                                                    color: chnagecouleur
-                                                        ? Colors.indigo
-                                                        : Colors.amber[900],
-                                                  ),
-                                                  child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: <Widget>[
-                                                        Row(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceEvenly,
-                                                            children: <Widget>[
-                                                              Column(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Text(
-                                                                        "Cette rencontre est prevue ",
-                                                                        textAlign:
-                                                                            TextAlign
-                                                                                .center,
-                                                                        softWrap:
-                                                                            true,
-                                                                        style: Theme.of(
-                                                                                context)
-                                                                            .textTheme
-                                                                            .display2),
-                                                                    Text(
-                                                                        tempsavantmatch,
-                                                                        softWrap:
-                                                                            true,
-                                                                        style: Theme.of(
-                                                                                context)
-                                                                            .textTheme
-                                                                            .display2),
-                                                                    Text(
-                                                                        "Il y a " +
-                                                                            model.participation[i]
-                                                                                [
-                                                                                'nom_j'] +
-                                                                            " personne(s) qui seront là",
-                                                                        softWrap:
-                                                                            true,
-                                                                        style: Theme.of(
-                                                                                context)
-                                                                            .textTheme
-                                                                            .display2),
-                                                                  ]),
-                                                            ]),
-                                                      ]))),
-                                        );
-                                      } else {
-                                        return Container();
-                                      }
-                                    }),
+                                               ScopedModel.of<LoginModel>(
+                                                      context)
+                                                  .Personne_propose(
+                                                      model.participation[i]
+                                                          ['id_rencontre']);
+
+                                              // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['id_rencontre']);
+                                             
+                                              Navigator.pushNamed(
+                                                  context, '/Profil_renctontre');
+                                            },
+                                            child: Center(
+                                                child: Container(
+                                                    padding:
+                                                        const EdgeInsets.all(5),
+                                                    margin:
+                                                        const EdgeInsets.all(20),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20.0),
+                                                      color: chnagecouleur
+                                                          ? Colors.indigo
+                                                          : Colors.amber[900],
+                                                    ),
+                                                    child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                          Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceEvenly,
+                                                              children: <Widget>[
+                                                                Column(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: <
+                                                                        Widget>[
+                                                                      Text(
+                                                                          "Cette rencontre est prevue ",
+                                                                          textAlign:
+                                                                              TextAlign
+                                                                                  .center,
+                                                                          softWrap:
+                                                                              true,
+                                                                          style: Theme.of(
+                                                                                  context)
+                                                                              .textTheme
+                                                                              .display2),
+                                                                      Text(
+                                                                          tempsavantmatch,
+                                                                          softWrap:
+                                                                              true,
+                                                                          style: Theme.of(
+                                                                                  context)
+                                                                              .textTheme
+                                                                              .display2),
+                                                                      Text(
+                                                                          "Il y a " +
+                                                                              model.participation[i]
+                                                                                  [
+                                                                                  'nom_j'] +
+                                                                              " personne(s) qui seront là",
+                                                                          softWrap:
+                                                                              true,
+                                                                          style: Theme.of(
+                                                                                  context)
+                                                                              .textTheme
+                                                                              .display2),
+                                                                    ]),
+                                                              ]),
+                                                        ]))),
+                                          );
+                                        } else {
+                                          return Container();
+                                        }
+                                      }),
+                                
                               ),
-                            ),
+                          ),
                         )
                         : Center(
                             child: Text("tu n'a pas de rencontre de prevue",

@@ -158,7 +158,6 @@ class LoginModel extends Model {
       };
       participation.add(participation_1);
     }
-    print(participation);
     img;
     notifyListeners();
     return " fin de fonction";
@@ -354,6 +353,8 @@ class LoginModel extends Model {
       String pseudo_joueur = listparticipant[i]['pseudo'];
       String json = '{"pseudo":"$pseudo_joueur"}';
       Response response = await post(url, body: json);
+      
+
       List listpersonne = jsonDecode(response.body);
 
       participent.add(listpersonne[0]);
@@ -390,10 +391,10 @@ class LoginModel extends Model {
     return body;
   }
 
-  Future<String> Envoienote(String note, String personnenoter) async {
+  Future<String> Envoienote(String note, String personnenoter,String id_rencontre) async {
     String url = 'http://51.210.103.151/post_notenew.php';
     String json =
-        '{"pseudo":"$pseudo","personnenoter":"$personnenoter","note":"$note"}';
+        '{"pseudo":"$pseudo","personnenoter":"$personnenoter","note":"$note","id":"$id_rencontre"}';
     Response response = await post(url, body: json);
     String body = response.body;
     notifyListeners();
