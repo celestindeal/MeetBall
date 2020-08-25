@@ -1000,12 +1000,11 @@ class _AffParticipentState extends State<AffParticipent> {
                                         .boParticipation
                                     ? FlatButton(
                                         onPressed: () {
+                                         
                                           notation(
                                               participant[i]['participent']
                                                   ['pseudo'],
-                                              participant[i]['note'][0]
-                                                      ['id_rencontre']
-                                                  .toString());
+                                              ScopedModel.of<GameModel>(context).id_rencontre);
                                         },
                                         child: Text(
                                           'noter',
