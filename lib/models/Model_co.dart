@@ -183,10 +183,8 @@ participationvisiteur.clear();
     }
  
     String json = '{"pseudo":"$pseudo"}';
-    print(json);
     Response response = await post(url, body: json);
     var data_rencontre = jsonDecode(response.body);
-    print(data_rencontre);
     for (var n = 0; n < data_rencontre.length; n++) {
       // et on stoke les info dans la liste participation
       Map<String, dynamic> participation_1 = {
@@ -201,29 +199,6 @@ participationvisiteur.clear();
       };
       participationvisiteur.add(participation_1);
     }
-
-    
-    // participationvisiteur.clear();
-    // var url = 'http://51.210.103.151/post_verfparticipation.php';
-    // String json = '{"pseudo":"$pseudo"}';
-    // Response response = await post(url, body: json);
-
-    // var data_rencontre = jsonDecode(response.body);
-
-    // for (var n = 0; n < data_rencontre.length; n++) {
-    //   // et on stoke les info dans la liste participation
-    //   Map<String, dynamic> participation_1 = {
-    //     // "id": data_participation[i]['id'],
-    //     "jour": data_rencontre[n]['jours'],
-    //     "heure": data_rencontre[n]['heure'],
-    //     "nom_j": data_rencontre[n]['nombre_j'],
-    //     // "id_rencontre": data_participation[i]['ID_rencontre'],
-    //     "id_rencontre": data_rencontre[n]['id'],
-    //     "lieu": data_rencontre[n]['lieu'],
-    //     "pseudo": data_rencontre[n]['per']
-    //   };
-    //   participationvisiteur.add(participation_1);
-    // }
 
     // maintenante faire la parti notation
     var urle = 'http://51.210.103.151/post_note.php';

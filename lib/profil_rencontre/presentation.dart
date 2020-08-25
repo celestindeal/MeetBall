@@ -1,53 +1,16 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:http/http.dart';
-import 'package:matrix_gesture_detector/matrix_gesture_detector.dart';
-import 'package:meetballl/db.dart';
-import 'package:meetballl/models/Model_terrain.dart';
+import 'package:meetballl/profil_rencontre/affParticipation.dart';
+import 'package:meetballl/footer.dart';
+import 'package:meetballl/main.dart';
+import 'package:meetballl/models/Model_co.dart';
+import 'package:meetballl/models/Model_img.dart';
+import 'package:meetballl/models/Model_match.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'footer.dart';
-import 'main.dart';
-import 'models/Model_co.dart';
-import 'models/Model_img.dart';
-import 'models/Model_match.dart';
-
-class Profil_renctontre extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ScopedModelDescendant<GameModel>(builder: (context, child, model) {
-      return Container(
-          child: model.afficher_lieu
-              ? Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    Presentation(),
-                  ],
-                )
-              : Scaffold(
-                  appBar: AppBar(
-                    centerTitle: true,
-                    title: Text("Rencontre"),
-                    backgroundColor: Colors.indigo,
-                  ),
-                  persistentFooterButtons: <Widget>[
-                    Footer(),
-                  ],
-                  // backgroundColor: Colors.black,
-                  backgroundColor: back,
-                  body: Center(
-                    child: CircularProgressIndicator(),
-                  )));
-    });
-  }
-}
 
 class Presentation extends StatefulWidget {
   @override
@@ -294,8 +257,7 @@ class _PresentationState extends State<Presentation> {
             double largeur_image = 1;
             double douCoffImage = 1.333;
 
-            return Stack(
-              children: <Widget>[
+            return 
                 SingleChildScrollView(
                   child: Center(
                       child: Column(
@@ -752,303 +714,62 @@ class _PresentationState extends State<Presentation> {
                                 },
                               )
                       ])),
-                ),
-                ScopedModel.of<LoginModel>(context).boParticipation
-                    ? Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: MatrixGestureDetector(
-                          onMatrixUpdate: (m, tm, sm, rm) {
-                            if (initmove) {
-                              initmove = false;
-                              largeur = m.entry(0, 3) / .15;
-                              hauteur = m.entry(1, 3) / .15;
-                            }
+                );
+                // ScopedModel.of<LoginModel>(context).boParticipation
+                //     ? Container(
+                //         width: MediaQuery.of(context).size.width,
+                //         height: MediaQuery.of(context).size.height,
+                //         child: MatrixGestureDetector(
+                //           onMatrixUpdate: (m, tm, sm, rm) {
+                //             if (initmove) {
+                //               initmove = false;
+                //               largeur = m.entry(0, 3) / .15;
+                //               hauteur = m.entry(1, 3) / .15;
+                //             }
 
-                            setState(() {
-                              largeurMessage = largeurMessage +
-                                  ((m.entry(0, 3) / .15) - largeur);
-                              hauteurMessage = hauteurMessage +
-                                  ((m.entry(1, 3) / .15) - hauteur);
-                            });
+                //             setState(() {
+                //               largeurMessage = largeurMessage +
+                //                   ((m.entry(0, 3) / .15) - largeur);
+                //               hauteurMessage = hauteurMessage +
+                //                   ((m.entry(1, 3) / .15) - hauteur);
+                //             });
 
-                            largeur = m.entry(0, 3) / .15;
-                            hauteur = m.entry(1, 3) / .15;
-                          },
-                          child: Transform.scale(
-                            scale: .15,
-                            child: Transform.translate(
-                                offset: Offset(largeurMessage, hauteurMessage),
-                                child: MaterialButton(
-                                  onPressed: () async {
-                                    ScopedModel.of<GameModel>(context)
-                                        .commentaire
-                                        .clear();
-                                    ScopedModel.of<GameModel>(context).nombre =
-                                        0; // sela premette de reconmmencer l'affichage
-                                    await ScopedModel.of<GameModel>(context)
-                                        .Commentaire();
-                                    Navigator.pushNamed(
-                                        context, '/commentaire');
-                                  },
-                                  color: Colors.indigo,
-                                  textColor: Colors.white,
-                                  child: Icon(
-                                    Icons.comment,
-                                    size: 300,
-                                  ),
-                                  padding: EdgeInsets.all(16),
-                                  shape: CircleBorder(),
-                                )),
-                          ),
-                        ),
-                      )
-                    : Container(),
-              ],
-            );
+                //             largeur = m.entry(0, 3) / .15;
+                //             hauteur = m.entry(1, 3) / .15;
+                //           },
+                //           child: Transform.scale(
+                //             scale: .15,
+                //             child: Transform.translate(
+                //                 offset: Offset(largeurMessage, hauteurMessage),
+                //                 child: MaterialButton(
+                //                   onPressed: () async {
+                //                     ScopedModel.of<GameModel>(context)
+                //                         .commentaire
+                //                         .clear();
+                //                     ScopedModel.of<GameModel>(context).nombre =
+                //                         0; // sela premette de reconmmencer l'affichage
+                //                     await ScopedModel.of<GameModel>(context)
+                //                         .Commentaire();
+                //                     Navigator.pushNamed(
+                //                         context, '/commentaire');
+                //                   },
+                //                   color: Colors.indigo,
+                //                   textColor: Colors.white,
+                //                   child: Icon(
+                //                     Icons.comment,
+                //                     size: 300,
+                //                   ),
+                //                   padding: EdgeInsets.all(16),
+                //                   shape: CircleBorder(),
+                //                 )),
+                //           ),
+                //         ),
+                //       )
+                //     : Container(),
+             
           });
         });
       }),
     );
-  }
-}
-
-class AffParticipent extends StatefulWidget {
-  AffParticipent(this.participant);
-  List participant;
-  @override
-  _AffParticipentState createState() => _AffParticipentState();
-}
-
-class _AffParticipentState extends State<AffParticipent> {
-  notation(String personnenoter, String id_rencontre) {
-    return showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-              backgroundColor: Colors.transparent,
-              content: StatefulBuilder(
-                  builder: (BuildContext context, StateSetter setState) {
-                return Container(
-                    height: MediaQuery.of(context).size.height / 5,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: Colors.grey,
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Text('Tu veux noter ' + personnenoter),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            IconButton(
-                              iconSize: MediaQuery.of(context).size.width / 11,
-                              icon: Icon(Icons.star_border),
-                              color: Colors.yellow,
-                              onPressed: () {
-                                ScopedModel.of<LoginModel>(context).Envoienote(
-                                    "1", personnenoter, id_rencontre);
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            IconButton(
-                              iconSize: MediaQuery.of(context).size.width / 11,
-                              icon: Icon(Icons.star_border),
-                              color: Colors.yellow,
-                              onPressed: () {
-                                ScopedModel.of<LoginModel>(context).Envoienote(
-                                    "2", personnenoter, id_rencontre);
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            IconButton(
-                              iconSize: MediaQuery.of(context).size.width / 11,
-                              icon: Icon(Icons.star_border),
-                              color: Colors.yellow,
-                              onPressed: () {
-                                ScopedModel.of<LoginModel>(context).Envoienote(
-                                    "3", personnenoter, id_rencontre);
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            IconButton(
-                              iconSize: MediaQuery.of(context).size.width / 11,
-                              icon: Icon(Icons.star_border),
-                              color: Colors.yellow,
-                              onPressed: () {
-                                ScopedModel.of<LoginModel>(context).Envoienote(
-                                    "4", personnenoter, id_rencontre);
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            IconButton(
-                              iconSize: MediaQuery.of(context).size.width / 11,
-                              icon: Icon(Icons.star_border),
-                              color: Colors.yellow,
-                              onPressed: () {
-                                ScopedModel.of<LoginModel>(context).Envoienote(
-                                    "5", personnenoter, id_rencontre);
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
-                    ));
-              }));
-        });
-  }
-
-  Widget build(BuildContext context) {
-    List participant = widget.participant;
-    return ScopedModelDescendant<LoginModel>(builder: (context, child, login) {
-      return Container(
-          child: ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: participant.length,
-              itemBuilder: (context, i) {
-
-                // on calcule la moyenne
-                double doubleMoyenne = 0;
-                String moyenne = 'Aucune note';
-                for (var a = 0; a < participant[i]['note'].length; a++) {
-                  doubleMoyenne = doubleMoyenne +
-                      int.parse(participant[i]['note'][a]['note'].toString());
-                }
-                if(participant[i]['note'].length != 0){
-                  doubleMoyenne = doubleMoyenne /
-                    double.parse(participant[i]['note'].length.toString());
-                    moyenne ="Moyenne: " + doubleMoyenne.toString();
-                }
-                
-
-                // on calcul l'age de la personne 
-                var ms = (new DateTime.now()).millisecondsSinceEpoch;
-                String ok = "}" + participant[i]['participent']['age'] + "/";
-
-                int jour = int.parse(ok.split('}')[1].split('-')[0]);
-                int mois = int.parse(ok.split('-')[1].split('-')[0]);
-
-                String placement =
-                    jour.toString() + '-' + mois.toString() + '-';
-                int ans = int.parse(ok.split(placement)[1].split('/')[0]);
-
-                var mst = new DateTime.utc(ans, mois, jour, 20, 18, 04)
-                    .millisecondsSinceEpoch;
-                int ageAnne = ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
-
-                // on veux savoir si cette personne est nous même
-                bool bonotation = true;
-                if (login.pseudo == participant[i]['participent']['pseudo']) {
-                  bonotation = false;
-                } else {
-                  bonotation = true;
-                }
-
-                // ici c'est le container pour celui qui a propose cette rencontre
-                return Column(
-                  children: <Widget>[
-                    Divider(color: Colors.grey),
-                    GestureDetector(
-                      onTap: () async {
-                        if (participant[i]['participent']['pseudo'] ==
-                            ScopedModel.of<LoginModel>(context)
-                                .pseudo
-                                .toString()) {
-                          ScopedModel.of<LoginModel>(context)
-                              .ParticipationProil();
-                          ScopedModel.of<LoginModel>(context).page = 1;
-                          Navigator.pushNamed(context, '/Profil');
-                        } else {
-                          await login.ParticipationProilVisiteur(
-                              participant[i]['participent']['pseudo']);
-                          ScopedModel.of<LoginModel>(context).profVisiteur =
-                              participant[i]['participent'];
-                          Navigator.pushNamed(context, '/ProfilVisiteur');
-                        }
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          // border: Border.all(width: 0.8),
-                          borderRadius: BorderRadius.circular(12.0),
-                        ),
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 4.0, vertical: 2.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Container(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 2.0, vertical: 2.0),
-                              child: CircleAvatar(
-                                backgroundImage: NetworkImage(
-                                    participant[i]['participent']['photo']),
-                                radius: MediaQuery.of(context).size.width / 20,
-                              ),
-                            ),
-                            Text(participant[i]['participent']['pseudo'],
-                                softWrap: true,
-                                style: Theme.of(context).textTheme.display3),
-                            Text(ageAnne.toString() + " ans ",
-                                softWrap: true,
-                                style: Theme.of(context).textTheme.display3),
-                            bonotation
-                                ? ScopedModel.of<LoginModel>(context)
-                                        .boParticipation
-                                    ? FlatButton(
-                                        onPressed: () {
-                                         
-                                          notation(
-                                              participant[i]['participent']
-                                                  ['pseudo'],
-                                              ScopedModel.of<GameModel>(context).id_rencontre);
-                                        },
-                                        child: Text(
-                                          'noter',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                      )
-                                    : Container()
-                                : Container(
-                                    child: FlatButton(
-                                        child: Text('     ',
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                            )))),
-                          ],
-                        ),
-                      ),
-                    ),
-                    ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: participant[i]['note'].length,
-                        itemBuilder: (context, n) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Text(
-                                  participant[i]['note'][n]['pseudo']
-                                      .toString(),
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.display3),
-                              Text(participant[i]['note'][n]['note'].toString(),
-                                  softWrap: true,
-                                  style: Theme.of(context).textTheme.display3),
-                            ],
-                          );
-                        }),
-                    Text( moyenne,
-                        softWrap: true,
-                        style: Theme.of(context).textTheme.display3),
-                  ],
-                );
-              }));
-    });
   }
 }

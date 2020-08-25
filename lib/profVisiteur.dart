@@ -28,7 +28,8 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
     RefreshController _refreshController =
         RefreshController(initialRefresh: false);
     void _onRefresh() async {
-      ScopedModel.of<LoginModel>(context).ParticipationProilVisiteur(ScopedModel.of<LoginModel>(context).profVisiteur["pseudo"]);
+      ScopedModel.of<LoginModel>(context).ParticipationProilVisiteur(
+          ScopedModel.of<LoginModel>(context).profVisiteur["pseudo"]);
 
       _refreshController.refreshCompleted();
     }
@@ -36,9 +37,9 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(ScopedModel.of<LoginModel>(context).profVisiteur["pseudo"]),
+          title:
+              Text(ScopedModel.of<LoginModel>(context).profVisiteur["pseudo"]),
           backgroundColor: Colors.indigo,
-         
         ),
         persistentFooterButtons: <Widget>[
           Footer(),
@@ -88,8 +89,8 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                       builder: (BuildContext context) {
                                         return Container(
                                             child: PhotoView(
-                                          imageProvider:
-                                              NetworkImage(model.profVisiteur["photo"]),
+                                          imageProvider: NetworkImage(
+                                              model.profVisiteur["photo"]),
                                         ));
                                       });
                                 },
@@ -99,7 +100,8 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                           5,
                                   backgroundColor: Colors.indigo,
                                   child: CircleAvatar(
-                                    backgroundImage: NetworkImage(model.profVisiteur["photo"]),
+                                    backgroundImage: NetworkImage(
+                                        model.profVisiteur["photo"]),
                                     radius:
                                         MediaQuery.of(context).size.width / 6,
                                   ),
@@ -126,7 +128,10 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                           children: <Widget>[
                                             Row(
                                               children: <Widget>[
-                                                Text(model.profVisiteur["prenom"] + " ",
+                                                Text(
+                                                    model.profVisiteur[
+                                                            "prenom"] +
+                                                        " ",
                                                     softWrap: true,
                                                     style: Theme.of(context)
                                                         .textTheme
@@ -175,10 +180,10 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                         RaisedButton(
                             child: Text('Envoyer une invitation'),
                             onPressed: () {
-                              Scaffold.of(context).showSnackBar(
-            new SnackBar(content: new Text("Cette fonctionnalite n'existe pas encore")));
+                              Scaffold.of(context).showSnackBar(new SnackBar(
+                                  content: new Text(
+                                      "Cette fonctionnalite n'existe pas encore")));
                             }),
-                        
                       ],
                     ),
                     Divider(color: Colors.grey[300]),
@@ -206,7 +211,8 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                 ScopedModel.of<LoginModel>(context)
                                     .participationProilfutureVisiteur = false;
                                 ScopedModel.of<LoginModel>(context)
-                                    .ParticipationProilVisiteur(model.profVisiteur["pseudo"]);
+                                    .ParticipationProilVisiteur(
+                                        model.profVisiteur["pseudo"]);
                               }),
                         ),
                         Container(
@@ -226,7 +232,8 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                 ScopedModel.of<LoginModel>(context)
                                     .participationProilfutureVisiteur = true;
                                 ScopedModel.of<LoginModel>(context)
-                                    .ParticipationProilVisiteur(model.profVisiteur["pseudo"]);
+                                    .ParticipationProilVisiteur(
+                                        model.profVisiteur["pseudo"]);
                               }),
                         ),
                       ],
@@ -245,13 +252,15 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                 child: ListView.builder(
                                     // physics: NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
-                                    itemCount: model.participationvisiteur.length,
+                                    itemCount:
+                                        model.participationvisiteur.length,
                                     itemBuilder: (context, i) {
                                       // calcule du temps avant le match
                                       var ms = (new DateTime.now())
                                           .millisecondsSinceEpoch;
                                       String ok = "}" +
-                                          model.participationvisiteur[i]['jour'] +
+                                          model.participationvisiteur[i]
+                                              ['jour'] +
                                           "/";
                                       int jour = int.parse(
                                           ok.split('}')[1].split('-')[0]);
@@ -279,20 +288,24 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                         tempsavantmatch = "il y as " +
                                             tkt.toInt().toString() +
                                             " jour(s) à " +
-                                            model.participationvisiteur[i]['heure'];
+                                            model.participationvisiteur[i]
+                                                ['heure'];
                                       } else {
                                         //dans le future
                                         if (tkt.toInt() == 0) {
                                           tempsavantmatch = "aujoud'hui à " +
-                                              model.participationvisiteur[i]['heure'];
+                                              model.participationvisiteur[i]
+                                                  ['heure'];
                                         } else if (1 <= tkt && tkt < 2) {
                                           tempsavantmatch = "demain à " +
-                                              model.participationvisiteur[i]['heure'];
+                                              model.participationvisiteur[i]
+                                                  ['heure'];
                                         } else {
                                           tempsavantmatch = "dans " +
                                               tkt.toInt().toString() +
                                               " jour(s) à " +
-                                              model.participationvisiteur[i]['heure'];
+                                              model.participationvisiteur[i]
+                                                  ['heure'];
                                         }
                                       }
                                       if (chnagecouleur) {
@@ -307,25 +320,30 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
 
                                             ScopedModel.of<GameModel>(context)
                                                     .lieu =
-                                                model.participationvisiteur[i]['lieu'];
+                                                model.participationvisiteur[i]
+                                                    ['lieu'];
                                             ScopedModel.of<GameModel>(context)
                                                     .id_rencontre =
                                                 model.participationvisiteur[i]
                                                     ['id_rencontre'];
                                             ScopedModel.of<GameModel>(context)
                                                     .nombJoueur =
-                                                int.parse(model.participationvisiteur[i]
+                                                int.parse(model
+                                                    .participationvisiteur[i]
                                                         ['nom_j']
                                                     .toString());
                                             ScopedModel.of<GameModel>(context)
                                                     .daterencontre =
-                                                model.participationvisiteur[i]['jour'];
+                                                model.participationvisiteur[i]
+                                                    ['jour'];
                                             ScopedModel.of<GameModel>(context)
                                                     .heurerencontre =
-                                                model.participationvisiteur[i]['heure'];
+                                                model.participationvisiteur[i]
+                                                    ['heure'];
                                             ScopedModel.of<ImgModel>(context)
-                                                .Img_terrain_id(model
-                                                    .participationvisiteur[i]['lieu']);
+                                                .Img_terrain_id(
+                                                    model.participationvisiteur[
+                                                        i]['lieu']);
 
                                             // on prepare les image terrain et commentaire pour la page profil rencontre
                                             ScopedModel.of<ImgModel>(context)
@@ -338,11 +356,19 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
 
                                             ScopedModel.of<LoginModel>(context)
                                                 .Personne_propose(
-                                                    model.participationvisiteur[i]
-                                                        ['id_rencontre']);
+                                                    model.participationvisiteur[
+                                                        i]['id_rencontre']);
 
                                             // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['id_rencontre']);
-
+                                            ScopedModel.of<GameModel>(context)
+                                                .commentaire
+                                                .clear();
+                                            ScopedModel.of<GameModel>(context)
+                                                    .nombre =
+                                                0; // sela premette de reconmmencer l'affichage
+                                            await ScopedModel.of<GameModel>(
+                                                    context)
+                                                .Commentaire();
                                             Navigator.pushNamed(
                                                 context, '/Profil_renctontre');
                                           },

@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:meetballl/calendar.dart';
-import 'package:meetballl/commentaire.dart';
+import 'package:meetballl/profil_rencontre/commentaire.dart';
 import 'package:meetballl/db.dart';
 import 'package:meetballl/motsPasse.dart';
 import 'package:meetballl/parametrz.dart';
 import 'package:meetballl/profVisiteur.dart';
 import 'package:meetballl/profil.dart';
-import 'package:meetballl/profil_rencontre.dart';
+import 'package:meetballl/profil_rencontre/profil_rencontre.dart';
 import 'package:meetballl/profilrechercher.dart';
 import 'package:meetballl/rechercher.dart';
 import 'package:meetballl/terrain.dart';
@@ -18,14 +18,12 @@ import 'package:meetballl/terrainrecherche.dart';
 import 'package:meetballl/terrainrencontre.dart';
 import 'package:meetballl/test.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'Ajout_terrain.dart';
 import 'accueil.dart';
 import 'ajout_match.dart';
 import 'avis.dart';
 import 'avisDev.dart';
 import 'lieudev.dart';
-import 'math.dart';
 import 'inscription.dart';
 import 'models/Model_co.dart';
 import 'models/Model_img.dart';
@@ -175,7 +173,6 @@ class _MainState extends State<Main> {
                                 '/Profil': (context) => Profil(),
                                 '/ProfilVisiteur': (context) =>
                                     ProfilVisiteur(),
-                                '/Match': (context) => Match(),
                                 '/Profil_renctontre': (context) =>
                                     Profil_renctontre(),
                                 '/Terrain': (context) => Terrain(),

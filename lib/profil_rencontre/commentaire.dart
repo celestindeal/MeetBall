@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'footer.dart';
-import 'main.dart';
-import 'models/Model_co.dart';
-import 'models/Model_match.dart';
+import '../footer.dart';
+import '../main.dart';
+import '../models/Model_co.dart';
+import '../models/Model_match.dart';
 
 class Commentaire extends StatefulWidget {
   @override
@@ -15,6 +15,7 @@ bool attend = true ;
 double lastscrool = 0;
 
 class _CommentaireState extends State<Commentaire> {
+  
   ScrollController _scrollController = new ScrollController();
   final key_commentainer = GlobalKey<FormState>();
   String com;
@@ -48,12 +49,13 @@ class _CommentaireState extends State<Commentaire> {
             _scrollController.jumpTo((_scrollController.position.maxScrollExtent-max));
             attend = true;                                                                                                                                                                                                                                                                                                                                                              
         });
-      }lastscrool=_scrollController.position.pixels;
+      }
+      lastscrool=_scrollController.position.pixels;
     }
 
 
   // la on est à l'écoute des nouveau message 
-    Timer.periodic(Duration(seconds: 1), (Timer t) => checkForNewSharedLists());
+    // Timer.periodic(Duration(seconds: 1), (Timer t) => checkForNewSharedLists());
 
  // init page
     Timer(Duration(microseconds: 1), () {
@@ -62,6 +64,7 @@ class _CommentaireState extends State<Commentaire> {
         ScopedModel.of<GameModel>(context).Commentaire();
       }
     });
+    
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,

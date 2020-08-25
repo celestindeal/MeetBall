@@ -24,19 +24,16 @@ class _TerrainRenState extends State<TerrainRen> {
 
     return Scaffold(
         appBar: AppBar(
-           centerTitle: true,
-    title:  Text(
-            "Rencontre à "+   
-          ScopedModel.of<GameModel>(context)
-                                      .terrainrencontre),
+          centerTitle: true,
+          title: Text("Rencontre à " +
+              ScopedModel.of<GameModel>(context).terrainrencontre),
           backgroundColor: Colors.indigo,
-         
         ),
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
         backgroundColor: back,
-        body:  FutureBuilder<bool>(
+        body: FutureBuilder<bool>(
           future: terrain(),
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData) {
@@ -92,30 +89,30 @@ class _AffRencontreState extends State<AffRencontre> {
                 itemCount: nombreTours,
                 itemBuilder: (context, i) {
                   // calcule du temps avant le match
-                          var ms = (new DateTime.now()).millisecondsSinceEpoch;
-                          String ok =
-                              "}" +  model.data_game[i]['jours'] + "/";
-                          int jour = int.parse(ok.split('}')[1].split('-')[0]);
-                          int mois = int.parse(ok.split('-')[1].split('-')[0]);
-                          String placement =
-                              jour.toString() + '-' + mois.toString() + '-';
-                          int ans =
-                              int.parse(ok.split(placement)[1].split('/')[0]);
+                  var ms = (new DateTime.now()).millisecondsSinceEpoch;
+                  String ok = "}" + model.data_game[i]['jours'] + "/";
+                  int jour = int.parse(ok.split('}')[1].split('-')[0]);
+                  int mois = int.parse(ok.split('-')[1].split('-')[0]);
+                  String placement =
+                      jour.toString() + '-' + mois.toString() + '-';
+                  int ans = int.parse(ok.split(placement)[1].split('/')[0]);
 
-                          var mst =
-                              new DateTime.utc(ans, mois, jour, 20, 18, 04)
-                                  .millisecondsSinceEpoch;
-                          double tkt = ((mst - ms) / (24 * 3600 * 1000));
-                          String tempsavantmatch;
+                  var mst = new DateTime.utc(ans, mois, jour, 20, 18, 04)
+                      .millisecondsSinceEpoch;
+                  double tkt = ((mst - ms) / (24 * 3600 * 1000));
+                  String tempsavantmatch;
 
-                          if (tkt.toInt() == 0) {
-                            tempsavantmatch = "Aujoud'hui à " +model.data_game[i]['heure'];
-                          }else if(1 <= tkt && tkt < 2){
-                                 tempsavantmatch = "Demain à " +model.data_game[i]['heure'];
-                          } else {
-                            tempsavantmatch =
-                                "Dans " + tkt.toInt().toString() + " jour(s) à " +model.data_game[i]['heure'];
-                          }
+                  if (tkt.toInt() == 0) {
+                    tempsavantmatch =
+                        "Aujoud'hui à " + model.data_game[i]['heure'];
+                  } else if (1 <= tkt && tkt < 2) {
+                    tempsavantmatch = "Demain à " + model.data_game[i]['heure'];
+                  } else {
+                    tempsavantmatch = "Dans " +
+                        tkt.toInt().toString() +
+                        " jour(s) à " +
+                        model.data_game[i]['heure'];
+                  }
                   if (ScopedModel.of<GameModel>(context).terrainrencontre ==
                       model.data_game[i]['lieu']) {
                     return Center(
@@ -136,6 +133,13 @@ class _AffRencontreState extends State<AffRencontre> {
                               await ScopedModel.of<LoginModel>(context)
                                   .Personne_propose(model.data_game[i]['id']);
                               //  model.rencontre_visualiser = model.data_game[i]['id'];
+                              ScopedModel.of<GameModel>(context)
+                                  .commentaire
+                                  .clear();
+                              ScopedModel.of<GameModel>(context).nombre =
+                                  0; // sela premette de reconmmencer l'affichage
+                              await ScopedModel.of<GameModel>(context)
+                                  .Commentaire();
                               Navigator.pushNamed(
                                   context, '/Profil_renctontre');
                             },
@@ -154,7 +158,9 @@ class _AffRencontreState extends State<AffRencontre> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                            Text("Proposé par "+model.data_game[i]['per'],
+                                            Text(
+                                                "Proposé par " +
+                                                    model.data_game[i]['per'],
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
@@ -164,15 +170,16 @@ class _AffRencontreState extends State<AffRencontre> {
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .display2),
-                                        
-                                            Text("Il y as "+ model.data_game[i]['nombre_j']+" joueur(s)",
+                                            Text(
+                                                "Il y as " +
+                                                    model.data_game[i]
+                                                        ['nombre_j'] +
+                                                    " joueur(s)",
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .display2),
-                                      
                                           ]),
-                                   
                                     ]))));
                   } else {
                     return Container();
