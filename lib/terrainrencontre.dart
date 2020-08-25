@@ -129,7 +129,6 @@ class _AffRencontreState extends State<AffRencontre> {
                                   model.data_game[i]['heure'];
                               ScopedModel.of<ImgModel>(context).Img();
                               ScopedModel.of<GameModel>(context).Terrain();
-                              ScopedModel.of<GameModel>(context).Commentaire();
                               await ScopedModel.of<LoginModel>(context)
                                   .Personne_propose(model.data_game[i]['id']);
                               //  model.rencontre_visualiser = model.data_game[i]['id'];
@@ -138,7 +137,7 @@ class _AffRencontreState extends State<AffRencontre> {
                                   .clear();
                               ScopedModel.of<GameModel>(context).nombre =
                                   0; // sela premette de reconmmencer l'affichage
-                              await ScopedModel.of<GameModel>(context)
+                               ScopedModel.of<GameModel>(context)
                                   .Commentaire();
                               Navigator.pushNamed(
                                   context, '/Profil_renctontre');

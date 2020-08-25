@@ -185,12 +185,15 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                     ScopedModel.of<ImgModel>(context)
                         .Img_terrain_id(event['lieu']);
                     ScopedModel.of<GameModel>(context).Terrain();
-                    ScopedModel.of<GameModel>(context).Commentaire();
 
                     await ScopedModel.of<LoginModel>(context)
                         .Personne_propose(event['id']);
 
                     //  model.rencontre_visualiser = model.data_game[i]['id'];
+                    ScopedModel.of<GameModel>(context).commentaire.clear();
+                    ScopedModel.of<GameModel>(context).nombre =
+                        0; // sela premette de reconmmencer l'affichage
+                    await ScopedModel.of<GameModel>(context).Commentaire();
                     Navigator.pushNamed(context, '/Profil_renctontre');
                   },
                 ),

@@ -45,7 +45,7 @@ String time = "Heure";
   void initState() {}
 
   Future<String> Match() async {
-    var url = 'http://51.210.103.151/get_match.php';
+    var url = 'http://51.210.103.151/get_match_future.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
     data_game = data;
