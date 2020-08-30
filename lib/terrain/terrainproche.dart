@@ -221,10 +221,15 @@ class _AffImageState extends State<AffImage> {
                                                 builder:
                                                     (BuildContext context) {
                                                   return Container(
-                                                      child: PhotoView(
+                                                      child: GestureDetector(
+                                                  onTap: (){
+                                                    print("fermeture de la photo");
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: PhotoView(
                                                     imageProvider:
                                                         NetworkImage(image),
-                                                  ));
+                                                  )));
                                                 });
                                           },
                                           child:  Image.network(

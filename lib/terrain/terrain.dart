@@ -7,8 +7,8 @@ import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/models/Model_img.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'footer.dart';
-import 'models/Model_terrain.dart';
+import '../footer.dart';
+import '../models/Model_terrain.dart';
 
 class Terrain extends StatelessWidget {
   @override
@@ -230,7 +230,7 @@ class Presentation_terrain extends StatelessWidget {
 //                                                         context) {
 //                                                   return Container(
 //                                                       child:
-//                                                           PhotoView(
+//                                                           GestureDetector(
 //                                                     imageProvider:
 //                                                         NetworkImage(
 //                                                             image),

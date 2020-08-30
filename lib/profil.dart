@@ -252,13 +252,25 @@ class _PresentationState extends State<Presentation> {
                                       builder: (BuildContext context) {
                                         return affImage
                                             ? Container(
-                                                child: PhotoView(
-                                                imageProvider:
-                                                    NetworkImage(model.img),
-                                              ))
+                                                child: GestureDetector(
+                                                  onTap: (){
+                                                    print("fermeture de la photo");
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: PhotoView(
+                                                  imageProvider:
+                                                      NetworkImage(model.img),
+                                              ),
+                                                ))
                                             : Container(
-                                                child: PhotoView(
+                                                child: GestureDetector(
+                                                  onTap: (){
+                                                    print("fermeture de la photo");
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: PhotoView(
                                                 imageProvider: FileImage(image),
+                                              )
                                               ));
                                       });
                                 },
@@ -600,10 +612,16 @@ class _PresentationState extends State<Presentation> {
                               ),
                             ),
                           )
-                        : Center(
-                            child: Text("tu n'a pas de rencontre de prevue",
-                                softWrap: true,
-                                style: Theme.of(context).textTheme.display3)),
+                        : Expanded(
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              color: Colors.grey,
+                              child: Center(
+                                child: Text("tu n'a pas de rencontre de prevue",
+                                    softWrap: true,
+                                    style: Theme.of(context).textTheme.display3),
+                              ),
+                            )),
                   ]);
             })));
   }

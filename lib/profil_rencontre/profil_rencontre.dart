@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/profil_rencontre/commentaire.dart';
 import 'package:meetballl/profil_rencontre/presentation.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -12,17 +13,18 @@ class Profil_renctontre extends StatelessWidget {
     return ScopedModelDescendant<GameModel>(builder: (context, child, model) {
       return Container(
           child: model.afficher_lieu
-              ? PageView.builder(
+              ? ScopedModel.of<LoginModel>(context).boParticipation?
+              PageView.builder(
                   controller: PageController(viewportFraction: 1),
                   itemCount: 2,
                   itemBuilder: (BuildContext context, int itemIndex) {
-                    
+                    print(ScopedModel.of<LoginModel>(context).boParticipation);
                     if (itemIndex == 0) {
-                      return Presentation();
+                      return Presentation(context);
                     } else {
                       return Commentaire();
                     }
-                  })
+                  }): Presentation(context)
               : Scaffold(
                   appBar: AppBar(
                     centerTitle: true,

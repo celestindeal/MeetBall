@@ -194,6 +194,15 @@ String time = "Heure";
     String body = response.body;
     return body;
   }
+  Sup_commentaire(int id, ) async {
+    String url = 'http://51.210.103.151/post_sup_commentaire.php';
+
+    String json =
+        '{"id":"$id"}'; // make POST request
+    Response response = await post(url, body: json);
+    String body = response.body;
+    return body;
+  }
   Initdate(String newdate, String newtime) async {
     date= newdate;
     time = newtime;

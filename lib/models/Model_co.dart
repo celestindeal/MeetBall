@@ -144,7 +144,7 @@ class LoginModel extends Model {
     }
  
     String json = '{"pseudo":"$pseudo"}';
-    Response response = await post(url, body: json);
+        Response response = await post(url, body: json);
     var data_rencontre = jsonDecode(response.body);
     for (var n = 0; n < data_rencontre.length; n++) {
       // et on stoke les info dans la liste participation
@@ -371,9 +371,14 @@ participationvisiteur.clear();
       List listpersonne = jsonDecode(response.body);
 
       participent.add(listpersonne[0]);
+      print(pseudo_joueur);
+      print(pseudo);
+
       if (pseudo_joueur == pseudo) {
         boParticipation = true;
+        print('1');
       }
+      print('........');
     }
     notifyListeners();
     return " fin de fonction";

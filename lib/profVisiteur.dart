@@ -88,10 +88,15 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                       context: context,
                                       builder: (BuildContext context) {
                                         return Container(
-                                            child: PhotoView(
+                                            child: GestureDetector(
+                                                  onTap: (){
+                                                    print("fermeture de la photo");
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: PhotoView(
                                           imageProvider: NetworkImage(
                                               model.profVisiteur["photo"]),
-                                        ));
+                                        )));
                                       });
                                 },
                                 child: CircleAvatar(
@@ -493,7 +498,8 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
     //                           context: context,
     //                           builder: (BuildContext context) {
     //                             return Container(
-    //                                 child: PhotoView(
+    //                                 child: GestureDetector(
+                                                  
     //                               imageProvider:
     //                                   NetworkImage(model.profVisiteur['photo']),
     //                             ));

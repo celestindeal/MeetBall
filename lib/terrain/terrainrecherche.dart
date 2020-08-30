@@ -1,6 +1,6 @@
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:meetballl/Ajout_terrain.dart';
+import 'package:meetballl/terrain/Ajout_terrain.dart';
 import 'package:meetballl/db.dart';
 import 'package:meetballl/footer.dart';
 import 'package:meetballl/main.dart';
@@ -10,8 +10,8 @@ import 'package:photo_view/photo_view.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'models/Model_img.dart';
-import 'models/Model_match.dart';
+import '../models/Model_img.dart';
+import '../models/Model_match.dart';
 
 List lieupro = [];
 
@@ -255,9 +255,14 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                           builder:
                                                                               (BuildContext context) {
                                                                             return Container(
-                                                                                child: PhotoView(
+                                                                                child: GestureDetector(
+                                                  onTap: (){
+                                                    print("fermeture de la photo");
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: PhotoView(
                                                                               imageProvider: NetworkImage(image),
-                                                                            ));
+                                                                            )));
                                                                           });
                                                                     },
                                                                     child:

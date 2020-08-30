@@ -7,7 +7,7 @@ import 'package:meetballl/models/Model_img.dart';
 import 'package:meetballl/models/Model_match.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'main.dart';
+import '../main.dart';
 
 class TerrainRen extends StatefulWidget {
   @override

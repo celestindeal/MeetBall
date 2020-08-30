@@ -13,6 +13,8 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Presentation extends StatefulWidget {
+  Presentation(BuildContext context2);
+  BuildContext context2;
   @override
   _PresentationState createState() => _PresentationState();
 }
@@ -25,6 +27,7 @@ bool init = true;
 bool initmove = true;
 
 class _PresentationState extends State<Presentation> {
+ 
   final _formKey = GlobalKey<FormState>();
 
   final key_commentainer = GlobalKey<FormState>();
@@ -39,6 +42,7 @@ class _PresentationState extends State<Presentation> {
 
   @override
   Widget build(BuildContext context) {
+     BuildContext context2 = widget.context2;
     if (init) {
       init = false;
       setState(() {
@@ -309,10 +313,15 @@ class _PresentationState extends State<Presentation> {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return Container(
-                                                child: PhotoView(
+                                                child: GestureDetector(
+                                                  onTap: (){
+                                                    print("fermeture de la photo");
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                  child: PhotoView(
                                               imageProvider:
                                                   NetworkImage(image),
-                                            ));
+                                            )));
                                           });
                                     },
                                     child: Image.network(
@@ -483,6 +492,7 @@ class _PresentationState extends State<Presentation> {
                                       if (ScopedModel.of<LoginModel>(context)
                                               .boParticipation ==
                                           false) {
+                                           
                                         // créer la participation
                                         await model.Participation(
                                           int.parse(model.id_rencontre),
