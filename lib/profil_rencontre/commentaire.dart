@@ -66,6 +66,7 @@ class _CommentaireState extends State<Commentaire> {
         appBar: AppBar(
           centerTitle: true,
           title: Text("Commentaire"),
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.indigo,
         ),
         persistentFooterButtons: <Widget>[

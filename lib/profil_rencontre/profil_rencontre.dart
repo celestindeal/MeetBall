@@ -11,6 +11,7 @@ class Profil_renctontre extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScopedModelDescendant<GameModel>(builder: (context, child, model) {
+
       return Container(
           child: model.afficher_lieu
               ? ScopedModel.of<LoginModel>(context).boParticipation?
@@ -18,7 +19,6 @@ class Profil_renctontre extends StatelessWidget {
                   controller: PageController(viewportFraction: 1),
                   itemCount: 2,
                   itemBuilder: (BuildContext context, int itemIndex) {
-                    print(ScopedModel.of<LoginModel>(context).boParticipation);
                     if (itemIndex == 0) {
                       return Presentation(context);
                     } else {

@@ -380,6 +380,7 @@ participationvisiteur.clear();
       }
       print('........');
     }
+    print(boParticipation);
     notifyListeners();
     return " fin de fonction";
   }

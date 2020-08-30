@@ -359,7 +359,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                             // ScopedModel.of<GameModel>(context)
                                             //     .Commentaire();
 
-                                            ScopedModel.of<LoginModel>(context)
+                                           await ScopedModel.of<LoginModel>(context)
                                                 .Personne_propose(
                                                     model.participationvisiteur[
                                                         i]['id_rencontre']);

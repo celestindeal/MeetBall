@@ -526,7 +526,7 @@ class _PresentationState extends State<Presentation> {
                                             // ScopedModel.of<GameModel>(context)
                                             //     .Commentaire();
 
-                                            ScopedModel.of<LoginModel>(context)
+                                              await ScopedModel.of<LoginModel>(context)
                                                 .Personne_propose(
                                                     model.participation[i]
                                                         ['id_rencontre']);
