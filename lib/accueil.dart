@@ -8,8 +8,8 @@ import 'package:scoped_model/scoped_model.dart';
 import 'models/Model_co.dart';
 
 File image;
-var form_email;
-var form_password;
+var vaFormEmail;
+var vaFormPassword;
 var _controller1 = TextEditingController();
 bool _passwordVisible = false;
 
@@ -28,7 +28,7 @@ class _AccueilState extends State<Accueil> {
       persoonne.add("value");
       if (persoonne[0] != "value") {
         ScopedModel.of<LoginModel>(context)
-            .Connexion(persoonne[0]['email'], persoonne[0]['password']);
+            .connexion(persoonne[0]['email'], persoonne[0]['password']);
         Navigator.pushNamedAndRemoveUntil(
             context, '/Profil', (Route<dynamic> route) => false);
       }
@@ -57,7 +57,7 @@ class _AccueilState extends State<Accueil> {
                   autocorrect: true,
                   controller: _controller1,
                   cursorColor: Colors.black,
-                  style: Theme.of(context).textTheme.display3,
+                  style: Theme.of(context).textTheme.headline3,
                   decoration: const InputDecoration(
                     hintText: 'Email',
                     hintStyle: TextStyle(color: Colors.black),
@@ -69,7 +69,7 @@ class _AccueilState extends State<Accueil> {
                     return null;
                   },
                   onChanged: (value) {
-                    form_email = value;
+                    vaFormEmail = value;
                   },
                 ),
 
@@ -77,7 +77,6 @@ class _AccueilState extends State<Accueil> {
                   autocorrect: true,
                   obscureText: !_passwordVisible,
                   decoration: InputDecoration(
-                    hasFloatingPlaceholder: true,
                     filled: false,
                     fillColor: Colors.black,
                     hintText: 'Mot de passe',
@@ -99,13 +98,14 @@ class _AccueilState extends State<Accueil> {
                           : Icons.visibility_off),
                     ),
                   ),
-                  validator: (String value) {
+                  validator: (value) {
                     if (value.isEmpty) {
                       return "Mot de passe incorrect";
                     }
+                    return "";
                   },
                   onChanged: (value) {
-                    form_password = value;
+                    vaFormPassword = value;
                   },
                 ),
 // test mots de passe oublié
@@ -139,10 +139,10 @@ class _AccueilState extends State<Accueil> {
                             if (_formKey.currentState.validate()) {
                               //enregistrer l'email écrit pour le cas ou il y as un deuxième essaye de connection
                               _controller1 =
-                                  TextEditingController(text: form_email);
+                                  TextEditingController(text: vaFormEmail);
                               //fonction de connection
                               ScopedModel.of<LoginModel>(context)
-                                  .Connexion(form_email, form_password);
+                                  .connexion(vaFormEmail, vaFormPassword);
 
                               Navigator.pushNamedAndRemoveUntil(context,
                                   '/Profil', (Route<dynamic> route) => false);

@@ -1,12 +1,7 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:meetballl/db.dart';
 import 'package:meetballl/main.dart';
-import 'package:meetballl/models/Model_co.dart';
-import 'package:meetballl/models/Model_img.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../footer.dart';
 import '../models/Model_terrain.dart';
 
@@ -16,42 +11,45 @@ class Terrain extends StatelessWidget {
     return ScopedModelDescendant<TerrainModel>(
         builder: (context, child, model) {
       return Container(
-          child: 
-               Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    Presentation_terrain(),
-                  ],
-                )
-           );
+          child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          PresentationTerrain(),
+        ],
+      ));
     });
   }
 }
 
-class Presentation_terrain extends StatelessWidget {
-  int nombre_tour = 0;
+class PresentationTerrain extends StatefulWidget {
+  @override
+  _PresentationTerrainState createState() => _PresentationTerrainState();
+}
+
+class _PresentationTerrainState extends State<PresentationTerrain> {
+  int inNombreTour = 0;
+
   String lien;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-     centerTitle: true,
-    title:   Text("Playground"),
-    backgroundColor: Colors.indigo,
-   
-  ),
+          centerTitle: true,
+          title: Text("Playground"),
+          backgroundColor: Colors.indigo,
+        ),
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
         backgroundColor: back,
-        body:  Center(
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                      Navigator.pushNamed(
-                                      context, '/Terrainrecherche');
+                  Navigator.pushNamed(context, '/Terrainrecherche');
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20.0),
@@ -74,11 +72,10 @@ class Presentation_terrain extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                      Navigator.pushNamed(
-                                      context, '/Terrainpro');
+                  Navigator.pushNamed(context, '/Terrainpro');
                 },
                 child: Container(
-                 padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   decoration: new BoxDecoration(
                     gradient: LinearGradient(
                       colors: <Color>[
@@ -90,22 +87,23 @@ class Presentation_terrain extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: ImageIcon(
-     AssetImage('img/location.png',),
-     size: MediaQuery.of(context).size.width * 0.4,
-),
+                    AssetImage(
+                      'img/location.png',
+                    ),
+                    size: MediaQuery.of(context).size.width * 0.4,
+                  ),
                 ),
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(
-                                      context, '/Ajout_terrain');
+                  Navigator.pushNamed(context, '/Ajout_terrain');
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20.0),
                   decoration: new BoxDecoration(
                     gradient: LinearGradient(
                       colors: <Color>[
-                       Colors.indigo[900],
+                        Colors.indigo[900],
                         Colors.indigoAccent[700],
                         Colors.indigoAccent[400],
                         Colors.indigo,
@@ -113,13 +111,12 @@ class Presentation_terrain extends StatelessWidget {
                     ),
                     shape: BoxShape.circle,
                   ),
-                  child: 
-            ImageIcon(
-     AssetImage('img/ajouterterrain.png',),
-     size: MediaQuery.of(context).size.width * 0.4,
-
-),
-                  
+                  child: ImageIcon(
+                    AssetImage(
+                      'img/ajouterterrain.png',
+                    ),
+                    size: MediaQuery.of(context).size.width * 0.4,
+                  ),
                 ),
               ),
             ],
@@ -271,21 +268,21 @@ class Presentation_terrain extends StatelessWidget {
 //                                         softWrap: true,
 //                                         style: Theme.of(context)
 //                                             .textTheme
-//                                             .display2),
+//                                             .headline2),
 //                                     Text(
 //                                         model.data_terrain[i]
 //                                             ['adresse'],
 //                                         softWrap: true,
 //                                         style: Theme.of(context)
 //                                             .textTheme
-//                                             .display2),
+//                                             .headline2),
 //                                     Text(
 //                                         model.data_terrain[i]
 //                                             ['ville'],
 //                                         softWrap: true,
 //                                         style: Theme.of(context)
 //                                             .textTheme
-//                                             .display2),
+//                                             .headline2),
 //                                     Text(
 //                                         model.data_terrain[i]
 //                                                 ['nom_t'] +
@@ -293,21 +290,21 @@ class Presentation_terrain extends StatelessWidget {
 //                                         softWrap: true,
 //                                         style: Theme.of(context)
 //                                             .textTheme
-//                                             .display2),
+//                                             .headline2),
 //                                     Text(
 //                                         model.data_terrain[i]
 //                                             ['sol'],
 //                                         softWrap: true,
 //                                         style: Theme.of(context)
 //                                             .textTheme
-//                                             .display2),
+//                                             .headline2),
 //                                     Text(
 //                                         model.data_terrain[i]
 //                                             ['ouverture'],
 //                                         softWrap: true,
 //                                         style: Theme.of(context)
 //                                             .textTheme
-//                                             .display2),
+//                                             .headline2),
 //                                   ]),
 //                             ]),
 //                         Center(

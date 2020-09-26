@@ -1,6 +1,4 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:meetballl/db.dart';
 import 'package:meetballl/footer.dart';
 import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/models/Model_img.dart';
@@ -18,7 +16,7 @@ class _TerrainRenState extends State<TerrainRen> {
   @override
   Widget build(BuildContext context) {
     terrain() async {
-      await ScopedModel.of<GameModel>(context).Match();
+      await ScopedModel.of<GameModel>(context).match();
       return true;
     }
 
@@ -62,7 +60,7 @@ class _AffRencontreState extends State<AffRencontre> {
       RefreshController(initialRefresh: false);
   Widget build(BuildContext context) {
     void _onRefresh() async {
-      ScopedModel.of<GameModel>(context).Match();
+      ScopedModel.of<GameModel>(context).match();
       Navigator.pushNamedAndRemoveUntil(
           context, '/TerrainRencontre', (Route<dynamic> route) => false);
       _refreshController.refreshCompleted();
@@ -78,7 +76,7 @@ class _AffRencontreState extends State<AffRencontre> {
         int nombreTours = model.taille;
         for (var i = 0; i < nombreTours; i++) {
           if (ScopedModel.of<GameModel>(context).terrainrencontre ==
-              model.data_game[i]['lieu']) {
+              model.vaDataGame[i]['lieu']) {
             affrencontre = true;
           }
         }
@@ -90,7 +88,7 @@ class _AffRencontreState extends State<AffRencontre> {
                 itemBuilder: (context, i) {
                   // calcule du temps avant le match
                   var ms = (new DateTime.now()).millisecondsSinceEpoch;
-                  String ok = "}" + model.data_game[i]['jours'] + "/";
+                  String ok = "}" + model.vaDataGame[i]['jours'] + "/";
                   int jour = int.parse(ok.split('}')[1].split('-')[0]);
                   int mois = int.parse(ok.split('-')[1].split('-')[0]);
                   String placement =
@@ -104,41 +102,42 @@ class _AffRencontreState extends State<AffRencontre> {
 
                   if (tkt.toInt() == 0) {
                     tempsavantmatch =
-                        "Aujoud'hui à " + model.data_game[i]['heure'];
+                        "Aujoud'hui à " + model.vaDataGame[i]['heure'];
                   } else if (1 <= tkt && tkt < 2) {
-                    tempsavantmatch = "Demain à " + model.data_game[i]['heure'];
+                    tempsavantmatch =
+                        "Demain à " + model.vaDataGame[i]['heure'];
                   } else {
                     tempsavantmatch = "Dans " +
                         tkt.toInt().toString() +
                         " jour(s) à " +
-                        model.data_game[i]['heure'];
+                        model.vaDataGame[i]['heure'];
                   }
                   if (ScopedModel.of<GameModel>(context).terrainrencontre ==
-                      model.data_game[i]['lieu']) {
+                      model.vaDataGame[i]['lieu']) {
                     return Center(
                         child: GestureDetector(
                             onTap: () async {
-                              model.afficher_lieu = false;
-                              model.lieu = model.data_game[i]['lieu'];
-                              model.id_rencontre = model.data_game[i]['id'];
+                              model.boAfficherLieu = false;
+                              model.lieu = model.vaDataGame[i]['lieu'];
+                              model.inIdRencontre = model.vaDataGame[i]['id'];
 
                               model.nombJoueur =
-                                  int.parse(model.data_game[i]['nombre_j']);
-                              model.daterencontre = model.data_game[i]['jours'];
+                                  int.parse(model.vaDataGame[i]['nombre_j']);
+                              model.daterencontre =
+                                  model.vaDataGame[i]['jours'];
                               model.heurerencontre =
-                                  model.data_game[i]['heure'];
-                              ScopedModel.of<ImgModel>(context).Img();
-                              ScopedModel.of<GameModel>(context).Terrain();
+                                  model.vaDataGame[i]['heure'];
+                              ScopedModel.of<ImgModel>(context).listImage();
+                              ScopedModel.of<GameModel>(context).terrain();
                               await ScopedModel.of<LoginModel>(context)
-                                  .Personne_propose(model.data_game[i]['id']);
+                                  .personnePropose(model.vaDataGame[i]['id']);
                               //  model.rencontre_visualiser = model.data_game[i]['id'];
                               ScopedModel.of<GameModel>(context)
-                                  .commentaire
+                                  .lisCommentaire
                                   .clear();
                               ScopedModel.of<GameModel>(context).nombre =
                                   0; // sela premette de reconmmencer l'affichage
-                               ScopedModel.of<GameModel>(context)
-                                  .Commentaire();
+                              ScopedModel.of<GameModel>(context).commentaire();
                               Navigator.pushNamed(
                                   context, '/Profil_renctontre');
                             },
@@ -159,25 +158,25 @@ class _AffRencontreState extends State<AffRencontre> {
                                           children: <Widget>[
                                             Text(
                                                 "Proposé par " +
-                                                    model.data_game[i]['per'],
+                                                    model.vaDataGame[i]['per'],
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .display2),
+                                                    .headline2),
                                             Text(tempsavantmatch,
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .display2),
+                                                    .headline2),
                                             Text(
                                                 "Il y as " +
-                                                    model.data_game[i]
+                                                    model.vaDataGame[i]
                                                         ['nombre_j'] +
                                                     " joueur(s)",
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .display2),
+                                                    .headline2),
                                           ]),
                                     ]))));
                   } else {
@@ -187,7 +186,7 @@ class _AffRencontreState extends State<AffRencontre> {
             : Center(
                 child: Text("Il n'y a pas de rencontre prévue",
                     softWrap: true,
-                    style: Theme.of(context).textTheme.display3),
+                    style: Theme.of(context).textTheme.headline3),
               );
       }),
     );

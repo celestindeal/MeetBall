@@ -1,24 +1,15 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:meetballl/db.dart';
 import 'package:meetballl/main.dart';
-import 'package:meetballl/models/Model_img.dart';
-import 'package:meetballl/models/Model_terrain.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'footer.dart';
 import 'formulaire_inscription.dart';
 import 'models/Model_co.dart';
 
 String _date = "Date de naissance";
 bool _passwordVisible = false;
-String confirmation_password;
+String fileConfirmationPassword;
 File image;
 String base64Image = "";
 bool checkboxValue = false;
@@ -76,6 +67,7 @@ class _InscriptionState extends State<Inscription> {
                               false) {
                             return 'Ce pseudo est déja pris';
                           }
+                          return null;
                         },
                         onChanged: (value) {
                           pseudo = value;
@@ -95,6 +87,7 @@ class _InscriptionState extends State<Inscription> {
                           if (value.isEmpty) {
                             return 'Nom manquant ';
                           }
+                          return null;
                         },
                         onChanged: (value) {
                           nom = value;
@@ -114,6 +107,7 @@ class _InscriptionState extends State<Inscription> {
                           if (value.isEmpty) {
                             return 'Prénom manquant ';
                           }
+                          return null;
                         },
                         onChanged: (value) {
                           prenom = value;
@@ -149,7 +143,6 @@ class _InscriptionState extends State<Inscription> {
                         autocorrect: true,
                         obscureText: !_passwordVisible,
                         decoration: InputDecoration(
-                          hasFloatingPlaceholder: true,
                           filled: false,
                           fillColor: Colors.black,
                           hintText: 'Mot de passe',
@@ -170,10 +163,11 @@ class _InscriptionState extends State<Inscription> {
                                 : Icons.visibility_off),
                           ),
                         ),
-                        validator: (String value) {
+                        validator: (value) {
                           if (value.isEmpty) {
                             return "Mot de passe obligatoire";
                           }
+                          return null;
                         },
                         onChanged: (value) {
                           password = value;
@@ -183,7 +177,6 @@ class _InscriptionState extends State<Inscription> {
                         autocorrect: true,
                         obscureText: !_passwordVisible,
                         decoration: InputDecoration(
-                          hasFloatingPlaceholder: true,
                           filled: false,
                           fillColor: Colors.black,
                           hintText: 'Confirmation du mot de passe',
@@ -204,16 +197,17 @@ class _InscriptionState extends State<Inscription> {
                                 : Icons.visibility_off),
                           ),
                         ),
-                        validator: (String value) {
+                        validator: (value) {
                           if (value.isEmpty) {
                             return "Mot de passe obligatoire";
                           }
-                          if (confirmation_password != password) {
+                          if (fileConfirmationPassword != password) {
                             return "Le mot de passe est different";
                           }
+                          return null;
                         },
                         onChanged: (value) {
-                          confirmation_password = value;
+                          fileConfirmationPassword = value;
                         },
                       ),
                       RaisedButton(
@@ -337,7 +331,7 @@ class _InscriptionState extends State<Inscription> {
                               email = email;
                               pseudo = pseudo;
                               await ScopedModel.of<LoginModel>(context)
-                                  .Verification_inscription(email, pseudo);
+                                  .verificationInscription(email, pseudo);
                               if (_formKey.currentState.validate() &&
                                   checkboxValue == true) {
                                 pseudo = pseudo;

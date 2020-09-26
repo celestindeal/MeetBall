@@ -7,6 +7,7 @@ import 'models/Model_co.dart';
 
 String avis;
 var _controller = TextEditingController();
+
 class Avis extends StatefulWidget {
   @override
   _AvisState createState() => _AvisState();
@@ -20,26 +21,24 @@ class _AvisState extends State<Avis> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     appBar: AppBar(
-     centerTitle: true,
-    title:   Text("Avis"),
-    backgroundColor: Colors.indigo,
-   
-   
-  ),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("Avis"),
+          backgroundColor: Colors.indigo,
+        ),
         persistentFooterButtons: <Widget>[
-                    Footer(),
-                  ],
+          Footer(),
+        ],
         // backgroundColor: Colors.black,
         body: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
             Widget>[
           Center(
             child: Text("Qu'aimerais-tu avoir de plus sur cette application?",
-                style: Theme.of(context).textTheme.display3),
+                style: Theme.of(context).textTheme.headline3),
           ),
           Center(
             child: Text("N'hésites pas à nous donner des idées ci-dessous !",
-                style: Theme.of(context).textTheme.display3),
+                style: Theme.of(context).textTheme.headline3),
           ),
           Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -49,8 +48,8 @@ class _AvisState extends State<Avis> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                       TextFormField(
-                      autocorrect: true,
+                      TextFormField(
+                        autocorrect: true,
                         controller: _controller,
                         maxLines: 5,
                         cursorColor: Colors.black,
@@ -77,16 +76,12 @@ class _AvisState extends State<Avis> {
                               if (_formKey.currentState.validate()) {
                                 pseudo =
                                     ScopedModel.of<LoginModel>(context).pseudo;
-                                envoie_avis(pseudo);
+                                envoieAvis(pseudo);
                                 setState(() {
-                                    
-                                        _controller.clear();
-                                      });
-                                Scaffold.of(context).showSnackBar(
-                                          new SnackBar(
-                                              content: new Text(
-                                                  'Ton avis est envoyer')));
-                                            
+                                  _controller.clear();
+                                });
+                                Scaffold.of(context).showSnackBar(new SnackBar(
+                                    content: new Text('Ton avis est envoyer')));
                               }
                             },
                             child: Text('Envoyer'),
@@ -101,7 +96,7 @@ class _AvisState extends State<Avis> {
   }
 }
 
-Future<String> envoie_avis(String pseudo) async {
+Future<String> envoieAvis(String pseudo) async {
   String json = '{"avis":"$avis","pseudo":"$pseudo"}';
   String url = 'http://51.210.103.151/post_avis.php';
   // make POST request

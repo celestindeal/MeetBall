@@ -1,13 +1,9 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:meetballl/db.dart';
 import 'package:meetballl/models/Model_match.dart';
-import 'package:meetballl/models/Model_terrain.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'footer.dart';
 import 'main.dart';
 import 'models/Model_co.dart';
@@ -68,7 +64,8 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
 
               var mst = new DateTime.utc(ans, mois, jour, 20, 18, 04)
                   .millisecondsSinceEpoch;
-              int ageAnne = ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
+              double douAge = ((ms - mst) / (365 * 24 * 3600 * 1000));
+              int ageAnne = douAge.toInt();
               return Column(
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment.start,
@@ -89,14 +86,14 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                       builder: (BuildContext context) {
                                         return Container(
                                             child: GestureDetector(
-                                                  onTap: (){
-                                                    print("fermeture de la photo");
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: PhotoView(
-                                          imageProvider: NetworkImage(
-                                              model.profVisiteur["photo"]),
-                                        )));
+                                                onTap: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: PhotoView(
+                                                  imageProvider: NetworkImage(
+                                                      model.profVisiteur[
+                                                          "photo"]),
+                                                )));
                                       });
                                 },
                                 child: CircleAvatar(
@@ -113,7 +110,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                 )),
                             Text(model.noteVisiteur.toString() + "/5",
                                 softWrap: true,
-                                style: Theme.of(context).textTheme.display3),
+                                style: Theme.of(context).textTheme.headline3),
                           ],
                         ),
                         Container(
@@ -140,29 +137,29 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                                     softWrap: true,
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .display3),
+                                                        .headline3),
                                                 Text(model.profVisiteur["nom"],
                                                     softWrap: true,
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .display3),
+                                                        .headline3),
                                               ],
                                             ),
                                             Text(ageAnne.toString() + " ans",
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .display3),
+                                                    .headline3),
                                             Text(model.profVisiteur["club"],
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .display3),
+                                                    .headline3),
                                             Text(model.profVisiteur["niveaux"],
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .display3),
+                                                    .headline3),
                                             Container(
                                               height: 10,
                                             ),
@@ -170,7 +167,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .display3),
+                                                    .headline3),
                                           ]),
                                     ],
                                   ),
@@ -196,7 +193,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                         child: Text("Rencontre",
                             textAlign: TextAlign.center,
                             softWrap: true,
-                            style: Theme.of(context).textTheme.display4)),
+                            style: Theme.of(context).textTheme.headline4)),
                     Row(
                       children: <Widget>[
                         Container(
@@ -328,9 +325,9 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                                 model.participationvisiteur[i]
                                                     ['lieu'];
                                             ScopedModel.of<GameModel>(context)
-                                                    .id_rencontre =
+                                                    .inIdRencontre =
                                                 model.participationvisiteur[i]
-                                                    ['id_rencontre'];
+                                                    ['stirnIdrencontre'];
                                             ScopedModel.of<GameModel>(context)
                                                     .nombJoueur =
                                                 int.parse(model
@@ -346,34 +343,35 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                                 model.participationvisiteur[i]
                                                     ['heure'];
                                             ScopedModel.of<ImgModel>(context)
-                                                .Img_terrain_id(
+                                                .imageTerrainId(
                                                     model.participationvisiteur[
                                                         i]['lieu']);
 
                                             // on prepare les image terrain et commentaire pour la page profil rencontre
                                             ScopedModel.of<ImgModel>(context)
-                                                .Img();
+                                                .listImage();
                                             ScopedModel.of<GameModel>(context)
-                                                .Terrain();
+                                                .terrain();
 
                                             // ScopedModel.of<GameModel>(context)
                                             //     .Commentaire();
 
-                                           await ScopedModel.of<LoginModel>(context)
-                                                .Personne_propose(
+                                            await ScopedModel.of<LoginModel>(
+                                                    context)
+                                                .personnePropose(
                                                     model.participationvisiteur[
-                                                        i]['id_rencontre']);
+                                                        i]['stirnIdrencontre']);
 
-                                            // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['id_rencontre']);
+                                            // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['stirnIdrencontre']);
                                             ScopedModel.of<GameModel>(context)
-                                                .commentaire
+                                                .lisCommentaire
                                                 .clear();
                                             ScopedModel.of<GameModel>(context)
                                                     .nombre =
                                                 0; // sela premette de reconmmencer l'affichage
                                             await ScopedModel.of<GameModel>(
                                                     context)
-                                                .Commentaire();
+                                                .commentaire();
                                             Navigator.pushNamed(
                                                 context, '/Profil_renctontre');
                                           },
@@ -416,14 +414,14 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                                                             true,
                                                                         style: Theme.of(context)
                                                                             .textTheme
-                                                                            .display2),
+                                                                            .headline2),
                                                                     Text(
                                                                         tempsavantmatch,
                                                                         softWrap:
                                                                             true,
                                                                         style: Theme.of(context)
                                                                             .textTheme
-                                                                            .display2),
+                                                                            .headline2),
                                                                     Text(
                                                                         "Il y a " +
                                                                             model.participationvisiteur[i][
@@ -433,7 +431,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                                                                             true,
                                                                         style: Theme.of(context)
                                                                             .textTheme
-                                                                            .display2),
+                                                                            .headline2),
                                                                   ]),
                                                             ]),
                                                       ]))),
@@ -448,7 +446,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                         : Center(
                             child: Text("tu n'a pas de rencontre de prevue",
                                 softWrap: true,
-                                style: Theme.of(context).textTheme.display3)),
+                                style: Theme.of(context).textTheme.headline3)),
                   ]);
             })));
 
@@ -499,7 +497,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
     //                           builder: (BuildContext context) {
     //                             return Container(
     //                                 child: GestureDetector(
-                                                  
+
     //                               imageProvider:
     //                                   NetworkImage(model.profVisiteur['photo']),
     //                             ));
@@ -513,7 +511,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
     //                   ),
     //                   Text("note: " + model.noteVisiteur.toString() + "/5",
     //                       softWrap: true,
-    //                       style: Theme.of(context).textTheme.display3),
+    //                       style: Theme.of(context).textTheme.headline3),
     //                 ],
     //               ),
     //               Container(
@@ -540,22 +538,22 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
     //                                       softWrap: true,
     //                                       style: Theme.of(context)
     //                                           .textTheme
-    //                                           .display3),
+    //                                           .headline3),
     //                                   Text(ageAnne.toString() + " ans",
     //                                       softWrap: true,
     //                                       style: Theme.of(context)
     //                                           .textTheme
-    //                                           .display3),
+    //                                           .headline3),
     //                                   Text(model.profVisiteur['club'],
     //                                       softWrap: true,
     //                                       style: Theme.of(context)
     //                                           .textTheme
-    //                                           .display3),
+    //                                           .headline3),
     //                                   Text(model.profVisiteur['niveaux'],
     //                                       softWrap: true,
     //                                       style: Theme.of(context)
     //                                           .textTheme
-    //                                           .display3),
+    //                                           .headline3),
     //                                   Container(
     //                                     height: 10,
     //                                   ),
@@ -563,7 +561,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
     //                                       softWrap: true,
     //                                       style: Theme.of(context)
     //                                           .textTheme
-    //                                           .display3),
+    //                                           .headline3),
     //                                 ]),
     //                           ],
     //                         ),
@@ -616,9 +614,9 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
     //                               ScopedModel.of<GameModel>(context).lieu =
     //                                   model.participationvisiteur[i]['lieu'];
     //                               ScopedModel.of<GameModel>(context)
-    //                                       .id_rencontre =
+    //                                       .stirnIdrencontre =
     //                                   model.participationvisiteur[i]
-    //                                       ['id_rencontre'];
+    //                                       ['stirnIdrencontre'];
     //                               ScopedModel.of<GameModel>(context)
     //                                       .nombJoueur =
     //                                   int.parse(model.participationvisiteur[i]
@@ -641,9 +639,9 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
     //                               await ScopedModel.of<LoginModel>(context)
     //                                   .Personne_propose(
     //                                       model.participationvisiteur[i]
-    //                                           ['id_rencontre']);
+    //                                           ['stirnIdrencontre']);
 
-    //                               // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['id_rencontre']);
+    //                               // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['stirnIdrencontre']);
 
     //                               Navigator.pushNamed(
     //                                   context, '/Profil_renctontre');
@@ -686,7 +684,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
     //                                                           style: Theme.of(
     //                                                                   context)
     //                                                               .textTheme
-    //                                                               .display2),
+    //                                                               .headline2),
 
     //                                                       Text(
 
@@ -698,7 +696,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
     //                                                           style: Theme.of(
     //                                                                   context)
     //                                                               .textTheme
-    //                                                               .display2),
+    //                                                               .headline2),
     //                                                     ]),
     //                                               ]),
     //                                         ]))),
@@ -710,7 +708,7 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
     //                   : Center(
     //                       child: Text("il n'a pas de rencontre de prevue",
     //                           softWrap: true,
-    //                           style: Theme.of(context).textTheme.display3)),
+    //                           style: Theme.of(context).textTheme.headline3)),
     //             ]);
     //       }),
     //     )));

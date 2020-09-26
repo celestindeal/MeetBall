@@ -14,23 +14,23 @@ String lieuchoisi = "Choix du lieu";
 DateTime curseurdate = DateTime.now();
 DateTime curseurtime = DateTime.now();
 
-var nombre_jo = "1";
+var vaNombreJo = "1";
 var pseudo;
 var _controller = TextEditingController();
 List terrain = [];
 bool init = true;
 bool afficher = true;
 
-class Ajout_match extends StatefulWidget {
+class AjoutMatch extends StatefulWidget {
   @override
-  _Ajout_matchState createState() => _Ajout_matchState();
+  _AjoutMatchState createState() => _AjoutMatchState();
 }
 
-class _Ajout_matchState extends State<Ajout_match> {
+class _AjoutMatchState extends State<AjoutMatch> {
   terrainre(String terrainre) async {
     List contruction = [];
-    if (ScopedModel.of<TerrainModel>(context).data_terrain.isEmpty) {
-      await ScopedModel.of<TerrainModel>(context).Terrain();
+    if (ScopedModel.of<TerrainModel>(context).vaDataTerrain.isEmpty) {
+      await ScopedModel.of<TerrainModel>(context).terrain();
     }
     terrain.clear();
     if (terrainre.isEmpty) {
@@ -40,20 +40,20 @@ class _Ajout_matchState extends State<Ajout_match> {
       // on vas regarder mot pare mot si on a des lettre on commun avec la recherche
       int plusG = 0;
       for (var i = 0;
-          i < ScopedModel.of<TerrainModel>(context).taille_terrain;
+          i < ScopedModel.of<TerrainModel>(context).tailleTerrain;
           i++) {
         int nombre = 0;
         nombre = comparestring(
             terrainre.toUpperCase(),
             ScopedModel.of<TerrainModel>(context)
-                .data_terrain[i]['ville']
+                .vaDataTerrain[i]['ville']
                 .toUpperCase());
         if (nombre > 0 && nombre > (plusG - 2)) {
           plusG = nombre;
           // ici le lieu doit être affiche il vas dans construction
           Map tkt = {
             'contruiction':
-                ScopedModel.of<TerrainModel>(context).data_terrain[i],
+                ScopedModel.of<TerrainModel>(context).vaDataTerrain[i],
             "nombre": nombre
           };
           contruction.add(tkt);
@@ -105,7 +105,7 @@ class _Ajout_matchState extends State<Ajout_match> {
                       TextFormField(
                         autocorrect: true,
                         cursorColor: Colors.black,
-                        style: Theme.of(context).textTheme.display3,
+                        style: Theme.of(context).textTheme.headline3,
                         decoration: const InputDecoration(
                           hintText: 'Trouver un playground',
                           hintStyle: TextStyle(color: Colors.black),
@@ -116,7 +116,9 @@ class _Ajout_matchState extends State<Ajout_match> {
                           });
                           await terrainre(value);
                           setState(() {
+                            // ignore: unnecessary_statements
                             terrain;
+                            // ignore: unnecessary_statements
                             afficher;
                           });
                         },
@@ -147,7 +149,7 @@ class _Ajout_matchState extends State<Ajout_match> {
                                               softWrap: true,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .display3),
+                                                  .headline3),
                                         ),
                                       ),
                                     );
@@ -179,26 +181,25 @@ class _Ajout_matchState extends State<Ajout_match> {
           Scaffold.of(context).showSnackBar(
               new SnackBar(content: new Text('Tu doit choisir un lieu')));
         } else {
-          await ScopedModel.of<GameModel>(context).Ajout_match(
+          await ScopedModel.of<GameModel>(context).ajoutMatch(
               lieuchoisi,
               ScopedModel.of<GameModel>(context).date,
               ScopedModel.of<GameModel>(context).time,
-              nombre_jo,
+              vaNombreJo,
               pseudo);
-          await ScopedModel.of<GameModel>(context).Match();
+          await ScopedModel.of<GameModel>(context).match();
           setState(() {
             lieuchoisi = "Choix du lieu";
             ScopedModel.of<GameModel>(context).date = "Date";
             ScopedModel.of<GameModel>(context).time = "Heure";
-            nombre_jo = null;
+            vaNombreJo = null;
             curseurdate = DateTime.now();
             curseurtime = DateTime.now();
             _controller.clear();
           });
-          ScopedModel.of<GameModel>(context).MatchCalendar();
-          ScopedModel.of<LoginModel>(context).ParticipationProil();
+          ScopedModel.of<GameModel>(context).matchCalendar();
+          ScopedModel.of<LoginModel>(context).ParticipationPr();
         }
-        
       }
       return Navigator.of(context).pop();
     }

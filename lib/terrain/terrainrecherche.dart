@@ -1,10 +1,6 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:meetballl/terrain/Ajout_terrain.dart';
-import 'package:meetballl/db.dart';
 import 'package:meetballl/footer.dart';
 import 'package:meetballl/main.dart';
-import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/models/Model_terrain.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -27,46 +23,46 @@ double lat1;
 double ditanceCourt = 1000000;
 
 class _TerrainRechercheState extends State<TerrainRecherche> {
-  @override
-  List terrain = [];
+  List lisTerrain = [];
   bool init = true;
   bool afficher = true;
   Widget build(BuildContext context) {
     if (init) {
       setState(() {
-        terrain;
+        // ignore: unnecessary_statements
+        lisTerrain;
       });
       init = false;
     }
 
     terrainre(String terrainre) async {
       List contruction = [];
-      if(ScopedModel.of<TerrainModel>(context).data_terrain.isEmpty){
-       await ScopedModel.of<TerrainModel>(context).Terrain();
+      if (ScopedModel.of<TerrainModel>(context).vaDataTerrain.isEmpty) {
+        await ScopedModel.of<TerrainModel>(context).terrain();
       }
-      
-      terrain.clear();
+
+      lisTerrain.clear();
       if (terrainre.isEmpty) {
         // quand l'utilisateur viens d'appuyer mais qu'il n'a rien écrit on passe ici et on affiche tous
-        terrain = [];
+        lisTerrain = [];
       } else {
         // on vas regarder mot pare mot si on a des lettre on commun avec la recherche
         int plusG = 0;
         for (var i = 0;
-            i < ScopedModel.of<TerrainModel>(context).taille_terrain;
+            i < ScopedModel.of<TerrainModel>(context).tailleTerrain;
             i++) {
           int nombre = 0;
           nombre = comparestring(
               terrainre.toUpperCase(),
               ScopedModel.of<TerrainModel>(context)
-                  .data_terrain[i]['ville']
+                  .vaDataTerrain[i]['ville']
                   .toUpperCase());
-          if (nombre > 0 && nombre > (plusG-2)) {
+          if (nombre > 0 && nombre > (plusG - 2)) {
             plusG = nombre;
             // ici le lieu doit être affiche il vas dans construction
             Map tkt = {
               'contruiction':
-                  ScopedModel.of<TerrainModel>(context).data_terrain[i],
+                  ScopedModel.of<TerrainModel>(context).vaDataTerrain[i],
               "nombre": nombre
             };
             contruction.add(tkt);
@@ -83,38 +79,37 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
               place = n;
             }
           }
-          if(nombreplus >= (plusG-1)){
-          terrain.add(contruction[place]['contruiction']);
+          if (nombreplus >= (plusG - 1)) {
+            lisTerrain.add(contruction[place]['contruiction']);
           }
           contruction.removeAt(place);
         }
       }
       setState(() {
-        terrain;
+        // ignore: unnecessary_statements
+        lisTerrain;
       });
       afficher = true;
     }
 
     return Scaffold(
         appBar: AppBar(
-     centerTitle: true,
-    title:  Text("Rechercher un playground"),
-    backgroundColor: Colors.indigo,
-  
-    
-  ),
+          centerTitle: true,
+          title: Text("Rechercher un playground"),
+          backgroundColor: Colors.indigo,
+        ),
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
         backgroundColor: back,
-        body:  SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               Divider(color: Colors.grey),
-               TextFormField(
-                      autocorrect: true,
+              TextFormField(
+                autocorrect: true,
                 cursorColor: Colors.black,
-                style: Theme.of(context).textTheme.display3,
+                style: Theme.of(context).textTheme.headline3,
                 decoration: const InputDecoration(
                   hintText: 'Trouver un playground',
                   hintStyle: TextStyle(color: Colors.black),
@@ -133,7 +128,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                   ? ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: terrain.length,
+                      itemCount: lisTerrain.length,
                       itemBuilder: (context, i) {
                         return GestureDetector(
                           onTap: () {
@@ -158,39 +153,39 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                           ImgModel>(
                                                       builder: (context, child,
                                                           img) {
-                                                    int nombre_tour = 0;
+                                                    int inNombreTour = 0;
                                                     String lien1 = "";
                                                     String lien2 = "";
                                                     String lien3 = "";
                                                     String lien4 = "";
-                                                    while (img.taille_img >
-                                                        nombre_tour) {
-                                                      if (terrain[i]['id'] ==
-                                                          img.data_img[
-                                                                  nombre_tour]
+                                                    while (img.inTailleImg >
+                                                        inNombreTour) {
+                                                      if (lisTerrain[i]['id'] ==
+                                                          img.vaDataImg[
+                                                                  inNombreTour]
                                                               ["id_lieu"]) {
                                                         if (lien1 == "") {
-                                                          lien1 = img.data_img[
-                                                                  nombre_tour]
+                                                          lien1 = img.vaDataImg[
+                                                                  inNombreTour]
                                                               ["lien"];
                                                         } else if (lien2 ==
                                                             "") {
-                                                          lien2 = img.data_img[
-                                                                  nombre_tour]
+                                                          lien2 = img.vaDataImg[
+                                                                  inNombreTour]
                                                               ["lien"];
                                                         } else if (lien3 ==
                                                             "") {
-                                                          lien3 = img.data_img[
-                                                                  nombre_tour]
+                                                          lien3 = img.vaDataImg[
+                                                                  inNombreTour]
                                                               ["lien"];
                                                         } else if (lien4 ==
                                                             "") {
-                                                          lien4 = img.data_img[
-                                                                  nombre_tour]
+                                                          lien4 = img.vaDataImg[
+                                                                  inNombreTour]
                                                               ["lien"];
                                                         }
                                                       }
-                                                      nombre_tour++;
+                                                      inNombreTour++;
                                                     }
                                                     if (lien1 == "") {
                                                       return Container();
@@ -245,35 +240,35 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                 default:
                                                               }
                                                               if (image == "") {
-                                                                Container();
+                                                                return Container();
                                                               } else {
                                                                 return GestureDetector(
-                                                                    onTap: () {
-                                                                      return showDialog(
-                                                                          context:
-                                                                              context,
-                                                                          builder:
-                                                                              (BuildContext context) {
-                                                                            return Container(
-                                                                                child: GestureDetector(
-                                                  onTap: (){
-                                                    print("fermeture de la photo");
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: PhotoView(
-                                                                              imageProvider: NetworkImage(image),
-                                                                            )));
-                                                                          });
-                                                                    },
-                                                                    child:
-                                                                        Image
-                                                                          .network(
-                                                                        image,width: MediaQuery.of(
-                                                                              context)
-                                                                          .size
-                                                                          .width,
-                                                                      ),
-                                                                    );
+                                                                  onTap: () {
+                                                                    return showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (BuildContext
+                                                                                context) {
+                                                                          return Container(
+                                                                              child: GestureDetector(
+                                                                                  onTap: () {
+                                                                                    Navigator.of(context).pop();
+                                                                                  },
+                                                                                  child: PhotoView(
+                                                                                    imageProvider: NetworkImage(image),
+                                                                                  )));
+                                                                        });
+                                                                  },
+                                                                  child: Image
+                                                                      .network(
+                                                                    image,
+                                                                    width: MediaQuery.of(
+                                                                            context)
+                                                                        .size
+                                                                        .width,
+                                                                  ),
+                                                                );
                                                               }
                                                             },
                                                           ),
@@ -292,34 +287,34 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                  terrain[i]
+                                                                  lisTerrain[i]
                                                                       ['nom'],
                                                                   softWrap:
                                                                       true,
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                               Text(
-                                                                  terrain[i][
+                                                                  lisTerrain[i][
                                                                       'adresse'],
                                                                   softWrap:
                                                                       true,
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                               Text(
-                                                                  terrain[i]
+                                                                  lisTerrain[i]
                                                                       ['ville'],
                                                                   softWrap:
                                                                       true,
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                               Text(
-                                                                  terrain[i][
+                                                                  lisTerrain[i][
                                                                           'nom_t'] +
                                                                       " terrain(s) disponible(s)",
                                                                   softWrap:
@@ -327,34 +322,34 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                               Text(
-                                                                  terrain[i]
+                                                                  lisTerrain[i]
                                                                       ['sol'],
                                                                   softWrap:
                                                                       true,
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                               Text(
-                                                                  terrain[i][
+                                                                  lisTerrain[i][
                                                                       'ouverture'],
                                                                   softWrap:
                                                                       true,
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
-                                                                      Text(
-                                                                  terrain[i][
+                                                                      .headline3),
+                                                              Text(
+                                                                  lisTerrain[i][
                                                                       'commentaire'],
                                                                   softWrap:
                                                                       true,
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                             ]),
                                                       ]),
                                                   Center(
@@ -366,7 +361,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                 (BuildContext
                                                                     context) {
                                                               return AlertDialog(
-    title:  Text(
+                                                                  title: Text(
                                                                       'Ouvrir avec'),
                                                                   content:
                                                                       SingleChildScrollView(
@@ -379,7 +374,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                           () async {
                                                                         String
                                                                             value =
-                                                                            terrain[i]['url'].toString();
+                                                                            lisTerrain[i]['url'].toString();
                                                                         //const url = const value;
                                                                         if (await canLaunch(
                                                                             value)) {
@@ -398,7 +393,7 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                                           () async {
                                                                         String
                                                                             value =
-                                                                            terrain[i]['urlwaze'].toString();
+                                                                            lisTerrain[i]['urlwaze'].toString();
                                                                         //const url = const value;
                                                                         if (await canLaunch(
                                                                             value)) {
@@ -419,9 +414,11 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                                                         ScopedModel.of<GameModel>(
                                                                     context)
                                                                 .terrainrencontre =
-                                                            terrain[i]['nom']
+                                                            lisTerrain[i]['nom']
                                                                 .toString();
-                                                         Navigator.pushNamed(context, '/TerrainRencontre');
+                                                        Navigator.pushNamed(
+                                                            context,
+                                                            '/TerrainRencontre');
                                                       },
                                                       child: Text(
                                                           'Rencontre à venir'),
@@ -435,9 +432,13 @@ class _TerrainRechercheState extends State<TerrainRecherche> {
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height / 20,
                             child: Center(
-                              child: Text(terrain[i]['nom'] + " (" +terrain[i]['ville'] + ')'  ,
+                              child: Text(
+                                  lisTerrain[i]['nom'] +
+                                      " (" +
+                                      lisTerrain[i]['ville'] +
+                                      ')',
                                   softWrap: true,
-                                  style: Theme.of(context).textTheme.display3),
+                                  style: Theme.of(context).textTheme.headline3),
                             ),
                           ),
                         );

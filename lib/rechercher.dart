@@ -11,49 +11,50 @@ class Rechercher extends StatelessWidget {
     return ScopedModelDescendant<TerrainModel>(
         builder: (context, child, model) {
       return Container(
-          child: 
-               Stack(
-                  alignment: Alignment.center,
-                  children: <Widget>[
-                    Presentation_rechercher(),
-                  ],
-                )
-           );
+          child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          PresentationRechercher(),
+        ],
+      ));
     });
   }
 }
 
-class Presentation_rechercher extends StatelessWidget {
-  int nombre_tour = 0;
+class PresentationRechercher extends StatefulWidget {
+  @override
+  _PresentationRechercherState createState() => _PresentationRechercherState();
+}
+
+class _PresentationRechercherState extends State<PresentationRechercher> {
+  int inNombreTour = 0;
+
   String lien;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-           centerTitle: true,
-   
-    title:    Text("Rechercher",textAlign: TextAlign.center),
-    backgroundColor: Colors.indigo,
-    leading: IconButton(
-        icon: Icon(Icons.add),
-        onPressed: () {
-          Navigator.pushNamed(context, '/Ajout_match');
-             
-        }),
-    
-  ),
+          centerTitle: true,
+          title: Text("Rechercher", textAlign: TextAlign.center),
+          backgroundColor: Colors.indigo,
+          leading: IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () {
+                Navigator.pushNamed(context, '/Ajout_match');
+              }),
+        ),
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
         backgroundColor: back,
-        body:  Center(
+        body: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               GestureDetector(
                 onTap: () {
-                      Navigator.pushNamed(
-                                      context, '/ProfilRechercher');
+                  Navigator.pushNamed(context, '/ProfilRechercher');
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20.0),
@@ -74,20 +75,18 @@ class Presentation_rechercher extends StatelessWidget {
                   ),
                 ),
               ),
-            
-                
               GestureDetector(
                 onTap: () {
-                //  ScopedModel.of<ImgModel>(context).Img();
-                // ScopedModel.of<TerrainModel>(context).Terrain();
-                Navigator.pushNamed(context, '/Terrain');
+                  //  ScopedModel.of<ImgModel>(context).Img();
+                  // ScopedModel.of<TerrainModel>(context).Terrain();
+                  Navigator.pushNamed(context, '/Terrain');
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20.0),
                   decoration: new BoxDecoration(
                     gradient: LinearGradient(
                       colors: <Color>[
-                       Colors.indigo[900],
+                        Colors.indigo[900],
                         Colors.indigoAccent[700],
                         Colors.indigoAccent[400],
                         Colors.indigo,
@@ -95,13 +94,12 @@ class Presentation_rechercher extends StatelessWidget {
                     ),
                     shape: BoxShape.circle,
                   ),
-                  child: 
-            ImageIcon(
-     AssetImage('img/terrain.png',),
-     size: MediaQuery.of(context).size.width * 0.3,
-
-),
-                  
+                  child: ImageIcon(
+                    AssetImage(
+                      'img/terrain.png',
+                    ),
+                    size: MediaQuery.of(context).size.width * 0.3,
+                  ),
                 ),
               ),
             ],

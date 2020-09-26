@@ -46,8 +46,6 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
-  @override
-  Brightness _brightness = Brightness.light;
   bool connexion = true;
   changeBrightness() {
     DynamicTheme.of(context).setBrightness(
@@ -55,21 +53,18 @@ class _MainState extends State<Main> {
             ? Brightness.light
             : Brightness.dark);
 
-    Baselocal().mise_a_jour();
+    Baselocal().miseAjour();
   }
 
   Widget build(BuildContext context) {
-
     connection() async {
       // si on est connecter à internet connexion = true;    et si on n'a pas de connexion = false;
       connectivityResult = await Connectivity().checkConnectivity();
-     
 
       if (connectivityResult == ConnectivityResult.mobile ||
           connectivityResult == ConnectivityResult.wifi) {
         if (connexion == false) {
           setState(() {
-          
             connexion = true;
             boConnexionAuto = true; // relance la connexion automatique
           });
@@ -81,30 +76,27 @@ class _MainState extends State<Main> {
           });
         }
       }
-      
     }
 
-// toutes les deux seconds on verrifi la conneciton à internet 
+// toutes les deux seconds on verrifi la conneciton à internet
     const oneSec = const Duration(seconds: 2);
     new Timer.periodic(oneSec, (Timer t) {
       connection();
     });
-    
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    String mode = "false";
-    initState() async {
-      mode = await Baselocal().valColor();
-      if (mode == "true") {
-        DynamicTheme.of(context).setBrightness(
-            Theme.of(context).brightness == Brightness.dark
-                ? Brightness.values
-                : Brightness.dark);
-      }
-    }
+    // initState() async {
+    //   mode = await Baselocal().valColor();
+    //   if (mode == "true") {
+    //     DynamicTheme.of(context).setBrightness(
+    //         Theme.of(context).brightness == Brightness.dark
+    //             ? Brightness.values
+    //             : Brightness.dark);
+    //   }
+    // }
 
     back =
         Theme.of(context).brightness == Brightness.dark ? Colors.white : null;
@@ -123,13 +115,11 @@ class _MainState extends State<Main> {
                           data: (brightness) => ThemeData(
                                 brightness: brightness,
                                 textTheme: TextTheme(
-                                  body1: TextStyle(fontSize: 10.0),
-                                  body2: TextStyle(fontSize: 16.0),
-                                  display1: TextStyle(
+                                  headline1: TextStyle(
                                       fontSize: 25.0,
                                       color: Colors.red,
                                       decorationColor: Colors.white), // darwer
-                                  display2: TextStyle(
+                                  headline2: TextStyle(
                                     fontSize: 16.0,
                                     color: Colors.white,
                                     decorationColor: Colors.white,
@@ -137,14 +127,14 @@ class _MainState extends State<Main> {
                                     fontFamily: 'Roboto',
                                     letterSpacing: 0.5,
                                   ), //text stiler
-                                  display3: TextStyle(
+                                  headline3: TextStyle(
                                       fontSize: 16.0,
                                       color: brightness == Brightness.dark
                                           ? Colors.white
                                           : Colors.black,
                                       decorationColor:
                                           Colors.black), //text Class
-                                  display4: TextStyle(
+                                  headline4: TextStyle(
                                     fontSize: 32.0,
                                     inherit: false,
                                     letterSpacing: 0.5,
@@ -153,9 +143,6 @@ class _MainState extends State<Main> {
                                 ),
                               ),
                           themedWidgetBuilder: (context, theme) {
-                            connexion_auto(){
-                              
-                            }
                             return MaterialApp(
                               localizationsDelegates: [
                                 GlobalMaterialLocalizations.delegate,
@@ -174,7 +161,7 @@ class _MainState extends State<Main> {
                                 '/ProfilVisiteur': (context) =>
                                     ProfilVisiteur(),
                                 '/Profil_renctontre': (context) =>
-                                    Profil_renctontre(),
+                                    ProfilRenctontre(),
                                 '/Terrain': (context) => Terrain(),
                                 '/Rechercher': (context) => Rechercher(),
                                 '/ProfilRechercher': (context) =>
@@ -183,8 +170,8 @@ class _MainState extends State<Main> {
                                 '/Terrainrecherche': (context) =>
                                     TerrainRecherche(),
                                 '/TerrainRencontre': (context) => TerrainRen(),
-                                '/Ajout_terrain': (context) => Ajout_terrain(),
-                                '/Ajout_match': (context) => Ajout_match(),
+                                '/Ajout_terrain': (context) => AjoutTerrain(),
+                                '/Ajout_match': (context) => AjoutMatch(),
                                 '/Avis': (context) => Avis(),
                                 '/modif': (context) => Modif(),
                                 '/avisDev': (context) => AvisDev(),
@@ -194,8 +181,6 @@ class _MainState extends State<Main> {
                                 '/commentaire': (context) => Commentaire(),
                                 '/test': (context) => MyApp(),
                                 '/parametre': (context) => Parametre(),
-
-
                               },
                             );
                           })))));
@@ -220,7 +205,6 @@ class _MainState extends State<Main> {
 comparestring(String mot1, String mot2) {
   // on compparre deux mots si il ont des lettre en commun on renvoie un nombre sinon on renvoie 0
   int taille1 = mot1.length;
-  int taille2 = mot2.length;
   int compare = 0;
   for (var i = 0; i < taille1; i++) {
     String lettre1 = mot1[i];
@@ -231,5 +215,3 @@ comparestring(String mot1, String mot2) {
   }
   return compare;
 }
-
-

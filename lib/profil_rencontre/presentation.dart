@@ -27,16 +27,16 @@ bool init = true;
 bool initmove = true;
 
 class _PresentationState extends State<Presentation> {
-  final _formKey = GlobalKey<FormState>();
+  final keyformKey = GlobalKey<FormState>();
 
-  final key_commentainer = GlobalKey<FormState>();
+  final keyCommentainer = GlobalKey<FormState>();
 
   ScrollController _scrollController = new ScrollController();
 
   String com;
 
-  int nombre_inviter;
-  bool aff_participent =
+  int boNombreInviter;
+  bool boaAffParticipent =
       false; // false = afficher tous les participent     true = afficher seulement trois participent
 
   @override
@@ -71,7 +71,7 @@ class _PresentationState extends State<Presentation> {
 // calcul pour savoir si la rencontre est déja passer
 // si difference est négative la rencontre est passer
 
-    notation(String personnenoter, String id_rencontre) {
+    notation(String personnenoter, String striIdRencontre) {
       return showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -100,8 +100,8 @@ class _PresentationState extends State<Presentation> {
                                 color: Colors.yellow,
                                 onPressed: () {
                                   ScopedModel.of<LoginModel>(context)
-                                      .Envoienote(
-                                          "1", personnenoter, id_rencontre);
+                                      .envoieNote(
+                                          "1", personnenoter, striIdRencontre);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -112,8 +112,8 @@ class _PresentationState extends State<Presentation> {
                                 color: Colors.yellow,
                                 onPressed: () {
                                   ScopedModel.of<LoginModel>(context)
-                                      .Envoienote(
-                                          "2", personnenoter, id_rencontre);
+                                      .envoieNote(
+                                          "2", personnenoter, striIdRencontre);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -124,8 +124,8 @@ class _PresentationState extends State<Presentation> {
                                 color: Colors.yellow,
                                 onPressed: () {
                                   ScopedModel.of<LoginModel>(context)
-                                      .Envoienote(
-                                          "3", personnenoter, id_rencontre);
+                                      .envoieNote(
+                                          "3", personnenoter, striIdRencontre);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -136,8 +136,8 @@ class _PresentationState extends State<Presentation> {
                                 color: Colors.yellow,
                                 onPressed: () {
                                   ScopedModel.of<LoginModel>(context)
-                                      .Envoienote(
-                                          "4", personnenoter, id_rencontre);
+                                      .envoieNote(
+                                          "4", personnenoter, striIdRencontre);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -148,8 +148,8 @@ class _PresentationState extends State<Presentation> {
                                 color: Colors.yellow,
                                 onPressed: () {
                                   ScopedModel.of<LoginModel>(context)
-                                      .Envoienote(
-                                          "5", personnenoter, id_rencontre);
+                                      .envoieNote(
+                                          "5", personnenoter, striIdRencontre);
                                   Navigator.of(context).pop();
                                 },
                               ),
@@ -163,12 +163,12 @@ class _PresentationState extends State<Presentation> {
 
     participationnote() async {
       List participent = ScopedModel.of<LoginModel>(context).participent;
-      String id = ScopedModel.of<GameModel>(context).id_rencontre;
+      String id = ScopedModel.of<GameModel>(context).inIdRencontre;
       List listpersonne = [];
       String url = 'http://51.210.103.151/post_note_id.php';
       for (var i = 0; i < participent.length; i++) {
-        String pseudo_joueur = participent[i]['pseudo'];
-        String json = '{"pseudo":"$pseudo_joueur","id":"$id"}';
+        String striPseudoJoueur = participent[i]['pseudo'];
+        String json = '{"pseudo":"$striPseudoJoueur","id":"$id"}';
         Response response = await post(url, body: json);
         List personne = jsonDecode(response.body);
         Map contruction = {'participent': participent[i], "note": personne};
@@ -199,7 +199,7 @@ class _PresentationState extends State<Presentation> {
                             child: Text("Google map"),
                             onTap: () async {
                               String value = ScopedModel.of<GameModel>(context)
-                                  .url_lieu
+                                  .vaUrlLieu
                                   .toString();
                               //const url = const value;
                               if (await canLaunch(value)) {
@@ -212,7 +212,7 @@ class _PresentationState extends State<Presentation> {
                             child: Text("Waze"),
                             onTap: () async {
                               String value = ScopedModel.of<GameModel>(context)
-                                  .urlwaze_lieu
+                                  .vaUrlwazeLieu
                                   .toString();
                               //const url = const value;
                               if (await canLaunch(value)) {
@@ -236,28 +236,26 @@ class _PresentationState extends State<Presentation> {
             builder: (context, child, model) {
           return ScopedModelDescendant<ImgModel>(
               builder: (context, child, img) {
-            int nombre_tour = 0;
+            int striNombreTour = 0;
             String lien1 = "";
             String lien2 = "";
             String lien3 = "";
             String lien4 = "";
 // dans la boucle while je fait le tours de tous les images de la bases de donner avec img.data et quand les id correspond je met les lien dans les variables pour les afficher plus tard
-            while (img.imagelieu.length > nombre_tour) {
+            while (img.imagelieu.length > striNombreTour) {
               if (lien1 == "") {
-                lien1 = img.imagelieu[nombre_tour]["lien"];
+                lien1 = img.imagelieu[striNombreTour]["lien"];
               } else if (lien2 == "") {
-                lien2 = img.imagelieu[nombre_tour]["lien"];
+                lien2 = img.imagelieu[striNombreTour]["lien"];
               } else if (lien3 == "") {
-                lien3 = img.imagelieu[nombre_tour]["lien"];
+                lien3 = img.imagelieu[striNombreTour]["lien"];
               } else if (lien4 == "") {
-                lien4 = img.imagelieu[nombre_tour]["lien"];
+                lien4 = img.imagelieu[striNombreTour]["lien"];
               }
-              nombre_tour++;
+              striNombreTour++;
             }
 
             // on calcul le coff de l'image pour definir la taille du sizebox ou l'on vas les afficher
-            double hauteurimage = 1;
-            double largeur_image = 1;
             double douCoffImage = 1.333;
 
             return SingleChildScrollView(
@@ -302,7 +300,7 @@ class _PresentationState extends State<Presentation> {
                               default:
                             }
                             if (image == "") {
-                              Container();
+                              return Container();
                             } else {
                               return GestureDetector(
                                 onTap: () {
@@ -312,8 +310,6 @@ class _PresentationState extends State<Presentation> {
                                         return Container(
                                             child: GestureDetector(
                                                 onTap: () {
-                                                  print(
-                                                      "fermeture de la photo");
                                                   Navigator.of(context).pop();
                                                 },
                                                 child: PhotoView(
@@ -343,13 +339,14 @@ class _PresentationState extends State<Presentation> {
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
                                   Text(
-                                      model.adresse_lieu +
+                                      model.vaAdresseLieu +
                                           ", " +
-                                          model.nom_t_lieu,
+                                          model.vaNomLieu,
                                       textAlign: TextAlign.end,
                                       softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display3),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline3),
                                 ],
                               ),
                               Row(
@@ -363,14 +360,15 @@ class _PresentationState extends State<Presentation> {
                                               .heurerencontre,
                                       textAlign: TextAlign.end,
                                       softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display3),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline3),
                                 ],
                               ),
                             ]),
-                        Text(model.commentaire_lieu,
+                        Text(model.vaCommentaireLieu,
                             softWrap: true,
-                            style: Theme.of(context).textTheme.display3),
+                            style: Theme.of(context).textTheme.headline3),
                       ],
                     ),
                     difference > 0
@@ -391,7 +389,7 @@ class _PresentationState extends State<Presentation> {
                                                     textAlign: TextAlign.center,
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .display1),
+                                                        .headline1),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
@@ -408,9 +406,8 @@ class _PresentationState extends State<Presentation> {
                                                           await ScopedModel.of<
                                                                       LoginModel>(
                                                                   context)
-                                                              .Personne_propose(
-                                                                  model
-                                                                      .id_rencontre);
+                                                              .personnePropose(model
+                                                                  .inIdRencontre);
                                                           // maintenant dans login modal var participent nous avons les participent
 
                                                           if (ScopedModel.of<
@@ -420,9 +417,9 @@ class _PresentationState extends State<Presentation> {
                                                               true) {
                                                             // créer la participation
                                                             await model
-                                                                .Sup_participation(
+                                                                .supParticipation(
                                                               int.parse(model
-                                                                  .id_rencontre),
+                                                                  .inIdRencontre),
                                                               ScopedModel.of<
                                                                           LoginModel>(
                                                                       context)
@@ -438,7 +435,7 @@ class _PresentationState extends State<Presentation> {
                                                               ScopedModel.of<
                                                                           LoginModel>(
                                                                       context)
-                                                                  .ParticipationProil();
+                                                                  .ParticipationPr();
                                                               ScopedModel.of<
                                                                           LoginModel>(
                                                                       context)
@@ -453,9 +450,9 @@ class _PresentationState extends State<Presentation> {
                                                               await ScopedModel
                                                                       .of<LoginModel>(
                                                                           context)
-                                                                  .Personne_propose(
+                                                                  .personnePropose(
                                                                       model
-                                                                          .id_rencontre);
+                                                                          .inIdRencontre);
                                                               Navigator.of(
                                                                       context)
                                                                   .pop();
@@ -476,15 +473,15 @@ class _PresentationState extends State<Presentation> {
                             : RaisedButton(
                                 onPressed: () async {
                                   await ScopedModel.of<LoginModel>(context)
-                                      .Personne_propose(model.id_rencontre);
+                                      .personnePropose(model.inIdRencontre);
                                   // maintenant dans login modal var participent nous avons les participent
 
                                   if (ScopedModel.of<LoginModel>(context)
                                           .boParticipation ==
                                       false) {
                                     // créer la participation
-                                    await model.Participation(
-                                      int.parse(model.id_rencontre),
+                                    await model.participation(
+                                      int.parse(model.inIdRencontre),
                                       ScopedModel.of<LoginModel>(context)
                                           .pseudo,
                                       model.nombJoueur,
@@ -494,7 +491,7 @@ class _PresentationState extends State<Presentation> {
 
                                     model.nombJoueur++;
                                     await ScopedModel.of<LoginModel>(context)
-                                        .Personne_propose(model.id_rencontre);
+                                        .personnePropose(model.inIdRencontre);
                                     _scrollController.jumpTo(_scrollController
                                         .position.maxScrollExtent);
                                     // changepage();
@@ -507,18 +504,18 @@ class _PresentationState extends State<Presentation> {
                         ? ScopedModelDescendant<LoginModel>(
                             builder: (context, child, login) {
                             // calcule du nombre de personne à afficher
-                            int affichage_participent =
+                            int inAffichageParticipent =
                                 login.participent.length;
 
-                            if (affichage_participent > 3 &&
-                                aff_participent == false) {
-                              affichage_participent = 3;
+                            if (inAffichageParticipent > 3 &&
+                                boaAffParticipent == false) {
+                              inAffichageParticipent = 3;
                             }
 
                             return ListView.builder(
                                 physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
-                                itemCount: affichage_participent,
+                                itemCount: inAffichageParticipent,
                                 itemBuilder: (context, i) {
                                   var ms = (new DateTime.now())
                                       .millisecondsSinceEpoch;
@@ -540,9 +537,9 @@ class _PresentationState extends State<Presentation> {
                                   var mst = new DateTime.utc(
                                           ans, mois, jour, 20, 18, 04)
                                       .millisecondsSinceEpoch;
-                                  int ageAnne =
-                                      ((ms - mst) / (365 * 24 * 3600 * 1000))
-                                          .toInt();
+                                  double douage =
+                                      ((ms - mst) / (365 * 24 * 3600 * 1000));
+                                  int ageAnne = douage.toInt();
                                   bool bonotation = true;
                                   if (login.pseudo ==
                                       login.participent[i]['pseudo']) {
@@ -562,7 +559,7 @@ class _PresentationState extends State<Presentation> {
                                                   .pseudo
                                                   .toString()) {
                                             ScopedModel.of<LoginModel>(context)
-                                                .ParticipationProil();
+                                                .ParticipationPr();
                                             ScopedModel.of<LoginModel>(context)
                                                 .page = 1;
                                             Navigator.pushNamed(
@@ -612,12 +609,12 @@ class _PresentationState extends State<Presentation> {
                                                   softWrap: true,
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .display3),
+                                                      .headline3),
                                               Text(ageAnne.toString() + " ans ",
                                                   softWrap: true,
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .display3),
+                                                      .headline3),
                                               bonotation
                                                   ? ScopedModel.of<LoginModel>(
                                                               context)
@@ -631,7 +628,7 @@ class _PresentationState extends State<Presentation> {
                                                                           i][
                                                                       'pseudo'],
                                                                   model
-                                                                      .id_rencontre);
+                                                                      .inIdRencontre);
                                                             } else {
                                                               Scaffold.of(
                                                                       context)
@@ -650,11 +647,10 @@ class _PresentationState extends State<Presentation> {
                                                         )
                                                       : Container()
                                                   : Container(
-                                                      child: FlatButton(
-                                                          child: Text('     ',
-                                                              style: TextStyle(
-                                                                fontSize: 16,
-                                                              )))),
+                                                      child: Text('     ',
+                                                          style: TextStyle(
+                                                            fontSize: 20,
+                                                          ))),
                                             ],
                                           ),
                                         ),
@@ -667,12 +663,12 @@ class _PresentationState extends State<Presentation> {
                     difference > 0
                         ? login.participent.length > 3
                             ? IconButton(
-                                icon: aff_participent
+                                icon: boaAffParticipent
                                     ? Icon(Icons.arrow_upward)
                                     : Icon(Icons.arrow_downward),
                                 onPressed: () {
                                   setState(() {
-                                    aff_participent = !aff_participent;
+                                    boaAffParticipent = !boaAffParticipent;
                                   });
                                 })
                             : Container()
@@ -681,7 +677,7 @@ class _PresentationState extends State<Presentation> {
                             builder: (BuildContext context,
                                 AsyncSnapshot<List> snapshot) {
                               if (snapshot.hasData) {
-                                return AffParticipent(snapshot.data);
+                                return AfParticipent(snapshot.data);
                               } else {
                                 return Center(
                                   child: SizedBox(

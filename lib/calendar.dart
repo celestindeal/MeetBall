@@ -51,7 +51,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
 
   void _onDaySelectedlong(DateTime day, List events) {
     Navigator.pushNamed(context, '/Ajout_match');
-    ScopedModel.of<GameModel>(context).Initdate(
+    ScopedModel.of<GameModel>(context).initdate(
         '${day.day}-${day.month}-${day.year}', '${day.hour}:${day.minute}');
   }
 
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     void _onRefresh() async {
-      ScopedModel.of<GameModel>(context).MatchCalendar();
+      ScopedModel.of<GameModel>(context).matchCalendar();
 
       _refreshController.refreshCompleted();
     }
@@ -159,7 +159,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                       children: <Widget>[
                         Text(event['nombre_j'].toString() + " ",
                             softWrap: true,
-                            style: Theme.of(context).textTheme.display3),
+                            style: Theme.of(context).textTheme.headline3),
                         Icon(
                           Icons.people,
                           color: Colors.red,
@@ -172,7 +172,7 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
                     // on sélection la rencontre choisir
 
                     ScopedModel.of<GameModel>(context).lieu = event['lieu'];
-                    ScopedModel.of<GameModel>(context).id_rencontre =
+                    ScopedModel.of<GameModel>(context).inIdRencontre =
                         event['id'];
                     ScopedModel.of<GameModel>(context).nombJoueur =
                         int.parse(event['nombre_j'].toString());
@@ -183,17 +183,17 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
 
                     // on prepare les image terrain et commentaire pour la page profil rencontre
                     ScopedModel.of<ImgModel>(context)
-                        .Img_terrain_id(event['lieu']);
-                    ScopedModel.of<GameModel>(context).Terrain();
+                        .imageTerrainId(event['lieu']);
+                    ScopedModel.of<GameModel>(context).terrain();
 
                     await ScopedModel.of<LoginModel>(context)
-                        .Personne_propose(event['id']);
+                        .personnePropose(event['id']);
 
                     //  model.rencontre_visualiser = model.data_game[i]['id'];
-                    ScopedModel.of<GameModel>(context).commentaire.clear();
+                    ScopedModel.of<GameModel>(context).lisCommentaire.clear();
                     ScopedModel.of<GameModel>(context).nombre =
                         0; // sela premette de reconmmencer l'affichage
-                    await ScopedModel.of<GameModel>(context).Commentaire();
+                    await ScopedModel.of<GameModel>(context).commentaire();
                     Navigator.pushNamed(context, '/Profil_renctontre');
                   },
                 ),

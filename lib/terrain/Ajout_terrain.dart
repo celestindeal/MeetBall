@@ -12,13 +12,12 @@ import '../models/Model_match.dart';
 import '../models/Model_terrain.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:geocoder/geocoder.dart';
 
 String nom;
 String adresse;
 String ville;
-int nombre_terrain;
+int inNombreTerrain;
 String sol = " ";
 String ouverture = " ";
 String urlgoogle = "non ";
@@ -32,16 +31,16 @@ var _controller4 = TextEditingController();
 var _controller5 = TextEditingController();
 var _controller6 = TextEditingController();
 
-class Ajout_terrain extends StatefulWidget {
+class AjoutTerrain extends StatefulWidget {
   @override
-  _Ajout_terrainState createState() => _Ajout_terrainState();
+  _AjoutTerrainState createState() => _AjoutTerrainState();
 }
 
-class _Ajout_terrainState extends State<Ajout_terrain> {
+class _AjoutTerrainState extends State<AjoutTerrain> {
   final _formKey = GlobalKey<FormState>();
 
   List<Asset> images = List<Asset>();
-  String _error = 'No Error Dectected';
+  String strinError = 'No Error Dectected';
 
   List base64Image = [];
   void initState() {
@@ -89,7 +88,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
 
     setState(() {
       images = resultList;
-      _error = error;
+      strinError = error;
     });
   }
 
@@ -149,7 +148,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                             autocorrect: true,
                             controller: _controller1,
                             cursorColor: Colors.black,
-                            style: Theme.of(context).textTheme.display3,
+                            style: Theme.of(context).textTheme.headline3,
                             decoration: const InputDecoration(
                               hintText: 'Nom',
                               hintStyle: TextStyle(color: Colors.black),
@@ -166,11 +165,10 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                           ),
                           TextFormField(
                             autocorrect: true,
-                            style: Theme.of(context).textTheme.display3,
+                            style: Theme.of(context).textTheme.headline3,
                             controller: _controller2,
                             cursorColor: Colors.black,
                             decoration: InputDecoration(
-                              hasFloatingPlaceholder: true,
                               filled: false,
                               fillColor: Colors.black,
                               hintText: 'Adresse',
@@ -193,9 +191,6 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                 child: Icon(Icons.gps_fixed),
                               ),
                             ),
-                            validator: (String value) {
-                              if (value.isEmpty) {}
-                            },
                             onChanged: (value) {
                               adresse = value;
                             },
@@ -204,7 +199,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                             autocorrect: true,
                             controller: _controller3,
                             cursorColor: Colors.black,
-                            style: Theme.of(context).textTheme.display3,
+                            style: Theme.of(context).textTheme.headline3,
                             decoration: const InputDecoration(
                               hintText: 'Ville',
                               hintStyle: TextStyle(color: Colors.black),
@@ -224,7 +219,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                             controller: _controller4,
                             keyboardType: TextInputType.number,
                             cursorColor: Colors.black,
-                            style: Theme.of(context).textTheme.display3,
+                            style: Theme.of(context).textTheme.headline3,
                             decoration: const InputDecoration(
                               hintText: 'Nombre de terrain',
                               hintStyle: TextStyle(color: Colors.black),
@@ -236,14 +231,14 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                               return null;
                             },
                             onChanged: (value) {
-                              nombre_terrain = int.parse(value);
+                              inNombreTerrain = int.parse(value);
                             },
                           ),
                           TextFormField(
                             autocorrect: true,
                             controller: _controller5,
                             cursorColor: Colors.black,
-                            style: Theme.of(context).textTheme.display3,
+                            style: Theme.of(context).textTheme.headline3,
                             decoration: const InputDecoration(
                               hintText: 'Nature du sol',
                               hintStyle: TextStyle(color: Colors.black),
@@ -262,7 +257,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                             autocorrect: true,
                             controller: _controller6,
                             cursorColor: Colors.black,
-                            style: Theme.of(context).textTheme.display3,
+                            style: Theme.of(context).textTheme.headline3,
                             decoration: const InputDecoration(
                               hintText: 'Horaire Ouverture',
                               hintStyle: TextStyle(color: Colors.black),
@@ -284,9 +279,9 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                               child: RaisedButton(
                                 onPressed: () async {
                                   await ScopedModel.of<TerrainModel>(context)
-                                      .Verification_nom(nom);
+                                      .verificationNom(nom);
                                   if (ScopedModel.of<TerrainModel>(context)
-                                          .nom_verifier ==
+                                          .nomVerifier ==
                                       true) {
                                     if (_formKey.currentState.validate()) {
                                       for (var i = 0; i < images.length; i++) {
@@ -323,11 +318,11 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                           '/Profil',
                                           (Route<dynamic> route) => false);
                                       ScopedModel.of<TerrainModel>(context)
-                                          .AjouterTerrain(
+                                          .ajouterTerrain(
                                               nom,
                                               adresse,
                                               ville,
-                                              nombre_terrain,
+                                              inNombreTerrain,
                                               base64Image[0],
                                               base64Image[1],
                                               base64Image[2],
@@ -337,14 +332,14 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                               urlgoogle,
                                               urlwaze);
                                       ScopedModel.of<GameModel>(context)
-                                          .Match();
+                                          .match();
                                       Scaffold.of(context)
                                           .showSnackBar(new SnackBar(
                                               content: new Text(
                                         'Terrain Proposé',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .display3,
+                                            .headline3,
                                       )));
                                     }
                                   } else {
@@ -356,7 +351,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                                 },
                                 child: Text(
                                   'Proposer',
-                                  style: Theme.of(context).textTheme.display3,
+                                  style: Theme.of(context).textTheme.headline3,
                                 ),
                               ),
                             ),
@@ -365,7 +360,7 @@ class _Ajout_terrainState extends State<Ajout_terrain> {
                               child: Text(
                             "Ton terrain sera rajouter à la liste après validation par notre équipe",
                             textAlign: TextAlign.center,
-                            style: Theme.of(context).textTheme.display3,
+                            style: Theme.of(context).textTheme.headline3,
                           )),
                         ],
                       )),

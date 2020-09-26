@@ -1,17 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:math';
-
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:meetballl/db.dart';
-import 'package:meetballl/models/Model_terrain.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'footer.dart';
 import 'main.dart';
 import 'models/Model_co.dart';
@@ -42,21 +36,22 @@ class _ProfilState extends State<Profil> {
                 body: Center(
                   child: CircularProgressIndicator(),
                 ))
-            : model.retour_Profil
+            : model.boRetourProfil
                 ? Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                         Center(
-                            child: model.faux_pseudo
+                            child: model.boFauxPseudo
                                 ? Text("ton email est faux",
-                                    style: Theme.of(context).textTheme.display1)
+                                    style:
+                                        Theme.of(context).textTheme.headline1)
                                 : Text("ton password est faux",
                                     style:
-                                        Theme.of(context).textTheme.display1)),
+                                        Theme.of(context).textTheme.headline1)),
                         Center(
                             child: RaisedButton(
                           onPressed: () {
-                            ScopedModel.of<LoginModel>(context).Deconnection();
+                            ScopedModel.of<LoginModel>(context).deconnection();
                             Navigator.pushNamedAndRemoveUntil(
                                 context, '/', (Route<dynamic> route) => false);
                           },
@@ -99,7 +94,7 @@ class _PresentationState extends State<Presentation> {
       RefreshController(initialRefresh: false);
   @override
   Widget build(BuildContext context) {
-    mis_ajour() {
+    misAjour() {
       affImage = false;
     }
 
@@ -133,11 +128,11 @@ class _PresentationState extends State<Presentation> {
                             rotate: 0,
                           );
 
-                          base64Image = await base64Encode(imageBytescompress);
+                          base64Image = base64Encode(imageBytescompress);
                           await ScopedModel.of<LoginModel>(context)
-                              .ChangeImage(base64Image);
+                              .changeImage(base64Image);
 
-                          mis_ajour();
+                          misAjour();
                           Navigator.of(context).pop();
                         },
                       ),
@@ -154,9 +149,9 @@ class _PresentationState extends State<Presentation> {
                           List<int> imageBytes = image.readAsBytesSync();
                           base64Image = base64Encode(imageBytes);
                           await ScopedModel.of<LoginModel>(context)
-                              .ChangeImage(base64Image);
+                              .changeImage(base64Image);
 
-                          mis_ajour();
+                          misAjour();
                           Navigator.of(context).pop();
                         },
                       )
@@ -166,7 +161,7 @@ class _PresentationState extends State<Presentation> {
                       Text(
                           "Merci de patienter le temps de l'envoie de ta photo",
                           softWrap: true,
-                          style: Theme.of(context).textTheme.display3),
+                          style: Theme.of(context).textTheme.headline3),
                       Container(
                         height: MediaQuery.of(context).size.height / 3,
                         width: MediaQuery.of(context).size.width / 3,
@@ -178,7 +173,7 @@ class _PresentationState extends State<Presentation> {
     }
 
     void _onRefresh() async {
-      ScopedModel.of<LoginModel>(context).ParticipationProil();
+      ScopedModel.of<LoginModel>(context).ParticipationPr();
 
       _refreshController.refreshCompleted();
     }
@@ -231,7 +226,8 @@ class _PresentationState extends State<Presentation> {
 
               var mst = new DateTime.utc(ans, mois, jour, 20, 18, 04)
                   .millisecondsSinceEpoch;
-              int ageAnne = ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
+              double douAge = ((ms - mst) / (365 * 24 * 3600 * 1000));
+              int ageAnne = douAge.toInt();
               return Column(
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   // mainAxisAlignment: MainAxisAlignment.start,
@@ -253,25 +249,24 @@ class _PresentationState extends State<Presentation> {
                                         return affImage
                                             ? Container(
                                                 child: GestureDetector(
-                                                  onTap: (){
-                                                    print("fermeture de la photo");
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: PhotoView(
+                                                onTap: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: PhotoView(
                                                   imageProvider:
                                                       NetworkImage(model.img),
-                                              ),
-                                                ))
+                                                ),
+                                              ))
                                             : Container(
                                                 child: GestureDetector(
-                                                  onTap: (){
-                                                    print("fermeture de la photo");
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: PhotoView(
-                                                imageProvider: FileImage(image),
-                                              )
-                                              ));
+                                                    onTap: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: PhotoView(
+                                                      imageProvider:
+                                                          FileImage(image),
+                                                    )));
                                       });
                                 },
                                 onLongPress: () {
@@ -292,7 +287,7 @@ class _PresentationState extends State<Presentation> {
                                 )),
                             Text(model.noteprofil.toString() + "/5",
                                 softWrap: true,
-                                style: Theme.of(context).textTheme.display3),
+                                style: Theme.of(context).textTheme.headline3),
                           ],
                         ),
                         Container(
@@ -316,29 +311,29 @@ class _PresentationState extends State<Presentation> {
                                                     softWrap: true,
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .display3),
+                                                        .headline3),
                                                 Text(model.nom,
                                                     softWrap: true,
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .display3),
+                                                        .headline3),
                                               ],
                                             ),
                                             Text(ageAnne.toString() + " ans",
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .display3),
+                                                    .headline3),
                                             Text(model.club,
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .display3),
+                                                    .headline3),
                                             Text(model.niveau,
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .display3),
+                                                    .headline3),
                                             Container(
                                               height: 10,
                                             ),
@@ -346,7 +341,7 @@ class _PresentationState extends State<Presentation> {
                                                 softWrap: true,
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .display3),
+                                                    .headline3),
                                           ]),
                                     ],
                                   ),
@@ -376,7 +371,7 @@ class _PresentationState extends State<Presentation> {
                         child: Text("Rencontre",
                             textAlign: TextAlign.center,
                             softWrap: true,
-                            style: Theme.of(context).textTheme.display4)),
+                            style: Theme.of(context).textTheme.headline4)),
                     Row(
                       children: <Widget>[
                         Container(
@@ -396,7 +391,7 @@ class _PresentationState extends State<Presentation> {
                                 ScopedModel.of<LoginModel>(context)
                                     .participationProilfuture = false;
                                 ScopedModel.of<LoginModel>(context)
-                                    .ParticipationProil();
+                                    .ParticipationPr();
                               }),
                         ),
                         Container(
@@ -416,7 +411,7 @@ class _PresentationState extends State<Presentation> {
                                 ScopedModel.of<LoginModel>(context)
                                     .participationProilfuture = true;
                                 ScopedModel.of<LoginModel>(context)
-                                    .ParticipationProil();
+                                    .ParticipationPr();
                               }),
                         ),
                       ],
@@ -499,9 +494,9 @@ class _PresentationState extends State<Presentation> {
                                                     .lieu =
                                                 model.participation[i]['lieu'];
                                             ScopedModel.of<GameModel>(context)
-                                                    .id_rencontre =
+                                                    .inIdRencontre =
                                                 model.participation[i]
-                                                    ['id_rencontre'];
+                                                    ['stirnIdrencontre'];
                                             ScopedModel.of<GameModel>(context)
                                                     .nombJoueur =
                                                 int.parse(model.participation[i]
@@ -514,33 +509,34 @@ class _PresentationState extends State<Presentation> {
                                                     .heurerencontre =
                                                 model.participation[i]['heure'];
                                             ScopedModel.of<ImgModel>(context)
-                                                .Img_terrain_id(model
+                                                .imageTerrainId(model
                                                     .participation[i]['lieu']);
 
                                             // on prepare les image terrain et commentaire pour la page profil rencontre
                                             ScopedModel.of<ImgModel>(context)
-                                                .Img();
+                                                .listImage();
                                             ScopedModel.of<GameModel>(context)
-                                                .Terrain();
+                                                .terrain();
 
                                             // ScopedModel.of<GameModel>(context)
                                             //     .Commentaire();
 
-                                              await ScopedModel.of<LoginModel>(context)
-                                                .Personne_propose(
+                                            await ScopedModel.of<LoginModel>(
+                                                    context)
+                                                .personnePropose(
                                                     model.participation[i]
-                                                        ['id_rencontre']);
+                                                        ['stirnIdrencontre']);
 
-                                            // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['id_rencontre']);
+                                            // await ScopedModel.of<LoginModel>(context).Personne_propose( model.participation[i]['stirnIdrencontre']);
                                             ScopedModel.of<GameModel>(context)
-                                                .commentaire
+                                                .lisCommentaire
                                                 .clear();
                                             ScopedModel.of<GameModel>(context)
                                                     .nombre =
                                                 0; // sela premette de reconmmencer l'affichage
                                             await ScopedModel.of<GameModel>(
                                                     context)
-                                                .Commentaire();
+                                                .commentaire();
                                             Navigator.pushNamed(
                                                 context, '/Profil_renctontre');
                                           },
@@ -583,14 +579,14 @@ class _PresentationState extends State<Presentation> {
                                                                             true,
                                                                         style: Theme.of(context)
                                                                             .textTheme
-                                                                            .display2),
+                                                                            .headline2),
                                                                     Text(
                                                                         tempsavantmatch,
                                                                         softWrap:
                                                                             true,
                                                                         style: Theme.of(context)
                                                                             .textTheme
-                                                                            .display2),
+                                                                            .headline2),
                                                                     Text(
                                                                         "Il y a " +
                                                                             model.participation[i][
@@ -600,7 +596,7 @@ class _PresentationState extends State<Presentation> {
                                                                             true,
                                                                         style: Theme.of(context)
                                                                             .textTheme
-                                                                            .display2),
+                                                                            .headline2),
                                                                   ]),
                                                             ]),
                                                       ]))),
@@ -614,14 +610,14 @@ class _PresentationState extends State<Presentation> {
                           )
                         : Expanded(
                             child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              color: Colors.grey,
-                              child: Center(
-                                child: Text("tu n'a pas de rencontre de prevue",
-                                    softWrap: true,
-                                    style: Theme.of(context).textTheme.display3),
-                              ),
-                            )),
+                            width: MediaQuery.of(context).size.width,
+                            color: Colors.grey,
+                            child: Center(
+                              child: Text("tu n'a pas de rencontre de prevue",
+                                  softWrap: true,
+                                  style: Theme.of(context).textTheme.headline3),
+                            ),
+                          )),
                   ]);
             })));
   }

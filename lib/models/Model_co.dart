@@ -20,10 +20,10 @@ class LoginModel extends Model {
   bool pseudovalide = true;
   bool emailvalideModif = true;
   bool pseudovalideModif = true;
-  bool faux_pseudo = true;
+  bool boFauxPseudo = true;
   var description = "";
   bool loging = false;
-  bool retour_Profil = false;
+  bool boRetourProfil = false;
   bool affmodif = true;
   List participent = [];
   Map profVisiteur = {};
@@ -41,9 +41,8 @@ class LoginModel extends Model {
 
   bool dark = false;
   int page = 1;
-  bool participationProilfuture= true;
-  bool participationProilfutureVisiteur= true;
-
+  bool participationProilfuture = true;
+  bool participationProilfutureVisiteur = true;
 
   changeMode() {
     if (dark) {
@@ -54,7 +53,7 @@ class LoginModel extends Model {
     notifyListeners();
   }
 
-  Future<String> Connexion(String temail, String tpassword) async {
+  Future<String> connexion(String temail, String tpassword) async {
     String url = 'http://51.210.103.151/post_connexion.php';
     String json = '{"email":"$temail"}';
     Response response = await post(url, body: json);
@@ -77,7 +76,7 @@ class LoginModel extends Model {
     notifyListeners();
     while (tailledata > n && validation == true) {
       if (data[n]['email'] == temail) {
-        faux_pseudo =
+        boFauxPseudo =
             false; // quant faux_ pseudo passe a false ça veux dire que le pseudo est bon mais pas les password
         if (data[n]['password'] == tpassword) {
           id = data[n]['id'];
@@ -114,7 +113,7 @@ class LoginModel extends Model {
           devellopeur = false;
           if (id == "6" || id == "46") {
             devellopeur = true;
-            LieuDev();
+            lieuDev();
           }
         }
       }
@@ -123,17 +122,18 @@ class LoginModel extends Model {
     if (loging == false) {
       //  SnackBar(content: Text("yes"),);
       loging = true;
-      retour_Profil = true;
+      boRetourProfil = true;
       // avec retour_Profil = false un afficher la page de chargement
     }
     // première mise à jour de la page
     notifyListeners();
     // recherche les participation de notre joueur
-    ParticipationProil();
+    ParticipationPr();
     return " fin de fonction";
   }
 
-  Future<String> ParticipationProil() async {
+  // ignore: non_constant_identifier_names
+  Future<String> ParticipationPr() async {
     // objectif faire les liste des participation de notre joueur dans la variable participation
     participation.clear();
     var url;
@@ -142,60 +142,57 @@ class LoginModel extends Model {
     } else {
       url = 'http://51.210.103.151/post_verfparticipationPass.php';
     }
- 
+
     String json = '{"pseudo":"$pseudo"}';
-        Response response = await post(url, body: json);
-    var data_rencontre = jsonDecode(response.body);
-    for (var n = 0; n < data_rencontre.length; n++) {
+    Response response = await post(url, body: json);
+    var vaDataRencontre = jsonDecode(response.body);
+    for (var n = 0; n < vaDataRencontre.length; n++) {
       // et on stoke les info dans la liste participation
       Map<String, dynamic> participation_1 = {
         // "id": data_participation[i]['id'],
-        "jour": data_rencontre[n]['jours'],
-        "heure": data_rencontre[n]['heure'],
-        "nom_j": data_rencontre[n]['nombre_j'],
-        // "id_rencontre": data_participation[i]['ID_rencontre'],
-        "id_rencontre": data_rencontre[n]['id'],
-        "lieu": data_rencontre[n]['lieu'],
-        "pseudo": data_rencontre[n]['per']
+        "jour": vaDataRencontre[n]['jours'],
+        "heure": vaDataRencontre[n]['heure'],
+        "nom_j": vaDataRencontre[n]['nombre_j'],
+        // "stirnIdrencontre": data_participation[i]['ID_rencontre'],
+        "stirnIdrencontre": vaDataRencontre[n]['id'],
+        "lieu": vaDataRencontre[n]['lieu'],
+        "pseudo": vaDataRencontre[n]['per']
       };
       participation.add(participation_1);
     }
+
+    // ignore: unnecessary_statements
     img;
     notifyListeners();
     return " fin de fonction";
   }
 
+  // ignore: non_constant_identifier_names
   Future<String> ParticipationProilVisiteur(String pseudo) async {
     // objectif faire les liste des participation de notre joueur dans la variable participation
 
-
-
-
-
-
-
-participationvisiteur.clear();
+    participationvisiteur.clear();
     var url;
     if (participationProilfutureVisiteur) {
       url = 'http://51.210.103.151/post_verfparticipation.php';
     } else {
       url = 'http://51.210.103.151/post_verfparticipationPass.php';
     }
- 
+
     String json = '{"pseudo":"$pseudo"}';
     Response response = await post(url, body: json);
-    var data_rencontre = jsonDecode(response.body);
-    for (var n = 0; n < data_rencontre.length; n++) {
+    var vaDataRencontre = jsonDecode(response.body);
+    for (var n = 0; n < vaDataRencontre.length; n++) {
       // et on stoke les info dans la liste participation
       Map<String, dynamic> participation_1 = {
         // "id": data_participation[i]['id'],
-        "jour": data_rencontre[n]['jours'],
-        "heure": data_rencontre[n]['heure'],
-        "nom_j": data_rencontre[n]['nombre_j'],
-        // "id_rencontre": data_participation[i]['ID_rencontre'],
-        "id_rencontre": data_rencontre[n]['id'],
-        "lieu": data_rencontre[n]['lieu'],
-        "pseudo": data_rencontre[n]['per']
+        "jour": vaDataRencontre[n]['jours'],
+        "heure": vaDataRencontre[n]['heure'],
+        "nom_j": vaDataRencontre[n]['nombre_j'],
+        // "stirnIdrencontre": data_participation[i]['ID_rencontre'],
+        "stirnIdrencontre": vaDataRencontre[n]['id'],
+        "lieu": vaDataRencontre[n]['lieu'],
+        "pseudo": vaDataRencontre[n]['per']
       };
       participationvisiteur.add(participation_1);
     }
@@ -215,11 +212,13 @@ participationvisiteur.clear();
       noteVisiteur = (note / datanote.length);
     }
     noteVisiteur = num.parse(noteVisiteur.toStringAsFixed(2));
+    // ignore: unnecessary_statements
     img;
     notifyListeners();
     return " fin de fonction";
   }
 
+  // ignore: non_constant_identifier_names
   Future<String> Postinscritpion(
       String pseudo,
       String email,
@@ -240,11 +239,11 @@ participationvisiteur.clear();
 
     Response response = await post(url, body: json);
     String body = response.body;
-    Connexion(email, password);
+    connexion(email, password);
     return body;
   }
 
-  Future<String> Deconnection() {
+  deconnection() {
     id = "";
     img = "";
     pseudo = "";
@@ -256,12 +255,12 @@ participationvisiteur.clear();
     club = "";
     niveau = "";
     description = "";
-    faux_pseudo = true;
+    boFauxPseudo = true;
     loging = false;
-    retour_Profil = false;
+    boRetourProfil = false;
   }
 
-  Future<String> Modif(
+  Future<String> modifierProfil(
       String newpseudo,
       String email,
       String nom,
@@ -286,14 +285,14 @@ participationvisiteur.clear();
       String json =
           '{"pseudo":"$pseudo","newpseudo":"$newpseudo"}'; // make POST request
 
-      Response response = await post(url, body: json);
+      await post(url, body: json);
     }
-    Connexion(email, password);
+    connexion(email, password);
     affmodif = false;
     return body;
   }
 
-  Future<String> Verification_inscription(email_verifier, pseudo) async {
+  Future<String> verificationInscription(strinEmailVerifier, pseudo) async {
     // objectif quand on as une incription on verifi les pseudo et les email pour de pas avoir de doublon
     // si l'email est déjà pris emailvalide = false
     // si le pseudo est déjà pris pseudovalide = false
@@ -309,7 +308,7 @@ participationvisiteur.clear();
     }
 
     url = 'http://51.210.103.151/post_connexion.php'; // vérification pseudo
-    json = '{"email":"$email_verifier"}';
+    json = '{"email":"$strinEmailVerifier"}';
     response = await post(url, body: json);
     listpersonne = jsonDecode(response.body);
     if (listpersonne.isEmpty) {
@@ -322,8 +321,8 @@ participationvisiteur.clear();
     return " fin de fonction";
   }
 
-  Future<String> Verification_email_modif(
-      email_verifier, pseudo_verifier) async {
+  Future<String> verificationEmailModif(
+      strinEmailVerifier, strinPseudoVerifier) async {
     // objectif quand on as une incription on verifi les pseudo et les email pour de pas avoir de doublon
     // si l'email est déjà pris emailvalide = false
     // si le pseudo est déjà pris pseudovalide = false
@@ -331,25 +330,25 @@ participationvisiteur.clear();
     pseudovalideModif = true;
     String url =
         'http://51.210.103.151/post_connexion_pseudo.php'; // vérification pseudo
-    String json = '{"pseudo":"$pseudo_verifier"}';
+    String json = '{"pseudo":"$strinPseudoVerifier"}';
     Response response = await post(url, body: json);
     List listpersonne = jsonDecode(response.body);
-    if (listpersonne.isNotEmpty && pseudo_verifier != pseudo) {
+    if (listpersonne.isNotEmpty && strinPseudoVerifier != pseudo) {
       pseudovalideModif = false;
     }
 
     url = 'http://51.210.103.151/post_connexion.php'; // vérification email
-    json = '{"email":"$email_verifier"}';
+    json = '{"email":"$strinEmailVerifier"}';
     response = await post(url, body: json);
     listpersonne = jsonDecode(response.body);
-    if (listpersonne.isNotEmpty && email_verifier != email) {
+    if (listpersonne.isNotEmpty && strinEmailVerifier != email) {
       emailvalideModif = false;
     }
     notifyListeners();
     return " fin de fonction";
   }
 
-  Future<String> Personne_propose(String idrencontre) async {
+  Future<String> personnePropose(String idrencontre) async {
     // objectif faire la liste des participant d'une rencontre et s'avoir si notre joueur participe à cette rencontre
     // si boParticipatoin = true  le joueur participe déja à la rencontre
     boParticipation = false;
@@ -363,29 +362,23 @@ participationvisiteur.clear();
     for (var i = 0; i < listparticipant.length; i++) {
       String url =
           'http://51.210.103.151/post_connexion_pseudo.php'; // pour chaque participation on vas recherche le profil de la personne
-      String pseudo_joueur = listparticipant[i]['pseudo'];
-      String json = '{"pseudo":"$pseudo_joueur"}';
+      String strinPseudoJoueur = listparticipant[i]['pseudo'];
+      String json = '{"pseudo":"$strinPseudoJoueur"}';
       Response response = await post(url, body: json);
-      
 
       List listpersonne = jsonDecode(response.body);
 
       participent.add(listpersonne[0]);
-      print(pseudo_joueur);
-      print(pseudo);
 
-      if (pseudo_joueur == pseudo) {
+      if (strinPseudoJoueur == pseudo) {
         boParticipation = true;
-        print('1');
       }
-      print('........');
     }
-    print(boParticipation);
     notifyListeners();
     return " fin de fonction";
   }
 
-  Future<String> LieuDev() async {
+  Future<String> lieuDev() async {
     var url = 'http://51.210.103.151/get_avisDev.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
@@ -394,15 +387,14 @@ participationvisiteur.clear();
     return " fin de fonction";
   }
 
-  Future<String> ChangeImage(String image) async {
+  Future<String> changeImage(String image) async {
     // objectif changer la photo d'un utilisateur
     String url = 'http://51.210.103.151/post_changeImage.php';
-    int idd = int.parse(id);
     affmodif = false;
     String json = '{"id":"$id","image":"$image"}';
     Response response = await post(url, body: json);
     String body = response.body;
-    Connexion(email, password);
+    connexion(email, password);
     affmodif = false;
     img =
         "https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg";
@@ -410,17 +402,18 @@ participationvisiteur.clear();
     return body;
   }
 
-  Future<String> Envoienote(String note, String personnenoter,String id_rencontre) async {
+  Future<String> envoieNote(
+      String note, String personnenoter, String strinIdRencontre) async {
     String url = 'http://51.210.103.151/post_notenew.php';
     String json =
-        '{"pseudo":"$pseudo","personnenoter":"$personnenoter","note":"$note","id":"$id_rencontre"}';
+        '{"pseudo":"$pseudo","personnenoter":"$personnenoter","note":"$note","id":"$strinIdRencontre"}';
     Response response = await post(url, body: json);
     String body = response.body;
     notifyListeners();
     return body;
   }
 
-  Future<String> ProfilVisiteur() async {
+  Future<String> profilVisiteur() async {
     // ici on as tous les profil pour la recherhce d'un profil visiteur
     var url = 'http://51.210.103.151/get.php';
     http.Response response = await http.get(url);

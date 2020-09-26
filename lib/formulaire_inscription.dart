@@ -1,15 +1,6 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'package:meetballl/db.dart';
 import 'package:meetballl/main.dart';
-import 'package:meetballl/models/Model_img.dart';
-import 'package:meetballl/models/Model_terrain.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'models/Model_co.dart';
 
 var pseudo;
@@ -32,7 +23,7 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
-  final _formKey = GlobalKey<FormState>();
+  final keyForm = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

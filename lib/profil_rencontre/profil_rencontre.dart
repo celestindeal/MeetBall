@@ -7,35 +7,29 @@ import '../footer.dart';
 import '../main.dart';
 import '../models/Model_match.dart';
 
-class Profil_renctontre extends StatefulWidget {
+class ProfilRenctontre extends StatefulWidget {
   @override
-  _Profil_renctontreState createState() => _Profil_renctontreState();
+  _ProfilRenctontreState createState() => _ProfilRenctontreState();
 }
 
-class _Profil_renctontreState extends State<Profil_renctontre> {
+class _ProfilRenctontreState extends State<ProfilRenctontre> {
   @override
-
   Widget build(BuildContext context) {
-    
     return ScopedModelDescendant<GameModel>(builder: (context, child, model) {
- Function changepage(){
-      setState(() {
-      //  ScopedModel.of<LoginModel>(context).boParticipation;
-      });
-    }
       return Container(
-          child: model.afficher_lieu
-              ? ScopedModel.of<LoginModel>(context).boParticipation?
-              PageView.builder(
-                  controller: PageController(viewportFraction: 1),
-                  itemCount: 2,
-                  itemBuilder: (BuildContext context, int itemIndex) {
-                    if (itemIndex == 0) {
-                      return Presentation();
-                    } else {
-                      return Commentaire();
-                    }
-                  }): Presentation()
+          child: model.boAfficherLieu
+              ? ScopedModel.of<LoginModel>(context).boParticipation
+                  ? PageView.builder(
+                      controller: PageController(viewportFraction: 1),
+                      itemCount: 2,
+                      itemBuilder: (BuildContext context, int itemIndex) {
+                        if (itemIndex == 0) {
+                          return Presentation();
+                        } else {
+                          return Commentaire();
+                        }
+                      })
+                  : Presentation()
               : Scaffold(
                   appBar: AppBar(
                     centerTitle: true,
@@ -53,10 +47,3 @@ class _Profil_renctontreState extends State<Profil_renctontre> {
     });
   }
 }
-
-
-
-
-
-
-

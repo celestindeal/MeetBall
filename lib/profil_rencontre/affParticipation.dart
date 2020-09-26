@@ -3,15 +3,16 @@ import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/models/Model_match.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class AffParticipent extends StatefulWidget {
-  AffParticipent(this.participant);
+// ignore: must_be_immutable
+class AfParticipent extends StatefulWidget {
+  AfParticipent(this.participant);
   List participant;
   @override
   _AffParticipentState createState() => _AffParticipentState();
 }
 
-class _AffParticipentState extends State<AffParticipent> {
-  notation(String personnenoter, String id_rencontre) {
+class _AffParticipentState extends State<AfParticipent> {
+  notation(String personnenoter, String strinIdRencontre) {
     return showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -38,8 +39,8 @@ class _AffParticipentState extends State<AffParticipent> {
                               icon: Icon(Icons.star_border),
                               color: Colors.yellow,
                               onPressed: () {
-                                ScopedModel.of<LoginModel>(context).Envoienote(
-                                    "1", personnenoter, id_rencontre);
+                                ScopedModel.of<LoginModel>(context).envoieNote(
+                                    "1", personnenoter, strinIdRencontre);
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -48,8 +49,8 @@ class _AffParticipentState extends State<AffParticipent> {
                               icon: Icon(Icons.star_border),
                               color: Colors.yellow,
                               onPressed: () {
-                                ScopedModel.of<LoginModel>(context).Envoienote(
-                                    "2", personnenoter, id_rencontre);
+                                ScopedModel.of<LoginModel>(context).envoieNote(
+                                    "2", personnenoter, strinIdRencontre);
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -58,8 +59,8 @@ class _AffParticipentState extends State<AffParticipent> {
                               icon: Icon(Icons.star_border),
                               color: Colors.yellow,
                               onPressed: () {
-                                ScopedModel.of<LoginModel>(context).Envoienote(
-                                    "3", personnenoter, id_rencontre);
+                                ScopedModel.of<LoginModel>(context).envoieNote(
+                                    "3", personnenoter, strinIdRencontre);
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -68,8 +69,8 @@ class _AffParticipentState extends State<AffParticipent> {
                               icon: Icon(Icons.star_border),
                               color: Colors.yellow,
                               onPressed: () {
-                                ScopedModel.of<LoginModel>(context).Envoienote(
-                                    "4", personnenoter, id_rencontre);
+                                ScopedModel.of<LoginModel>(context).envoieNote(
+                                    "4", personnenoter, strinIdRencontre);
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -78,8 +79,8 @@ class _AffParticipentState extends State<AffParticipent> {
                               icon: Icon(Icons.star_border),
                               color: Colors.yellow,
                               onPressed: () {
-                                ScopedModel.of<LoginModel>(context).Envoienote(
-                                    "5", personnenoter, id_rencontre);
+                                ScopedModel.of<LoginModel>(context).envoieNote(
+                                    "5", personnenoter, strinIdRencontre);
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -138,8 +139,9 @@ class _AffParticipentState extends State<AffParticipent> {
 
                     var mst = new DateTime.utc(ans, mois, jour, 20, 18, 04)
                         .millisecondsSinceEpoch;
-                    int ageAnne =
-                        ((ms - mst) / (365 * 24 * 3600 * 1000)).toInt();
+                    double douAge = ((ms - mst) / (365 * 24 * 3600 * 1000));
+
+                    int ageAnne = douAge.toInt();
 
                     // on veux savoir si cette personne est nous même
                     bool bonotation = true;
@@ -161,7 +163,7 @@ class _AffParticipentState extends State<AffParticipent> {
                                     .pseudo
                                     .toString()) {
                               ScopedModel.of<LoginModel>(context)
-                                  .ParticipationProil();
+                                  .ParticipationPr();
                               ScopedModel.of<LoginModel>(context).page = 1;
                               Navigator.pushNamed(context, '/Profil');
                             } else {
@@ -195,11 +197,11 @@ class _AffParticipentState extends State<AffParticipent> {
                                 Text(participant[i]['participent']['pseudo'],
                                     softWrap: true,
                                     style:
-                                        Theme.of(context).textTheme.display3),
+                                        Theme.of(context).textTheme.headline3),
                                 Text(ageAnne.toString() + " ans ",
                                     softWrap: true,
                                     style:
-                                        Theme.of(context).textTheme.display3),
+                                        Theme.of(context).textTheme.headline3),
                                 bonotation
                                     ? ScopedModel.of<LoginModel>(context)
                                             .boParticipation
@@ -210,7 +212,7 @@ class _AffParticipentState extends State<AffParticipent> {
                                                       ['pseudo'],
                                                   ScopedModel.of<GameModel>(
                                                           context)
-                                                      .id_rencontre);
+                                                      .inIdRencontre);
                                             },
                                             child: Text(
                                               'noter',
@@ -221,11 +223,10 @@ class _AffParticipentState extends State<AffParticipent> {
                                           )
                                         : Container()
                                     : Container(
-                                        child: FlatButton(
-                                            child: Text('     ',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                )))),
+                                        child: Text('     ',
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                            ))),
                               ],
                             ),
                           ),
@@ -250,14 +251,14 @@ class _AffParticipentState extends State<AffParticipent> {
                                               softWrap: true,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .display3),
+                                                  .headline3),
                                           Text(
                                               participant[i]['note'][n]['note']
                                                   .toString(),
                                               softWrap: true,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .display3),
+                                                  .headline3),
                                         ],
                                       ),
                                       Divider(color: Colors.grey[300]),
@@ -267,17 +268,13 @@ class _AffParticipentState extends State<AffParticipent> {
                             : Container(),
                         GestureDetector(
                           onTap: () {
-                            print('ontap');
-                            print(boaffnote[i]);
-
                             setState(() {
                               boaffnote[i] = !boaffnote[i];
                             });
-                            print(boaffnote[i]);
                           },
                           child: Text(moyenne,
                               softWrap: true,
-                              style: Theme.of(context).textTheme.display3),
+                              style: Theme.of(context).textTheme.headline3),
                         ),
                       ],
                     );

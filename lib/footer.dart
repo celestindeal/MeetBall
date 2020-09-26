@@ -32,7 +32,7 @@ class Footer extends StatelessWidget {
                   height: 40,
                 ),
                 onPressed: () {
-                  ScopedModel.of<LoginModel>(context).ParticipationProil();
+                  ScopedModel.of<LoginModel>(context).ParticipationPr();
 
                   Navigator.of(context).push(_createRouteprofil(context));
                 }),
@@ -51,7 +51,7 @@ class Footer extends StatelessWidget {
                   height: 40,
                 ),
                 onPressed: () {
-                  ScopedModel.of<GameModel>(context).MatchCalendar();
+                  ScopedModel.of<GameModel>(context).matchCalendar();
 
                   Navigator.of(context).push(_createRouterencontre(context));
                 }),
@@ -69,11 +69,11 @@ class Footer extends StatelessWidget {
                   color: Colors.black,
                 ),
                 onPressed: () {
-                  ScopedModel.of<ImgModel>(context).Img();
+                  ScopedModel.of<ImgModel>(context).listImage();
                   if (ScopedModel.of<TerrainModel>(context)
-                      .data_terrain
+                      .vaDataTerrain
                       .isEmpty) {
-                    ScopedModel.of<TerrainModel>(context).Terrain();
+                    ScopedModel.of<TerrainModel>(context).terrain();
                   }
                   Navigator.of(context).push(_createRouterecherche(context));
                 }),

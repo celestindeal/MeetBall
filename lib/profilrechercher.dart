@@ -21,13 +21,13 @@ double lat1;
 double ditanceCourt = 1000000;
 
 class _ProfilRechercheState extends State<ProfilRecherche> {
-  @override
   List profilvisiteur = [];
   bool init = true;
   bool afficher = true;
   Widget build(BuildContext context) {
     if (init) {
       setState(() {
+        // ignore: unnecessary_statements
         profilvisiteur;
       });
       init = false;
@@ -36,7 +36,6 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
     comparestring(String mot1, String mot2) {
       // on compparre deux mots si il ont des lettre en commun on renvoie un nombre sinon on renvoie 0
       int taille1 = mot1.length;
-      int taille2 = mot2.length;
       int compare = 0;
       for (var i = 0; i < taille1; i++) {
         String lettre1 = mot1[i];
@@ -51,7 +50,7 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
     terrainre(String terrainre) async {
       List contruction = [];
       if (ScopedModel.of<LoginModel>(context).profilvisiteur.isEmpty) {
-        await ScopedModel.of<LoginModel>(context).ProfilVisiteur();
+        await ScopedModel.of<LoginModel>(context).profilVisiteur();
       }
 
       profilvisiteur.clear();
@@ -102,6 +101,7 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
         }
       }
       setState(() {
+        // ignore: unnecessary_statements
         profilvisiteur;
       });
       afficher = true;
@@ -124,7 +124,7 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
               TextFormField(
                 autocorrect: true,
                 cursorColor: Colors.black,
-                style: Theme.of(context).textTheme.display3,
+                style: Theme.of(context).textTheme.headline3,
                 decoration: const InputDecoration(
                   hintText: 'Trouver un joueur',
                   hintStyle: TextStyle(color: Colors.black),
@@ -180,7 +180,7 @@ class _ProfilRechercheState extends State<ProfilRecherche> {
                                         ")",
                                     softWrap: true,
                                     style:
-                                        Theme.of(context).textTheme.display3),
+                                        Theme.of(context).textTheme.headline3),
                               ),
                             ),
                           );

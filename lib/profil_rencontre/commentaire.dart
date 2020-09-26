@@ -16,14 +16,14 @@ double lastscrool = 0;
 
 class _CommentaireState extends State<Commentaire> {
   ScrollController _scrollController = new ScrollController();
-  final key_commentainer = GlobalKey<FormState>();
+  final keyCommentainer = GlobalKey<FormState>();
   String com;
   var _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     void checkForNewSharedLists() async {
       // on refait la fonction pour aller chercher les commentaire
-      ScopedModel.of<GameModel>(context).Commentaire();
+      ScopedModel.of<GameModel>(context).commentaire();
       // si il y as un nouveau commentainer  on scroll la page pour voir le nouveau com
       if (ScopedModel.of<GameModel>(context).scrool) {
         ScopedModel.of<GameModel>(context).scrool = false;
@@ -41,7 +41,7 @@ class _CommentaireState extends State<Commentaire> {
             ScopedModel.of<GameModel>(context).mmax + 10;
         // calcul et placement du nouveau scroll
         double max = _scrollController.position.maxScrollExtent;
-        await ScopedModel.of<GameModel>(context).Commentaire();
+        await ScopedModel.of<GameModel>(context).commentaire();
         Timer(Duration(microseconds: 10), () {
           _scrollController
               .jumpTo((_scrollController.position.maxScrollExtent - max));
@@ -58,7 +58,7 @@ class _CommentaireState extends State<Commentaire> {
     Timer(Duration(microseconds: 1), () {
       if (ScopedModel.of<LoginModel>(context).boParticipation) {
         _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
-        ScopedModel.of<GameModel>(context).Commentaire();
+        ScopedModel.of<GameModel>(context).commentaire();
       }
     });
 
@@ -84,17 +84,17 @@ class _CommentaireState extends State<Commentaire> {
                 Container(
                   height: (MediaQuery.of(context).size.height - 200),
                   color: Colors.transparent,
-                  child: model.commentaire.length == 0
+                  child: model.lisCommentaire.length == 0
                       ? Text("Il n'y as pas encore de commentaire",
                           textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.display3)
+                          style: Theme.of(context).textTheme.headline3)
                       : ListView.builder(
                           controller: _scrollController,
-                          itemCount: model.commentaire.length,
+                          itemCount: model.lisCommentaire.length,
                           itemBuilder: (context, i) {
                             bool message;
 
-                            if (model.commentaire[i]['pseudo'].toString() ==
+                            if (model.lisCommentaire[i]['pseudo'].toString() ==
                                 ScopedModel.of<LoginModel>(context)
                                     .pseudo
                                     .toString()) {
@@ -115,7 +115,6 @@ class _CommentaireState extends State<Commentaire> {
                                     Flexible(
                                       child: GestureDetector(
                                         onLongPress: () {
-                                          print(message);
                                           if (message) {
                                             showDialog(
                                               context: context,
@@ -128,20 +127,18 @@ class _CommentaireState extends State<Commentaire> {
                                                       width: double.infinity,
                                                       child: RaisedButton(
                                                         onPressed: () async {
-                                                          print(model
-                                                              .commentaire[i]);
                                                           await ScopedModel.of<
                                                                       GameModel>(
                                                                   context)
-                                                              .Sup_commentaire(
+                                                              .supCommentaire(
                                                                   int.parse(model
-                                                                          .commentaire[
+                                                                          .lisCommentaire[
                                                                       i]['id']));
                                                           setState(() {
                                                             ScopedModel.of<
                                                                         GameModel>(
                                                                     context)
-                                                                .commentaire
+                                                                .lisCommentaire
                                                                 .clear();
                                                           });
 
@@ -152,7 +149,7 @@ class _CommentaireState extends State<Commentaire> {
                                                           await ScopedModel.of<
                                                                       GameModel>(
                                                                   context)
-                                                              .Commentaire();
+                                                              .commentaire();
                                                           Navigator.of(context)
                                                               .pop();
                                                         },
@@ -169,7 +166,7 @@ class _CommentaireState extends State<Commentaire> {
                                                                 style: Theme.of(
                                                                         context)
                                                                     .textTheme
-                                                                    .display3),
+                                                                    .headline3),
                                                           ],
                                                         ),
                                                       ),
@@ -201,16 +198,16 @@ class _CommentaireState extends State<Commentaire> {
                                           child: Column(
                                             children: <Widget>[
                                               Text(
-                                                  model.commentaire[i]
+                                                  model.lisCommentaire[i]
                                                       ['commentaire'],
                                                   textAlign: TextAlign.center,
                                                   style: Theme.of(context)
                                                       .textTheme
-                                                      .display3),
-                                              Text(model.commentaire[i]
+                                                      .headline3),
+                                              Text(model.lisCommentaire[i]
                                                   ['pseudo']),
-                                              Text(
-                                                  model.commentaire[i]['date']),
+                                              Text(model.lisCommentaire[i]
+                                                  ['date']),
                                             ],
                                           ),
                                         ),
@@ -228,7 +225,7 @@ class _CommentaireState extends State<Commentaire> {
 
                 // formulaire pour commenter
                 Form(
-                  key: key_commentainer,
+                  key: keyCommentainer,
                   child: Container(
                     color: Colors.indigo,
                     child: TextFormField(
@@ -242,11 +239,11 @@ class _CommentaireState extends State<Commentaire> {
                         hintStyle: TextStyle(color: Colors.white),
                         suffixIcon: IconButton(
                           onPressed: () async {
-                            if (key_commentainer.currentState.validate()) {
+                            if (keyCommentainer.currentState.validate()) {
                               await ScopedModel.of<GameModel>(context)
-                                  .Ajouter_ommentaire(com, login.pseudo);
+                                  .ajouterCommentaire(com, login.pseudo);
                               await ScopedModel.of<GameModel>(context)
-                                  .Commentaire();
+                                  .commentaire();
                               com = null;
                               _controller.clear();
                               Timer(Duration(seconds: 1), () {

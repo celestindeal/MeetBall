@@ -4,58 +4,57 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
 class GameModel extends Model {
-  var data_game = [];
+  var vaDataGame = [];
 
   int taille = 0;
 
-  var rencontre_visualiser;
+  var vaRencontreVisualiser;
   bool afficher = false;
-  bool afficher_lieu = false;
-  List commentaire = [];
+  bool boAfficherLieu = false;
+  List lisCommentaire = [];
   bool scrool = true;
 
-  var adresse_lieu;
-  var url_lieu;
-  var urlwaze_lieu;
-  var commentaire_lieu;
-  var nom_t_lieu;
-  var ville_lieu;
-  var id_terrain;
+  var vaAdresseLieu;
+  var vaUrlLieu;
+  var vaUrlwazeLieu;
+  var vaCommentaireLieu;
+  var vaNomLieu;
+  var vavilleLieu;
+  var vaIdTerrain;
   String terrainrencontre = "";
   int nombre = 0;
   int mmax = 15;
-  int lastmmax =0;
+  int lastmmax = 0;
   // variable de sélection des la rencontre pour la page profil rencontre
   String lieu = "";
-  String id_rencontre;
+  String inIdRencontre;
   int nombJoueur;
   String daterencontre = " ";
   String heurerencontre = " ";
 //pour le calendar
 
   Map<DateTime, List> events = {};
-  final _selectedDay = DateTime.now();
+  final selectedDay = DateTime.now();
 
-  // variable pour rajouter un match 
+  // variable pour rajouter un match
   String date = "Date";
-String time = "Heure";
-// variable pour les commentaire 
-
+  String time = "Heure";
+// variable pour les commentaire
 
   void initState() {}
 
-  Future<String> Match() async {
+  Future<String> match() async {
     var url = 'http://51.210.103.151/get_match_future.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
-    data_game = data;
+    vaDataGame = data;
     taille = data.length;
     afficher = true;
     notifyListeners();
     return " fin de fonction";
   }
 
-  Future<String> MatchCalendar() async {
+  Future<String> matchCalendar() async {
     events.clear();
     var url = 'http://51.210.103.151/get_match.php';
     http.Response response = await http.get(url);
@@ -83,66 +82,66 @@ String time = "Heure";
     return " fin de fonction";
   }
 
-  Future<String> Ajout_match(String lieu, String date, String heure,
-      String nombre_joueur, String pseudo) async {
+  Future<String> ajoutMatch(String lieu, String date, String heure,
+      String strinNombreJoueur, String pseudo) async {
     afficher = false;
     String url = 'http://51.210.103.151/post_match.php';
     String json =
-        '{"lieu":"$lieu","date":"$date","heure":"$heure","nombre_joueur":"$nombre_joueur","pseudo":"$pseudo"}'; // make POST request
+        '{"lieu":"$lieu","date":"$date","heure":"$heure","nombre_joueur":"$strinNombreJoueur","pseudo":"$pseudo"}'; // make POST request
     Response response = await post(url, body: json);
     String body = response.body;
     return body;
   }
 
-  Future<String> Terrain() async {
+  Future<String> terrain() async {
     var url = 'http://51.210.103.151/get_terrain.php';
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
     bool validation = true;
-    int nombre_tour = data.length;
+    int inNombreTour = data.length;
     int n = 0;
-    while (nombre_tour > n && validation == true) {
+    while (inNombreTour > n && validation == true) {
       if ((data[n]['nom'].toString() + " ") == lieu.toString()) {
-        adresse_lieu = data[n]['adresse'];
-        url_lieu = data[n]['url'];
-        urlwaze_lieu = data[n]['urlwaze'];
-        commentaire_lieu = data[n]['commentaire'];
-        nom_t_lieu = data[n]['ville'];
-        ville_lieu = data[n]['nom_t'];
-        id_terrain = data[n]['id'];
+        vaAdresseLieu = data[n]['adresse'];
+        vaUrlLieu = data[n]['url'];
+        vaUrlwazeLieu = data[n]['urlwaze'];
+        vaCommentaireLieu = data[n]['commentaire'];
+        vaNomLieu = data[n]['ville'];
+        vavilleLieu = data[n]['nom_t'];
+        vaIdTerrain = data[n]['id'];
 
         validation = false;
       }
       if ((data[n]['nom'].toString()) == lieu.toString()) {
-        adresse_lieu = data[n]['adresse'];
-        commentaire_lieu = data[n]['commentaire'];
-        nom_t_lieu = data[n]['ville'];
-        ville_lieu = data[n]['nom_t'];
-        id_terrain = data[n]['id'];
-        url_lieu = data[n]['url'];
-        urlwaze_lieu = data[n]['urlwaze'];
+        vaAdresseLieu = data[n]['adresse'];
+        vaCommentaireLieu = data[n]['commentaire'];
+        vaNomLieu = data[n]['ville'];
+        vavilleLieu = data[n]['nom_t'];
+        vaIdTerrain = data[n]['id'];
+        vaUrlLieu = data[n]['url'];
+        vaUrlwazeLieu = data[n]['urlwaze'];
 
         validation = false;
       }
       n++;
     }
-    afficher_lieu = true;
+    boAfficherLieu = true;
     notifyListeners();
     return " fin de fonction";
   }
 
-  Participation(int id_rencontre, String pseudo, int nom_inviter) async {
+  participation(int inIdRencontre, String pseudo, int inNomInviter) async {
     String url = 'http://51.210.103.151/post_participation.php';
     String json =
-        '{"id_rencontre":"$id_rencontre","nombre_joueur":"$nom_inviter","pseudo":"$pseudo"}'; // make POST request
+        '{"stirnIdrencontre":"$inIdRencontre","nombre_joueur":"$inNomInviter","pseudo":"$pseudo"}'; // make POST request
     Response response = await post(url, body: json);
     String body = response.body;
     return body;
   }
 
-  Commentaire() async {
+  commentaire() async {
     var url = 'http://51.210.103.151/post_commentaire_rencontre.php';
-    String json = '{"id_rencontre":"$id_rencontre"}'; // make POST request
+    String json = '{"stirnIdrencontre":"$inIdRencontre"}'; // make POST request
     Response response = await post(url, body: json);
     var data;
     if (response.body.isNotEmpty) {
@@ -151,16 +150,16 @@ String time = "Heure";
     List list = data as List;
     // on veux savoir des nouveaux commentaires
 
-   // si il y as un nouveau message || l'on doit affiche plus de message 
+    // si il y as un nouveau message || l'on doit affiche plus de message
     if (list.length > nombre || mmax > lastmmax) {
       lastmmax = mmax;
-      commentaire.clear();
-      var nombre_tour = list.length;
+      lisCommentaire.clear();
+      var vaNombreTour = list.length;
       int n = 0;
-      while (nombre_tour > n) {
-        if ((list[n]['id_rencontre'].toString()) == id_rencontre &&
-            (nombre_tour - n) < mmax) {
-          commentaire.add(list[n]);
+      while (vaNombreTour > n) {
+        if ((list[n]['stirnIdrencontre'].toString()) == inIdRencontre &&
+            (vaNombreTour - n) < mmax) {
+          lisCommentaire.add(list[n]);
         }
         n++;
       }
@@ -176,37 +175,40 @@ String time = "Heure";
     return " fin de fonction";
   }
 
-  Ajouter_ommentaire(String commentaire, String pseudo) async {
+  ajouterCommentaire(String commentaire, String pseudo) async {
     String url = 'http://51.210.103.151/post_commentaire.php';
     String json =
-        '{"id_rencontre":"$id_rencontre","commentaire":"$commentaire","pseudo":"$pseudo"}'; // make POST request
+        '{"stirnIdrencontre":"$inIdRencontre","commentaire":"$commentaire","pseudo":"$pseudo"}'; // make POST request
     Response response = await post(url, body: json);
     String body = response.body;
     return body;
   }
 
-  Sup_participation(int id_rencontre, String pseudo, int nom_inviter) async {
+  supParticipation(int stirnIdrencontre, String pseudo, int nomInviter) async {
     String url = 'http://51.210.103.151/post_sup_participation.php';
 
     String json =
-        '{"id_rencontre":"$id_rencontre","pseudo":"$pseudo","inviter":"$nom_inviter"}'; // make POST request
+        '{"stirnIdrencontre":"$stirnIdrencontre","pseudo":"$pseudo","inviter":"$nomInviter"}'; // make POST request
     Response response = await post(url, body: json);
     String body = response.body;
     return body;
   }
-  Sup_commentaire(int id, ) async {
+
+  supCommentaire(
+    int id,
+  ) async {
     String url = 'http://51.210.103.151/post_sup_commentaire.php';
 
-    String json =
-        '{"id":"$id"}'; // make POST request
+    String json = '{"id":"$id"}'; // make POST request
     Response response = await post(url, body: json);
     String body = response.body;
     return body;
   }
-  Initdate(String newdate, String newtime) async {
-    date= newdate;
+
+  initdate(String newdate, String newtime) async {
+    date = newdate;
     time = newtime;
-     notifyListeners();
-    return ;
+    notifyListeners();
+    return;
   }
 }

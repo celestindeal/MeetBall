@@ -26,13 +26,12 @@ double lat1;
 double ditanceCourt = 1000000;
 
 class _LieuDevState extends State<LieuDev> {
-  @override
   List terrain = [];
   bool init = true;
   bool afficher = true;
 
   List<Asset> images = List<Asset>();
-  String _error = 'No Error Dectected';
+  String strinError = 'No Error Dectected';
 
   List base64Image = [];
   String lien1 = "";
@@ -40,7 +39,7 @@ class _LieuDevState extends State<LieuDev> {
   String lien3 = "";
   String lien4 = "";
   Widget build(BuildContext context) {
-    envoie_image(String idlieu, String nomlieu) async {
+    envoieImage(String idlieu, String nomlieu) async {
       for (var i = 0; i < images.length; i++) {
         ByteData test = await images[i].getByteData();
         Uint8List audioUint8List =
@@ -103,23 +102,24 @@ class _LieuDevState extends State<LieuDev> {
 
       setState(() {
         images = resultList;
-        _error = error;
+        strinError = error;
       });
-      await envoie_image(idterrain, nomlieu);
+      await envoieImage(idterrain, nomlieu);
 
       Navigator.pushNamedAndRemoveUntil(
           context, '/Profil', (Route<dynamic> route) => false);
     }
 
-    supprimer_lieu(String id) async {
+    supprimerLieu(String id) async {
       var url = 'http://51.210.103.151/post_sup_terrain.php';
       String json = '{"id":"$id"}';
-      Response response = await post(url, body: json);
+      await post(url, body: json);
       return " fin de fonction";
     }
 
     if (init) {
       setState(() {
+        // ignore: unnecessary_statements
         terrain;
       });
       init = false;
@@ -127,7 +127,7 @@ class _LieuDevState extends State<LieuDev> {
 
     terrainre(String terrainre) async {
       List contruction = [];
-      await ScopedModel.of<TerrainModel>(context).TerrainDev();
+      await ScopedModel.of<TerrainModel>(context).terrainDev();
       terrain.clear();
       if (terrainre.isEmpty) {
         // quand l'utilisateur viens d'appuyer mais qu'il n'a rien écrit on passe ici et on affiche tous
@@ -136,20 +136,20 @@ class _LieuDevState extends State<LieuDev> {
         // on vas regarder mot pare mot si on a des lettre on commun avec la recherche
         int plusG = 0;
         for (var i = 0;
-            i < ScopedModel.of<TerrainModel>(context).taille_terrainDev;
+            i < ScopedModel.of<TerrainModel>(context).tailleTerrainDev;
             i++) {
           int nombre = 0;
           nombre = comparestring(
               terrainre.toUpperCase(),
               ScopedModel.of<TerrainModel>(context)
-                  .data_terrainDev[i]['ville']
+                  .inDataTerrainDev[i]['ville']
                   .toUpperCase());
           if (nombre > 0 && nombre > (plusG - 2)) {
             plusG = nombre;
             // ici le lieu doit être affiche il vas dans construction
             Map tkt = {
               'contruiction':
-                  ScopedModel.of<TerrainModel>(context).data_terrainDev[i],
+                  ScopedModel.of<TerrainModel>(context).inDataTerrainDev[i],
               "nombre": nombre
             };
             contruction.add(tkt);
@@ -173,6 +173,7 @@ class _LieuDevState extends State<LieuDev> {
         }
       }
       setState(() {
+        // ignore: unnecessary_statements
         terrain;
       });
       afficher = true;
@@ -195,7 +196,7 @@ class _LieuDevState extends State<LieuDev> {
               TextFormField(
                 autocorrect: true,
                 cursorColor: Colors.black,
-                style: Theme.of(context).textTheme.display3,
+                style: Theme.of(context).textTheme.headline3,
                 decoration: const InputDecoration(
                   hintText: 'Trouver un playground',
                   hintStyle: TextStyle(color: Colors.black),
@@ -241,47 +242,47 @@ class _LieuDevState extends State<LieuDev> {
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
-                                                                  .display4)
+                                                                  .headline4)
                                                       : Text("Afficher",
                                                           softWrap: true,
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
-                                                                  .display4),
+                                                                  .headline4),
                                                   ScopedModelDescendant<
                                                           ImgModel>(
                                                       builder: (context, child,
                                                           img) {
-                                                    int nombre_tour = 0;
+                                                    int inNombreTour = 0;
 
-                                                    while (img.taille_img >
-                                                        nombre_tour) {
+                                                    while (img.inTailleImg >
+                                                        inNombreTour) {
                                                       if (terrain[i]['id'] ==
-                                                          img.data_img[
-                                                                  nombre_tour]
+                                                          img.vaDataImg[
+                                                                  inNombreTour]
                                                               ["id_lieu"]) {
                                                         if (lien1 == "") {
-                                                          lien1 = img.data_img[
-                                                                  nombre_tour]
+                                                          lien1 = img.vaDataImg[
+                                                                  inNombreTour]
                                                               ["lien"];
                                                         } else if (lien2 ==
                                                             "") {
-                                                          lien2 = img.data_img[
-                                                                  nombre_tour]
+                                                          lien2 = img.vaDataImg[
+                                                                  inNombreTour]
                                                               ["lien"];
                                                         } else if (lien3 ==
                                                             "") {
-                                                          lien3 = img.data_img[
-                                                                  nombre_tour]
+                                                          lien3 = img.vaDataImg[
+                                                                  inNombreTour]
                                                               ["lien"];
                                                         } else if (lien4 ==
                                                             "") {
-                                                          lien4 = img.data_img[
-                                                                  nombre_tour]
+                                                          lien4 = img.vaDataImg[
+                                                                  inNombreTour]
                                                               ["lien"];
                                                         }
                                                       }
-                                                      nombre_tour++;
+                                                      inNombreTour++;
                                                     }
                                                     if (lien1 == "") {
                                                       return Container();
@@ -336,7 +337,7 @@ class _LieuDevState extends State<LieuDev> {
                                                                 default:
                                                               }
                                                               if (image == "") {
-                                                                Container();
+                                                                return Container();
                                                               } else {
                                                                 return GestureDetector(
                                                                   onTap: () {
@@ -349,7 +350,6 @@ class _LieuDevState extends State<LieuDev> {
                                                                           return Container(
                                                                               child: GestureDetector(
                                                                                   onTap: () {
-                                                                                    print("fermeture de la photo");
                                                                                     Navigator.of(context).pop();
                                                                                   },
                                                                                   child: PhotoView(
@@ -391,7 +391,7 @@ class _LieuDevState extends State<LieuDev> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                               Text(
                                                                   terrain[i][
                                                                       'adresse'],
@@ -400,7 +400,7 @@ class _LieuDevState extends State<LieuDev> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                               Text(
                                                                   terrain[i]
                                                                       ['ville'],
@@ -409,7 +409,7 @@ class _LieuDevState extends State<LieuDev> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                               Text(
                                                                   terrain[i][
                                                                           'nom_t'] +
@@ -419,7 +419,7 @@ class _LieuDevState extends State<LieuDev> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                               Text(
                                                                   terrain[i]
                                                                       ['sol'],
@@ -428,7 +428,7 @@ class _LieuDevState extends State<LieuDev> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                               Text(
                                                                   terrain[i][
                                                                       'ouverture'],
@@ -437,7 +437,7 @@ class _LieuDevState extends State<LieuDev> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                               Text(
                                                                   terrain[i][
                                                                       'commentaire'],
@@ -446,7 +446,7 @@ class _LieuDevState extends State<LieuDev> {
                                                                   style: Theme.of(
                                                                           context)
                                                                       .textTheme
-                                                                      .display3),
+                                                                      .headline3),
                                                             ]),
                                                       ]),
                                                   Center(
@@ -476,7 +476,7 @@ class _LieuDevState extends State<LieuDev> {
                                                                               .center,
                                                                           style: Theme.of(context)
                                                                               .textTheme
-                                                                              .display1),
+                                                                              .headline1),
                                                                       Row(
                                                                         mainAxisAlignment:
                                                                             MainAxisAlignment.spaceEvenly,
@@ -490,7 +490,7 @@ class _LieuDevState extends State<LieuDev> {
                                                                           RaisedButton(
                                                                               onPressed: () async {
                                                                                 Navigator.pushNamedAndRemoveUntil(context, '/lieuDev', (Route<dynamic> route) => false);
-                                                                                supprimer_lieu(terrain[i]['id']);
+                                                                                supprimerLieu(terrain[i]['id']);
                                                                               },
                                                                               child: Text('oui')),
                                                                         ],
@@ -507,7 +507,7 @@ class _LieuDevState extends State<LieuDev> {
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
-                                                                  .display3),
+                                                                  .headline3),
                                                     ),
                                                   ),
                                                   Center(
@@ -531,12 +531,8 @@ class _LieuDevState extends State<LieuDev> {
                                                                 'http://51.210.103.151/post_modif_auto_terrain.php';
                                                             String json =
                                                                 '{"id":"$idterrain","auto":"1"}'; // make POST request
-
-                                                            Response response =
-                                                                await post(url,
-                                                                    body: json);
-                                                            String body =
-                                                                response.body;
+                                                            await post(url,
+                                                                body: json);
                                                             Navigator.pushNamedAndRemoveUntil(
                                                                 context,
                                                                 '/lieuDev',
@@ -550,7 +546,7 @@ class _LieuDevState extends State<LieuDev> {
                                                               style: Theme.of(
                                                                       context)
                                                                   .textTheme
-                                                                  .display3))
+                                                                  .headline3))
                                                       : RaisedButton(
                                                           onPressed: () async {
                                                             String idterrain =
@@ -561,11 +557,8 @@ class _LieuDevState extends State<LieuDev> {
                                                             String json =
                                                                 '{"id":"$idterrain","auto":"0"}'; // make POST request
 
-                                                            Response response =
-                                                                await post(url,
-                                                                    body: json);
-                                                            String body =
-                                                                response.body;
+                                                            await post(url,
+                                                                body: json);
                                                             Navigator.pushNamedAndRemoveUntil(
                                                                 context,
                                                                 '/lieuDev',
@@ -579,7 +572,7 @@ class _LieuDevState extends State<LieuDev> {
                                                               style: Theme.of(
                                                                       context)
                                                                   .textTheme
-                                                                  .display3))
+                                                                  .headline3))
                                                 ]))),
                                   );
                                 });
@@ -597,8 +590,9 @@ class _LieuDevState extends State<LieuDev> {
                                           terrain[i]['ville'] +
                                           ')',
                                       softWrap: true,
-                                      style:
-                                          Theme.of(context).textTheme.display3),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline3),
                                   terrain[i]['auto'] == '0'
                                       ? Icon(
                                           Icons.clear,

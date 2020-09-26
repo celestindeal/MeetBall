@@ -1,12 +1,8 @@
 import 'dart:math';
-
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
-import 'package:meetballl/db.dart';
 import 'package:meetballl/footer.dart';
 import 'package:meetballl/main.dart';
-import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/models/Model_img.dart';
 import 'package:meetballl/models/Model_match.dart';
 import 'package:meetballl/models/Model_terrain.dart';
@@ -40,11 +36,11 @@ class _TerrainProState extends State<TerrainPro> {
       lon1 = currentLocation.longitude;
 
       for (var i = 0;
-          i < ScopedModel.of<TerrainModel>(context).taille_terrain;
+          i < ScopedModel.of<TerrainModel>(context).tailleTerrain;
           i++) {
         String lieu = "";
         lieu = ScopedModel.of<TerrainModel>(context)
-            .data_terrain[i]['url']
+            .vaDataTerrain[i]['url']
             .toString();
         if (await canLaunch(lieu)) {
           String valueString =
@@ -64,7 +60,7 @@ class _TerrainProState extends State<TerrainPro> {
 
           Map tkt = {
             'contruiction':
-                ScopedModel.of<TerrainModel>(context).data_terrain[i],
+                ScopedModel.of<TerrainModel>(context).vaDataTerrain[i],
             "distance": distance
           };
           contruction.add(tkt);
@@ -89,16 +85,15 @@ class _TerrainProState extends State<TerrainPro> {
 
     return Scaffold(
         appBar: AppBar(
-     centerTitle: true,
-    title:  Text("Playground à coté"),
-    backgroundColor: Colors.indigo,
-    
-  ),
+          centerTitle: true,
+          title: Text("Playground à coté"),
+          backgroundColor: Colors.indigo,
+        ),
         persistentFooterButtons: <Widget>[
           Footer(),
         ],
         backgroundColor: back,
-        body:  FutureBuilder<dynamic>(
+        body: FutureBuilder<dynamic>(
           future: terrain(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if (snapshot.hasData) {
@@ -151,28 +146,28 @@ class _AffImageState extends State<AffImage> {
                                     .toString() +
                                 "Km",
                             softWrap: true,
-                            style: Theme.of(context).textTheme.display2),
+                            style: Theme.of(context).textTheme.headline2),
                         ScopedModelDescendant<ImgModel>(
                             builder: (context, child, img) {
-                          int nombre_tour = 0;
+                          int inNombreTour = 0;
                           String lien1 = "";
                           String lien2 = "";
                           String lien3 = "";
                           String lien4 = "";
-                          while (img.taille_img > nombre_tour) {
+                          while (img.inTailleImg > inNombreTour) {
                             if (lieupro[i]['contruiction']['id'] ==
-                                img.data_img[nombre_tour]["id_lieu"]) {
+                                img.vaDataImg[inNombreTour]["id_lieu"]) {
                               if (lien1 == "") {
-                                lien1 = img.data_img[nombre_tour]["lien"];
+                                lien1 = img.vaDataImg[inNombreTour]["lien"];
                               } else if (lien2 == "") {
-                                lien2 = img.data_img[nombre_tour]["lien"];
+                                lien2 = img.vaDataImg[inNombreTour]["lien"];
                               } else if (lien3 == "") {
-                                lien3 = img.data_img[nombre_tour]["lien"];
+                                lien3 = img.vaDataImg[inNombreTour]["lien"];
                               } else if (lien4 == "") {
-                                lien4 = img.data_img[nombre_tour]["lien"];
+                                lien4 = img.vaDataImg[inNombreTour]["lien"];
                               }
                             }
-                            nombre_tour++;
+                            inNombreTour++;
                           }
                           if (lien1 == "") {
                             return Container();
@@ -180,7 +175,8 @@ class _AffImageState extends State<AffImage> {
                             return Container(
                               color: Colors.transparent,
                               child: SizedBox(
-                                height: MediaQuery.of(context).size.height / 1.5,
+                                height:
+                                    MediaQuery.of(context).size.height / 1.5,
                                 child: PageView.builder(
                                   controller:
                                       PageController(viewportFraction: 1),
@@ -212,32 +208,32 @@ class _AffImageState extends State<AffImage> {
                                       default:
                                     }
                                     if (image == "") {
-                                      Container();
+                                      return Container();
                                     } else {
                                       return GestureDetector(
-                                          onTap: () {
-                                            return showDialog(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return Container(
-                                                      child: GestureDetector(
-                                                  onTap: (){
-                                                    print("fermeture de la photo");
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: PhotoView(
-                                                    imageProvider:
-                                                        NetworkImage(image),
-                                                  )));
-                                                });
-                                          },
-                                          child:  Image.network(
-                                              image, width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            ),
-                                          );
+                                        onTap: () {
+                                          return showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return Container(
+                                                    child: GestureDetector(
+                                                        onTap: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: PhotoView(
+                                                          imageProvider:
+                                                              NetworkImage(
+                                                                  image),
+                                                        )));
+                                              });
+                                        },
+                                        child: Image.network(
+                                          image,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                        ),
+                                      );
                                     }
                                   },
                                 ),
@@ -255,41 +251,42 @@ class _AffImageState extends State<AffImage> {
                                         softWrap: true,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .display2),
+                                            .headline2),
                                     Text(lieupro[i]['contruiction']['adresse'],
                                         softWrap: true,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .display2),
+                                            .headline2),
                                     Text(lieupro[i]['contruiction']['ville'],
                                         softWrap: true,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .display2),
+                                            .headline2),
                                     Text(
                                         lieupro[i]['contruiction']['nom_t'] +
                                             " terrain(s) disponible(s)",
                                         softWrap: true,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .display2),
+                                            .headline2),
                                     Text(lieupro[i]['contruiction']['sol'],
                                         softWrap: true,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .display2),
+                                            .headline2),
                                     Text(
                                         lieupro[i]['contruiction']['ouverture'],
                                         softWrap: true,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .display2),
-                                            Text(
-                                        lieupro[i]['contruiction']['commentaire'],
+                                            .headline2),
+                                    Text(
+                                        lieupro[i]['contruiction']
+                                            ['commentaire'],
                                         softWrap: true,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .display2),
+                                            .headline2),
                                   ]),
                             ]),
                         Center(
@@ -299,7 +296,7 @@ class _AffImageState extends State<AffImage> {
                                   context: context,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-    title:  Text('Ouvrir avec'),
+                                        title: Text('Ouvrir avec'),
                                         content: SingleChildScrollView(
                                             child: ListBody(children: <Widget>[
                                           GestureDetector(
@@ -318,7 +315,6 @@ class _AffImageState extends State<AffImage> {
                                           GestureDetector(
                                             child: Text("Waze"),
                                             onTap: () async {
-
                                               String value = lieupro[i]
                                                           ['contruiction']
                                                       ['urlwaze']
@@ -341,8 +337,7 @@ class _AffImageState extends State<AffImage> {
                               ScopedModel.of<GameModel>(context)
                                       .terrainrencontre =
                                   lieupro[i]['contruiction']['nom'];
-                                  Navigator.pushNamed(context, '/TerrainRencontre');
-                                  
+                              Navigator.pushNamed(context, '/TerrainRencontre');
                             },
                             child: Text('Rencontre à venir'),
                           ),
