@@ -13,8 +13,8 @@ import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Presentation extends StatefulWidget {
-  Presentation(BuildContext context2);
-  BuildContext context2;
+  // Presentation(Function changepage);
+  // Function changepage;
   @override
   _PresentationState createState() => _PresentationState();
 }
@@ -27,7 +27,6 @@ bool init = true;
 bool initmove = true;
 
 class _PresentationState extends State<Presentation> {
- 
   final _formKey = GlobalKey<FormState>();
 
   final key_commentainer = GlobalKey<FormState>();
@@ -42,7 +41,7 @@ class _PresentationState extends State<Presentation> {
 
   @override
   Widget build(BuildContext context) {
-     BuildContext context2 = widget.context2;
+    //  Function changepage = widget.changepage;
     if (init) {
       init = false;
       setState(() {
@@ -261,522 +260,492 @@ class _PresentationState extends State<Presentation> {
             double largeur_image = 1;
             double douCoffImage = 1.333;
 
-            return 
-                SingleChildScrollView(
-                  child: Center(
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                        // ici on propose les bouton pour la participation
-                        // boParticipation est à true c'est que l'on participa déja si il est à false on participe pas encore
+            return SingleChildScrollView(
+              child: Center(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                    // ici on propose les bouton pour la participation
+                    // boParticipation est à true c'est que l'on participa déja si il est à false on participe pas encore
 
 // cette colone afficher les images du lieu
-                        Container(
-                          child: SizedBox(
-                            height: MediaQuery.of(context).size.width *
-                                douCoffImage,
-                            child: PageView.builder(
-                              controller: PageController(viewportFraction: 1),
-                              itemCount: 4,
-                              itemBuilder:
-                                  (BuildContext context, int itemIndex) {
-                                String image = "";
-                                switch (itemIndex) {
-                                  case 0:
-                                    {
-                                      image = lien1;
-                                    }
-                                    break;
-                                  case 1:
-                                    {
-                                      image = lien2;
-                                    }
-                                    break;
-                                  case 2:
-                                    {
-                                      image = lien3;
-                                    }
-                                    break;
-                                  case 3:
-                                    {
-                                      image = lien4;
-                                    }
-                                    break;
-                                  default:
+                    Container(
+                      child: SizedBox(
+                        height:
+                            MediaQuery.of(context).size.width * douCoffImage,
+                        child: PageView.builder(
+                          controller: PageController(viewportFraction: 1),
+                          itemCount: 4,
+                          itemBuilder: (BuildContext context, int itemIndex) {
+                            String image = "";
+                            switch (itemIndex) {
+                              case 0:
+                                {
+                                  image = lien1;
                                 }
-                                if (image == "") {
-                                  Container();
-                                } else {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      return showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return Container(
-                                                child: GestureDetector(
-                                                  onTap: (){
-                                                    print("fermeture de la photo");
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: PhotoView(
-                                              imageProvider:
-                                                  NetworkImage(image),
-                                            )));
-                                          });
-                                    },
-                                    child: Image.network(
-                                      image,
-                                      width: MediaQuery.of(context).size.width,
-                                    ),
-                                  );
+                                break;
+                              case 1:
+                                {
+                                  image = lien2;
                                 }
-                              },
-                            ),
-                          ),
+                                break;
+                              case 2:
+                                {
+                                  image = lien3;
+                                }
+                                break;
+                              case 3:
+                                {
+                                  image = lien4;
+                                }
+                                break;
+                              default:
+                            }
+                            if (image == "") {
+                              Container();
+                            } else {
+                              return GestureDetector(
+                                onTap: () {
+                                  return showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Container(
+                                            child: GestureDetector(
+                                                onTap: () {
+                                                  print(
+                                                      "fermeture de la photo");
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: PhotoView(
+                                                  imageProvider:
+                                                      NetworkImage(image),
+                                                )));
+                                      });
+                                },
+                                child: Image.network(
+                                  image,
+                                  width: MediaQuery.of(context).size.width,
+                                ),
+                              );
+                            }
+                          },
                         ),
+                      ),
+                    ),
 
-                        // ce container contient les information sur le lieu
+                    // ce container contient les information sur le lieu
+                    Column(
+                      children: <Widget>[
                         Column(
-                          children: <Widget>[
-                            Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text(
-                                          model.adresse_lieu +
-                                              ", " +
-                                              model.nom_t_lieu,
-                                          textAlign: TextAlign.end,
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text(
+                                  Text(
+                                      model.adresse_lieu +
+                                          ", " +
+                                          model.nom_t_lieu,
+                                      textAlign: TextAlign.end,
+                                      softWrap: true,
+                                      style:
+                                          Theme.of(context).textTheme.display3),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                      ScopedModel.of<GameModel>(context)
+                                              .daterencontre +
+                                          ", " +
                                           ScopedModel.of<GameModel>(context)
-                                                  .daterencontre +
-                                              ", " +
-                                              ScopedModel.of<GameModel>(context)
-                                                  .heurerencontre,
-                                          textAlign: TextAlign.end,
-                                          softWrap: true,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .display3),
-                                    ],
-                                  ),
-                                ]),
-                            Text(model.commentaire_lieu,
-                                softWrap: true,
-                                style: Theme.of(context).textTheme.display3),
-                          ],
-                        ),
-                        difference > 0
-                            ? ScopedModel.of<LoginModel>(context)
-                                    .boParticipation
-                                ? RaisedButton(
-                                    onPressed: () async {
-                                      showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return Center(
-                                              child: Container(
-                                                color: Colors.white,
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
+                                              .heurerencontre,
+                                      textAlign: TextAlign.end,
+                                      softWrap: true,
+                                      style:
+                                          Theme.of(context).textTheme.display3),
+                                ],
+                              ),
+                            ]),
+                        Text(model.commentaire_lieu,
+                            softWrap: true,
+                            style: Theme.of(context).textTheme.display3),
+                      ],
+                    ),
+                    difference > 0
+                        ? ScopedModel.of<LoginModel>(context).boParticipation
+                            ? RaisedButton(
+                                onPressed: () async {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return Center(
+                                          child: Container(
+                                            color: Colors.white,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                Text(
+                                                    'Es-tu sûr de vraiment vouloir supprimer ta participation ?',
+                                                    textAlign: TextAlign.center,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .display1),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceEvenly,
                                                   children: <Widget>[
-                                                    Text(
-                                                        'Es-tu sûr de vraiment vouloir supprimer ta participation ?',
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: Theme.of(context)
-                                                            .textTheme
-                                                            .display1),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
-                                                      children: <Widget>[
-                                                        RaisedButton(
-                                                            onPressed: () {
-                                                              Navigator.of(
+                                                    RaisedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        },
+                                                        child: Text('non')),
+                                                    RaisedButton(
+                                                        onPressed: () async {
+                                                          await ScopedModel.of<
+                                                                      LoginModel>(
+                                                                  context)
+                                                              .Personne_propose(
+                                                                  model
+                                                                      .id_rencontre);
+                                                          // maintenant dans login modal var participent nous avons les participent
+
+                                                          if (ScopedModel.of<
+                                                                          LoginModel>(
                                                                       context)
-                                                                  .pop();
-                                                            },
-                                                            child: Text('non')),
-                                                        RaisedButton(
-                                                            onPressed:
-                                                                () async {
+                                                                  .boParticipation ==
+                                                              true) {
+                                                            // créer la participation
+                                                            await model
+                                                                .Sup_participation(
+                                                              int.parse(model
+                                                                  .id_rencontre),
+                                                              ScopedModel.of<
+                                                                          LoginModel>(
+                                                                      context)
+                                                                  .pseudo,
+                                                              model.nombJoueur,
+                                                            );
+
+                                                            // maintenant on refrech la page
+                                                            model.nombJoueur--;
+                                                            if (model
+                                                                    .nombJoueur ==
+                                                                0) {
+                                                              ScopedModel.of<
+                                                                          LoginModel>(
+                                                                      context)
+                                                                  .ParticipationProil();
+                                                              ScopedModel.of<
+                                                                          LoginModel>(
+                                                                      context)
+                                                                  .page = 1;
+                                                              Navigator.pushNamedAndRemoveUntil(
+                                                                  context,
+                                                                  '/Profil',
+                                                                  (Route<dynamic>
+                                                                          route) =>
+                                                                      false);
+                                                            } else {
                                                               await ScopedModel
                                                                       .of<LoginModel>(
                                                                           context)
                                                                   .Personne_propose(
                                                                       model
                                                                           .id_rencontre);
-                                                              // maintenant dans login modal var participent nous avons les participent
-
-                                                              if (ScopedModel.of<
-                                                                              LoginModel>(
-                                                                          context)
-                                                                      .boParticipation ==
-                                                                  true) {
-                                                                // créer la participation
-                                                                await model
-                                                                    .Sup_participation(
-                                                                  int.parse(model
-                                                                      .id_rencontre),
-                                                                  ScopedModel.of<
-                                                                              LoginModel>(
-                                                                          context)
-                                                                      .pseudo,
-                                                                  model
-                                                                      .nombJoueur,
-                                                                );
-
-                                                                // maintenant on refrech la page
-                                                                model
-                                                                    .nombJoueur--;
-                                                                if (model
-                                                                        .nombJoueur ==
-                                                                    0) {
-                                                                  ScopedModel.of<
-                                                                              LoginModel>(
-                                                                          context)
-                                                                      .ParticipationProil();
-                                                                  ScopedModel.of<
-                                                                              LoginModel>(
-                                                                          context)
-                                                                      .page = 1;
-                                                                  Navigator.pushNamedAndRemoveUntil(
-                                                                      context,
-                                                                      '/Profil',
-                                                                      (Route<dynamic>
-                                                                              route) =>
-                                                                          false);
-                                                                } else {
-                                                                  await ScopedModel.of<
-                                                                              LoginModel>(
-                                                                          context)
-                                                                      .Personne_propose(
-                                                                          model
-                                                                              .id_rencontre);
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                }
-                                                              }
-                                                            },
-                                                            child: Text('oui')),
-                                                      ],
-                                                    )
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            }
+                                                            // changepage();
+                                                          }
+                                                        },
+                                                        child: Text('oui')),
                                                   ],
-                                                ),
-                                              ),
-                                            );
-                                          });
-                                    },
-                                    child: Text("supprimer ma participation"))
-                                : RaisedButton(
-                                    onPressed: () async {
-                                      await ScopedModel.of<LoginModel>(context)
-                                          .Personne_propose(model.id_rencontre);
-                                      // maintenant dans login modal var participent nous avons les participent
-
-                                      if (ScopedModel.of<LoginModel>(context)
-                                              .boParticipation ==
-                                          false) {
-                                           
-                                        // créer la participation
-                                        await model.Participation(
-                                          int.parse(model.id_rencontre),
-                                          ScopedModel.of<LoginModel>(context)
-                                              .pseudo,
-                                          model.nombJoueur,
-                                        );
-
-                                        // maintenant on refrech la page
-
-                                        model.nombJoueur++;
-                                        await ScopedModel.of<LoginModel>(
-                                                context)
-                                            .Personne_propose(
-                                                model.id_rencontre);
-                                        _scrollController.jumpTo(
-                                            _scrollController
-                                                .position.maxScrollExtent);
-                                      }
-                                    },
-                                    child: Text("participer"))
-                            : Container(),
-// affichage des participations
-                        difference > 0
-                            ? ScopedModelDescendant<LoginModel>(
-                                builder: (context, child, login) {
-                                // calcule du nombre de personne à afficher
-                                int affichage_participent =
-                                    login.participent.length;
-
-                                if (affichage_participent > 3 &&
-                                    aff_participent == false) {
-                                  affichage_participent = 3;
-                                }
-
-                                return ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: affichage_participent,
-                                    itemBuilder: (context, i) {
-                                      var ms = (new DateTime.now())
-                                          .millisecondsSinceEpoch;
-                                      String ok = "}" +
-                                          login.participent[i]['age'] +
-                                          "/";
-
-                                      int jour = int.parse(
-                                          ok.split('}')[1].split('-')[0]);
-                                      int mois = int.parse(
-                                          ok.split('-')[1].split('-')[0]);
-
-                                      String placement = jour.toString() +
-                                          '-' +
-                                          mois.toString() +
-                                          '-';
-                                      int ans = int.parse(
-                                          ok.split(placement)[1].split('/')[0]);
-
-                                      var mst = new DateTime.utc(
-                                              ans, mois, jour, 20, 18, 04)
-                                          .millisecondsSinceEpoch;
-                                      int ageAnne = ((ms - mst) /
-                                              (365 * 24 * 3600 * 1000))
-                                          .toInt();
-                                      bool bonotation = true;
-                                      if (login.pseudo ==
-                                          login.participent[i]['pseudo']) {
-                                        bonotation = false;
-                                      } else {
-                                        bonotation = true;
-                                      }
-
-                                      // ici c'est le container pour celui qui a propose cette rencontre
-                                      return Column(
-                                        children: <Widget>[
-                                          GestureDetector(
-                                            onTap: () async {
-                                              if (login.participent[i]
-                                                      ['pseudo'] ==
-                                                  ScopedModel.of<LoginModel>(
-                                                          context)
-                                                      .pseudo
-                                                      .toString()) {
-                                                ScopedModel.of<LoginModel>(
-                                                        context)
-                                                    .ParticipationProil();
-                                                ScopedModel.of<LoginModel>(
-                                                        context)
-                                                    .page = 1;
-                                                Navigator.pushNamed(
-                                                    context, '/Profil');
-                                              } else {
-                                                await login
-                                                    .ParticipationProilVisiteur(
-                                                        login.participent[i]
-                                                            ['pseudo']);
-                                                ScopedModel.of<LoginModel>(
-                                                            context)
-                                                        .profVisiteur =
-                                                    login.participent[i];
-                                                Navigator.pushNamed(
-                                                    context, '/ProfilVisiteur');
-                                              }
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                border: Border.all(width: 0.8),
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              margin:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 4.0,
-                                                      vertical: 2.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: <Widget>[
-                                                  Container(
-                                                    margin: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 2.0,
-                                                        vertical: 2.0),
-                                                    child: CircleAvatar(
-                                                      backgroundImage:
-                                                          NetworkImage(
-                                                              login.participent[
-                                                                  i]['photo']),
-                                                      radius:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              20,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                      login.participent[i]
-                                                          ['pseudo'],
-                                                      softWrap: true,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display3),
-                                                  Text(
-                                                      ageAnne.toString() +
-                                                          " ans ",
-                                                      softWrap: true,
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .display3),
-                                                  bonotation
-                                                      ? ScopedModel.of<
-                                                                      LoginModel>(
-                                                                  context)
-                                                              .boParticipation
-                                                          ? FlatButton(
-                                                              onPressed: () {
-                                                                if (difference <
-                                                                    0) {
-                                                                  notation(
-                                                                      login.participent[
-                                                                              i]
-                                                                          [
-                                                                          'pseudo'],
-                                                                      model
-                                                                          .id_rencontre);
-                                                                } else {
-                                                                  Scaffold.of(
-                                                                          context)
-                                                                      .showSnackBar(new SnackBar(
-                                                                          content:
-                                                                              new Text('Tu pourra noter cette personne dans ' + tempsavantmatch)));
-                                                                }
-                                                              },
-                                                              child: Text(
-                                                                'noter',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 16,
-                                                                ),
-                                                              ),
-                                                            )
-                                                          : Container()
-                                                      : Container(
-                                                          child: FlatButton(
-                                                              child: Text(
-                                                                  '     ',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontSize:
-                                                                        16,
-                                                                  )))),
-                                                ],
-                                              ),
+                                                )
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      );
-                                    });
-                              })
-                            : Container(),
-                        difference > 0
-                            ? login.participent.length > 3
-                                ? IconButton(
-                                    icon: aff_participent
-                                        ? Icon(Icons.arrow_upward)
-                                        : Icon(Icons.arrow_downward),
-                                    onPressed: () {
-                                      setState(() {
-                                        aff_participent = !aff_participent;
+                                          ),
+                                        );
                                       });
-                                    })
-                                : Container()
-                            : FutureBuilder<List>(
-                                future: participationnote(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<List> snapshot) {
-                                  if (snapshot.hasData) {
-                                    return AffParticipent(snapshot.data);
-                                  } else {
-                                    return Center(
-                                      child: SizedBox(
-                                        child: CircularProgressIndicator(),
-                                        width: 60,
-                                        height: 60,
-                                      ),
+                                },
+                                child: Text("supprimer ma participation"))
+                            : RaisedButton(
+                                onPressed: () async {
+                                  await ScopedModel.of<LoginModel>(context)
+                                      .Personne_propose(model.id_rencontre);
+                                  // maintenant dans login modal var participent nous avons les participent
+
+                                  if (ScopedModel.of<LoginModel>(context)
+                                          .boParticipation ==
+                                      false) {
+                                    // créer la participation
+                                    await model.Participation(
+                                      int.parse(model.id_rencontre),
+                                      ScopedModel.of<LoginModel>(context)
+                                          .pseudo,
+                                      model.nombJoueur,
                                     );
+
+                                    // maintenant on refrech la page
+
+                                    model.nombJoueur++;
+                                    await ScopedModel.of<LoginModel>(context)
+                                        .Personne_propose(model.id_rencontre);
+                                    _scrollController.jumpTo(_scrollController
+                                        .position.maxScrollExtent);
+                                    // changepage();
                                   }
                                 },
-                              )
-                      ])),
-                );
-                // ScopedModel.of<LoginModel>(context).boParticipation
-                //     ? Container(
-                //         width: MediaQuery.of(context).size.width,
-                //         height: MediaQuery.of(context).size.height,
-                //         child: MatrixGestureDetector(
-                //           onMatrixUpdate: (m, tm, sm, rm) {
-                //             if (initmove) {
-                //               initmove = false;
-                //               largeur = m.entry(0, 3) / .15;
-                //               hauteur = m.entry(1, 3) / .15;
-                //             }
+                                child: Text("participer"))
+                        : Container(),
+// affichage des participations
+                    difference > 0
+                        ? ScopedModelDescendant<LoginModel>(
+                            builder: (context, child, login) {
+                            // calcule du nombre de personne à afficher
+                            int affichage_participent =
+                                login.participent.length;
 
-                //             setState(() {
-                //               largeurMessage = largeurMessage +
-                //                   ((m.entry(0, 3) / .15) - largeur);
-                //               hauteurMessage = hauteurMessage +
-                //                   ((m.entry(1, 3) / .15) - hauteur);
-                //             });
+                            if (affichage_participent > 3 &&
+                                aff_participent == false) {
+                              affichage_participent = 3;
+                            }
 
-                //             largeur = m.entry(0, 3) / .15;
-                //             hauteur = m.entry(1, 3) / .15;
-                //           },
-                //           child: Transform.scale(
-                //             scale: .15,
-                //             child: Transform.translate(
-                //                 offset: Offset(largeurMessage, hauteurMessage),
-                //                 child: MaterialButton(
-                //                   onPressed: () async {
-                //                     ScopedModel.of<GameModel>(context)
-                //                         .commentaire
-                //                         .clear();
-                //                     ScopedModel.of<GameModel>(context).nombre =
-                //                         0; // sela premette de reconmmencer l'affichage
-                //                     await ScopedModel.of<GameModel>(context)
-                //                         .Commentaire();
-                //                     Navigator.pushNamed(
-                //                         context, '/commentaire');
-                //                   },
-                //                   color: Colors.indigo,
-                //                   textColor: Colors.white,
-                //                   child: Icon(
-                //                     Icons.comment,
-                //                     size: 300,
-                //                   ),
-                //                   padding: EdgeInsets.all(16),
-                //                   shape: CircleBorder(),
-                //                 )),
-                //           ),
-                //         ),
-                //       )
-                //     : Container(),
-             
+                            return ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: affichage_participent,
+                                itemBuilder: (context, i) {
+                                  var ms = (new DateTime.now())
+                                      .millisecondsSinceEpoch;
+                                  String ok =
+                                      "}" + login.participent[i]['age'] + "/";
+
+                                  int jour =
+                                      int.parse(ok.split('}')[1].split('-')[0]);
+                                  int mois =
+                                      int.parse(ok.split('-')[1].split('-')[0]);
+
+                                  String placement = jour.toString() +
+                                      '-' +
+                                      mois.toString() +
+                                      '-';
+                                  int ans = int.parse(
+                                      ok.split(placement)[1].split('/')[0]);
+
+                                  var mst = new DateTime.utc(
+                                          ans, mois, jour, 20, 18, 04)
+                                      .millisecondsSinceEpoch;
+                                  int ageAnne =
+                                      ((ms - mst) / (365 * 24 * 3600 * 1000))
+                                          .toInt();
+                                  bool bonotation = true;
+                                  if (login.pseudo ==
+                                      login.participent[i]['pseudo']) {
+                                    bonotation = false;
+                                  } else {
+                                    bonotation = true;
+                                  }
+
+                                  // ici c'est le container pour celui qui a propose cette rencontre
+                                  return Column(
+                                    children: <Widget>[
+                                      GestureDetector(
+                                        onTap: () async {
+                                          if (login.participent[i]['pseudo'] ==
+                                              ScopedModel.of<LoginModel>(
+                                                      context)
+                                                  .pseudo
+                                                  .toString()) {
+                                            ScopedModel.of<LoginModel>(context)
+                                                .ParticipationProil();
+                                            ScopedModel.of<LoginModel>(context)
+                                                .page = 1;
+                                            Navigator.pushNamed(
+                                                context, '/Profil');
+                                          } else {
+                                            await login
+                                                .ParticipationProilVisiteur(
+                                                    login.participent[i]
+                                                        ['pseudo']);
+                                            ScopedModel.of<LoginModel>(context)
+                                                    .profVisiteur =
+                                                login.participent[i];
+                                            Navigator.pushNamed(
+                                                context, '/ProfilVisiteur');
+                                          }
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(width: 0.8),
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 4.0, vertical: 2.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Container(
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        horizontal: 2.0,
+                                                        vertical: 2.0),
+                                                child: CircleAvatar(
+                                                  backgroundImage: NetworkImage(
+                                                      login.participent[i]
+                                                          ['photo']),
+                                                  radius: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      20,
+                                                ),
+                                              ),
+                                              Text(
+                                                  login.participent[i]
+                                                      ['pseudo'],
+                                                  softWrap: true,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3),
+                                              Text(ageAnne.toString() + " ans ",
+                                                  softWrap: true,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .display3),
+                                              bonotation
+                                                  ? ScopedModel.of<LoginModel>(
+                                                              context)
+                                                          .boParticipation
+                                                      ? FlatButton(
+                                                          onPressed: () {
+                                                            if (difference <
+                                                                0) {
+                                                              notation(
+                                                                  login.participent[
+                                                                          i][
+                                                                      'pseudo'],
+                                                                  model
+                                                                      .id_rencontre);
+                                                            } else {
+                                                              Scaffold.of(
+                                                                      context)
+                                                                  .showSnackBar(
+                                                                      new SnackBar(
+                                                                          content:
+                                                                              new Text('Tu pourra noter cette personne dans ' + tempsavantmatch)));
+                                                            }
+                                                          },
+                                                          child: Text(
+                                                            'noter',
+                                                            style: TextStyle(
+                                                              fontSize: 16,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      : Container()
+                                                  : Container(
+                                                      child: FlatButton(
+                                                          child: Text('     ',
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                              )))),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  );
+                                });
+                          })
+                        : Container(),
+                    difference > 0
+                        ? login.participent.length > 3
+                            ? IconButton(
+                                icon: aff_participent
+                                    ? Icon(Icons.arrow_upward)
+                                    : Icon(Icons.arrow_downward),
+                                onPressed: () {
+                                  setState(() {
+                                    aff_participent = !aff_participent;
+                                  });
+                                })
+                            : Container()
+                        : FutureBuilder<List>(
+                            future: participationnote(),
+                            builder: (BuildContext context,
+                                AsyncSnapshot<List> snapshot) {
+                              if (snapshot.hasData) {
+                                return AffParticipent(snapshot.data);
+                              } else {
+                                return Center(
+                                  child: SizedBox(
+                                    child: CircularProgressIndicator(),
+                                    width: 60,
+                                    height: 60,
+                                  ),
+                                );
+                              }
+                            },
+                          )
+                  ])),
+            );
+            // ScopedModel.of<LoginModel>(context).boParticipation
+            //     ? Container(
+            //         width: MediaQuery.of(context).size.width,
+            //         height: MediaQuery.of(context).size.height,
+            //         child: MatrixGestureDetector(
+            //           onMatrixUpdate: (m, tm, sm, rm) {
+            //             if (initmove) {
+            //               initmove = false;
+            //               largeur = m.entry(0, 3) / .15;
+            //               hauteur = m.entry(1, 3) / .15;
+            //             }
+
+            //             setState(() {
+            //               largeurMessage = largeurMessage +
+            //                   ((m.entry(0, 3) / .15) - largeur);
+            //               hauteurMessage = hauteurMessage +
+            //                   ((m.entry(1, 3) / .15) - hauteur);
+            //             });
+
+            //             largeur = m.entry(0, 3) / .15;
+            //             hauteur = m.entry(1, 3) / .15;
+            //           },
+            //           child: Transform.scale(
+            //             scale: .15,
+            //             child: Transform.translate(
+            //                 offset: Offset(largeurMessage, hauteurMessage),
+            //                 child: MaterialButton(
+            //                   onPressed: () async {
+            //                     ScopedModel.of<GameModel>(context)
+            //                         .commentaire
+            //                         .clear();
+            //                     ScopedModel.of<GameModel>(context).nombre =
+            //                         0; // sela premette de reconmmencer l'affichage
+            //                     await ScopedModel.of<GameModel>(context)
+            //                         .Commentaire();
+            //                     Navigator.pushNamed(
+            //                         context, '/commentaire');
+            //                   },
+            //                   color: Colors.indigo,
+            //                   textColor: Colors.white,
+            //                   child: Icon(
+            //                     Icons.comment,
+            //                     size: 300,
+            //                   ),
+            //                   padding: EdgeInsets.all(16),
+            //                   shape: CircleBorder(),
+            //                 )),
+            //           ),
+            //         ),
+            //       )
+            //     : Container(),
           });
         });
       }),

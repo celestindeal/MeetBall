@@ -31,16 +31,13 @@ class Inscription extends StatefulWidget {
 class _InscriptionState extends State<Inscription> {
   final _formKey = GlobalKey<FormState>();
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
-   
         // backgroundColor: Colors.black,
         backgroundColor: back,
-        body:  Padding(
+        body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
             child: Container(
@@ -56,12 +53,12 @@ class _InscriptionState extends State<Inscription> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                       Image.asset(
-                'img/balise.png',
-                width: MediaQuery.of(context).size.width,
-              ),
-                       TextFormField(
-                      autocorrect: true,
+                      Image.asset(
+                        'img/balise.png',
+                        width: MediaQuery.of(context).size.width,
+                      ),
+                      TextFormField(
+                        autocorrect: true,
                         cursorColor: Colors.black,
                         style: TextStyle(
                             color: Colors.black, decorationColor: Colors.black),
@@ -84,9 +81,8 @@ class _InscriptionState extends State<Inscription> {
                           pseudo = value;
                         },
                       ),
-
-                       TextFormField(
-                      autocorrect: true,
+                      TextFormField(
+                        autocorrect: true,
                         cursorColor: Colors.black,
                         style: TextStyle(
                             color: Colors.black, decorationColor: Colors.black),
@@ -104,9 +100,8 @@ class _InscriptionState extends State<Inscription> {
                           nom = value;
                         },
                       ),
-
-                       TextFormField(
-                      autocorrect: true,
+                      TextFormField(
+                        autocorrect: true,
                         cursorColor: Colors.black,
                         style: TextStyle(
                             color: Colors.black, decorationColor: Colors.black),
@@ -124,8 +119,8 @@ class _InscriptionState extends State<Inscription> {
                           prenom = value;
                         },
                       ),
-                       TextFormField(
-                      autocorrect: true,
+                      TextFormField(
+                        autocorrect: true,
                         cursorColor: Colors.black,
                         style: TextStyle(
                             color: Colors.black, decorationColor: Colors.black),
@@ -150,8 +145,8 @@ class _InscriptionState extends State<Inscription> {
                           email = value;
                         },
                       ),
-                       TextFormField(
-                      autocorrect: true,
+                      TextFormField(
+                        autocorrect: true,
                         obscureText: !_passwordVisible,
                         decoration: InputDecoration(
                           hasFloatingPlaceholder: true,
@@ -184,8 +179,8 @@ class _InscriptionState extends State<Inscription> {
                           password = value;
                         },
                       ),
-                       TextFormField(
-                      autocorrect: true,
+                      TextFormField(
+                        autocorrect: true,
                         obscureText: !_passwordVisible,
                         decoration: InputDecoration(
                           hasFloatingPlaceholder: true,
@@ -243,7 +238,7 @@ class _InscriptionState extends State<Inscription> {
                                   doneStyle: TextStyle(
                                       color: Colors.white, fontSize: 16)),
                               onChanged: (date) {}, onConfirm: (date) {
-                              _date = '${date.day}-${date.month}-${date.year}';
+                            _date = '${date.day}-${date.month}-${date.year}';
                             setState(() {});
                           },
                               currentTime: DateTime.now(),
@@ -282,8 +277,6 @@ class _InscriptionState extends State<Inscription> {
                         ),
                         color: Colors.amber[900],
                       ),
-                  
-                   
                       Container(
                         height: 10,
                       ),

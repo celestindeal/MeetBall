@@ -70,8 +70,9 @@ class _LieuDevState extends State<LieuDev> {
       String image4 = base64Image[3];
 
       var url = 'http://51.210.103.151/post_terrain_modif.php';
-      String json ='{"nom":"$nomlieu","id":"$idlieu","image1":"$image1","image2":"$image2","image3":"$image3","image4":"$image4"}'; // make POST request
-     
+      String json =
+          '{"nom":"$nomlieu","id":"$idlieu","image1":"$image1","image2":"$image2","image3":"$image3","image4":"$image4"}'; // make POST request
+
       Response response = await post(url, body: json);
       String body = response.body;
       return body;
@@ -347,14 +348,13 @@ class _LieuDevState extends State<LieuDev> {
                                                                                 context) {
                                                                           return Container(
                                                                               child: GestureDetector(
-                                                  onTap: (){
-                                                    print("fermeture de la photo");
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                  child: PhotoView(
-                                                                            imageProvider:
-                                                                                NetworkImage(image),
-                                                                          )));
+                                                                                  onTap: () {
+                                                                                    print("fermeture de la photo");
+                                                                                    Navigator.of(context).pop();
+                                                                                  },
+                                                                                  child: PhotoView(
+                                                                                    imageProvider: NetworkImage(image),
+                                                                                  )));
                                                                         });
                                                                   },
                                                                   child: Image
@@ -523,18 +523,26 @@ class _LieuDevState extends State<LieuDev> {
                                                   ),
                                                   terrain[i]['auto'] == '0'
                                                       ? RaisedButton(
-                                                          onPressed: ()async {
-                                                            String idterrain = terrain[i]['id'];
+                                                          onPressed: () async {
+                                                            String idterrain =
+                                                                terrain[i]
+                                                                    ['id'];
                                                             var url =
                                                                 'http://51.210.103.151/post_modif_auto_terrain.php';
                                                             String json =
                                                                 '{"id":"$idterrain","auto":"1"}'; // make POST request
 
                                                             Response response =
-                                                                await post(url,body: json);
+                                                                await post(url,
+                                                                    body: json);
                                                             String body =
                                                                 response.body;
-                                                                Navigator.pushNamedAndRemoveUntil(context, '/lieuDev', (Route<dynamic> route) => false);
+                                                            Navigator.pushNamedAndRemoveUntil(
+                                                                context,
+                                                                '/lieuDev',
+                                                                (Route<dynamic>
+                                                                        route) =>
+                                                                    false);
                                                           },
                                                           child: Text(
                                                               "Afficher",
@@ -544,19 +552,26 @@ class _LieuDevState extends State<LieuDev> {
                                                                   .textTheme
                                                                   .display3))
                                                       : RaisedButton(
-                                                          onPressed: ()async {
-
-                                                              String idterrain = terrain[i]['id'];
+                                                          onPressed: () async {
+                                                            String idterrain =
+                                                                terrain[i]
+                                                                    ['id'];
                                                             var url =
                                                                 'http://51.210.103.151/post_modif_auto_terrain.php';
                                                             String json =
                                                                 '{"id":"$idterrain","auto":"0"}'; // make POST request
 
                                                             Response response =
-                                                                await post(url,body: json);
+                                                                await post(url,
+                                                                    body: json);
                                                             String body =
                                                                 response.body;
-                                                                Navigator.pushNamedAndRemoveUntil(context, '/lieuDev', (Route<dynamic> route) => false);
+                                                            Navigator.pushNamedAndRemoveUntil(
+                                                                context,
+                                                                '/lieuDev',
+                                                                (Route<dynamic>
+                                                                        route) =>
+                                                                    false);
                                                           },
                                                           child: Text(
                                                               "Pas afficher",

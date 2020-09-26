@@ -13,7 +13,6 @@ var form_password;
 var _controller1 = TextEditingController();
 bool _passwordVisible = false;
 
-
 class Accueil extends StatefulWidget {
   @override
   _AccueilState createState() => _AccueilState();
@@ -23,8 +22,6 @@ class _AccueilState extends State<Accueil> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-
-
     init() async {
       List persoonne;
       persoonne = await Baselocal().connect();
@@ -44,7 +41,7 @@ class _AccueilState extends State<Accueil> {
     }
     return Scaffold(
       backgroundColor: back,
-        body:  Center(
+      body: Center(
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
           Image.asset(
@@ -129,7 +126,6 @@ class _AccueilState extends State<Accueil> {
                         child: RaisedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/inscription');
-                          
                           },
                           child: Text('Inscription'),
                         ),

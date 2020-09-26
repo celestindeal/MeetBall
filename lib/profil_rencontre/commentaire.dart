@@ -137,14 +137,14 @@ class _CommentaireState extends State<Commentaire> {
                                                                   int.parse(model
                                                                           .commentaire[
                                                                       i]['id']));
-                                                                      setState(() {
-                                                                         ScopedModel.of<
-                                                                      GameModel>(
-                                                                  context)
-                                                              .commentaire
-                                                              .clear();
-                                                                      });
-                                                         
+                                                          setState(() {
+                                                            ScopedModel.of<
+                                                                        GameModel>(
+                                                                    context)
+                                                                .commentaire
+                                                                .clear();
+                                                          });
+
                                                           ScopedModel.of<GameModel>(
                                                                       context)
                                                                   .nombre =
