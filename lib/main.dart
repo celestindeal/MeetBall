@@ -9,7 +9,7 @@ import 'package:meetballl/motsPasse.dart';
 import 'package:meetballl/parametrz.dart';
 import 'package:meetballl/profVisiteur.dart';
 import 'package:meetballl/profil.dart';
-import 'package:meetballl/profil_rencontre/profil_rencontre.dart';
+import 'package:meetballl/profil_rencontre/presentation.dart';
 import 'package:meetballl/profilrechercher.dart';
 import 'package:meetballl/rechercher.dart';
 import 'package:meetballl/terrain/terrain.dart';

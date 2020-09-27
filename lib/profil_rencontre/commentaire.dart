@@ -52,12 +52,12 @@ class _CommentaireState extends State<Commentaire> {
     }
 
     // la on est à l'écoute des nouveau message
-    Timer.periodic(Duration(seconds: 1), (Timer t) => checkForNewSharedLists());
+    // Timer.periodic(Duration(seconds: 1), (Timer t) => checkForNewSharedLists());
 
     // init page
     Timer(Duration(microseconds: 1), () {
       if (ScopedModel.of<LoginModel>(context).boParticipation) {
-        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+        // _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
         ScopedModel.of<GameModel>(context).commentaire();
       }
     });

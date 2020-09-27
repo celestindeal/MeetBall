@@ -348,7 +348,7 @@ class LoginModel extends Model {
     return " fin de fonction";
   }
 
-  Future<String> personnePropose(String idrencontre) async {
+  Future<void> personnePropose(String idrencontre) async {
     // objectif faire la liste des participant d'une rencontre et s'avoir si notre joueur participe à cette rencontre
     // si boParticipatoin = true  le joueur participe déja à la rencontre
     boParticipation = false;
@@ -374,8 +374,8 @@ class LoginModel extends Model {
         boParticipation = true;
       }
     }
+    print('boParticipation $boParticipation');
     notifyListeners();
-    return " fin de fonction";
   }
 
   Future<String> lieuDev() async {
@@ -383,6 +383,7 @@ class LoginModel extends Model {
     http.Response response = await http.get(url);
     var data = jsonDecode(response.body);
     lisAvisDev = data;
+
     notifyListeners();
     return " fin de fonction";
   }

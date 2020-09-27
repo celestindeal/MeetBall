@@ -1,90 +1,105 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 
-import 'package:multi_image_picker/multi_image_picker.dart';
+void main() => runApp(new MyApp());
 
-
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => new _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  List<Asset> images = List<Asset>();
-  String _error = 'No Error Dectected';
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  Widget buildGridView() {
-    return GridView.count(
-      crossAxisCount: 3,
-      children: List.generate(images.length, (index) {
-        Asset asset = images[index];
-        return AssetThumb(
-          asset: asset,
-          width: 300,
-          height: 300,
-        );
-      }),
-    );
-  }
-
-  Future<void> loadAssets() async {
-    List<Asset> resultList = List<Asset>();
-    String error = 'No Error Dectected';
-
-    try {
-      resultList = await MultiImagePicker.pickImages(
-        maxImages: 300,
-        enableCamera: true,
-        selectedAssets: images,
-        cupertinoOptions: CupertinoOptions(takePhotoIcon: "chat"),
-        materialOptions: MaterialOptions(
-          actionBarColor: "#abcdef",
-          actionBarTitle: "Example App",
-          allViewTitle: "All Photos",
-          useDetailsView: false,
-          selectCircleStrokeColor: "#000000",
-        ),
-      );
-    } on Exception catch (e) {
-      error = e.toString();
-    }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      images = resultList;
-      _error = error;
-    });
-  }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Column(
-          children: <Widget>[
-            Center(child: Text('Error: $_error')),
-            RaisedButton(
-              child: Text("Pick images"),
-              onPressed: loadAssets,
-            ),
-            Expanded(
-              child: buildGridView(),
-            )
-          ],
-        ),
+      title: 'Flutter Demo',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: new MyHomePage(),
+    );
+  }
+}
+
+EdgeInsets globalMargin =
+    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0);
+TextStyle textStyle = const TextStyle(
+  fontSize: 100.0,
+  color: Colors.black,
+);
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int number = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text('SO Help'),
+      ),
+      body: new Column(
+        children: <Widget>[
+          new Text(
+            number.toString(),
+            style: textStyle,
+          ),
+          new GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
+              new InkResponse(
+                child: new Container(
+                    margin: globalMargin,
+                    color: Colors.green,
+                    child: new Center(
+                      child: new Text(
+                        "+",
+                        style: textStyle,
+                      ),
+                    )),
+                onTap: () {
+                  setState(() {
+                    number = number + 1;
+                  });
+                },
+              ),
+              new Sub(this),
+            ],
+          ),
+        ],
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () {
+          setState(() {});
+        },
+        child: new Icon(Icons.update),
+      ),
+    );
+  }
+}
+
+class Sub extends StatelessWidget {
+  _MyHomePageState parent;
+
+  Sub(this.parent);
+
+  @override
+  Widget build(BuildContext context) {
+    return new InkResponse(
+      child: new Container(
+          margin: globalMargin,
+          color: Colors.red,
+          child: new Center(
+            child: new Text(
+              "-",
+              style: textStyle,
+            ),
+          )),
+      onTap: () {
+        this.parent.setState(() {
+          this.parent.number--;
+        });
+      },
     );
   }
 }

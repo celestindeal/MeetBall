@@ -8,13 +8,58 @@ import 'package:meetballl/main.dart';
 import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/models/Model_img.dart';
 import 'package:meetballl/models/Model_match.dart';
+import 'package:meetballl/profil_rencontre/commentaire.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+class ProfilRenctontre extends StatefulWidget {
+  @override
+  _ProfilRenctontreState createState() => _ProfilRenctontreState();
+}
+
+bool particiation;
+
+class _ProfilRenctontreState extends State<ProfilRenctontre> {
+  @override
+  Widget build(BuildContext context) {
+    return ScopedModelDescendant<GameModel>(builder: (context, child, model) {
+      particiation = ScopedModel.of<LoginModel>(context).boParticipation;
+      return Container(
+          child: model.boAfficherLieu
+              ? particiation
+                  ? PageView.builder(
+                      controller: PageController(viewportFraction: 1),
+                      itemCount: 2,
+                      itemBuilder: (BuildContext context, int itemIndex) {
+                        if (itemIndex == 0) {
+                          return Presentation(this);
+                        } else {
+                          return Commentaire();
+                        }
+                      })
+                  : Presentation(this)
+              : Scaffold(
+                  appBar: AppBar(
+                    centerTitle: true,
+                    title: Text("Rencontre"),
+                    backgroundColor: Colors.indigo,
+                  ),
+                  persistentFooterButtons: <Widget>[
+                    Footer(),
+                  ],
+                  // backgroundColor: Colors.black,
+                  backgroundColor: back,
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  )));
+    });
+  }
+}
+
 class Presentation extends StatefulWidget {
-  // Presentation(Function changepage);
-  // Function changepage;
+  _ProfilRenctontreState parent;
+  Presentation(this.parent);
   @override
   _PresentationState createState() => _PresentationState();
 }
@@ -41,7 +86,8 @@ class _PresentationState extends State<Presentation> {
 
   @override
   Widget build(BuildContext context) {
-    //  Function changepage = widget.changepage;
+    _ProfilRenctontreState parent = widget.parent;
+
     if (init) {
       init = false;
       setState(() {
@@ -453,6 +499,13 @@ class _PresentationState extends State<Presentation> {
                                                                   .personnePropose(
                                                                       model
                                                                           .inIdRencontre);
+                                                              parent
+                                                                  .setState(() {
+                                                                particiation = ScopedModel.of<
+                                                                            LoginModel>(
+                                                                        context)
+                                                                    .boParticipation;
+                                                              });
                                                               Navigator.of(
                                                                       context)
                                                                   .pop();
@@ -492,6 +545,11 @@ class _PresentationState extends State<Presentation> {
                                     model.nombJoueur++;
                                     await ScopedModel.of<LoginModel>(context)
                                         .personnePropose(model.inIdRencontre);
+                                    parent.setState(() {
+                                      particiation =
+                                          ScopedModel.of<LoginModel>(context)
+                                              .boParticipation;
+                                    });
                                     _scrollController.jumpTo(_scrollController
                                         .position.maxScrollExtent);
                                     // changepage();

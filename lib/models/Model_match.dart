@@ -133,7 +133,7 @@ class GameModel extends Model {
   participation(int inIdRencontre, String pseudo, int inNomInviter) async {
     String url = 'http://51.210.103.151/post_participation.php';
     String json =
-        '{"stirnIdrencontre":"$inIdRencontre","nombre_joueur":"$inNomInviter","pseudo":"$pseudo"}'; // make POST request
+        '{"id_rencontre":"$inIdRencontre","nombre_joueur":"$inNomInviter","pseudo":"$pseudo"}'; // make POST request
     Response response = await post(url, body: json);
     String body = response.body;
     return body;
@@ -141,7 +141,7 @@ class GameModel extends Model {
 
   commentaire() async {
     var url = 'http://51.210.103.151/post_commentaire_rencontre.php';
-    String json = '{"stirnIdrencontre":"$inIdRencontre"}'; // make POST request
+    String json = '{"id_rencontre":"$inIdRencontre"}'; // make POST request
     Response response = await post(url, body: json);
     var data;
     if (response.body.isNotEmpty) {
@@ -178,7 +178,7 @@ class GameModel extends Model {
   ajouterCommentaire(String commentaire, String pseudo) async {
     String url = 'http://51.210.103.151/post_commentaire.php';
     String json =
-        '{"stirnIdrencontre":"$inIdRencontre","commentaire":"$commentaire","pseudo":"$pseudo"}'; // make POST request
+        '{"id_rencontre":"$inIdRencontre","commentaire":"$commentaire","pseudo":"$pseudo"}'; // make POST request
     Response response = await post(url, body: json);
     String body = response.body;
     return body;
@@ -188,7 +188,8 @@ class GameModel extends Model {
     String url = 'http://51.210.103.151/post_sup_participation.php';
 
     String json =
-        '{"stirnIdrencontre":"$stirnIdrencontre","pseudo":"$pseudo","inviter":"$nomInviter"}'; // make POST request
+        '{"id_rencontre":"$stirnIdrencontre","pseudo":"$pseudo","inviter":"$nomInviter"}'; // make POST request
+
     Response response = await post(url, body: json);
     String body = response.body;
     return body;

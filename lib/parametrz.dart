@@ -184,6 +184,20 @@ class _ParametreState extends State<Parametre> {
                       }
                     }),
               ),
+              SizedBox(
+                width: double.infinity,
+                child: FlatButton(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text("Test"),
+                      ],
+                    ),
+                    onPressed: () async {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, '/test', (Route<dynamic> route) => false);
+                    }),
+              ),
               Divider(color: Colors.grey[300]),
               ScopedModel.of<LoginModel>(context).devellopeur
                   ? Row(
