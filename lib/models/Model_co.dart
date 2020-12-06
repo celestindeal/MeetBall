@@ -54,6 +54,7 @@ class LoginModel extends Model {
   }
 
   Future<String> connexion(String temail, String tpassword) async {
+    print("connection")
     String url = 'http://51.210.103.151/post_connexion.php';
     String json = '{"email":"$temail"}';
     Response response = await post(url, body: json);
