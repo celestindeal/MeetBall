@@ -41,6 +41,7 @@ class LoginModel extends Model {
 
   bool dark = false;
   int page = 1;
+  // participationProilfuture  variable pour le profile /affichage des rencontre soit future soit passer
   bool participationProilfuture = true;
   bool participationProilfutureVisiteur = true;
 

@@ -98,11 +98,11 @@ class _AccueilState extends State<Accueil> {
                           : Icons.visibility_off),
                     ),
                   ),
+                  // ignore: missing_return
                   validator: (value) {
                     if (value.isEmpty) {
                       return "Mot de passe incorrect";
                     }
-                    return "";
                   },
                   onChanged: (value) {
                     vaFormPassword = value;

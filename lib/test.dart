@@ -78,6 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+// ignore: must_be_immutable
 class Sub extends StatelessWidget {
   _MyHomePageState parent;
 
@@ -96,6 +97,7 @@ class Sub extends StatelessWidget {
             ),
           )),
       onTap: () {
+        // ignore: invalid_use_of_protected_member
         this.parent.setState(() {
           this.parent.number--;
         });

@@ -21,6 +21,7 @@ class _CommentaireState extends State<Commentaire> {
   var _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_element
     void checkForNewSharedLists() async {
       // on refait la fonction pour aller chercher les commentaire
       ScopedModel.of<GameModel>(context).commentaire();
