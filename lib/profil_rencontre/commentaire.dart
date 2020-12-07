@@ -6,6 +6,9 @@ import '../main.dart';
 import '../models/Model_co.dart';
 import '../models/Model_match.dart';
 
+// afficher les commentaires
+// toutes les secondes on rafrechie la page pour voir si il y des nouveaux commentaires
+
 class Commentaire extends StatefulWidget {
   @override
   _CommentaireState createState() => _CommentaireState();
@@ -15,10 +18,12 @@ bool attend = true;
 double lastscrool = 0;
 
 class _CommentaireState extends State<Commentaire> {
+  // le controller est utiliser pour gérer le scroll
   ScrollController _scrollController = new ScrollController();
-  final keyCommentainer = GlobalKey<FormState>();
+  final keyCommentainer = GlobalKey<FormState>(); // c'est pour le formulaire
   String com;
   var _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // ignore: unused_element
@@ -63,6 +68,45 @@ class _CommentaireState extends State<Commentaire> {
       }
     });
 
+// quand il y as un appuy long sur sont propre commentaire
+    option_message(int id_commentaire) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return StatefulBuilder(
+              builder: (BuildContext context, StateSetter setState) {
+            return Center(
+              child: SizedBox(
+                width: double.infinity,
+                child: RaisedButton(
+                  onPressed: () async {
+                    await ScopedModel.of<GameModel>(context)
+                        .supCommentaire(id_commentaire);
+                    setState(() {
+                      ScopedModel.of<GameModel>(context).lisCommentaire.clear();
+                    });
+
+                    ScopedModel.of<GameModel>(context).nombre =
+                        0; // sela premette de reconmmencer l'affichage
+                    await ScopedModel.of<GameModel>(context).commentaire();
+                    Navigator.of(context).pop();
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text("Retirer le commentaire",
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headline3),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          });
+        },
+      );
+    }
+
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -93,8 +137,9 @@ class _CommentaireState extends State<Commentaire> {
                           controller: _scrollController,
                           itemCount: model.lisCommentaire.length,
                           itemBuilder: (context, i) {
-                            bool message;
-
+                            bool
+                                message; // vrais c'est mon commentraire faux il est pas de moi
+                            // on regarde si le commentaire est de notre utilisateur ou d'un autre
                             if (model.lisCommentaire[i]['pseudo'].toString() ==
                                 ScopedModel.of<LoginModel>(context)
                                     .pseudo
@@ -117,65 +162,8 @@ class _CommentaireState extends State<Commentaire> {
                                       child: GestureDetector(
                                         onLongPress: () {
                                           if (message) {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return StatefulBuilder(builder:
-                                                    (BuildContext context,
-                                                        StateSetter setState) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: double.infinity,
-                                                      child: RaisedButton(
-                                                        onPressed: () async {
-                                                          await ScopedModel.of<
-                                                                      GameModel>(
-                                                                  context)
-                                                              .supCommentaire(
-                                                                  int.parse(model
-                                                                          .lisCommentaire[
-                                                                      i]['id']));
-                                                          setState(() {
-                                                            ScopedModel.of<
-                                                                        GameModel>(
-                                                                    context)
-                                                                .lisCommentaire
-                                                                .clear();
-                                                          });
-
-                                                          ScopedModel.of<GameModel>(
-                                                                      context)
-                                                                  .nombre =
-                                                              0; // sela premette de reconmmencer l'affichage
-                                                          await ScopedModel.of<
-                                                                      GameModel>(
-                                                                  context)
-                                                              .commentaire();
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        },
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: <Widget>[
-                                                            Text(
-                                                                "Retirer le commentaire",
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: Theme.of(
-                                                                        context)
-                                                                    .textTheme
-                                                                    .headline3),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                });
-                                              },
-                                            );
+                                            option_message(int.parse(
+                                                model.lisCommentaire[i]['id']));
                                           }
                                         },
                                         child: Container(

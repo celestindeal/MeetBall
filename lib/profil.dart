@@ -210,6 +210,7 @@ class _PresentationState extends State<Presentation> {
             //     onRefresh: _onRefresh,
             //     child:
             ScopedModelDescendant<LoginModel>(builder: (context, child, model) {
+          // ignore: non_constant_identifier_names
           changement_rencontre() {
             // changer les rencontres afficher entre les passer et les futures
             setState(() {
@@ -442,7 +443,7 @@ class _PresentationState extends State<Presentation> {
                           child: Container(
                             color: Colors.grey,
                             child: ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
+                                // physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 itemCount: model.participation.length,
                                 itemBuilder: (context, i) {
