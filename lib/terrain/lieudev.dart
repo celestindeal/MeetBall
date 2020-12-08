@@ -10,7 +10,7 @@ import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-import 'models/Model_img.dart';
+import '../models/Model_img.dart';
 
 List lieupro = [];
 
@@ -510,17 +510,17 @@ class _LieuDevState extends State<LieuDev> {
                                                                   .headline3),
                                                     ),
                                                   ),
-                                                  Center(
-                                                    child: RaisedButton(
-                                                        child: Text(
-                                                            "Ajouter des photos"),
-                                                        onPressed: () {
-                                                          loadAssets(
-                                                              terrain[i]['id'],
-                                                              terrain[i]
-                                                                  ['nom']);
-                                                        }),
-                                                  ),
+                                                  // Center(
+                                                  //   child: RaisedButton(
+                                                  //       child: Text(
+                                                  //           "Ajouter des photos"),
+                                                  //       onPressed: () {
+                                                  //         loadAssets(
+                                                  //             terrain[i]['id'],
+                                                  //             terrain[i]
+                                                  //                 ['nom']);
+                                                  //       }),
+                                                  // ),
                                                   terrain[i]['auto'] == '0'
                                                       ? RaisedButton(
                                                           onPressed: () async {

@@ -141,7 +141,14 @@ class GameModel extends Model {
 
   commentaire() async {
     var url = 'http://51.210.103.151/post_commentaire_rencontre.php';
-    String json = '{"id_rencontre":"$inIdRencontre"}'; // make POST request
+    String json =
+        '{"id_rencontre":"$inIdRencontre","date":"0"}'; // make POST request
+
+    if (lisCommentaire.isNotEmpty) {
+      print(lisCommentaire[lisCommentaire.length - 1]['date']);
+      String date = lisCommentaire[lisCommentaire.length - 1]['date'];
+      json = '{"id_rencontre":"$inIdRencontre","date":"$date"}';
+    }
     Response response = await post(url, body: json);
     var data;
     if (response.body.isNotEmpty) {
@@ -181,10 +188,8 @@ class GameModel extends Model {
     String url = 'http://51.210.103.151/post_commentaire.php';
     String json =
         '{"id_rencontre":"$inIdRencontre","commentaire":"$commentaire","pseudo":"$pseudo"}'; // make POST request
-    print(json);
     Response response = await post(url, body: json);
     String body = response.body;
-    print(body);
     return body;
   }
 

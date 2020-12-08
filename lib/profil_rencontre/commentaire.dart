@@ -122,148 +122,150 @@ class _CommentaireState extends State<Commentaire> {
             ScopedModelDescendant<LoginModel>(builder: (context, child, login) {
           return ScopedModelDescendant<GameModel>(
               builder: (context, child, model) {
-            return SingleChildScrollView(
-              child:
-                  Column(mainAxisAlignment: MainAxisAlignment.end, children: <
-                      Widget>[
-                Container(
-                  height: (MediaQuery.of(context).size.height - 200),
-                  color: Colors.transparent,
-                  child: model.lisCommentaire.length == 0
-                      ? Text("Il n'y as pas encore de commentaire",
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline3)
-                      : ListView.builder(
-                          controller: _scrollController,
-                          itemCount: model.lisCommentaire.length,
-                          itemBuilder: (context, i) {
-                            print(model.lisCommentaire);
-                            bool
-                                message; // vrais c'est mon commentraire faux il est pas de moi
-                            // on regarde si le commentaire est de notre utilisateur ou d'un autre
-                            if (model.lisCommentaire[i]['pseudo'].toString() ==
-                                ScopedModel.of<LoginModel>(context)
-                                    .pseudo
-                                    .toString()) {
-                              message = true;
-                            } else {
-                              message = false;
-                            }
-                            return Column(
-                              children: <Widget>[
-                                Container(
-                                  height: 10,
-                                ),
-                                Row(
-                                  mainAxisAlignment: message
-                                      ? MainAxisAlignment.end
-                                      : MainAxisAlignment.start,
-                                  children: <Widget>[
-                                    Flexible(
-                                      child: GestureDetector(
-                                        onLongPress: () {
-                                          if (message) {
-                                            option_message(int.parse(
-                                                model.lisCommentaire[i]['id']));
-                                          }
-                                        },
-                                        child: Container(
-                                          padding: const EdgeInsets.all(5),
-                                          constraints: BoxConstraints(
-                                              minWidth: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  5,
-                                              maxWidth: MediaQuery.of(context)
-                                                      .size
-                                                      .width /
-                                                  1.1),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20.0),
-                                            color: message
-                                                ? Colors.indigo
-                                                : Colors.amber[900],
-                                          ),
-                                          child: Column(
-                                            children: <Widget>[
-                                              Text(
-                                                  model.lisCommentaire[i]
-                                                      ['commentaire'],
-                                                  textAlign: TextAlign.center,
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .headline3),
-                                              Text(model.lisCommentaire[i]
-                                                  ['pseudo']),
-                                              Text(model.lisCommentaire[i]
-                                                  ['date']),
-                                            ],
+            // affichage des messages plus le formulaire pour en envoyer d'autres
+            return Column(mainAxisAlignment: MainAxisAlignment.end, children: <
+                Widget>[
+              // affichage des messages
+              model.lisCommentaire.length == 0
+                  ? Flexible(
+                      child: Container(
+                        child: Text("Il n'y as pas encore de commentaire",
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.headline3),
+                      ),
+                    )
+                  : Flexible(
+                      child: Container(
+                        child: ListView.builder(
+                            controller: _scrollController,
+                            itemCount: model.lisCommentaire.length,
+                            itemBuilder: (context, i) {
+                              bool
+                                  message; // vrais c'est mon commentraire faux il est pas de moi
+                              // on regarde si le commentaire est de notre utilisateur ou d'un autre
+                              if (model.lisCommentaire[i]['pseudo']
+                                      .toString() ==
+                                  ScopedModel.of<LoginModel>(context)
+                                      .pseudo
+                                      .toString()) {
+                                message = true;
+                              } else {
+                                message = false;
+                              }
+                              return Column(
+                                children: <Widget>[
+                                  Container(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: message
+                                        ? MainAxisAlignment.end
+                                        : MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Flexible(
+                                        child: GestureDetector(
+                                          onLongPress: () {
+                                            if (message) {
+                                              option_message(int.parse(model
+                                                  .lisCommentaire[i]['id']));
+                                            }
+                                          },
+                                          child: Container(
+                                            padding: const EdgeInsets.all(5),
+                                            constraints: BoxConstraints(
+                                                minWidth: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    5,
+                                                maxWidth: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    1.1),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20.0),
+                                              color: message
+                                                  ? Colors.indigo
+                                                  : Colors.amber[900],
+                                            ),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Text(
+                                                    model.lisCommentaire[i]
+                                                        ['commentaire'],
+                                                    textAlign: TextAlign.center,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline3),
+                                                Text(model.lisCommentaire[i]
+                                                    ['pseudo']),
+                                                Text(model.lisCommentaire[i]
+                                                    ['date']),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Container(
-                                  height: 10,
-                                )
-                              ],
-                            );
-                          }),
-                ),
-
-                // formulaire pour commenter
-                Form(
-                  key: keyCommentainer,
-                  child: Container(
-                    color: Colors.indigo,
-                    child: TextFormField(
-                      controller: _controller,
-                      autocorrect: true,
-                      cursorColor: Colors.white,
-                      style: TextStyle(
-                          color: Colors.white, decorationColor: Colors.white),
-                      decoration: InputDecoration(
-                        hintText: 'Ecrivez un message...',
-                        hintStyle: TextStyle(color: Colors.white),
-                        suffixIcon: IconButton(
-                          onPressed: () async {
-                            if (keyCommentainer.currentState.validate()) {
-                              print("nouveau commentaire");
-                              await ScopedModel.of<GameModel>(context)
-                                  .ajouterCommentaire(com, login.pseudo);
-                              await ScopedModel.of<GameModel>(context)
-                                  .commentaire();
-                              com = null;
-                              _controller.clear();
-                              Timer(Duration(seconds: 1), () {
-                                if (ScopedModel.of<LoginModel>(context)
-                                    .boParticipation) {
-                                  _scrollController.jumpTo(_scrollController
-                                      .position.maxScrollExtent);
-                                }
-                              });
-                            }
-                          },
-                          icon: Icon(Icons.send),
-                          color: Colors.white,
-                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Container(
+                                    height: 10,
+                                  )
+                                ],
+                              );
+                            }),
                       ),
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return 'Commentaire';
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        com = value;
-                      },
                     ),
+
+              // formulaire pour envoyer d'autre message
+              Form(
+                key: keyCommentainer,
+                child: Container(
+                  color: Colors.indigo,
+                  child: TextFormField(
+                    controller: _controller,
+                    autocorrect: true,
+                    cursorColor: Colors.white,
+                    style: TextStyle(
+                        color: Colors.white, decorationColor: Colors.white),
+                    decoration: InputDecoration(
+                      hintText: 'Ecrivez un message...',
+                      hintStyle: TextStyle(color: Colors.white),
+                      suffixIcon: IconButton(
+                        onPressed: () async {
+                          if (keyCommentainer.currentState.validate()) {
+                            await ScopedModel.of<GameModel>(context)
+                                .ajouterCommentaire(com, login.pseudo);
+                            await ScopedModel.of<GameModel>(context)
+                                .commentaire();
+                            com = null;
+                            _controller.clear();
+                            Timer(Duration(seconds: 1), () {
+                              if (ScopedModel.of<LoginModel>(context)
+                                  .boParticipation) {
+                                _scrollController.jumpTo(
+                                    _scrollController.position.maxScrollExtent);
+                              }
+                            });
+                          }
+                        },
+                        icon: Icon(Icons.send),
+                        color: Colors.white,
+                      ),
+                    ),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Commentaire';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      com = value;
+                    },
                   ),
                 ),
-              ]),
-            );
+              ),
+            ]);
           });
         }));
   }

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:meetballl/calendar.dart';
 import 'package:meetballl/profil_rencontre/commentaire.dart';
 import 'package:meetballl/db.dart';
@@ -23,7 +23,7 @@ import 'accueil.dart';
 import 'ajout_match.dart';
 import 'avis.dart';
 import 'avisDev.dart';
-import 'lieudev.dart';
+import 'terrain/lieudev.dart';
 import 'inscription.dart';
 import 'models/Model_co.dart';
 import 'models/Model_img.dart';
@@ -144,10 +144,10 @@ class _MainState extends State<Main> {
                               ),
                           themedWidgetBuilder: (context, theme) {
                             return MaterialApp(
-                              localizationsDelegates: [
-                                GlobalMaterialLocalizations.delegate,
-                                GlobalWidgetsLocalizations.delegate,
-                              ],
+                              // localizationsDelegates: [
+                              //   GlobalMaterialLocalizations.delegate,
+                              //   GlobalWidgetsLocalizations.delegate,
+                              // ],
                               supportedLocales: [
                                 const Locale('fr', ''), // English
                               ],
