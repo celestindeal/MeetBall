@@ -98,6 +98,7 @@ class _PresentationState extends State<Presentation> {
       affImage = false;
     }
 
+// gestion des modification des images profile
     Future<void> _choisirimage(BuildContext context) {
       bool aff = true;
       return showDialog(
@@ -118,7 +119,6 @@ class _PresentationState extends State<Presentation> {
                           });
 
                           List<int> imageBytes = image.readAsBytesSync();
-
                           List<int> imageBytescompress =
                               await FlutterImageCompress.compressWithList(
                             imageBytes,
@@ -246,6 +246,7 @@ class _PresentationState extends State<Presentation> {
               .millisecondsSinceEpoch;
           double douAge = ((ms - mst) / (365 * 24 * 3600 * 1000));
           int ageAnne = douAge.toInt();
+          // affichage du profile photo + nom +....
           return Column(
               // crossAxisAlignment: CrossAxisAlignment.start,
               // mainAxisAlignment: MainAxisAlignment.start,
@@ -260,6 +261,7 @@ class _PresentationState extends State<Presentation> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         GestureDetector(
+                            // photo
                             onTap: () {
                               return showDialog(
                                   context: context,
@@ -365,6 +367,7 @@ class _PresentationState extends State<Presentation> {
                     ),
                   ],
                 ),
+                // bouton modification et ...
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -468,14 +471,14 @@ class _PresentationState extends State<Presentation> {
                                           ans, mois, jour, 20, 18, 04)
                                       .millisecondsSinceEpoch;
 
-                                  String tempsavantmatch = 'bnokt';
+                                  String tempsavantmatch = 'erreur';
                                   double tkt =
                                       ((mst - ms) / (24 * 3600 * 1000)).abs();
 
                                   if (ms >= mst) {
                                     // dans le passer
 
-                                    tempsavantmatch = "il y as " +
+                                    tempsavantmatch = "Il y as " +
                                         tkt.toInt().toString() +
                                         " jour(s) à " +
                                         model.participation[i]['heure'];
@@ -579,17 +582,17 @@ class _PresentationState extends State<Presentation> {
                                                                       .center,
                                                               children: <
                                                                   Widget>[
-                                                                Text(
-                                                                    "Cette rencontre est prevue ",
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .center,
-                                                                    softWrap:
-                                                                        true,
-                                                                    style: Theme.of(
-                                                                            context)
-                                                                        .textTheme
-                                                                        .headline2),
+                                                                // Text(
+                                                                //     "Cette rencontre est prevue ",
+                                                                //     textAlign:
+                                                                //         TextAlign
+                                                                //             .center,
+                                                                //     softWrap:
+                                                                //         true,
+                                                                //     style: Theme.of(
+                                                                //             context)
+                                                                //         .textTheme
+                                                                //         .headline2),
                                                                 Text(
                                                                     tempsavantmatch,
                                                                     softWrap:

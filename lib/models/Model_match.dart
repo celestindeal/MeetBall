@@ -157,7 +157,9 @@ class GameModel extends Model {
       var vaNombreTour = list.length;
       int n = 0;
       while (vaNombreTour > n) {
-        if ((list[n]['stirnIdrencontre'].toString()) == inIdRencontre &&
+        // if ((list[n]['stirnIdrencontre'].toString()) == inIdRencontre && (vaNombreTour - n) < mmax) {
+        // avant il y avais cette condition mais je comprent pas comment elle fonctionne
+        if ((list[n]['id_rencontre'].toString()) == inIdRencontre &&
             (vaNombreTour - n) < mmax) {
           lisCommentaire.add(list[n]);
         }
@@ -179,8 +181,10 @@ class GameModel extends Model {
     String url = 'http://51.210.103.151/post_commentaire.php';
     String json =
         '{"id_rencontre":"$inIdRencontre","commentaire":"$commentaire","pseudo":"$pseudo"}'; // make POST request
+    print(json);
     Response response = await post(url, body: json);
     String body = response.body;
+    print(body);
     return body;
   }
 

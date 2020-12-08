@@ -315,6 +315,7 @@ class _PresentationState extends State<Presentation> {
 
 // cette colone afficher les images du lieu
                     Container(
+                      color: Colors.black12,
                       child: SizedBox(
                         height:
                             MediaQuery.of(context).size.width * douCoffImage,

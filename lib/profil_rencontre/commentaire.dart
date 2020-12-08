@@ -137,6 +137,7 @@ class _CommentaireState extends State<Commentaire> {
                           controller: _scrollController,
                           itemCount: model.lisCommentaire.length,
                           itemBuilder: (context, i) {
+                            print(model.lisCommentaire);
                             bool
                                 message; // vrais c'est mon commentraire faux il est pas de moi
                             // on regarde si le commentaire est de notre utilisateur ou d'un autre
@@ -229,6 +230,7 @@ class _CommentaireState extends State<Commentaire> {
                         suffixIcon: IconButton(
                           onPressed: () async {
                             if (keyCommentainer.currentState.validate()) {
+                              print("nouveau commentaire");
                               await ScopedModel.of<GameModel>(context)
                                   .ajouterCommentaire(com, login.pseudo);
                               await ScopedModel.of<GameModel>(context)
@@ -250,7 +252,7 @@ class _CommentaireState extends State<Commentaire> {
                       ),
                       validator: (value) {
                         if (value.isEmpty) {
-                          return 'Please enter some text';
+                          return 'Commentaire';
                         }
                         return null;
                       },
