@@ -53,25 +53,25 @@ class _AccueilState extends State<Accueil> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                TextFormField(
-                  autocorrect: true,
-                  controller: _controller1,
-                  cursorColor: Colors.black,
-                  style: Theme.of(context).textTheme.headline3,
-                  decoration: const InputDecoration(
-                    hintText: 'Email',
-                    hintStyle: TextStyle(color: Colors.black),
-                  ),
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Email incorrect';
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    vaFormEmail = value;
-                  },
-                ),
+                // TextFormField(
+                //   autocorrect: true,
+                //   controller: _controller1,
+                //   cursorColor: Colors.black,
+                //   style: Theme.of(context).textTheme.headline3,
+                //   decoration: const InputDecoration(
+                //     hintText: 'Email',
+                //     hintStyle: TextStyle(color: Colors.black),
+                //   ),
+                //   validator: (value) {
+                //     if (value.isEmpty) {
+                //       return 'Email incorrect';
+                //     }
+                //     return null;
+                //   },
+                //   onChanged: (value) {
+                //     vaFormEmail = value;
+                //   },
+                // ),
 
                 TextFormField(
                   autocorrect: true,

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:meetballl/calendar.dart';
 import 'package:meetballl/profil_rencontre/commentaire.dart';
@@ -144,10 +145,10 @@ class _MainState extends State<Main> {
                               ),
                           themedWidgetBuilder: (context, theme) {
                             return MaterialApp(
-                              // localizationsDelegates: [
-                              //   GlobalMaterialLocalizations.delegate,
-                              //   GlobalWidgetsLocalizations.delegate,
-                              // ],
+                              localizationsDelegates: [
+                                GlobalMaterialLocalizations.delegate,
+                                GlobalWidgetsLocalizations.delegate,
+                              ],
                               supportedLocales: [
                                 const Locale('fr', ''), // English
                               ],
