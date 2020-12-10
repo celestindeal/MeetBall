@@ -145,7 +145,6 @@ class GameModel extends Model {
         '{"id_rencontre":"$inIdRencontre","date":"0"}'; // make POST request
 
     if (lisCommentaire.isNotEmpty) {
-      print(lisCommentaire[lisCommentaire.length - 1]['date']);
       String date = lisCommentaire[lisCommentaire.length - 1]['date'];
       json = '{"id_rencontre":"$inIdRencontre","date":"$date"}';
     }

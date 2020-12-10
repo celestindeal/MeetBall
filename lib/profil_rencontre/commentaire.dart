@@ -58,12 +58,12 @@ class _CommentaireState extends State<Commentaire> {
     }
 
     // la on est à l'écoute des nouveau message
-    // Timer.periodic(Duration(seconds: 1), (Timer t) => checkForNewSharedLists());
+    Timer.periodic(Duration(seconds: 1), (Timer t) => checkForNewSharedLists());
 
     // init page
     Timer(Duration(microseconds: 1), () {
       if (ScopedModel.of<LoginModel>(context).boParticipation) {
-        // _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
         ScopedModel.of<GameModel>(context).commentaire();
       }
     });
@@ -152,10 +152,23 @@ class _CommentaireState extends State<Commentaire> {
                               } else {
                                 message = false;
                               }
+                              int imoin1(int i) {
+                                // i - 1  car j'avais un problème quand i-1 = -1
+                                if (i == 0) {
+                                  return 0;
+                                }
+                                return i - 1;
+                              }
+
                               return Column(
                                 children: <Widget>[
                                   Container(
-                                    height: 10,
+                                    height: (model.lisCommentaire[i]
+                                                ['pseudo'] ==
+                                            model.lisCommentaire[imoin1(i)]
+                                                ['pseudo'])
+                                        ? 1
+                                        : 10,
                                   ),
                                   Row(
                                     mainAxisAlignment: message
@@ -170,47 +183,112 @@ class _CommentaireState extends State<Commentaire> {
                                                   .lisCommentaire[i]['id']));
                                             }
                                           },
-                                          child: Container(
-                                            padding: const EdgeInsets.all(5),
-                                            constraints: BoxConstraints(
-                                                minWidth: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    5,
-                                                maxWidth: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    1.1),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              color: message
-                                                  ? Colors.indigo
-                                                  : Colors.amber[900],
-                                            ),
-                                            child: Column(
-                                              children: <Widget>[
-                                                Text(
-                                                    model.lisCommentaire[i]
-                                                        ['commentaire'],
-                                                    textAlign: TextAlign.center,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline3),
-                                                Text(model.lisCommentaire[i]
-                                                    ['pseudo']),
-                                                Text(model.lisCommentaire[i]
-                                                    ['date']),
-                                              ],
-                                            ),
-                                          ),
+                                          child:
+                                              // Text(model.lisCommentaire[i]['date']),
+                                              //afficher qui à
+                                              !message
+                                                  ? Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        // ne pas repetter le nom de la personne qui à commanter quand elle poste plusieur messge d'affiler
+                                                        ((i != 0) &
+                                                                (model.lisCommentaire[
+                                                                            i][
+                                                                        'pseudo'] ==
+                                                                    model.lisCommentaire[
+                                                                            imoin1(i)]
+                                                                        [
+                                                                        'pseudo']))
+                                                            ? Container()
+                                                            : Text(
+                                                                model.lisCommentaire[
+                                                                        i]
+                                                                    ['pseudo'],
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .indigo,
+                                                                ),
+                                                              ),
+                                                        Container(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(5),
+                                                          constraints: BoxConstraints(
+                                                              minWidth: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width /
+                                                                  5,
+                                                              maxWidth: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width /
+                                                                  1.1),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        20.0),
+                                                            color: message
+                                                                ? Colors.indigo
+                                                                : Colors
+                                                                    .amber[900],
+                                                          ),
+                                                          child: Text(
+                                                              model.lisCommentaire[
+                                                                      i][
+                                                                  'commentaire'],
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .headline3),
+                                                        ),
+                                                      ],
+                                                    )
+                                                  : Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5),
+                                                      constraints: BoxConstraints(
+                                                          minWidth: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              5,
+                                                          maxWidth: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .width /
+                                                              1.1),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20.0),
+                                                        color: message
+                                                            ? Colors.indigo
+                                                            : Colors.amber[900],
+                                                      ),
+                                                      child: Text(
+                                                          model.lisCommentaire[
+                                                              i]['commentaire'],
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .headline3),
+                                                    ),
                                         ),
                                       )
                                     ],
                                   ),
-                                  Container(
-                                    height: 10,
-                                  )
                                 ],
                               );
                             }),
@@ -223,6 +301,16 @@ class _CommentaireState extends State<Commentaire> {
                 child: Container(
                   color: Colors.indigo,
                   child: TextFormField(
+                    onTap: () {
+                      // quand on écrit un message on affiche les derniers messages
+                      Timer(Duration(milliseconds: 100), () {
+                        if (ScopedModel.of<LoginModel>(context)
+                            .boParticipation) {
+                          _scrollController.jumpTo(
+                              _scrollController.position.maxScrollExtent);
+                        }
+                      });
+                    },
                     controller: _controller,
                     autocorrect: true,
                     cursorColor: Colors.white,
@@ -232,6 +320,7 @@ class _CommentaireState extends State<Commentaire> {
                       hintText: 'Ecrivez un message...',
                       hintStyle: TextStyle(color: Colors.white),
                       suffixIcon: IconButton(
+                        // envoyer le message et l'afficher
                         onPressed: () async {
                           if (keyCommentainer.currentState.validate()) {
                             await ScopedModel.of<GameModel>(context)
