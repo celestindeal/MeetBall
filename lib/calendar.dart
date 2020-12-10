@@ -5,7 +5,7 @@ import 'package:meetballl/main.dart';
 import 'package:meetballl/models/Model_co.dart';
 import 'package:meetballl/models/Model_img.dart';
 import 'package:meetballl/models/Model_match.dart';
-// import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -55,15 +55,15 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
         '${day.day}-${day.month}-${day.year}', '${day.hour}:${day.minute}');
   }
 
-  // RefreshController _refreshController =
-  //     RefreshController(initialRefresh: false);
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
   @override
   Widget build(BuildContext context) {
-    // void _onRefresh() async {
-    //   ScopedModel.of<GameModel>(context).matchCalendar();
+    void _onRefresh() async {
+      ScopedModel.of<GameModel>(context).matchCalendar();
 
-    //   _refreshController.refreshCompleted();
-    // }
+      _refreshController.refreshCompleted();
+    }
 
     Timer(
       Duration(seconds: 0),
@@ -88,23 +88,21 @@ class _MyHomePageState extends State<Calendar> with TickerProviderStateMixin {
         Footer(),
       ],
       backgroundColor: back,
-      body:
-          //  SmartRefresher(
-          //   enablePullDown: true,
-          //   header: WaterDropHeader(),
-          //   controller: _refreshController,
-          //   onRefresh: _onRefresh,
-          //   child:
-          Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          _buildTableCalendar(),
-          const SizedBox(height: 8.0),
-          Expanded(child: _buildEventList()),
-        ],
+      body: SmartRefresher(
+        enablePullDown: true,
+        header: WaterDropHeader(),
+        controller: _refreshController,
+        onRefresh: _onRefresh,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            _buildTableCalendar(),
+            const SizedBox(height: 8.0),
+            Expanded(child: _buildEventList()),
+          ],
+        ),
       ),
-      // ),
     );
   }
 

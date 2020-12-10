@@ -18,6 +18,7 @@ import 'package:meetballl/terrain/terrainproche.dart';
 import 'package:meetballl/terrain/terrainrecherche.dart';
 import 'package:meetballl/terrain/terrainrencontre.dart';
 import 'package:meetballl/test.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'terrain/Ajout_terrain.dart';
 import 'accueil.dart';
@@ -146,6 +147,7 @@ class _MainState extends State<Main> {
                           themedWidgetBuilder: (context, theme) {
                             return MaterialApp(
                               localizationsDelegates: [
+                                RefreshLocalizations.delegate,
                                 GlobalMaterialLocalizations.delegate,
                                 GlobalWidgetsLocalizations.delegate,
                               ],
