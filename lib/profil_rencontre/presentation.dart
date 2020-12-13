@@ -33,6 +33,8 @@ class _ProfilRenctontreState extends State<ProfilRenctontre> {
                       itemCount: 2,
                       itemBuilder: (BuildContext context, int itemIndex) {
                         if (itemIndex == 0) {
+                          // quand on est sur la page presentation on ferme le clavier de la page Commantaire
+                          FocusScope.of(context).requestFocus(new FocusNode());
                           return Presentation(this);
                         } else {
                           return Commentaire();

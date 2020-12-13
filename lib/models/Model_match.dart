@@ -12,7 +12,6 @@ class GameModel extends Model {
   bool afficher = false;
   bool boAfficherLieu = false;
   List lisCommentaire = [];
-  bool scrool = true;
 
   var vaAdresseLieu;
   var vaUrlLieu;
@@ -23,7 +22,7 @@ class GameModel extends Model {
   var vaIdTerrain;
   String terrainrencontre = "";
   int nombre = 0;
-  int mmax = 15;
+  int mmax = 20;
   int lastmmax = 0;
   // variable de sélection des la rencontre pour la page profil rencontre
   String lieu = "";
@@ -176,7 +175,11 @@ class GameModel extends Model {
       notifyListeners();
       // on déclanche le nouveau scroll en bas que si c'est pour un nouveau message et pas pour le nouvelle affichage des messages avec les plus vieux
       if (mmax < lastmmax) {
-        scrool = true;
+        //afficher un truc pour dire qu'il y as un nouveaux message
+        print("nouveau message");
+      } else {
+        // print("object");
+        //
       }
     }
 
