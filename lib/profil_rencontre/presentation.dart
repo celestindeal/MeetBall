@@ -113,7 +113,7 @@ class _PresentationState extends State<Presentation> {
     double tkt = (mst - ms) / (3600 * 1000);
     final difference =
         DateTime(ans, mois, jour, heur).difference(DateTime.now()).inHours;
-    String tempsavantmatch = tkt.round().toString() + " heures";
+    // String tempsavantmatch = tkt.round().toString() + " heures";
 
     // après une seconds les commentaire scroll sur le dernier commentaire publier
 
@@ -543,10 +543,10 @@ class _PresentationState extends State<Presentation> {
                                           .pseudo,
                                       model.nombJoueur,
                                     );
-
+                                    print("participation créer");
+                                    model.nombJoueur++;
                                     // maintenant on refrech la page
 
-                                    model.nombJoueur++;
                                     await ScopedModel.of<LoginModel>(context)
                                         .personnePropose(model.inIdRencontre);
                                     parent.setState(() {
@@ -554,9 +554,6 @@ class _PresentationState extends State<Presentation> {
                                           ScopedModel.of<LoginModel>(context)
                                               .boParticipation;
                                     });
-                                    _scrollController.jumpTo(_scrollController
-                                        .position.maxScrollExtent);
-                                    // changepage();
                                   }
                                 },
                                 child: Text("participer"))
@@ -697,7 +694,7 @@ class _PresentationState extends State<Presentation> {
                                                                   .showSnackBar(
                                                                       new SnackBar(
                                                                           content:
-                                                                              new Text('Tu pourra noter cette personne dans ' + tempsavantmatch)));
+                                                                              new Text('Tu pourra noter cette personne après la rencontre')));
                                                             }
                                                           },
                                                           child: Text(
