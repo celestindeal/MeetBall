@@ -36,6 +36,7 @@ class _CommentaireState extends State<Commentaire> {
     // tous les cycle on regarde
     // si ils y as des nouveaux messages et on les affiches et on mes un logos pour
     void checkForNewSharedLists() async {
+      ScopedModel.of<GameModel>(context).commentaire();
       // on refait la fonction pour aller chercher les commentaire
       // si l'utilisateur a scroller en haut pour avoir plus de message
       if (_scrollController.position.pixels == 0 && attend && lastscrool > 0) {
