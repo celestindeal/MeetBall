@@ -90,15 +90,6 @@ class _MainState extends State<Main> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    // initState() async {
-    //   mode = await Baselocal().valColor();
-    //   if (mode == "true") {
-    //     DynamicTheme.of(context).setBrightness(
-    //         Theme.of(context).brightness == Brightness.dark
-    //             ? Brightness.values
-    //             : Brightness.dark);
-    //   }
-    // }
 
     back =
         Theme.of(context).brightness == Brightness.dark ? Colors.white : null;

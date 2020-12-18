@@ -244,9 +244,26 @@ class _ProfilVisiteurState extends State<ProfilVisiteur> {
                         ? Expanded(
                             child: GestureDetector(
                               onHorizontalDragEnd: (details) {
+                                // setState(() {
+                                //   model.participationProilfutureVisiteur =
+                                //       !model.participationProilfutureVisiteur;
+                                // });
                                 setState(() {
-                                  model.participationProilfutureVisiteur =
-                                      !model.participationProilfutureVisiteur;
+                                  if (model.participationProilfutureVisiteur) {
+                                    ScopedModel.of<LoginModel>(context)
+                                            .participationProilfutureVisiteur =
+                                        false;
+                                    ScopedModel.of<LoginModel>(context)
+                                        .ParticipationProilVisiteur(
+                                            model.profVisiteur["pseudo"]);
+                                  } else {
+                                    ScopedModel.of<LoginModel>(context)
+                                            .participationProilfutureVisiteur =
+                                        true;
+                                    ScopedModel.of<LoginModel>(context)
+                                        .ParticipationProilVisiteur(
+                                            model.profVisiteur["pseudo"]);
+                                  }
                                 });
                               },
                               child: Container(
