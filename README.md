@@ -1,16 +1,9 @@
 # meetball
 
-A new Flutter project.
+Le projet Meetball que vous avez être en train de regarde est un projet qui n’est plus maintenu et ou l’api n’existe plus. Meetball avais pour objectif d’être une application de rencontre sportive destiner au basket (disponible uniquement en français) 
 
-## Getting Started
+#installation
 
-This project is a starting point for a Flutter application.
+Pour tester ce projet il vous faut avoir flutter sur votre machine vous trouverez comment l’installer sur leur site web : https://docs.flutter.dev/get-started/install
+Puis vous installer les packages grâce à la commande flutter get pub, après cette commande vous pouvez tester le code sur vos différents devices (mobile). 
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
